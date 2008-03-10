@@ -1,0 +1,12 @@
+# General ignore rules
+
+*.kpf
+*.o
+*.pyc
+*.a
+*~
+\#*
+*.log
+*.tmp
+*.bak
+a.out

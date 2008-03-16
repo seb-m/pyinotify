@@ -73,7 +73,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.0m"
+__version__ = "0.8.0n"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -944,9 +944,8 @@ class Notifier:
                         pass
                     else:
                         if not force_kill:
-                            s = ('Running process with same pid '
-                                 'file %s already exists')
-                            raise NotifierError(s % pid_file)
+                            s = 'There is already a pid file %s with pid %d'
+                            raise NotifierError(s % (pid_file, pid))
                         else:
                             os.kill(pid, 9)
             finally:

@@ -723,7 +723,7 @@ class ProcessEvent(_ProcessEvent):
         @param event: Event to be processed.
         @type event: Event instance
         """
-        print repr(event)
+        print(repr(event))
 
 
 class ChainIf(ProcessEvent):
@@ -1157,7 +1157,7 @@ class WatchManager:
         self._wmd = {}  # watch dict key: watch descriptor, value: watch
         self._fd = LIBC.inotify_init() # inotify's init, file descriptor
         if self._fd < 0:
-            raise OSError
+            raise OSError()
 
     def __add_watch(self, path, mask, proc_fun, auto_add):
         """
@@ -1610,7 +1610,8 @@ def command_line():
     # stats
     if options.stats:
         def cb(s):
-            print repr(s._default_proc_fun), '\n', s._default_proc_fun, '\n'
+            print('%s\n%s\n' % (repr(s._default_proc_fun),
+                                s._default_proc_fun))
         noargs['callback'] = cb
         noargs['read_freq'] = 5  # means 5 seconds
 

@@ -577,12 +577,12 @@ class _SysProcessEvent(_ProcessEvent):
                 newwd = addw(os.path.join(watch_.path, raw_event.name),
                              watch_.mask, proc_fun=watch_.proc_fun,
                              rec=False, auto_add=watch_.auto_add)
-					      
+
                 # Trick to handle mkdir -p /t1/t2/t3 where t1 is watched and
-                # t2 and t3 are created. 
-		# Since the directory is new, then everything inside it
+                # t2 and t3 are created.
+                # Since the directory is new, then everything inside it
                 # must also be new.
-		base = os.path.join(watch_.path, raw_event.name)
+                base = os.path.join(watch_.path, raw_event.name)
                 if newwd[base] > 0:
                     for name in os.listdir(base):
                         inner = os.path.join(base, name)

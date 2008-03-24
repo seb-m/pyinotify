@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pyinotify.WatchManager</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pyinotify</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
+        Class&nbsp;WatchManager
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="pyinotify.WatchManager-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class WatchManager</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">WatchManager</strong>
+</pre>
+
+<hr />
+<p>Provide operations for watching files and directories. Integrated 
+  dictionary is used to reference watched items.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Initialization: init inotify, init watch manager dictionary.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__add_watch" class="summary-sig-name" onclick="show_private();">__add_watch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">mask</span>,
+        <span class="summary-sig-arg">proc_fun</span>,
+        <span class="summary-sig-arg">auto_add</span>)</span><br />
+      Add a watch on path, build a Watch object and insert it in the watch 
+      manager dictionary.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__add_watch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__glob"></a><span class="summary-sig-name">__glob</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">do_glob</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__glob">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">dict of str: int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#add_watch" class="summary-sig-name">add_watch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">mask</span>,
+        <span class="summary-sig-arg">proc_fun</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rec</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">auto_add</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">do_glob</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Add watch(s) on given path(s) with the specified mask and optionnally
+      with a processing function and recursive flag.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.add_watch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__get_sub_rec" class="summary-sig-name" onclick="show_private();">__get_sub_rec</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">lpath</span>)</span><br />
+      Get every wd from self._wmd if its path is under the path of one (at 
+      least) of those in lpath.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__get_sub_rec">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">dict of int: bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#update_watch" class="summary-sig-name">update_watch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wd</span>,
+        <span class="summary-sig-arg">mask</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">proc_fun</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rec</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">auto_add</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Update existing watch(s).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.update_watch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">list of type(param)</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__format_param" class="summary-sig-name" onclick="show_private();">__format_param</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">param</span>)</span><br />
+      Returns:
+      wrap param.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__format_param">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int or None</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#get_wd" class="summary-sig-name">get_wd</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>)</span><br />
+      Returns the watch descriptor associated to path.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_wd">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string or None</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#get_path" class="summary-sig-name">get_path</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wd</span>)</span><br />
+      Returns the path associated to WD, if WD doesn't exist None is 
+      returned.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_path">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__walk_rec" class="summary-sig-name" onclick="show_private();">__walk_rec</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">top</span>,
+        <span class="summary-sig-arg">rec</span>)</span><br />
+      Yields each subdirectories of top, doesn't follow symlinks.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__walk_rec">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">dict of int: bool</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#rm_watch" class="summary-sig-name">rm_watch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wd</span>,
+        <span class="summary-sig-arg">rec</span>=<span class="summary-sig-default">False</span>)</span><br />
+      Removes watch(s).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.rm_watch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">See add_watch().</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#watch_transient_file" class="summary-sig-name">watch_transient_file</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>,
+        <span class="summary-sig-arg">mask</span>,
+        <span class="summary-sig-arg">proc_class</span>)</span><br />
+      Watch a transient file, which will be created and deleted frequently 
+      over time.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.watch_transient_file">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Initialization: init inotify, init watch manager dictionary. Raise 
+  OSError if initialization fails.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__add_watch"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__add_watch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>,
+        <span class="sig-arg">mask</span>,
+        <span class="sig-arg">proc_fun</span>,
+        <span class="sig-arg">auto_add</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__add_watch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Add a watch on path, build a Watch object and insert it in the watch 
+  manager dictionary. Return the wd value.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_watch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_watch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>,
+        <span class="sig-arg">mask</span>,
+        <span class="sig-arg">proc_fun</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">rec</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">auto_add</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">do_glob</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.add_watch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Add watch(s) on given path(s) with the specified mask and optionnally 
+  with a processing function and recursive flag.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> (string or list of string) - Path to watch, the path can either be a file or a directory. Also
+          accepts a sequence (list) of paths.</li>
+        <li><strong class="pname"><code>mask</code></strong> (int) - Bitmask of events.</li>
+        <li><strong class="pname"><code>proc_fun</code></strong> (function or ProcessEvent instance or instance of one of its 
+          subclasses or callable object.) - Processing object.</li>
+        <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively add watches from path on all its subdirectories, set 
+          to False by default (doesn't follows symlinks).</li>
+        <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically add watches on newly created directories in the 
+          watch's path.</li>
+        <li><strong class="pname"><code>do_glob</code></strong> (bool) - Do globbing on pathname.</li>
+    </ul></dd>
+    <dt>Returns: dict of str: int</dt>
+        <dd>dict of paths associated to watch descriptors. A wd value is 
+          positive if the watch has been sucessfully added, otherwise the 
+          value is negative. If the path is invalid it will be not included
+          in this dict.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__get_sub_rec"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__get_sub_rec</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">lpath</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__get_sub_rec">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get every wd from self._wmd if its path is under the path of one (at 
+  least) of those in lpath. Doesn't follow symlinks.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>lpath</code></strong> (list of int) - list of watch descriptor</li>
+    </ul></dd>
+    <dt>Returns: list of int</dt>
+        <dd>list of watch descriptor</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="update_watch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">update_watch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wd</span>,
+        <span class="sig-arg">mask</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">proc_fun</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">rec</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">auto_add</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.update_watch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Update existing watch(s). Both the mask and the processing object can 
+  be modified.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>wd</code></strong> (int or list of int) - Watch Descriptor to update. Also accepts a list of watch 
+          descriptors.</li>
+        <li><strong class="pname"><code>mask</code></strong> (int) - Optional new bitmask of events.</li>
+        <li><strong class="pname"><code>proc_fun</code></strong> (function or ProcessEvent instance or instance of one of its 
+          subclasses or callable object.) - Optional new processing function.</li>
+        <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively update watches on every already watched 
+          subdirectories and subfiles.</li>
+        <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically add watches on newly created directories in the 
+          watch's path.</li>
+    </ul></dd>
+    <dt>Returns: dict of int: bool</dt>
+        <dd>dict of watch descriptors associated to booleans values. True if 
+          the corresponding wd has been successfully updated, False 
+          otherwise.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__format_param"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__format_param</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">param</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__format_param">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>param</code></strong> (string or int) - Parameter.</li>
+    </ul></dd>
+    <dt>Returns: list of type(param)</dt>
+        <dd>wrap param.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_wd"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_wd</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_wd">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the watch descriptor associated to path. This method has an 
+  prohibitive cost, always prefer to keep the WD.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> (str) - path.</li>
+    </ul></dd>
+    <dt>Returns: int or None</dt>
+        <dd>WD or None.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_path"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_path</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wd</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_path">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the path associated to WD, if WD doesn't exist None is 
+  returned.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>wd</code></strong> (int) - watch descriptor.</li>
+    </ul></dd>
+    <dt>Returns: string or None</dt>
+        <dd>path or None.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__walk_rec"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__walk_rec</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">top</span>,
+        <span class="sig-arg">rec</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__walk_rec">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Yields each subdirectories of top, doesn't follow symlinks. If rec is 
+  false, only yield top.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>top</code></strong> (string) - root directory.</li>
+        <li><strong class="pname"><code>rec</code></strong> (bool) - recursive flag.</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>path of one subdirectory.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="rm_watch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">rm_watch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wd</span>,
+        <span class="sig-arg">rec</span>=<span class="sig-default">False</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.rm_watch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Removes watch(s).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>wd</code></strong> (int or list of int.) - Watch Descriptor of the file or directory to unwatch. Also 
+          accepts a list of WDs.</li>
+        <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively removes watches on every already watched 
+          subdirectories and subfiles.</li>
+    </ul></dd>
+    <dt>Returns: dict of int: bool</dt>
+        <dd>dict of watch descriptors associated to booleans values. True if 
+          the corresponding wd has been successfully removed, False 
+          otherwise.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="watch_transient_file"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">watch_transient_file</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>,
+        <span class="sig-arg">mask</span>,
+        <span class="sig-arg">proc_class</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.watch_transient_file">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Watch a transient file, which will be created and deleted frequently 
+  over time.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>filename</code></strong> (string) - Filename.</li>
+        <li><strong class="pname"><code>mask</code></strong> (int) - Bitmask of events, should contain IN_CREATE and IN_DELETE.</li>
+        <li><strong class="pname"><code>proc_class</code></strong> (ProcessEvent's instance or of one of its subclasses.) - ProcessEvent (or of one of its subclass), beware of accepting a 
+          ProcessEvent's instance as argument into __init__, see 
+          transient_file.py example for more details.</li>
+    </ul></dd>
+    <dt>Returns: See add_watch().</dt>
+        <dd>See add_watch().</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >pyinotify</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Mar 25 00:14:21 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

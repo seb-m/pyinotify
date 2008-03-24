@@ -90,6 +90,9 @@ class SysCtlINotify:
     """
     Access (read, write) inotify's variables through sysctl.
 
+    Examples:
+      - Read variable: myvar = max_queued_events.value
+      - Update variable: max_queued_events.value = 42
     """
 
     inotify_attrs = {'max_user_instances': 1,
@@ -606,8 +609,8 @@ class _SysProcessEvent(_ProcessEvent):
 
     def process_IN_MOVE_SELF(self, raw_event):
         """
-        status: the following bug has been fixed in the recent kernels
-                (fixme: which version ?). Now it raises IN_DELETE_SELF instead.
+        STATUS: the following bug has been fixed in the recent kernels (fixme:
+        which version ?). Now it raises IN_DELETE_SELF instead.
 
         Old kernels are bugged, this event is raised when the watched item
         was moved, so we must update its path, but under some circumstances it
@@ -675,26 +678,33 @@ class _SysProcessEvent(_ProcessEvent):
 
 class ProcessEvent(_ProcessEvent):
     """
-    Process events objects, can be specialized via subclassing,
-    thus its behavior can be overriden:
+    Process events objects, can be specialized via subclassing, thus its
+    behavior can be overriden:
 
-    Note also: if you define an __init__ method you don't need to explicitely
-    call its parent class.
+    Note: you should not override __init__ in your subclass instead define
+    a my_init() method, this method will be called from the constructor of
+    this class with optional parameters.
 
-      1. Define an individual method, e.g. process_IN_DELETE for processing
-         one single kind of event (IN_DELETE in this case).
-      2. Process events by 'family', e.g. the process_IN_CLOSE method will
-         process both IN_CLOSE_WRITE and IN_CLOSE_NOWRITE events (if
-         process_IN_CLOSE_WRITE and process_IN_CLOSE_NOWRITE aren't
-         defined).
-      3. Override process_default for processing the remaining kind of
+      1. Provide methods, e.g. process_IN_DELETE for processing a given kind
+         of event (eg. IN_DELETE in this case).
+      2. Or/and provide methods for processing events by 'family', e.g.
+         process_IN_CLOSE method will process both IN_CLOSE_WRITE and
+         IN_CLOSE_NOWRITE events (if process_IN_CLOSE_WRITE and
+         process_IN_CLOSE_NOWRITE aren't defined).
+      3. Or/and override process_default for processing the remaining kind of
          events.
     """
     pevent = None
 
     def __init__(self, pevent=None, **kargs):
         """
-        Permit chaining of ProcessEvent instances.
+        Enable chaining of ProcessEvent instances.
+
+        @param pevent: optional callable object, will be called on event
+                       processing (before self).
+        @type pevent: callable
+        @param kargs: optional arguments delagated to template method my_init
+        @type kargs: dict
         """
         self.pevent = pevent
         self.my_init(**kargs)
@@ -704,6 +714,9 @@ class ProcessEvent(_ProcessEvent):
         Override this method when subclassing if you want to achieve
         custom initialization of your subclass' instance. You MUST pass
         keyword arguments. This method does nothing by default.
+
+        @param kargs: optional arguments delagated to template method my_init
+        @type kargs: dict
         """
         pass
 
@@ -726,6 +739,10 @@ class ProcessEvent(_ProcessEvent):
 
 
 class ChainIf(ProcessEvent):
+    """
+    Makes conditional chaining depending on the result of the nested
+    processing instance.
+    """
     def my_init(self, func):
         self._func = func
 
@@ -1000,10 +1017,14 @@ class Notifier:
 
     def loop(self, callback=None, read_freq=0, daemonize=False, **args):
         """
-        callback: functor called after each event processing.
-        read_freq: if 0 events are read as soon as possible, if read_freq is
-                   > 0, events are read only once time every read_freq at best.
-        daemonize: this thread is daemonized if set to True.
+        @param callback: functor called after each event processing.
+        @type callback: callable
+        @param read_freq: if 0 events are read as soon as possible, if
+                          read_freq is > 0, events are read only once time
+                          every read_freq at best.
+        @type read_freq: int
+        @param daemonize: this thread is daemonized if set to True.
+        @type daemonize: boolean
         """
         if daemonize:
             self.__daemonize(**args)
@@ -1073,11 +1094,13 @@ class ThreadedNotifier(threading.Thread, Notifier):
 
     def loop(self, read_freq=0):
         """
-        Thread's loop. don't meant to be called by user directly.
+        Thread's main loop. don't meant to be called by user directly.
+        Call start() instead.
 
-        read_freq: if 0 events are read as soon as possible, if read_freq is
-                   > 0, events are read only once time every min(read_freq,
-                   timeout).
+        @param read_freq: if 0 events are read as soon as possible, if
+                          read_freq is > 0, events are read only once time
+                          every min(read_freq, timeout).
+        @type read_freq: int
         """
         # Read and process events while _stop_event condition
         # remains unset.

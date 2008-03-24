@@ -538,15 +538,18 @@ class _SysProcessEvent(_ProcessEvent):
          event, he is not processed as the others events, instead, its
          value is captured and appropriately aggregated to dst event.
     """
-    def __init__(self, wm):
+    def __init__(self, wm, notifier):
         """
 
         @param wm: Watch Manager.
         @type wm: WatchManager instance
+        @param notifier: notifier.
+        @type notifier: Instance of Notifier.
         """
         self._watch_manager = wm  # watch manager
         self._mv_cookie = {}  # {cookie(int): (src_path(str), date), ...}
         self._mv = {}  # {src_path(str): (dst_path(str), date), ...}
+        self._notifier = notifier
 
     def cleanup(self):
         """
@@ -567,19 +570,30 @@ class _SysProcessEvent(_ProcessEvent):
         new directory, with the same attributes's values than those of
         this watch.
         """
-        # FIXME -- important problem
-        # The rec=True is just a trick to try to handle mkdir -p /t1/t2/t3
-        # Sadly, the underlying problem still remains unsolved. And in this
-        # case the IN_CREATE events for t2 and t3 will never be caught.
         if raw_event.mask & IN_ISDIR:
             watch_ = self._watch_manager._wmd.get(raw_event.wd)
             if watch_.auto_add:
-                self._watch_manager.add_watch(os.path.join(watch_.path,
-                                                           raw_event.name),
-                                              watch_.mask,
-                                              proc_fun=watch_.proc_fun,
-                                              rec=True,
-                                              auto_add=watch_.auto_add)
+                addw = self._watch_manager.add_watch
+                newwd = addw(os.path.join(watch_.path, raw_event.name),
+                             watch_.mask, proc_fun=watch_.proc_fun,
+                             rec=False, auto_add=watch_.auto_add)
+					      
+                # Trick to handle mkdir -p /t1/t2/t3 where t1 is watched and
+                # t2 and t3 are created. 
+		# Since the directory is new, then everything inside it
+                # must also be new.
+		base = os.path.join(watch_.path, raw_event.name)
+                if newwd[base] > 0:
+                    for name in os.listdir(base):
+                        inner = os.path.join(base, name)
+                        if (os.path.isdir(inner) and
+                            self._watch_manager.get_wd(inner) is None):
+                            # Generate (simulate) creation event for sub
+                            # directories.
+                            rawevent = _RawEvent(newwd[base],
+                                                 IN_CREATE | IN_ISDIR,
+                                                 0, name)
+                            self._notifier._eventq.append(rawevent)
         return self.process_default(raw_event)
 
     def process_IN_MOVED_FROM(self, raw_event):
@@ -839,7 +853,7 @@ class Notifier:
         # event queue
         self._eventq = deque()
         # system processing functor, common to all events
-        self._sys_proc_fun = _SysProcessEvent(self._watch_manager)
+        self._sys_proc_fun = _SysProcessEvent(self._watch_manager, self)
         # default processing method
         self._default_proc_fun = default_proc_fun
 
@@ -1339,10 +1353,10 @@ class WatchManager:
         @rtype: int or None
         """
         path = os.path.normpath(path)
-        for iwd in self._wmd.items():
+        for iwd in self._wmd.iteritems():
             if iwd[1].path == path:
                 return iwd[0]
-        log.error('get_wd: unknown path %s' % path)
+        log.debug('get_wd: unknown path %s' % path)
 
     def get_path(self, wd):
         """
@@ -1357,7 +1371,7 @@ class WatchManager:
         watch_ = self._wmd.get(wd)
         if watch_:
             return watch_.path
-        log.error('get_path: unknown WD %d' % wd)
+        log.debug('get_path: unknown WD %d' % wd)
 
     def __walk_rec(self, top, rec):
         """

@@ -1,0 +1,405 @@
+2008-03-24  ookoi  <ookoi@sundae>
+
+	* Simulate IN_CREATE events on mkdir -p /d1/d2/[...]. 
+	  Contributed by Thomas Kiley (tkiley@cs.uml.edu).
+
+	* Notifier.loop() accepts a read_freq parameter.
+
+	* Can detach and daemonize Notifier instances.
+
+	* Delegates initialization to my_init(*kargs) when a subclass
+	  of ProcessEvent is instanciated.
+
+	* Provides processing class and new option -s for displaying 
+	  statistics about received events.
+
+	* Implements simplified watch of transient files.
+
+	* select.Poll timeout's value changed to None when called from 
+	  Notifier and set to 10s when called from ThreadedNotifier.
+
+	* Removed useless locking stuff from Watch.
+
+	* Removed all trailing whitespaces.
+
+	* Notifier provides a loop() method.
+
+	* ProcessEvent instances can be chained.
+
+	* Events names are directly accessible at pyinotify's scope.
+
+	* Optionnaly load psyco.
+
+	* New attribute 'pathname' in Event class.
+
+	* print statements removed. Use logging module for debug messages
+	  and errors.
+
+	* Implemented better representation __repr__ for classes Event and 
+	  Watch.
+
+	* Merged all .py files into pyinotify.py
+
+	* Namespace limited to pyinotify.
+
+	* Use ctypes instead of C code.
+
+2007-07-10  ookoi  <ookoi@sundae>
+
+	* License of pyinotify 0.7.1 updated: GPLv2 or later. pyinotify-dev 
+	  still remains GPLv2 only.
+
+	* version 0.7.1 released.
+
+2007-06-26  ookoi  <ookoi@sundae>
+
+	* src/pyinotify/pyinotify.py: reworking of EventsCodes (contributed
+          by Darryl Dixon - darryl.dixon@winterhouseconsulting.com).
+
+	* src/pyinotify/pyinotify.py: new -e command line option (contributed
+          by Darryl Dixon - darryl.dixon@winterhouseconsulting.com).
+
+2007-06-17  ookoi  <ookoi@mars>
+
+	* src/pyinotify/inotify_syscalls.h: support hppa and mc68000.
+	  (submitted by Mikhail Gusarov - dottedmag@dottedmag.net).
+
+2007-02-17  ookoi  <ookoi@mars>
+
+	* version 0.7.0 released.
+
+	* src/example/close.py: fix import statement.
+
+	* src/pyinotify/pyinotify.py: raise OSError when inotify_init()
+	  fails (idea contributed by Mattias Wadman - mattias.wadman@gmail.com).
+
+	* src/pyinotify/pyinotify.py: checks exception on polling
+	  (contributed by Mattias Wadman - mattias.wadman@gmail.com).
+
+	* src/pyinotify/pyinotify.py: add_watch: by default do not make
+	  globbing (contributed by Mattias Wadman - mattias.wadman@gmail.com).
+
+	* src/pyinotify/pyinotify.py: print errors only when verbose mode
+	  is set.
+
+	* src/pyinotify/iglob.py: fix compatibility with Python 2.3 
+	  (contributed by Robin Wittler - r.wittler@buetow.org).
+
+2006-11-03  ookoi  <ookoi@mars>
+
+	* version 0.6.3 released.
+
+2006-10-25  ookoi  <ookoi@mars>
+
+	* src/pyinotify/pyinotify.py: fix mkdir -p foo/bar/bar.txt with 
+	  auto_add (fix contributed by Will Muldrew - will.muldrew@gmail.com).
+	
+
+2006-09-04  ookoi  <ookoi@mars>
+
+	* version 0.6.2 released.
+
+	* src/pyinotify/iglob.py: added.
+
+	* src/pyinotify/pyinotify.py: add_watch supports unix pathname pattern
+	  expansion (see http://www.python.org/doc/lib/module-glob.html).
+
+2006-07-20  ookoi  <ookoi@mars>
+
+	* version 0.6.1 released.
+
+	* src/examples/pyinotifyfs/*: added.
+
+2006-04-30  ookoi  <ookoi@mars>
+
+	* version 0.6.0 released.
+
+	* src/pyinotify/pyinotify.py: replace select by poll.
+
+	* src/pyinotify/pyinotify.py: get event queue size (call ioctl).
+
+2006-04-24  ookoi  <ookoi@chocopops>
+
+	* src/tests/colorize.py: added.
+
+	* src/tests/coverage.py: added.
+
+	* src/tests/testcoverage.py: added.
+
+2006-04-09  ookoi  <ookoi@chocopops>
+
+	* src/pyinotify/pyinotify.py: function _print_err added.
+
+	* src/pyinotify/pyinotify.py: new command lines option -a.
+
+	* src/examples/rec.py: deprecated.
+
+	* src/pyinotify/pyinotify.py: add_watch, update_watch, support
+	  option auto_add.
+
+	* src/pyinotify/pyinotify.py: DEBUG renamed to VERBOSE.
+
+2006-04-06  ookoi  <ookoi@chocopops>
+
+	* src/tests/TestThreadedNotifier.py: updated.
+
+	* src/tests/TestThreadedINotify.py: renamed to TestThreadedNotifier.py
+
+2006-04-05  ookoi  <ookoi@chocopops>
+
+	* src/pyinotify/pyinotify.py: new command lines options (-v, -r).
+
+	* src/pyinotify/pyinotify.py: Watch, WatchManager added.
+
+	* src/pyinotify/pyinotify.py: NotifierError, Notifier,
+	  ThreadedNotifier added.
+
+	* src/pyinotify/pyinotify.py: _ProcessEvent, _SysProcessEvent added,
+	  ProcessEvent modified.
+
+
+	* src/pyinotify/pyinotify.py: ProcessEventException renamed to
+	  ProcessEventError.
+
+	* src/pyinotify/pyinotify.py: _Event, _RawEvent added, Event modified.
+
+	* src/pyinotify/pyinotify.py: Queue renamed to _Queue.
+
+	* src/pyinotify/pyinotify.py: support IN_ONLYDIR, IN_DONT_FOLLOW,
+	  IN_MASK_ADD.
+
+	* src/pyinotify/pyinotify.py: SimpleINotify, ThreadedINotify,
+	  INotifyException removed.
+
+	* src/pyinotify/pyinotify.py: major rewrite.
+
+2006-03-30  ookoi  <ookoi@X2>
+
+	* src/pyinotify/pyinotify.py: support for EventsCodes.IN_MOVE_SELF
+	  flag added.
+
+2006-03-29  ookoi  <ookoi@X2>
+
+	* version 0.5.2 released.
+
+	* src/pyinotify/inotify_syscalls.h: defines for mips, sh64,
+	  frv and parisc added.
+
+2006-03-27  ookoi  <ookoi@X2>
+
+	* version 0.5.1 released.
+
+2006-03-16  ookoi  <ookoi@X2>
+
+	* src/pyinotify/inotify.py: olds inotify's paths supported.
+
+	* src/pyinotify/pyinotify.py: event_check accepts a timeout
+	  parameter (submitted by Hans Ulrich Niedermann - 
+	  debian@n-dimensional.de).
+
+2006-03-02  ookoi  <ookoi@X2>
+
+	* version 0.5.0 released.
+
+2006-02-22  ookoi  <ookoi@X2>
+
+	* src/pyinotify-demo.py: re-merged with src/pyinotify/pyinotify.py
+
+	* src/pyinotify/__init__.py: now empty.
+
+2006-02-16  ookoi  <ookoi@X2>
+
+	* src/pyinotify/inotify.py: documented.
+
+2006-02-13  ookoi  <ookoi@X2>
+
+	* src/tests/testThreadedINotify.py: renamed to TestThreadedINotify.py.
+
+	* src/tests/TestProcINotify.py: added.
+
+	* src/pyinotify/inotify.py: added.
+
+	* src/pyinotify/inotify_wrap.c: renamed to inotify.c.
+
+2006-02-09  ookoi  <ookoi@X2>
+
+	* version 0.4.5 released.
+
+	* src/pyinotify/pyinotify.py: separated in
+	  src/pyinotify/pyinotify.py and src/pyinotify-demo.py.
+	  (proposed by Hans Ulrich Niedermann - debian@n-dimensional.de)
+
+	* Makefile: new clean rule. (Hans Ulrich Niedermann - 
+	  debian@n-dimensional.de)
+
+	* src/inotify* src/pyinotify.py: moved to src/pyinotify/
+	  (proposed by Hans Ulrich Niedermann - debian@n-dimensional.de)
+
+2006-02-09  ookoi  <ookoi@X2>
+
+	* version 0.4.4 released.
+
+	* setup.py: install_lib cmd removes old components.
+
+2006-02-08  ookoi  <ookoi@X2>
+
+	* version 0.4.3 released.
+
+	* src/tests/testThreadedINotify.py: can directly import pyinotify.
+
+	* src/examples/*.py: can directly import pyinotify.
+
+2006-02-06  ookoi  <ookoi@X2>
+
+	* version 0.4.2 released.
+
+	* setup.py: installs files in a subdir.
+
+	* src/pyinotify.py: defines __all__
+
+2006-02-06  ookoi  <ookoi@X2>
+
+	* version 0.4.1 released.
+
+	* examples/, tests/: moved in src/
+
+2006-02-05  ookoi  <ookoi@X2>
+
+	* version 0.4.0 released.
+
+2006-02-03  ookoi  <ookoi@X2>
+
+	* tests/simple.py, tests/generate.sh, tests/threaded.py: removed.
+
+	* tests/testThreadedINotify.py: added.
+
+2006-02-02  ookoi  <ookoi@X2>
+
+	* src/pyinotify.py: update_watch, rm_watch only accept wd or list
+	                    of wd.
+
+	* src/pyinotify.py: add_watch, update_watch, rm_watch return dict.
+
+2006-01-12  ookoi  <ookoi@X2>
+
+	* version 0.3.3 released.
+
+2006-01-09  ookoi  <ookoi@X2>
+
+	* src/pyinotify.py: fix add watch on symbolic link with rec=True.
+
+2006-01-04  ookoi  <ookoi@X2>
+
+	* version 0.3.2 released.
+
+	* examples/rec.py, examples/threaded_rec.py: added.
+
+2005-12-30  ookoi  <ookoi@X2>
+
+	* version 0.3.1 released.
+
+	* src/pyinotify.py: class attribute 'length' removed from Event.
+
+2005-12-28  ookoi  <ookoi@X2>
+
+	* version 0.3.0 released.
+
+	* src/inotify_wrap.c: doesn't wrap original exception. (thanks to
+	  Frédéric PICA)
+
+	* src/pyinotify.py: update_watch(), rm_watch(), add_watch() updated
+	  in SimpleINotify, rm_watch() returns list of wd removed.
+
+	* src/pyinotify.py: get_wd(), get_path() added in SimpleINotify.
+
+2005-12-26  ookoi  <ookoi@X2>
+
+	* version 0.2.7 released
+
+	* src/pyinotify.py: removes trailing null characters in Event.name
+	  (thanks to Frédéric PICA)
+
+2005-12-26  ookoi  <ookoi@X2>
+
+	* version 0.2.6 released.
+
+	* setup.py: supports commands build, clean, sdist and install.
+
+	* autoconf, automake stuffs removed.
+
+2005-12-26  ookoi  <ookoi@X2>
+
+	* version 0.2.5 released.
+
+	* src/pyinotify.py: not directly check events against IN_ISDIR,
+	  member isdir added in Event. (thanks to Radoslaw Stachowiak)
+
+	* src/inotify_wrap.c, src/inotify_syscalls.c: added.
+
+	* src/: swig stuff removed.
+
+2005-12-24  ookoi  <ookoi@X2>
+
+	* version 0.2.4 released.
+
+	* pyinotify.py: _wd, _mask, _cookie, _length, _path, _name,
+	  members of class Event, renamed in wd, mask, cookie, length,
+	  path, name.
+
+2005-12-24  ookoi  <ookoi@X2>
+
+	* config/, tests/, examples/: autopath.py added.
+
+	* src/*_tests.py: moved in tests/.
+
+	* tests/: added.
+
+	* src/*_example.py: moved in examples/.
+
+	* examples/: added.
+
+2005-12-21  ookoi  <ookoi@X2>
+
+	* version 0.2.3 released.
+
+	* close_example.py: added.
+
+	* pyinotify.py: support processing methods like process_IN_CLOSE.
+
+2005-12-20  ookoi  <ookoi@X2>
+
+	* version 0.2.2 released.
+
+	* pyinotify.py: EventsCodes.IN_CLOSE removed.
+
+	* pyinotify.py, simple_tests.py, threaded_tests.py:
+	  EventsCodes.IN_ALL_EVENTS renammed to EventsCodes.ALL_EVENTS.
+
+2005-12-20  ookoi  <ookoi@X2>
+
+	* version 0.2.1 released.
+
+	* pyinotify.py, simple_tests.py, threaded_tests.py: all occurrences
+	  of 0xffffffff replaced by EventsCodes.IN_ALL_EVENTS. (thanks to
+	  Mohamed Lrhazi)
+
+	* pyinotify.py: EventsCodes.IN_ALL_EVENTS added.
+
+2005-12-16  ookoi  <ookoi@X2>
+
+	* version 0.2.0 released.
+
+	* simple_example.py, threaded_example.py, process_example.py: added.
+
+	* example.py: removed.
+
+	* simple_tests.py, threaded_tests.py: added.
+
+	* tests.py: removed.
+
+	* pyinotify.py: INotify replaced by SimpleINotify and
+	  ThreadedINotify (thanks to Mark Williamson -
+	  mark.williamson@cl.cam.ac.uk for the idea).
+
+	* pyinotify.py: removes Queue's size limitation.
+

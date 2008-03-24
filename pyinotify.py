@@ -2,7 +2,7 @@
 # -*- coding: iso-8859-1 -*-
 #
 # pyinotify.py - python interface to inotify
-# Copyright (C) 2005-2007 Sébastien Martini <sebastien.martini@gmail.com>
+# Copyright (C) 2005-2008 Sébastien Martini <sebastien.martini@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -55,7 +55,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.0n"
+__version__ = "0.8.0o"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -298,7 +298,8 @@ class EventsCodes:
         'IN_MOVED_TO'      : 0x00000080,  # File was moved to Y
         'IN_CREATE'        : 0x00000100,  # Subfile was created
         'IN_DELETE'        : 0x00000200,  # Subfile was deleted
-        'IN_DELETE_SELF'   : 0x00000400,  # Self (watched item itself) was deleted
+        'IN_DELETE_SELF'   : 0x00000400,  # Self (watched item itself)
+                                          # was deleted
         'IN_MOVE_SELF'     : 0x00000800,  # Self (watched item itself) was moved
         },
                         'EVENT_FLAGS': {
@@ -307,9 +308,11 @@ class EventsCodes:
         'IN_IGNORED'       : 0x00008000,  # File was ignored
         },
                         'SPECIAL_FLAGS': {
-        'IN_ONLYDIR'       : 0x01000000,  # only watch the path if it is a directory
+        'IN_ONLYDIR'       : 0x01000000,  # only watch the path if it is a
+                                          # directory
         'IN_DONT_FOLLOW'   : 0x02000000,  # don't follow a symlink
-        'IN_MASK_ADD'      : 0x20000000,  # add to the mask of an already existing watch
+        'IN_MASK_ADD'      : 0x20000000,  # add to the mask of an already
+                                          # existing watch
         'IN_ISDIR'         : 0x40000000,  # event occurred against dir
         'IN_ONESHOT'       : 0x80000000,  # only send event once
         },
@@ -529,9 +532,9 @@ class _SysProcessEvent(_ProcessEvent):
         @type notifier: Instance of Notifier.
         """
         self._watch_manager = wm  # watch manager
+        self._notifier = notifier  # notifier
         self._mv_cookie = {}  # {cookie(int): (src_path(str), date), ...}
         self._mv = {}  # {src_path(str): (dst_path(str), date), ...}
-        self._notifier = notifier
 
     def cleanup(self):
         """
@@ -619,8 +622,8 @@ class _SysProcessEvent(_ProcessEvent):
         if mv_:
             watch_.path = mv_[0]
         else:
-            log.error('The path %s of this watch %s must not be trusted anymore' % \
-                      (watch_.path, watch_))
+            log.error("The path %s of this watch %s must not "
+                      "be trusted anymore" % (watch_.path, watch_))
             if not watch_.path.endswith('-wrong-path'):
                 watch_.path += '-wrong-path'
         # FIXME: should we pass the cookie even if this is not standart?
@@ -1073,7 +1076,8 @@ class ThreadedNotifier(threading.Thread, Notifier):
         Thread's loop. don't meant to be called by user directly.
 
         read_freq: if 0 events are read as soon as possible, if read_freq is
-                   > 0, events are read only once time every min(read_freq, timeout).
+                   > 0, events are read only once time every min(read_freq,
+                   timeout).
         """
         # Read and process events while _stop_event condition
         # remains unset.
@@ -1418,7 +1422,8 @@ class WatchManager:
         @type mask: int
         @param proc_class: ProcessEvent (or of one of its subclass), beware of
                            accepting a ProcessEvent's instance as argument into
-                           __init__, see transient_file.py example for more details.
+                           __init__, see transient_file.py example for more
+                           details.
         @type proc_class: ProcessEvent's instance or of one of its subclasses.
         @return: See add_watch().
         @rtype: See add_watch().
@@ -1569,7 +1574,7 @@ def command_line():
                            " to everything)"))
     parser.add_option("-s", "--stats", action="store_true",
                       dest="stats",
-                      help="Display informations")
+                      help="Display statistics")
 
     (options, args) = parser.parse_args()
 
@@ -1599,7 +1604,8 @@ def command_line():
             if evcode:
                 mask |= evcode
             else:
-                parser.error("The event '%s' specified with option -e is not valid" % ev)
+                parser.error("The event '%s' specified with option -e"
+                             " is not valid" % ev)
     else:
         mask = ALL_EVENTS
 

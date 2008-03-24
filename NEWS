@@ -1,0 +1,277 @@
+Changes in version 0.8.0:
+------------------------
+
+* Incompatible changes with version 0.7.x
+
+  - Dropped support for python 2.3 (supports only CPython >= 2.4)
+  - Changed attribute names of class Event:
+    * 'is_dir' becomes 'dir'
+    * 'event_name' becomes 'maskname'
+  - Altered namespace:
+    * Everything previously accessible under inotify.* is now accessible
+      under pyinotify.
+  - When meaningful, an event (instance of Event) brings a new
+    attribute 'pathname'
+  - Modified debugging messages:
+    * The VERBOSE variable is removed, and is replaced by the logging module
+    * Set the reporting level like this: log.setLevel(level)
+    * print_err(msg) replaced by log.error(msg)
+  - EventsCodes:
+    * _get_event_name(mask) replaced by get_masks(mask)
+    * EventsCodes.IN_* replaced by IN_* (avalaible at the pyinotify's scope)
+  - Notifier:
+    * Avoid use of ThreadedNotifier, everything can be done with Notifier
+      and it provides more functionalities
+    * Use Notifier.loop() method instead of using an infinite while loop
+
+
+
+Changes in version 0.6.2:
+------------------------
+
+* New features
+
+  - Pathname pattern expansion:
+    Something like  python -m pyinotify /tmp/[0-9]*.gif  now works.
+    See http://www.python.org/doc/lib/module-glob.html for more details.
+
+
+
+Changes in version 0.6.0:
+------------------------
+
+* Incompatible changes
+
+  List of incompatible changes in pyinotify.py:
+
+ -------------------------------------------------------------------
+|                v0.5                |               Now            |
+|-------------------------------------------------------------------|
+| i1 = SimpleINotify()               | wm = WatchManager()          |
+| i2 = ThreadedINotify()             | n1 = Notifier(wm)            |
+|                                    | n2 = ThreadedNotifier(wm)    |
+|-------------------------------------------------------------------|
+| i2.start()                         | n2.start()                   |
+|-------------------------------------------------------------------|
+| i1.add_watch(...)                  | wm.add_watch(...)            |
+| i2.rm_watch(...)                   | wm.rm_watch(...)             |
+|-------------------------------------------------------------------|
+| i1.close()                         | n1.stop()                    |
+|-------------------------------------------------------------------|
+| DEBUG = True                       | VERBOSE = True               |
+|-------------------------------------------------------------------|
+| event.isdir                        | event.is_dir                 |
+|-------------------------------------------------------------------|
+| i1.event_check()                   | n1.check_events()            |
+|-------------------------------------------------------------------|
+| raise ProcessEventException(err)   | raise ProcessEventError(err) |
+| raise INotifyException(err)        | raise NotifierError(err)     |
+|------------------------------------|------------------------------|
+| def process_default(s,a,b):        | def process_default(s,event):|
+|     pass                           |     pass                     |
+ -------------------------------------------------------------------
+
+
+* New features
+
+  - supported flags: IN_ONLYDIR, IN_DONT_FOLLOW, IN_MASK_ADD,
+    IN_MOVE_SELF
+
+  - auto_add: if a watch is added with this flag set to true, every
+              new subdirectory will be automatically watched too.
+
+  - possibility to pass one instance of your processing class to Notifier
+    or ThreadedNotifier and this object will be called by default for each
+    watch. Note, you always can give an instance to add_watch(),
+    update_watch().
+
+
+* Fixed
+
+  - The pathname is appropriately updated in this case:
+     wm.add_watch('/a/')
+     wm.add_watch('/a/b/')
+     echo "bar" > /a/foo.txt
+     mv /a/foo.txt /a/b/foo.txt
+    The necessary condition is to have watches both on the source dir and
+    on the dst dir.
+
+  - Ignored (deleted) watches are removed from watch manager.
+
+
+* Pending bug
+
+  - Consider this case:
+
+    wm.add_watch('/a/foo.txt') # where neither /a nor /a/b are watched
+    mv /a/foo.txt /a/b/foo.txt
+
+    In this case we have received IN_MOVE_SELF but we are unable to
+    infer the new pathname. The event IN_MOVE_SELF doesn't provide this
+    indication.
+
+    Actually, the safest way to use pyinotify is to watch a top directory
+    (say /tmp) one we don't expect be moved, and the watched items located
+    in this directory should only be moved inside this directory or inside
+    another watched top directory (in the same device).
+
+    Example:
+       wm.add_watch('/tmp', rec=True)
+       mv /tmp/foo/  /tmp/bar/         [safe]
+       mv /tmp/bar/  ~/tmp/            [unsafe]
+       mv /tmp /tmp-new                [unsafe]
+
+
+
+Changes in version 0.5.0:
+------------------------
+
+* Few namespace modifications (incompatible changes)
+
+  - pyinotfiy.inotify.* becomes inotify.*  this namespace is a simple
+    wrap of inotify's features (3 systems calls, and 3 variables).
+  - pyinotify.* unchanged. This namespace handle higher developments
+    made on top of inotify.
+  - python -m pyinotify  now works (no need to wait python 2.4.5 :) )
+
+
+* New features
+
+  - You can read and update the followings variables (accessible through
+    the namespace inotify):
+      - max_queued_events
+      - max_user_instances
+      - max_user_watches
+
+
+
+Changes in version 0.4.0:
+------------------------
+
+Few things have been modified (again) to add more consistence and
+reliability. Reliability: it is now easy to immediately and precisely
+know if an operation failed or not, and on which path or wd. That,
+without interrupting (without raising exceptions) the monitoring.
+It is more consistent because once you have added a watch on a path
+you keep the returned wd and use it to further update or remove this
+watch, this is the natural way. Howewer, in case where you have lost
+the wd and only have the path you still might retrieve the wd with
+the method get_wd(path).
+
+
+* Incompatible changes
+
+  - add_watch returns a dictionary {path: watch_descriptor, ...}
+    where:
+      - path is the path given as argument or a subdirectory (if
+        rec is set to True)
+      - watch_descriptor is the corresponding wd, which is a
+        positive integer if the watch has been successfully added
+	or is a negative integer if it failed.
+
+  - update_watch only accepts a wd or a list of wd. Moreover, it now
+    returns a dictionary {wd: success, ...}
+    where:
+      - wd is the watch directory being updated (given as argument
+        or retrieved by rec=True).
+      - success is boolean value. success is set to True is the
+        update succeed, False otherwise.
+
+  - rm_watch only accepts a wd or a list of wd. Moreover, it now
+    returns a dictionary {wd: success, ...} see 'update_watch'
+    just above.
+
+
+
+Changes in version 0.3.3:
+------------------------
+
+* bug fix and cosmetic changes.
+
+
+
+Changes in version 0.3.1:
+------------------------
+
+* Incompatible changes
+
+  - Event.length removed.
+
+
+
+Changes in version 0.3.0:
+------------------------
+
+This is a development version, there are many changes from 0.2.x
+releases, this release must be considered as unstable.
+
+Most of the changes affects the SimpleINotify class.
+
+
+* Incompatible changes
+
+  - No more raise an INotify Exception in case where an error occurred
+    in the methods add_watch, update_watch, rm_watch.
+
+  - Ignore update to an nonexistent watch.
+
+  - Different behavior for the recursive treatment of the update_watch
+    method. Recursively update only existing and valid watches, doesn't
+    follow symlinks.
+
+  - The method rm_watch returns a list of watch descriptor (those who
+    were removed).
+
+
+* New features
+
+  - two new methods: get_wd and get_path. The former takes a path and
+    returns the associated watch descriptor, the latter takes a wd and
+    returns a path. (returning None if the request couldn't be
+    satisfied)
+
+  - add_watch accepts a list of path as well as a single path.
+
+  - update_watch and remove_watch accept both string path and int wd
+    as argument. Note: that the preferred argument for update_watch
+    is the path whereas the preferred one for rm_watch is the wd.
+
+  - The methods rm_watch and update_watch can recursively be applied on
+    theirs arguments. The symlinks aren't followed. Read also the next
+    section.
+
+  - rm_watch returns the list of watch descriptors of watches
+    successfully removed.
+
+
+* Performances
+
+  - Always prefer string path for update_watch, and int wd for rm_watch.
+
+  - Always prefer to save the result of one operation e.g. add_watch
+    for further update or remove watches with this list instead the use
+    of the 'rec' option which is very expansive.
+
+
+* Exceptions vs errors vs nothing
+
+  The previous versions raised exceptions on explicit errors, the
+  drawback was to drop important informations. For example, given
+  the list ['a-valid-path', 'non-valid-path', 'a-valid-path2'], the
+  first item was successfully added whereas an exception was raised on
+  the second, thus the first wd hadn't been returned to the caller,
+  and the last item hadn't been processed.
+
+  The new approach is to quietly ignore errors, process all items and
+  to return all successfully executed operations. The benefit is to never
+  hang up the execution of one operation, the called method will never
+  unexpectedly fail, if all operations failed, the result is an empty
+  list. The drawback is to not directly and explicitly report errors.
+  This task is left to the caller, which is able to compare the input
+  parameters to the received list.
+
+  Obviously this is a subjective choice but i think this is the least
+  worst. Anyway, feel free to send me a comment to say if in your use
+  case this choice works or if it is really really annoying.
+
+

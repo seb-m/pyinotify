@@ -26,24 +26,6 @@ pyinotify
 @contact: seb@dbzteam.org
 """
 
-# Incompatibles Changes with pyinotify 0.7.x:
-#
-# - Dropped support for python 2.3
-# - Changed attribute names:
-#   * 'is_dir' replaced by 'dir'
-#   * 'event_name' replaced by 'maskname'
-# - Altered namespace:
-#   * Everything under inotify.* is now accessible under pyinotify.
-# - When meaningful, an event bring a new attribute: 'pathname'
-# - Modified debugging messages:
-#   * The VERBOSE variable is removed, use instead the logging module
-#   * Set the reporting level: log.setLevel(level)
-#   * print_err(msg) replaced by log.error(msg)
-# - EventsCodes:
-#   * _get_event_name(mask) replaced by get_masks(mask)
-#   * EventsCodes.IN_* replaced by IN_* (avalaible at the pyinotify's scope)
-#
-
 # Check version
 import sys
 if sys.version < '2.4':

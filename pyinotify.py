@@ -1007,7 +1007,7 @@ class Notifier:
 
 
     def _sleep(self, read_freq, ref_time):
-        # only look for sleeping if read_freq is > 0
+        # Only consider sleeping if read_freq is > 0
         if read_freq > 0:
             cur_time = time.time()
             sleep_amount = read_freq - (cur_time - ref_time)
@@ -1355,6 +1355,7 @@ class WatchManager:
         """
         Returns the watch descriptor associated to path. This method
         has an prohibitive cost, always prefer to keep the WD.
+        If path is unknown None is returned.
 
         @param path: path.
         @type path: str
@@ -1369,7 +1370,7 @@ class WatchManager:
 
     def get_path(self, wd):
         """
-        Returns the path associated to WD, if WD doesn't exist
+        Returns the path associated to WD, if WD is unknown
         None is returned.
 
         @param wd: watch descriptor.
@@ -1437,7 +1438,7 @@ class WatchManager:
     def watch_transient_file(self, filename, mask, proc_class):
         """
         Watch a transient file, which will be created and deleted frequently
-        over time.
+        over time (e.g. pid file).
 
         @param filename: Filename.
         @type filename: string

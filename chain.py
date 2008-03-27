@@ -2,8 +2,8 @@ from pyinotify import *
 
 
 class Log(ProcessEvent):
-    def my_init(self, pathname):
-        self._fileobj = file(pathname, 'w')
+    def my_init(self, fileobj):
+        self._fileobj = fileobj
 
     def process_default(self, event):
         self._fileobj.write(str(event) + '\n')
@@ -25,11 +25,11 @@ class Empty(ProcessEvent):
 
 
 #log.setLevel(10)
-f = '/var/log/pyinotify_log'
+fo = file('/var/log/pyinotify_log', 'w')
 wm = WatchManager()
-# It is important to give extra arguments like 'pathname' with
-# their keyword.
-notifier = Notifier(wm, Empty(TrackMofications(Log(pathname=f)),
+# It is important to pass named extra arguments like 'fileobj'.
+notifier = Notifier(wm, Empty(TrackMofications(Log(fileobj=fo)),
                               msg='outtee chained function'))
 wm.add_watch('/tmp', ALL_EVENTS)
 notifier.loop()
+fo.close()

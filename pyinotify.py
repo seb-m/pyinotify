@@ -324,7 +324,7 @@ class EventsCodes:
     def maskname(mask):
         """
         Return the event name associated to mask. IN_ISDIR is appended when
-        appropriate. Note: only one event is returned, because only one is 
+        appropriate. Note: only one event is returned, because only one is
         raised once at a time.
 
         @param mask: mask.
@@ -1026,9 +1026,12 @@ class Notifier:
         """
         @param callback: functor called after each event processing.
         @type callback: callable
-        @param read_freq: if 0 events are read as soon as possible, if
-                          read_freq is > 0, events are read only once time
-                          every read_freq at best.
+        @param read_freq: if read_freq == 0, events are read asap,
+                          if read_freq is > 0, events are read only once time
+                          every read_freq seconds at best (but if no event still
+                          hasn't occured after that period, poll() still holds
+                          and no rad is made).
+                          because .
         @type read_freq: int
         @param daemonize: this thread is daemonized if set to True.
         @type daemonize: boolean
@@ -1104,9 +1107,9 @@ class ThreadedNotifier(threading.Thread, Notifier):
         Thread's main loop. don't meant to be called by user directly.
         Call start() instead.
 
-        @param read_freq: if 0 events are read as soon as possible, if
-                          read_freq is > 0, events are read only once time
-                          every min(read_freq, timeout).
+        @param read_freq: if read_freq == 0, events are read asap,
+                          if read_freq is > 0, events are read only once time
+                          every min(read_freq, timeout) seconds.
         @type read_freq: int
         """
         # Read and process events while _stop_event condition

@@ -321,26 +321,25 @@ class EventsCodes:
         },
                         }
 
-    def get_masks(mask):
+    def maskname(mask):
         """
-        Return the event name associated to the mask parameter. 
-        Only one event is returned, because only one event is raised once 
-        at a time.
+        Return the event name associated to mask. IN_ISDIR is appended when
+        appropriate. Note: only one event is returned, because only one is 
+        raised once at a time.
 
         @param mask: mask.
         @type mask: int
         @return: event name.
-        @rtype: str or None
+        @rtype: str
         """
         ms = mask
         name = '%s'
-        mask_isdir = EventsCodes.ALL_FLAGS['IN_ISDIR']
-        if mask & mask_isdir:
-            ms = mask - mask_isdir
+        if mask & IN_ISDIR:
+            ms = mask - IN_ISDIR
             name = '%s|IN_ISDIR'
         return name % EventsCodes.ALL_VALUES[ms]
 
-    get_masks = staticmethod(get_masks)
+    maskname = staticmethod(maskname)
 
 
 # So let's now turn the configuration into code
@@ -459,7 +458,7 @@ class Event(_Event):
         Concretely, this is the raw event plus inferred infos.
         """
         _Event.__init__(self, raw)
-        self.maskname = EventsCodes.get_masks(self.mask)
+        self.maskname = EventsCodes.maskname(self.mask)
         try:
             if self.name:
                 self.pathname = os.path.join(self.path, self.name)
@@ -507,7 +506,7 @@ class _ProcessEvent:
         stripped_mask = event.mask - (event.mask & IN_ISDIR)
         maskname = EventsCodes.ALL_VALUES.get(stripped_mask)
         if maskname is None:
-            raise ProcessEventError("Unknown mask 0x%08x" % mask)
+            raise ProcessEventError("Unknown mask 0x%08x" % stripped_mask)
 
         # 1- look for process_MASKNAME
         meth = getattr(self, 'process_%s' % maskname, None)
@@ -1330,7 +1329,6 @@ class WatchManager:
                     log.error(('update_watch: cannot update WD=%d (%s)'%
                                (wd_, apath)))
                     continue
-                # fixme: not too strict ?
                 assert(awd == wd_)
 
             if proc_fun or auto_add:

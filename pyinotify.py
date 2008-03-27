@@ -323,35 +323,43 @@ class EventsCodes:
 
     def get_masks(mask):
         """
-        Return the event name associated to the mask parameter, never
-        return IN_ISDIR. Only one event is returned, because only one
-        event is raised once at a time.
+        Return the event name associated to the mask parameter. 
+        Only one event is returned, because only one event is raised once 
+        at a time.
 
         @param mask: mask.
         @type mask: int
         @return: event name.
         @rtype: str or None
         """
-        return reduce(lambda x, y: x + '|' + y,
-                      [ec for ec, val in EventsCodes.ALL_FLAGS.iteritems() \
-                       if val & mask])
+        ms = mask
+        name = '%s'
+        mask_isdir = EventsCodes.ALL_FLAGS['IN_ISDIR']
+        if mask & mask_isdir:
+            ms = mask - mask_isdir
+            name = '%s|IN_ISDIR'
+        return name % EventsCodes.ALL_VALUES[ms]
 
     get_masks = staticmethod(get_masks)
 
 
 # So let's now turn the configuration into code
 EventsCodes.ALL_FLAGS = {}
-for flag, fval in EventsCodes.FLAG_COLLECTIONS.iteritems():
+EventsCodes.ALL_VALUES = {}
+for flagc, valc in EventsCodes.FLAG_COLLECTIONS.iteritems():
     # Make the collections' members directly accessible through the
     # class dictionary
-    setattr(EventsCodes, flag, fval)
+    setattr(EventsCodes, flagc, valc)
 
     # Collect all the flags under a common umbrella
-    EventsCodes.ALL_FLAGS.update(fval)
+    EventsCodes.ALL_FLAGS.update(valc)
 
     # Make the individual masks accessible as 'constants' at globals() scope
-    for mask, mval in fval.iteritems():
-        globals()[mask] = mval
+    # and masknames accessible by values.
+    for name, val in valc.iteritems():
+        globals()[name] = val
+        EventsCodes.ALL_VALUES[val] = name
+
 
 # all 'normal' events
 ALL_EVENTS = reduce(lambda x, y: x | y, EventsCodes.OP_FLAGS.itervalues())
@@ -496,21 +504,21 @@ class _ProcessEvent:
         @raise ProcessEventError: Event object undispatchable,
                                   unknown event.
         """
-        mask = event.mask
-        for ec in EventsCodes.ALL_FLAGS.iterkeys():
-            if ec != 'IN_ISDIR' and (mask & EventsCodes.ALL_FLAGS[ec]):
-                # 1- look for process_MASKNAME
-                meth = getattr(self, 'process_%s' % ec, None)
-                if meth is not None:
-                    return meth(event)
-                # 2- look for process_FAMILY_NAME
-                meth = getattr(self, 'process_IN_%s' % ec.split('_')[1], None)
-                if meth is not None:
-                    return meth(event)
-                # 3- default method process_default
-                return self.process_default(event)
-        else:
+        stripped_mask = event.mask - (event.mask & IN_ISDIR)
+        maskname = EventsCodes.ALL_VALUES.get(stripped_mask)
+        if maskname is None:
             raise ProcessEventError("Unknown mask 0x%08x" % mask)
+
+        # 1- look for process_MASKNAME
+        meth = getattr(self, 'process_%s' % maskname, None)
+        if meth is not None:
+            return meth(event)
+        # 2- look for process_FAMILY_NAME
+        meth = getattr(self, 'process_IN_%s' % maskname.split('_')[1], None)
+        if meth is not None:
+            return meth(event)
+        # 3- default method process_default
+        return self.process_default(event)
 
     def __repr__(self):
         return '<%s>' % self.__class__.__name__

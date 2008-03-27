@@ -125,15 +125,14 @@ object --+
 </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">str or None</span>
+      <span class="summary-type">str</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.EventsCodes-class.html#get_masks" class="summary-sig-name">get_masks</a>(<span class="summary-sig-arg">mask</span>)</span><br />
-      Return the event name associated to the mask parameter, never return 
-      IN_ISDIR.</td>
+          <td><span class="summary-sig"><a href="pyinotify.EventsCodes-class.html#maskname" class="summary-sig-name">maskname</a>(<span class="summary-sig-arg">mask</span>)</span><br />
+      Return the event name associated to mask.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes.get_masks">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes.maskname">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -187,6 +186,21 @@ object --+
  'IN_DELETE_SELF': 1024,
  'IN_DONT_FOLLOW': 33554432,
 ..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.EventsCodes-class.html#ALL_VALUES" class="summary-name">ALL_VALUES</a> = <code title="{1: 'IN_ACCESS',
+ 2: 'IN_MODIFY',
+ 4: 'IN_ATTRIB',
+ 8: 'IN_CLOSE_WRITE',
+ 16: 'IN_CLOSE_NOWRITE',
+ 32: 'IN_OPEN',
+ 64: 'IN_MOVED_FROM',
+ 128: 'IN_MOVED_TO',
+..."><code class="variable-group">{</code>1<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">, </code>2<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_MODIFY</code><code class="variable-quote">'</code><code class="variable-op">, </code>4<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -434,30 +448,30 @@ object --+
   </td>
 </tr>
 </table>
-<a name="get_masks"></a>
+<a name="maskname"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_masks</span>(<span class="sig-arg">mask</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">maskname</span>(<span class="sig-arg">mask</span>)</span>
     <br /><em class="fname">Static Method</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes.get_masks">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes.maskname">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Return the event name associated to the mask parameter, never return 
-  IN_ISDIR. Only one event is returned, because only one event is raised 
+  <p>Return the event name associated to mask. IN_ISDIR is appended when 
+  appropriate. Note: only one event is returned, because only one is raised
   once at a time.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>mask</code></strong> (int) - mask.</li>
     </ul></dd>
-    <dt>Returns: str or None</dt>
+    <dt>Returns: str</dt>
         <dd>event name.</dd>
   </dl>
 </td></tr></table>
@@ -527,6 +541,32 @@ object --+
  <code class="variable-quote">'</code><code class="variable-string">IN_DELETE</code><code class="variable-quote">'</code><code class="variable-op">: </code>512<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">IN_DELETE_SELF</code><code class="variable-quote">'</code><code class="variable-op">: </code>1024<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">IN_DONT_FOLLOW</code><code class="variable-quote">'</code><code class="variable-op">: </code>33554432<code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ALL_VALUES"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">ALL_VALUES</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code>1<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 2<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_MODIFY</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 4<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 8<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_WRITE</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 16<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 32<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_OPEN</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 64<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_MOVED_FROM</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 128<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_MOVED_TO</code><code class="variable-quote">'</code><code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -645,7 +685,7 @@ object --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Mar 25 00:14:21 2008
+    Generated by Epydoc 3.0.1 on Thu Mar 27 23:44:32 2008
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

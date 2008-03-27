@@ -4,17 +4,16 @@ pyinotify.IN_MOVED_FROM	pyinotify-module.html#IN_MOVED_FROM
 pyinotify.LIBC	pyinotify-module.html#LIBC
 pyinotify.command_line	pyinotify-module.html#command_line
 pyinotify.IN_MOVED_TO	pyinotify-module.html#IN_MOVED_TO
-pyinotify.magic_check	pyinotify-module.html#magic_check
 pyinotify.IN_MOVE_SELF	pyinotify-module.html#IN_MOVE_SELF
+pyinotify.val	pyinotify-module.html#val
+pyinotify.valc	pyinotify-module.html#valc
 pyinotify.log	pyinotify-module.html#log
-pyinotify.mask	pyinotify-module.html#mask
 pyinotify.IN_UNMOUNT	pyinotify-module.html#IN_UNMOUNT
-pyinotify.fval	pyinotify-module.html#fval
+pyinotify.magic_check	pyinotify-module.html#magic_check
 pyinotify.color_theme	pyinotify-module.html#color_theme
 pyinotify.glob1	pyinotify-module.html#glob1
 pyinotify.max_user_watches	pyinotify-module.html#max_user_watches
 pyinotify.max_user_instances	pyinotify-module.html#max_user_instances
-pyinotify.mval	pyinotify-module.html#mval
 pyinotify.console_handler	pyinotify-module.html#console_handler
 pyinotify.IN_ONESHOT	pyinotify-module.html#IN_ONESHOT
 pyinotify.IN_ONLYDIR	pyinotify-module.html#IN_ONLYDIR
@@ -25,8 +24,10 @@ pyinotify.__author__	pyinotify-module.html#__author__
 pyinotify.IN_DELETE	pyinotify-module.html#IN_DELETE
 pyinotify.IN_ATTRIB	pyinotify-module.html#IN_ATTRIB
 pyinotify.IN_CLOSE_WRITE	pyinotify-module.html#IN_CLOSE_WRITE
+pyinotify.name	pyinotify-module.html#name
 pyinotify.IN_ACCESS	pyinotify-module.html#IN_ACCESS
 pyinotify.IN_MODIFY	pyinotify-module.html#IN_MODIFY
+pyinotify.flagc	pyinotify-module.html#flagc
 pyinotify.IN_MASK_ADD	pyinotify-module.html#IN_MASK_ADD
 pyinotify.IN_CLOSE_NOWRITE	pyinotify-module.html#IN_CLOSE_NOWRITE
 pyinotify.IN_ISDIR	pyinotify-module.html#IN_ISDIR
@@ -35,7 +36,6 @@ pyinotify.iglob	pyinotify-module.html#iglob
 pyinotify.max_queued_events	pyinotify-module.html#max_queued_events
 pyinotify.IN_DELETE_SELF	pyinotify-module.html#IN_DELETE_SELF
 pyinotify.ALL_EVENTS	pyinotify-module.html#ALL_EVENTS
-pyinotify.flag	pyinotify-module.html#flag
 pyinotify.IN_OPEN	pyinotify-module.html#IN_OPEN
 pyinotify.glob0	pyinotify-module.html#glob0
 pyinotify.IN_DONT_FOLLOW	pyinotify-module.html#IN_DONT_FOLLOW
@@ -149,7 +149,6 @@ pyinotify.EventsCodes.IN_MOVED_TO	pyinotify.EventsCodes-class.html#IN_MOVED_TO
 pyinotify.EventsCodes.IN_MOVE_SELF	pyinotify.EventsCodes-class.html#IN_MOVE_SELF
 pyinotify.EventsCodes.ALL_FLAGS	pyinotify.EventsCodes-class.html#ALL_FLAGS
 pyinotify.EventsCodes.IN_UNMOUNT	pyinotify.EventsCodes-class.html#IN_UNMOUNT
-pyinotify.EventsCodes.get_masks	pyinotify.EventsCodes-class.html#get_masks
 pyinotify.EventsCodes.IN_ONESHOT	pyinotify.EventsCodes-class.html#IN_ONESHOT
 pyinotify.EventsCodes.IN_ONLYDIR	pyinotify.EventsCodes-class.html#IN_ONLYDIR
 pyinotify.EventsCodes.IN_Q_OVERFLOW	pyinotify.EventsCodes-class.html#IN_Q_OVERFLOW
@@ -159,7 +158,9 @@ pyinotify.EventsCodes.OP_FLAGS	pyinotify.EventsCodes-class.html#OP_FLAGS
 pyinotify.EventsCodes.IN_ATTRIB	pyinotify.EventsCodes-class.html#IN_ATTRIB
 pyinotify.EventsCodes.IN_CLOSE_WRITE	pyinotify.EventsCodes-class.html#IN_CLOSE_WRITE
 pyinotify.EventsCodes.IN_ACCESS	pyinotify.EventsCodes-class.html#IN_ACCESS
+pyinotify.EventsCodes.maskname	pyinotify.EventsCodes-class.html#maskname
 pyinotify.EventsCodes.IN_MODIFY	pyinotify.EventsCodes-class.html#IN_MODIFY
+pyinotify.EventsCodes.ALL_VALUES	pyinotify.EventsCodes-class.html#ALL_VALUES
 pyinotify.EventsCodes.IN_DONT_FOLLOW	pyinotify.EventsCodes-class.html#IN_DONT_FOLLOW
 pyinotify.EventsCodes.IN_MASK_ADD	pyinotify.EventsCodes-class.html#IN_MASK_ADD
 pyinotify.EventsCodes.SPECIAL_FLAGS	pyinotify.EventsCodes-class.html#SPECIAL_FLAGS

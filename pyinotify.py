@@ -1031,7 +1031,6 @@ class Notifier:
                           every read_freq seconds at best (but if no event still
                           hasn't occured after that period, poll() still holds
                           and no rad is made).
-                          because .
         @type read_freq: int
         @param daemonize: this thread is daemonized if set to True.
         @type daemonize: boolean

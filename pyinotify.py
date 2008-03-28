@@ -55,7 +55,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.0o"
+__version__ = "0.8.0p"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -1238,7 +1238,7 @@ class WatchManager:
         @return: dict of paths associated to watch descriptors. A wd value
                  is positive if the watch has been sucessfully added,
                  otherwise the value is negative. If the path is invalid
-                 it will be not included in this dict.
+                 it will be not included into this dict.
         @rtype: dict of str: int
         """
         ret_ = {} # return {path: wd, ...}
@@ -1320,7 +1320,6 @@ class WatchManager:
         ret_ = {}  # return {wd: bool, ...}
         for awd in lwd:
             apath = self.get_path(awd)
-            ret_[awd] = False
             if not apath or awd < 0:
                 log.error('update_watch: invalid WD=%d' % awd)
                 continue
@@ -1328,6 +1327,7 @@ class WatchManager:
             if mask:
                 wd_ = LIBC.inotify_add_watch(self._fd, apath, mask)
                 if wd_ < 0:
+                    ret_[awd] = False
                     log.error(('update_watch: cannot update WD=%d (%s)'%
                                (wd_, apath)))
                     continue
@@ -1430,16 +1430,15 @@ class WatchManager:
 
         ret_ = {}  # return {wd: bool, ...}
         for awd in lwd:
-            ret_[awd] = False
-            apath = self.get_path(awd)
             # remove watch
             wd_ = LIBC.inotify_rm_watch(self._fd, awd)
             if wd_ < 0:
+                ret_[awd] = False
                 log.error('rm_watch: cannot remove WD=%d' % awd)
                 continue
 
             ret_[awd] = True
-            log.debug('watch WD=%d (%s) removed' % (awd, apath))
+            log.debug('watch WD=%d (%s) removed' % (awd, self.get_path(awd)))
         return ret_
 
 

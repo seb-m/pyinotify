@@ -509,14 +509,14 @@ class _ProcessEvent:
             raise ProcessEventError("Unknown mask 0x%08x" % stripped_mask)
 
         # 1- look for process_MASKNAME
-        meth = getattr(self, 'process_%s' % maskname, None)
+        meth = getattr(self, 'process_' + maskname, None)
         if meth is not None:
             return meth(event)
         # 2- look for process_FAMILY_NAME
-        meth = getattr(self, 'process_IN_%s' % maskname.split('_')[1], None)
+        meth = getattr(self, 'process_IN_' + maskname.split('_')[1], None)
         if meth is not None:
             return meth(event)
-        # 3- default method process_default
+        # 3- default call method process_default
         return self.process_default(event)
 
     def __repr__(self):

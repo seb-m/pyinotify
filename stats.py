@@ -1,31 +1,24 @@
-import time
 from pyinotify import *
 
 
 class Identity(ProcessEvent):
 
     def process_default(self, event):
-        # Does nothing, just to demonstrate how stuffs could be done
-        # after having processed statistics.
+        # Does nothing, just to demonstrate how stuffs could trivially
+        # be accomplished after having processed statistics.
         pass
 
 
-wm = WatchManager()
-s = Stats() # Stats is a subclass of ProcessEvent
-notifier = ThreadedNotifier(wm, Identity(s))
-notifier.start()
-wm.add_watch('/tmp/', ALL_EVENTS, rec=True, auto_add=True)
+def on_loop(notifier):
+    # notifier.proc_fun() is Identity's instance
+    s_inst = notifier.proc_fun().nested_pevent()
+    print repr(s_inst), '\n', s_inst, '\n'
 
-while True:
-    try:
-        print repr(s)
-        print
-        print s
-        print
-        time.sleep(5)
-    except KeyboardInterrupt:
-        print 'stop monitoring...'
-        notifier.stop()
-        break
-    except Exception, err:
-        print err
+
+wm = WatchManager()
+# Stats is a subclass of ProcessEvent provided by pyinotify
+# for computing basics statistics.
+s = Stats() 
+notifier = Notifier(wm, Identity(s))
+wm.add_watch('/tmp/', ALL_EVENTS, rec=True, auto_add=True)
+notifier.loop(callback=on_loop, read_freq=5)

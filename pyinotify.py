@@ -734,6 +734,9 @@ class ProcessEvent(_ProcessEvent):
         if not stop_chaining:
             _ProcessEvent.__call__(self, event)
 
+    def nested_pevent(self):
+        return self.pevent
+
     def process_default(self, event):
         """
         Default default processing event method. Print event
@@ -865,6 +868,9 @@ class Notifier:
         self._sys_proc_fun = _SysProcessEvent(self._watch_manager, self)
         # default processing method
         self._default_proc_fun = default_proc_fun
+
+    def proc_fun(self):
+        return self._default_proc_fun
 
     def check_events(self, timeout=None):
         """
@@ -1149,7 +1155,7 @@ class Watch:
         @type path: str
         @param mask: Mask.
         @type mask: int
-        @param proc_fun: Processing object.
+        @param proc_fun: Processing callable object.
         @type proc_fun:
         @param auto_add: Automatically add watches on new directories.
         @type auto_add: bool
@@ -1643,8 +1649,8 @@ def command_line():
     # stats
     if options.stats:
         def cb(s):
-            print('%s\n%s\n' % (repr(s._default_proc_fun),
-                                s._default_proc_fun))
+            print('%s\n%s\n' % (repr(s.proc_fun()),
+                                s.proc_fun()))
         noargs['callback'] = cb
         noargs['read_freq'] = 5  # means 5 seconds
 

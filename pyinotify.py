@@ -853,7 +853,6 @@ class Notifier:
         Initialization. read_freq, treshold and timeout parameters are used
         when looping.
 
-
         @param watch_manager: Watch Manager.
         @type watch_manager: WatchManager instance
         @param default_proc_fun: Default processing method.

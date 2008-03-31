@@ -19,6 +19,6 @@ wm = WatchManager()
 # Stats is a subclass of ProcessEvent provided by pyinotify
 # for computing basics statistics.
 s = Stats() 
-notifier = Notifier(wm, Identity(s))
+notifier = Notifier(wm, default_proc_fun=Identity(s), read_freq=5)
 wm.add_watch('/tmp/', ALL_EVENTS, rec=True, auto_add=True)
-notifier.loop(callback=on_loop, read_freq=5)
+notifier.loop(callback=on_loop)

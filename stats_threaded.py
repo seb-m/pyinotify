@@ -16,7 +16,7 @@ class Identity(ProcessEvent):
 
 wm = WatchManager()
 s = Stats() # Stats is a subclass of ProcessEvent
-notifier = ThreadedNotifier(wm, Identity(s))
+notifier = ThreadedNotifier(wm, default_proc_fun=Identity(s))
 notifier.start()
 wm.add_watch('/tmp/', ALL_EVENTS, rec=True, auto_add=True)
 

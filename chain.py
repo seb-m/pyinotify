@@ -28,8 +28,9 @@ class Empty(ProcessEvent):
 fo = file('/var/log/pyinotify_log', 'w')
 wm = WatchManager()
 # It is important to pass named extra arguments like 'fileobj'.
-notifier = Notifier(wm, Empty(TrackMofications(Log(fileobj=fo)),
-                              msg='outtee chained function'))
+notifier = Notifier(wm, 
+                    default_proc_fun=Empty(TrackMofications(Log(fileobj=fo)),
+                                           msg='outtee chained function'))
 wm.add_watch('/tmp', ALL_EVENTS)
 notifier.loop()
 fo.close()

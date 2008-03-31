@@ -5,7 +5,6 @@ pyinotify.LIBC	pyinotify-module.html#LIBC
 pyinotify.command_line	pyinotify-module.html#command_line
 pyinotify.IN_MOVED_TO	pyinotify-module.html#IN_MOVED_TO
 pyinotify.IN_MOVE_SELF	pyinotify-module.html#IN_MOVE_SELF
-pyinotify.val	pyinotify-module.html#val
 pyinotify.valc	pyinotify-module.html#valc
 pyinotify.log	pyinotify-module.html#log
 pyinotify.IN_UNMOUNT	pyinotify-module.html#IN_UNMOUNT
@@ -26,6 +25,7 @@ pyinotify.IN_ATTRIB	pyinotify-module.html#IN_ATTRIB
 pyinotify.IN_CLOSE_WRITE	pyinotify-module.html#IN_CLOSE_WRITE
 pyinotify.name	pyinotify-module.html#name
 pyinotify.IN_ACCESS	pyinotify-module.html#IN_ACCESS
+pyinotify.val	pyinotify-module.html#val
 pyinotify.IN_MODIFY	pyinotify-module.html#IN_MODIFY
 pyinotify.flagc	pyinotify-module.html#flagc
 pyinotify.IN_MASK_ADD	pyinotify-module.html#IN_MASK_ADD
@@ -241,6 +241,8 @@ pyinotify.WatchManager.__format_param	pyinotify.WatchManager-class.html#__format
 pyinotify.WatchManager.get_path	pyinotify.WatchManager-class.html#get_path
 pyinotify.WatchManager.watch_transient_file	pyinotify.WatchManager-class.html#watch_transient_file
 pyinotify.WatchManager.__add_watch	pyinotify.WatchManager-class.html#__add_watch
+pyinotify.WatchManagerError	pyinotify.WatchManagerError-class.html
+pyinotify.WatchManagerError.__init__	pyinotify.WatchManagerError-class.html#__init__
 pyinotify._Event	pyinotify._Event-class.html
 pyinotify._Event.__repr__	pyinotify._Event-class.html#__repr__
 pyinotify._Event.__init__	pyinotify._Event-class.html#__init__

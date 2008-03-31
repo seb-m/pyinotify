@@ -152,7 +152,8 @@ object --+
         <span class="summary-sig-arg">proc_fun</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">rec</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">auto_add</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">do_glob</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">do_glob</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">True</span>)</span><br />
       Add watch(s) on given path(s) with the specified mask and optionnally
       with a processing function and recursive flag.</td>
           <td align="right" valign="top">
@@ -194,7 +195,8 @@ object --+
         <span class="summary-sig-arg">mask</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">proc_fun</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">rec</span>=<span class="summary-sig-default">False</span>,
-        <span class="summary-sig-arg">auto_add</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">auto_add</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">True</span>)</span><br />
       Update existing watch(s).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.update_watch">source&nbsp;code</a></span>
@@ -287,7 +289,8 @@ object --+
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#rm_watch" class="summary-sig-name">rm_watch</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">wd</span>,
-        <span class="summary-sig-arg">rec</span>=<span class="summary-sig-default">False</span>)</span><br />
+        <span class="summary-sig-arg">rec</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">True</span>)</span><br />
       Removes watch(s).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.rm_watch">source&nbsp;code</a></span>
@@ -439,7 +442,8 @@ object --+
         <span class="sig-arg">proc_fun</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">rec</span>=<span class="sig-default">False</span>,
         <span class="sig-arg">auto_add</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">do_glob</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">do_glob</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">quiet</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.add_watch">source&nbsp;code</a></span>&nbsp;
@@ -461,6 +465,8 @@ object --+
         <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically add watches on newly created directories in the 
           watch's path.</li>
         <li><strong class="pname"><code>do_glob</code></strong> (bool) - Do globbing on pathname.</li>
+        <li><strong class="pname"><code>quiet</code></strong> (bool) - if True raise an WatchManagerError exception on error. See 
+          example not_quiet.py</li>
     </ul></dd>
     <dt>Returns: dict of str: int</dt>
         <dd>dict of paths associated to watch descriptors. A wd value is 
@@ -509,7 +515,8 @@ object --+
         <span class="sig-arg">mask</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">proc_fun</span>=<span class="sig-default">None</span>,
         <span class="sig-arg">rec</span>=<span class="sig-default">False</span>,
-        <span class="sig-arg">auto_add</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">auto_add</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">quiet</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.update_watch">source&nbsp;code</a></span>&nbsp;
@@ -530,6 +537,8 @@ object --+
           subdirectories and subfiles.</li>
         <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically add watches on newly created directories in the 
           watch's path.</li>
+        <li><strong class="pname"><code>quiet</code></strong> (bool) - if True raise an WatchManagerError exception on error. See 
+          example not_quiet.py</li>
     </ul></dd>
     <dt>Returns: dict of int: bool</dt>
         <dd>dict of watch descriptors associated to booleans values. True if 
@@ -657,7 +666,8 @@ object --+
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">rm_watch</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">wd</span>,
-        <span class="sig-arg">rec</span>=<span class="sig-default">False</span>)</span>
+        <span class="sig-arg">rec</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">quiet</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.rm_watch">source&nbsp;code</a></span>&nbsp;
@@ -672,6 +682,8 @@ object --+
           accepts a list of WDs.</li>
         <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively removes watches on every already watched 
           subdirectories and subfiles.</li>
+        <li><strong class="pname"><code>quiet</code></strong> (bool) - if True raise an WatchManagerError exception on error. See 
+          example not_quiet.py</li>
     </ul></dd>
     <dt>Returns: dict of int: bool</dt>
         <dd>dict of watch descriptors associated to booleans values. True if 
@@ -740,7 +752,7 @@ object --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Mar 31 04:03:24 2008
+    Generated by Epydoc 3.0.1 on Mon Mar 31 19:54:47 2008
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

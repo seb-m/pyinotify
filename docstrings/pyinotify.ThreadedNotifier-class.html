@@ -104,7 +104,10 @@ threading._Verbose --+
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.ThreadedNotifier-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">watch_manager</span>,
-        <span class="summary-sig-arg">default_proc_fun</span>=<span class="summary-sig-default">&lt;ProcessEvent&gt;</span>)</span><br />
+        <span class="summary-sig-arg">default_proc_fun</span>=<span class="summary-sig-default">&lt;ProcessEvent&gt;</span>,
+        <span class="summary-sig-arg">read_freq</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">treshold</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">timeout</span>=<span class="summary-sig-default">10000</span>)</span><br />
       Initialization, initialize base classes.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.__init__">source&nbsp;code</a></span>
@@ -138,8 +141,7 @@ threading._Verbose --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.ThreadedNotifier-class.html#loop" class="summary-sig-name">loop</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">read_freq</span>=<span class="summary-sig-default">0</span>)</span><br />
+          <td><span class="summary-sig"><a href="pyinotify.ThreadedNotifier-class.html#loop" class="summary-sig-name">loop</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Thread's main loop.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.loop">source&nbsp;code</a></span>
@@ -188,6 +190,7 @@ threading._Verbose --+
       </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b>:
       <code><a href="pyinotify.Notifier-class.html#check_events">check_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#proc_fun">proc_fun</a></code>,
       <code><a href="pyinotify.Notifier-class.html#process_events">process_events</a></code>,
       <code><a href="pyinotify.Notifier-class.html#read_events">read_events</a></code>
       </p>
@@ -259,7 +262,10 @@ threading._Verbose --+
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">watch_manager</span>,
-        <span class="sig-arg">default_proc_fun</span>=<span class="sig-default">&lt;ProcessEvent&gt;</span>)</span>
+        <span class="sig-arg">default_proc_fun</span>=<span class="sig-default">&lt;ProcessEvent&gt;</span>,
+        <span class="sig-arg">read_freq</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">treshold</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">timeout</span>=<span class="sig-default">10000</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -267,12 +273,23 @@ threading._Verbose --+
     </td>
   </tr></table>
   
-  <p>Initialization, initialize base classes.</p>
+  <p>Initialization, initialize base classes. read_freq, treshold and 
+  timeout parameters are used when looping.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>watch_manager</code></strong> (WatchManager instance) - Watch Manager.</li>
         <li><strong class="pname"><code>default_proc_fun</code></strong> (instance of ProcessEvent) - Default processing method.</li>
+        <li><strong class="pname"><code>read_freq</code></strong> (int) - if read_freq == 0, events are read asap, if read_freq is &gt; 0, 
+          this thread sleeps max(0, read_freq - timeout) seconds.</li>
+        <li><strong class="pname"><code>treshold</code></strong> (int) - file descriptor will be read only if its size to read is &gt;= 
+          treshold. If != 0, you likely want to use it in combination with 
+          read_freq because without that you keep looping without really 
+          reading anything and that until the amount to read is &gt;= 
+          treshold. At least with read_freq you may sleep.</li>
+        <li><strong class="pname"><code>timeout</code></strong> (int) - see http://docs.python.org/lib/poll-objects.html#poll-objects 
+          Read the corresponding comment in the source code before changing
+          it.</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
@@ -309,8 +326,7 @@ threading._Verbose --+
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">loop</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">read_freq</span>=<span class="sig-default">0</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">loop</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.loop">source&nbsp;code</a></span>&nbsp;
@@ -319,12 +335,13 @@ threading._Verbose --+
   
   <p>Thread's main loop. don't meant to be called by user directly. Call 
   start() instead.</p>
+  <p>Events are read only once time every min(read_freq, timeout) seconds 
+  at best and only if the size to read is &gt;= treshold.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>read_freq</code></strong> (int) - if read_freq == 0, events are read asap, if read_freq is &gt; 0, 
-          events are read only once time every min(read_freq, timeout) 
-          seconds.</li>
+        <li><strong class="pname"><code>callback</code></strong> - functor called after each event processing.</li>
+        <li><strong class="pname"><code>daemonize</code></strong> - this thread is daemonized if set to True.</li>
     </ul></dd>
     <dt>Overrides:
         <a href="pyinotify.Notifier-class.html#loop">Notifier.loop</a>
@@ -384,7 +401,7 @@ threading._Verbose --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Mar 30 22:44:05 2008
+    Generated by Epydoc 3.0.1 on Mon Mar 31 04:03:24 2008
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

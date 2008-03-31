@@ -91,6 +91,7 @@ pyinotify.ColorTheme.__repr__	pyinotify.ColorTheme-class.html#__repr__
 pyinotify.AnsiColorTheme.style_active	pyinotify.AnsiColorTheme-class.html#style_active
 pyinotify.ChainIf	pyinotify.ChainIf-class.html
 pyinotify.ChainIf.my_init	pyinotify.ChainIf-class.html#my_init
+pyinotify.ProcessEvent.nested_pevent	pyinotify.ProcessEvent-class.html#nested_pevent
 pyinotify.ProcessEvent.pevent	pyinotify.ProcessEvent-class.html#pevent
 pyinotify._ProcessEvent.__repr__	pyinotify._ProcessEvent-class.html#__repr__
 pyinotify.ChainIf.process_default	pyinotify.ChainIf-class.html#process_default
@@ -178,6 +179,7 @@ pyinotify.Notifier.read_events	pyinotify.Notifier-class.html#read_events
 pyinotify.Notifier.stop	pyinotify.Notifier-class.html#stop
 pyinotify.Notifier.__daemonize	pyinotify.Notifier-class.html#__daemonize
 pyinotify.Notifier.check_events	pyinotify.Notifier-class.html#check_events
+pyinotify.Notifier.proc_fun	pyinotify.Notifier-class.html#proc_fun
 pyinotify.Notifier.loop	pyinotify.Notifier-class.html#loop
 pyinotify.Notifier._sleep	pyinotify.Notifier-class.html#_sleep
 pyinotify.Notifier.__init__	pyinotify.Notifier-class.html#__init__
@@ -186,6 +188,7 @@ pyinotify.NotifierError	pyinotify.NotifierError-class.html
 pyinotify.NotifierError.__init__	pyinotify.NotifierError-class.html#__init__
 pyinotify.ProcessEvent	pyinotify.ProcessEvent-class.html
 pyinotify.ProcessEvent.my_init	pyinotify.ProcessEvent-class.html#my_init
+pyinotify.ProcessEvent.nested_pevent	pyinotify.ProcessEvent-class.html#nested_pevent
 pyinotify.ProcessEvent.pevent	pyinotify.ProcessEvent-class.html#pevent
 pyinotify._ProcessEvent.__repr__	pyinotify._ProcessEvent-class.html#__repr__
 pyinotify.ProcessEvent.process_default	pyinotify.ProcessEvent-class.html#process_default
@@ -196,6 +199,7 @@ pyinotify.ProcessEventError.__init__	pyinotify.ProcessEventError-class.html#__in
 pyinotify.Stats	pyinotify.Stats-class.html
 pyinotify.Stats.my_init	pyinotify.Stats-class.html#my_init
 pyinotify.Stats.dump	pyinotify.Stats-class.html#dump
+pyinotify.ProcessEvent.nested_pevent	pyinotify.ProcessEvent-class.html#nested_pevent
 pyinotify.Stats.__str__	pyinotify.Stats-class.html#__str__
 pyinotify.ProcessEvent.pevent	pyinotify.ProcessEvent-class.html#pevent
 pyinotify.Stats._stats_copy	pyinotify.Stats-class.html#_stats_copy
@@ -214,6 +218,7 @@ pyinotify.SysCtlINotify.__init__	pyinotify.SysCtlINotify-class.html#__init__
 pyinotify.ThreadedNotifier	pyinotify.ThreadedNotifier-class.html
 pyinotify.Notifier.read_events	pyinotify.Notifier-class.html#read_events
 pyinotify.Notifier.check_events	pyinotify.Notifier-class.html#check_events
+pyinotify.Notifier.proc_fun	pyinotify.Notifier-class.html#proc_fun
 pyinotify.Notifier._sleep	pyinotify.Notifier-class.html#_sleep
 pyinotify.ThreadedNotifier.run	pyinotify.ThreadedNotifier-class.html#run
 pyinotify.ThreadedNotifier.__init__	pyinotify.ThreadedNotifier-class.html#__init__

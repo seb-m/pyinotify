@@ -1,3 +1,8 @@
+2008-03-31  ookoi  <ookoi@mars>
+
+	* ChangeLog is now maintained directly with git:
+	  See http://git.dbzteam.org/?p=pyinotify.git;a=log;h=HEAD
+
 2008-03-24  ookoi  <ookoi@sundae>
 
 	* Simulate IN_CREATE events on mkdir -p /d1/d2/[...]. 

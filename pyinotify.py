@@ -55,7 +55,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.0p"
+__version__ = "0.8.0q"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -864,7 +864,7 @@ class Notifier:
                           timeout is None it can be different because
                           poll is blocking waiting for something to read.
         @type read_freq: int
-        @param treshold: file descriptor will be read only if its size to
+        @param treshold: File descriptor will be read only if its size to
                          read is >= treshold. If != 0, you likely want to
                          use it in combination with read_freq because
                          without that you keep looping without really reading
@@ -1062,9 +1062,10 @@ class Notifier:
         Events are read only once time every min(read_freq, timeout)
         seconds at best and only if the size to read is >= treshold.
 
-        @param callback: functor called after each event processing.
+        @param callback: Functor called after each event processing. Expects
+                         to receive notifier object (self) as first parameter.
         @type callback: callable
-        @param daemonize: this thread is daemonized if set to True.
+        @param daemonize: This thread is daemonized if set to True.
         @type daemonize: boolean
         """
         if daemonize:
@@ -1123,7 +1124,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
                           if read_freq is > 0, this thread sleeps
                           max(0, read_freq - timeout) seconds.
         @type read_freq: int
-        @param treshold: file descriptor will be read only if its size to
+        @param treshold: File descriptor will be read only if its size to
                          read is >= treshold. If != 0, you likely want to
                          use it in combination with read_freq because
                          without that you keep looping without really reading
@@ -1225,6 +1226,25 @@ class Watch:
         return s
 
 
+class WatchManagerError(Exception):
+    """
+    WatchManager Exception. Raised on error encountered on watches
+    operations.
+
+    """
+    def __init__(self, msg, wmd):
+        """
+        @param msg: Exception string's description.
+        @type msg: string
+        @param wmd: Results of previous operations made by the same function
+                    on previous wd or paths. It also contains the item which
+                    raised this exception.
+        @type wmd: dict
+        """
+        self.wmd = wmd
+        Exception.__init__(self, msg)
+
+
 class WatchManager:
     """
     Provide operations for watching files and directories. Integrated
@@ -1247,7 +1267,6 @@ class WatchManager:
         """
         wd_ = LIBC.inotify_add_watch(self._fd, path, mask)
         if wd_ < 0:
-            log.error('add_watch: cannot watch %s (WD=%d)' % (path, wd_))
             return wd_
         watch_ = Watch(wd=wd_, path=os.path.normpath(path), mask=mask,
                        proc_fun=proc_fun, auto_add=auto_add)
@@ -1262,7 +1281,7 @@ class WatchManager:
             return [path]
 
     def add_watch(self, path, mask, proc_fun=None, rec=False,
-                  auto_add=False, do_glob=False):
+                  auto_add=False, do_glob=False, quiet=True):
         """
         Add watch(s) on given path(s) with the specified mask and
         optionnally with a processing function and recursive flag.
@@ -1284,6 +1303,9 @@ class WatchManager:
         @type auto_add: bool
         @param do_glob: Do globbing on pathname.
         @type do_glob: bool
+        @param quiet: if True raise an WatchManagerError exception on
+                      error. See example not_quiet.py
+        @type quiet: bool
         @return: dict of paths associated to watch descriptors. A wd value
                  is positive if the watch has been sucessfully added,
                  otherwise the value is negative. If the path is invalid
@@ -1298,8 +1320,15 @@ class WatchManager:
             for apath in self.__glob(npath, do_glob):
                 # recursively list subdirs according to rec param
                 for rpath in self.__walk_rec(apath, rec):
-                    ret_[rpath] = self.__add_watch(rpath, mask,
-                                                   proc_fun, auto_add)
+                    wd = ret_[rpath] = self.__add_watch(rpath, mask,
+                                                        proc_fun, auto_add)
+                    if wd < 0:
+                        err = 'add_watch: cannot watch %s (WD=%d)' % (rpath,
+                                                                      wd)
+                        if quiet:
+                            log.error(err)
+                        else:
+                            raise WatchManagerError(err, ret_)
 	return ret_
 
     def __get_sub_rec(self, lpath):
@@ -1338,7 +1367,7 @@ class WatchManager:
                     yield iwd[1].wd
 
     def update_watch(self, wd, mask=None, proc_fun=None, rec=False,
-                     auto_add=False):
+                     auto_add=False, quiet=True):
         """
         Update existing watch(s). Both the mask and the processing
         object can be modified.
@@ -1357,6 +1386,9 @@ class WatchManager:
         @param auto_add: Automatically add watches on newly created
                          directories in the watch's path.
         @type auto_add: bool
+        @param quiet: if True raise an WatchManagerError exception on
+                      error. See example not_quiet.py
+        @type quiet: bool
         @return: dict of watch descriptors associated to booleans values.
                  True if the corresponding wd has been successfully
                  updated, False otherwise.
@@ -1370,16 +1402,23 @@ class WatchManager:
         for awd in lwd:
             apath = self.get_path(awd)
             if not apath or awd < 0:
-                log.error('update_watch: invalid WD=%d' % awd)
-                continue
+                err = 'update_watch: invalid WD=%d' % awd
+                if quiet:
+                    log.error(err)
+                    continue
+                raise WatchManagerError(err, ret_)
 
             if mask:
                 wd_ = LIBC.inotify_add_watch(self._fd, apath, mask)
                 if wd_ < 0:
                     ret_[awd] = False
-                    log.error(('update_watch: cannot update WD=%d (%s)'%
-                               (wd_, apath)))
-                    continue
+                    err = 'update_watch: cannot update WD=%d (%s)' % (wd_,
+                                                                      apath)
+                    if quiet:
+                        log.error(err)
+                        continue
+                    raise WatchManagerError(err, ret_)
+
                 assert(awd == wd_)
 
             if proc_fun or auto_add:
@@ -1458,7 +1497,7 @@ class WatchManager:
             for root, dirs, files in os.walk(top):
                 yield root
 
-    def rm_watch(self, wd, rec=False):
+    def rm_watch(self, wd, rec=False, quiet=True):
         """
         Removes watch(s).
 
@@ -1468,6 +1507,9 @@ class WatchManager:
         @param rec: Recursively removes watches on every already watched
                     subdirectories and subfiles.
         @type rec: bool
+        @param quiet: if True raise an WatchManagerError exception on
+                      error. See example not_quiet.py
+        @type quiet: bool
         @return: dict of watch descriptors associated to booleans values.
                  True if the corresponding wd has been successfully
                  removed, False otherwise.
@@ -1483,8 +1525,11 @@ class WatchManager:
             wd_ = LIBC.inotify_rm_watch(self._fd, awd)
             if wd_ < 0:
                 ret_[awd] = False
-                log.error('rm_watch: cannot remove WD=%d' % awd)
-                continue
+                err = 'rm_watch: cannot remove WD=%d' % awd
+                if quiet:
+                    log.error(err)
+                    continue
+                raise WatchManagerError(err, ret_)
 
             ret_[awd] = True
             log.debug('watch WD=%d (%s) removed' % (awd, self.get_path(awd)))

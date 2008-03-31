@@ -847,10 +847,10 @@ class Notifier:
     Read notifications, process events.
 
     """
-    def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),  
+    def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
                  read_freq=0, treshold=0, timeout=None):
         """
-        Initialization. read_freq, treshold and timeout parameters are used 
+        Initialization. read_freq, treshold and timeout parameters are used
         when looping.
 
 
@@ -865,10 +865,10 @@ class Notifier:
                           poll is blocking waiting for something to read.
         @type read_freq: int
         @param treshold: file descriptor will be read only if its size to
-                         read is >= treshold. If != 0, you likely want to 
-                         use it in combination with read_freq because 
-                         without that you keep looping without really reading 
-                         anything and that until the amount to read 
+                         read is >= treshold. If != 0, you likely want to
+                         use it in combination with read_freq because
+                         without that you keep looping without really reading
+                         anything and that until the amount to read
                          is >= treshold. At least with read_freq you may sleep.
         @type treshold: int
         @param timeout:
@@ -932,8 +932,8 @@ class Notifier:
         queue_size = buf_[0]
         if queue_size < self._treshold:
             log.debug('(fd: %d) %d bytes available to read but '
-                      'treshold is fixed to %d bytes' % (self._fd, 
-                                                         queue_size, 
+                      'treshold is fixed to %d bytes' % (self._fd,
+                                                         queue_size,
                                                          self._treshold))
             return
 
@@ -1059,7 +1059,7 @@ class Notifier:
 
     def loop(self, callback=None, daemonize=False, **args):
         """
-        Events are read only once time every min(read_freq, timeout) 
+        Events are read only once time every min(read_freq, timeout)
         seconds at best and only if the size to read is >= treshold.
 
         @param callback: functor called after each event processing.
@@ -1124,10 +1124,10 @@ class ThreadedNotifier(threading.Thread, Notifier):
                           max(0, read_freq - timeout) seconds.
         @type read_freq: int
         @param treshold: file descriptor will be read only if its size to
-                         read is >= treshold. If != 0, you likely want to 
-                         use it in combination with read_freq because 
-                         without that you keep looping without really reading 
-                         anything and that until the amount to read 
+                         read is >= treshold. If != 0, you likely want to
+                         use it in combination with read_freq because
+                         without that you keep looping without really reading
+                         anything and that until the amount to read
                          is >= treshold. At least with read_freq you may sleep.
         @type treshold: int
         @param timeout:
@@ -1141,7 +1141,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
         # stop condition
         self._stop_event = threading.Event()
         # init Notifier base class
-        Notifier.__init__(self, watch_manager, default_proc_fun, read_freq, 
+        Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
                           treshold, timeout)
 
     def stop(self):
@@ -1157,7 +1157,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
         Thread's main loop. don't meant to be called by user directly.
         Call start() instead.
 
-        Events are read only once time every min(read_freq, timeout) 
+        Events are read only once time every min(read_freq, timeout)
         seconds at best and only if the size to read is >= treshold.
         """
         # Read and process events while _stop_event condition

@@ -55,7 +55,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.0q"
+__version__ = "0.8.0r"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -362,6 +362,8 @@ for flagc, valc in EventsCodes.FLAG_COLLECTIONS.iteritems():
 
 # all 'normal' events
 ALL_EVENTS = reduce(lambda x, y: x | y, EventsCodes.OP_FLAGS.itervalues())
+EventsCodes.ALL_FLAGS['ALL_EVENTS'] = ALL_EVENTS
+EventsCodes.ALL_VALUES[ALL_EVENTS] = 'ALL_EVENTS'
 
 
 class _Event:
@@ -390,8 +392,6 @@ class _Event:
                 value = hex(getattr(self, attr))
             elif isinstance(value, str) and not value:
                 value ="''"
-            if attr == 'pathname' and value and self.dir:
-                value += os.sep
             s += ' %s%s%s' % (color_theme.field_name(attr),
                               color_theme.punct('='),
                               color_theme.field_value(value))
@@ -461,9 +461,10 @@ class Event(_Event):
         self.maskname = EventsCodes.maskname(self.mask)
         try:
             if self.name:
-                self.pathname = os.path.join(self.path, self.name)
+                self.pathname = os.path.abspath(os.path.join(self.path, 
+                                                             self.name))
             else:
-                self.pathname = self.path
+                self.pathname = os.path.abspath(self.path)
         except AttributeError:
             pass
 
@@ -1264,7 +1265,9 @@ class WatchManager:
         Add a watch on path, build a Watch object and insert it in the
         watch manager dictionary. Return the wd value.
         """
-        wd_ = LIBC.inotify_add_watch(self._fd, path, mask)
+        wd_ = LIBC.inotify_add_watch(self._fd,
+                                     ctypes.create_string_buffer(path),
+                                     mask)
         if wd_ < 0:
             return wd_
         watch_ = Watch(wd=wd_, path=os.path.normpath(path), mask=mask,
@@ -1408,7 +1411,10 @@ class WatchManager:
                 raise WatchManagerError(err, ret_)
 
             if mask:
-                wd_ = LIBC.inotify_add_watch(self._fd, apath, mask)
+                addw = LIBC.inotify_add_watch
+                wd_ = addw(self._fd,
+                           ctypes.create_string_buffer(apath),
+                           mask)
                 if wd_ < 0:
                     ret_[awd] = False
                     err = 'update_watch: cannot update WD=%d (%s)' % (wd_,

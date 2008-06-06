@@ -448,7 +448,7 @@ class Event(_Event):
               is the parent directory. None if the event was raised
               on the watched item itself. This field is always provided
               even if the string is ''.
-      - pathname (str): path + name
+      - pathname (str): absolute path of: path + name
       - cookie (int): Cookie.
       - dir (bool): is the event raised against directory.
 

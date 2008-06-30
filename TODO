@@ -1,4 +1,1 @@
-- Implement an exclude list of paths
-  - Optionally loaded from file
-  - Should support regexps
 - Optionally store watchs in a db to reduce memory footprint

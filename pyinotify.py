@@ -1227,12 +1227,17 @@ class Watch:
 
 
 class ExcludeFilter:
+    """
+    ExcludeFilter is an exclusion filter.
+    """
+
     def __init__(self, arg_lst):
         """
-        arg_lst is either a list or dict.
-          [pattern1, ..., patternn]
-          {'filename1': (list1, listn), ...} where list1 is a list
-          of patterns
+        @param arg_lst: is either a list or dict of patterns:
+                        [pattern1, ..., patternn]
+                        {'filename1': (list1, listn), ...} where list1 is
+                        a list of patterns
+        @type arg_lst: list or dict
         """
         if isinstance(arg_lst, dict):
             lst = self._load_patterns(arg_lst)
@@ -1258,6 +1263,13 @@ class ExcludeFilter:
         return regex.match(path) is not None
 
     def __call__(self, path):
+        """
+        @param path: path to match against regexps.
+        @type path: str
+        @return: return True is path has been matched and should
+                 be excluded, False otherwise.
+        @rtype: bool
+        """
         for regex in self._lregex:
             if self._match(regex, path):
                 return True

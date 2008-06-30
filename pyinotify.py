@@ -55,7 +55,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.0r"
+__version__ = "0.8.0s"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -461,7 +461,7 @@ class Event(_Event):
         self.maskname = EventsCodes.maskname(self.mask)
         try:
             if self.name:
-                self.pathname = os.path.abspath(os.path.join(self.path, 
+                self.pathname = os.path.abspath(os.path.join(self.path,
                                                              self.name))
             else:
                 self.pathname = os.path.abspath(self.path)
@@ -1226,6 +1226,44 @@ class Watch:
         return s
 
 
+class ExcludeFilter:
+    def __init__(self, arg_lst):
+        """
+        arg_lst is either a list or dict.
+          [pattern1, ..., patternn]
+          {'filename1': (list1, listn), ...} where list1 is a list
+          of patterns
+        """
+        if isinstance(arg_lst, dict):
+            lst = self._load_patterns(arg_lst)
+        elif isinstance(arg_lst, list):
+            lst = arg_lst
+        else:
+            raise TypeError
+
+        self._lregex = []
+        for regex in lst:
+            self._lregex.append(re.compile(regex, re.UNICODE))
+
+    def _load_patterns(self, dct):
+        lst = []
+        for path, varnames in dct.iteritems():
+            loc = {}
+            execfile(path, {}, loc)
+            for varname in varnames:
+                lst.extend(loc.get(varname, []))
+        return lst
+
+    def _match(self, regex, path):
+        return regex.match(path) is not None
+
+    def __call__(self, path):
+        for regex in self._lregex:
+            if self._match(regex, path):
+                return True
+        return False
+
+
 class WatchManagerError(Exception):
     """
     WatchManager Exception. Raised on error encountered on watches
@@ -1250,11 +1288,18 @@ class WatchManager:
     Provide operations for watching files and directories. Integrated
     dictionary is used to reference watched items.
     """
-    def __init__(self):
+    def __init__(self, exclude_filter=lambda path: False):
         """
         Initialization: init inotify, init watch manager dictionary.
         Raise OSError if initialization fails.
+
+        @param exclude_filter: boolean function, returns True if current
+                               path must be excluded from being watched.
+                               Convenient for providing a common exclusion
+                               filter for every call to add_watch.
+        @type exclude_filter: bool
         """
+        self._exclude_filter = exclude_filter
         self._wmd = {}  # watch dict key: watch descriptor, value: watch
         self._fd = LIBC.inotify_init() # inotify's init, file descriptor
         if self._fd < 0:
@@ -1283,7 +1328,8 @@ class WatchManager:
             return [path]
 
     def add_watch(self, path, mask, proc_fun=None, rec=False,
-                  auto_add=False, do_glob=False, quiet=True):
+                  auto_add=False, do_glob=False, quiet=True,
+                  exclude_filter=None):
         """
         Add watch(s) on given path(s) with the specified mask and
         optionnally with a processing function and recursive flag.
@@ -1308,13 +1354,21 @@ class WatchManager:
         @param quiet: if True raise an WatchManagerError exception on
                       error. See example not_quiet.py
         @type quiet: bool
+        @param exclude_filter: boolean function, returns True if current
+                               path must be excluded from being watched.
+                               Has precedence on exclude_filter defined
+                               into __init__.
+        @type exclude_filter: bool
         @return: dict of paths associated to watch descriptors. A wd value
                  is positive if the watch has been sucessfully added,
                  otherwise the value is negative. If the path is invalid
                  it will be not included into this dict.
-        @rtype: dict of str: int
+        @rtype: dict of {str: int}
         """
         ret_ = {} # return {path: wd, ...}
+
+        if exclude_filter is None:
+            exclude_filter = self._exclude_filter
 
         # normalize args as list elements
         for npath in self.__format_param(path):
@@ -1322,15 +1376,21 @@ class WatchManager:
             for apath in self.__glob(npath, do_glob):
                 # recursively list subdirs according to rec param
                 for rpath in self.__walk_rec(apath, rec):
-                    wd = ret_[rpath] = self.__add_watch(rpath, mask,
-                                                        proc_fun, auto_add)
-                    if wd < 0:
-                        err = 'add_watch: cannot watch %s (WD=%d)' % (rpath,
-                                                                      wd)
-                        if quiet:
-                            log.error(err)
-                        else:
-                            raise WatchManagerError(err, ret_)
+                    if not exclude_filter(rpath):
+                        wd = ret_[rpath] = self.__add_watch(rpath, mask,
+                                                            proc_fun,
+                                                            auto_add)
+                        if wd < 0:
+                            err = 'add_watch: cannot watch %s (WD=%d)'
+                            err = err % (rpath, wd)
+                            if quiet:
+                                log.error(err)
+                            else:
+                                raise WatchManagerError(err, ret_)
+                    else:
+                        # Let's say -2 means 'explicitely excluded
+                        # from watching'.
+                        ret_[rpath] = -2
 	return ret_
 
     def __get_sub_rec(self, lpath):

@@ -1,0 +1,16 @@
+#  -*- mode: python; -*-
+
+# Patterns can use unrestricted regexps (see re module)
+# regexps are matched against submitted paths through match()
+
+excl_lst1 = ['^/etc/apache[2]?/',
+             '^/etc/rc.*',
+             '^/etc/hostname',
+             '^/etc/hosts',
+             '^/etc/(fs|m)tab',
+             '^/etc/cron\..*']
+
+excl_lst2 = ['^/var/log/.*',
+             '^/var/www/.*',
+             '^/var/cache/.*',
+             '^/var/spool/.*']

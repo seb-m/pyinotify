@@ -1,3 +1,6 @@
+# Example
+#
+
 # Overrides default behavior and raise exception on add_watch, update_watch,
 # rm_watch errors.
 

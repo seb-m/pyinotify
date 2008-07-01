@@ -1,3 +1,5 @@
+# Example
+#
 import pyinotify
 
 wm = pyinotify.WatchManager()

@@ -1,9 +1,12 @@
+# Example
+#
+import time
+from pyinotify import *
+
 # Do the same thing than stats.py but with a ThreadedNotifier's
 # instance.
 # This example illustrates the use of this class but the recommanded
 # implementation is whom of stats.py
-import time
-from pyinotify import *
 
 
 class Identity(ProcessEvent):

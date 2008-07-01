@@ -1,3 +1,5 @@
+# Example
+#
 from pyinotify import *
 
 

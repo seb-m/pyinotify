@@ -884,6 +884,7 @@ class Notifier:
         self._pollobj.register(self._fd, select.POLLIN)
         # event queue
         self._eventq = deque()
+        self.event_queue_size = 0
         # system processing functor, common to all events
         self._sys_proc_fun = _SysProcessEvent(self._watch_manager, self)
         # default processing method
@@ -929,7 +930,7 @@ class Notifier:
         # get event queue size
         if fcntl.ioctl(self._fd, termios.FIONREAD, buf_, 1) == -1:
             return
-        queue_size = buf_[0]
+        self.event_queue_size = queue_size = buf_[0]
         if queue_size < self._treshold:
             log.debug('(fd: %d) %d bytes available to read but '
                       'treshold is fixed to %d bytes' % (self._fd,

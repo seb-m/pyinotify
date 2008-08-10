@@ -54,13 +54,16 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module pyinotify</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html">source&nbsp;code</a></span></p>
-<p>pyinotify</p>
+<h1 class="epydoc">Module pyinotify</h1><span class="codelink"><a href="pyinotify-pysrc.html">source&nbsp;code</a></span><br /><br />
+pyinotify<br /><br />
 
 <hr />
-<div class="fields">      <p><strong>Author:</strong>
-        Sebastien Martini
-      </p>
+<div class="fields">      <dl><dt>Authors:</dt>
+        <dd>
+          Sebastien Martini,
+          seb@dbzteam.org (Sebastien Martini)
+        </dd>
+      </dl>
       <p><strong>License:</strong>
         GPL 2
       </p>
@@ -68,7 +71,7 @@
         seb@dbzteam.org
       </p>
       <p><strong>Version:</strong>
-        0.8.0q
+        0.8.0t
       </p>
 </div><!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -107,7 +110,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify._Event-class.html" class="summary-name" onclick="show_private();">_Event</a><br />
+        <a href="pyinotify._Event-class.html" class="summary-name">_Event</a><br />
       Event structure, represent events raised by the system.
     </td>
   </tr>
@@ -115,7 +118,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify._RawEvent-class.html" class="summary-name" onclick="show_private();">_RawEvent</a><br />
+        <a href="pyinotify._RawEvent-class.html" class="summary-name">_RawEvent</a><br />
       Raw event, it contains only the informations provided by the 
         system.
     </td>
@@ -125,8 +128,8 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.Event-class.html" class="summary-name">Event</a><br />
-      This class contains all the useful informations about the observed 
-        event.
+      This class contains all the useful informations about the 
+        observed event.
     </td>
   </tr>
 <tr>
@@ -141,7 +144,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify._ProcessEvent-class.html" class="summary-name" onclick="show_private();">_ProcessEvent</a><br />
+        <a href="pyinotify._ProcessEvent-class.html" class="summary-name">_ProcessEvent</a><br />
       Abstract processing event class.
     </td>
   </tr>
@@ -149,7 +152,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify._SysProcessEvent-class.html" class="summary-name" onclick="show_private();">_SysProcessEvent</a><br />
+        <a href="pyinotify._SysProcessEvent-class.html" class="summary-name">_SysProcessEvent</a><br />
       There is three kind of processing according to each event:
     </td>
   </tr>
@@ -158,7 +161,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.ProcessEvent-class.html" class="summary-name">ProcessEvent</a><br />
-      Process events objects, can be specialized via subclassing, thus 
+      Process events objects, can be specialized via subclassing, thus
         its behavior can be overriden:
     </td>
   </tr>
@@ -167,7 +170,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.ChainIf-class.html" class="summary-name">ChainIf</a><br />
-      Makes conditional chaining depending on the result of the nested 
+      Makes conditional chaining depending on the result of the nested
         processing instance.
     </td>
   </tr>
@@ -199,7 +202,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.ThreadedNotifier-class.html" class="summary-name">ThreadedNotifier</a><br />
-      This notifier inherits from threading.Thread for instantiating a 
+      This notifier inherits from threading.Thread for instantiating a
         separate thread, and also inherits from Notifier, because it is a 
         threaded notifier.
     </td>
@@ -210,6 +213,14 @@
     </td><td class="summary">
         <a href="pyinotify.Watch-class.html" class="summary-name">Watch</a><br />
       Represent a watch, i.e.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.ExcludeFilter-class.html" class="summary-name">ExcludeFilter</a><br />
+      ExcludeFilter is an exclusion filter.
     </td>
   </tr>
 <tr>
@@ -392,14 +403,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="__author__"></a><span class="summary-name">__author__</span> = <code title="'seb@dbzteam.org (Sebastien Martini)'"><code class="variable-quote">'</code><code class="variable-string">seb@dbzteam.org (Sebastien Martini)</code><code class="variable-quote">'</code></code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="LIBC"></a><span class="summary-name">LIBC</span> = <code title="&lt;CDLL 'None', handle b7fdc6e0 at 83c08ec&gt;">&lt;CDLL 'None', handle b7fdc6e0 at 83c08ec&gt;</code>
+        <a name="LIBC"></a><span class="summary-name">LIBC</span> = <code title="&lt;CDLL 'None', handle 4001b668 at 84703ac&gt;">&lt;CDLL 'None', handle 4001b668 at 84703ac&gt;</code>
     </td>
   </tr>
 <tr>
@@ -609,7 +613,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="max_user_watches"></a><span class="summary-name">max_user_watches</span> = <code title="&lt;max_user_watches=8192&gt;">&lt;max_user_watches=8192&gt;</code>
+        <a name="max_user_watches"></a><span class="summary-name">max_user_watches</span> = <code title="&lt;max_user_watches=524288&gt;">&lt;max_user_watches=524288&gt;</code>
     </td>
   </tr>
 <tr>
@@ -697,11 +701,10 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Mar 31 19:54:46 2008
+    Generated by Epydoc 3.0beta1 on Sun Aug 10 13:37:37 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -712,8 +715,9 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

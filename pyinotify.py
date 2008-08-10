@@ -55,7 +55,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.0s"
+__version__ = "0.8.0t"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -789,13 +789,13 @@ class Stats(ProcessEvent):
 
         t = int(time.time() - self._start_time)
         if t < 60:
-            ts = str(t) + 's'
+            ts = str(t) + 'sec'
         elif 60 <= t < 3600:
-            ts = '%.1fmn' % (t / 60.0)
+            ts = '%dmn%dsec' % (t / 60, t % 60)
         elif 3600 <= t < 86400:
-            ts = '%.1fh' % (t / 3600.0)
+            ts = '%dh%dmn' % (t / 3600, (t % 3600) / 60)
         elif t >= 86400:
-            ts = '%.1fd' % (t / 86400.0)
+            ts = '%dd%dh' % (t / 86400, (t % 86400) / 3600)
         stats['ElapsedTime'] = ts
 
         l = []

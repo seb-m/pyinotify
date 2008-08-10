@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pyinotify.ColorTheme</title>
+  <title>pyinotify.ExcludeFilter</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
-        Class&nbsp;ColorTheme
+        Class&nbsp;ExcludeFilter
       </span>
     </td>
     <td>
@@ -48,27 +48,25 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="pyinotify.ColorTheme-class.html"
+            >]&nbsp;|&nbsp;<a href="pyinotify.ExcludeFilter-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ColorTheme</h1><span class="codelink"><a href="pyinotify-pysrc.html#ColorTheme">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class ExcludeFilter</h1><span class="codelink"><a href="pyinotify-pysrc.html#ExcludeFilter">source&nbsp;code</a></span><br /><br />
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_5" name="uml_class_diagram_for_pyinotif_5">
-<area shape="rect" href="pyinotify.AnsiColorTheme&#45;class.html" title="pyinotify.AnsiColorTheme" alt="" coords="88,104,197,130"/>
-<area shape="rect" href="pyinotify.BlackAndWhite&#45;class.html" title="pyinotify.BlackAndWhite" alt="" coords="16,160,120,186"/>
-<area shape="rect" href="pyinotify.DefaultTheme&#45;class.html" title="pyinotify.DefaultTheme" alt="" coords="171,160,264,186"/>
-<area shape="rect" href="pyinotify.NoTheme&#45;class.html" title="pyinotify.NoTheme" alt="" coords="248,104,317,130"/>
-<area shape="rect" href="pyinotify.ColorTheme&#45;class.html#__getattr__" title="pyinotify.ColorTheme.__getattr__" alt="" coords="149,36,275,54"/>
-<area shape="rect" href="pyinotify.ColorTheme&#45;class.html#__repr__" title="repr(x)" alt="" coords="149,54,275,73"/>
-<area shape="rect" href="pyinotify.ColorTheme&#45;class.html" title="pyinotify.ColorTheme" alt="" coords="148,10,276,74"/>
+<center>  <map id="uml_class_diagram_for_pyinotif_9" name="uml_class_diagram_for_pyinotif_9">
+<area shape="rect" href="pyinotify.ExcludeFilter&#45;class.html#__call__" title="Returns:  return True is path has been matched and should be excluded, False  otherwise." alt="" coords="17,36,143,54"/>
+<area shape="rect" href="pyinotify.ExcludeFilter&#45;class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,54,143,73"/>
+<area shape="rect" href="pyinotify.ExcludeFilter&#45;class.html" title="ExcludeFilter is an exclusion filter." alt="" coords="16,10,144,74"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_5.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_5" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_pyinotif_9.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_9" ismap="ismap" class="graph-without-title" />
 </center></center>
 <hr />
+ExcludeFilter is an exclusion filter.<br /><br />
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -92,10 +90,47 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.ColorTheme-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      repr(x)</td>
+          <td><span class="summary-sig"><a href="pyinotify.ExcludeFilter-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">arg_lst</span>)</span><br />
+      x.__init__(...) initializes x; see x.__class__.__doc__ for 
+      signature</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#ColorTheme.__repr__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#ExcludeFilter.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_load_patterns"></a><span class="summary-sig-name">_load_patterns</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dct</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#ExcludeFilter._load_patterns">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_match"></a><span class="summary-sig-name">_match</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">regex</span>,
+        <span class="summary-sig-arg">path</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#ExcludeFilter._match">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -105,14 +140,17 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">bool</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__getattr__"></a><span class="summary-sig-name">__getattr__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">attr</span>)</span></td>
+          <td><span class="summary-sig"><a href="pyinotify.ExcludeFilter-class.html#__call__" class="summary-sig-name">__call__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">path</span>)</span><br />
+      Returns:
+      return True is path has been matched and should be excluded, False
+      otherwise.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#ColorTheme.__getattr__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#ExcludeFilter.__call__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -126,10 +164,10 @@
       <code>__delattr__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
-      <code>__init__</code>,
       <code>__new__</code>,
       <code>__reduce__</code>,
       <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
       <code>__setattr__</code>,
       <code>__str__</code>
       </p>
@@ -179,27 +217,62 @@
   </td>
 </tr>
 </table>
-<a name="__repr__"></a>
+<a name="__init__"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
-    <br /><em class="fname">(Representation operator)</em>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">arg_lst</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="pyinotify-pysrc.html#ColorTheme.__repr__">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="pyinotify-pysrc.html#ExcludeFilter.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </table>
   
-  repr(x)
+  x.__init__(...) initializes x; see x.__class__.__doc__ for 
+  signature
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>arg_lst</code></strong> (list or dict) - is either a list or dict of patterns: [pattern1, ..., 
+          patternn] {'filename1': (list1, listn), ...} where list1 is a 
+          list of patterns</li>
+    </ul></dd>
     <dt>Overrides:
-      object.__repr__
-        <dd><em class="note">(inherited documentation)</em></dd>
+      object.__init__
     </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__call__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__call__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">path</span>)</span>
+    <br /><em class="fname">(Call operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#ExcludeFilter.__call__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>path</code></strong> (str) - path to match against regexps.</li>
+    </ul></dd>
+    <dt>Returns: bool</dt>
+        <dd>return True is path has been matched and should be excluded, 
+          False otherwise.</dd>
   </dl>
 </td></tr></table>
 </div>

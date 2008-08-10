@@ -55,21 +55,23 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Notifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#Notifier">source&nbsp;code</a></span></p>
-<pre class="base-tree">
-object --+
-         |
-        <strong class="uidshort">Notifier</strong>
-</pre>
-
-<dl><dt>Known Subclasses:</dt>
-<dd>
-      <ul class="subclass-list">
-<li><a href="pyinotify.ThreadedNotifier-class.html">ThreadedNotifier</a></li>  </ul>
-</dd></dl>
-
+<h1 class="epydoc">Class Notifier</h1><span class="codelink"><a href="pyinotify-pysrc.html#Notifier">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_pyinotif_11" name="uml_class_diagram_for_pyinotif_11">
+<area shape="rect" href="pyinotify.ThreadedNotifier&#45;class.html" title="This notifier inherits from threading.Thread for instantiating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="273,198,380,224"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="17,36,636,55"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#stop" title="Close the inotify&#39;s instance (close its file descriptor)." alt="" coords="17,55,636,74"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="17,74,636,92"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="17,92,636,111"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#loop" title="Events are read only once time every min(read_freq, timeout) seconds at  best and only if the size to read is &gt;= treshold." alt="" coords="17,111,636,130"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#__init__" title="Initialization." alt="" coords="17,130,636,148"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#process_events" title="Routine for processing events from queue by calling their associated  proccessing function (instance of ProcessEvent)." alt="" coords="17,148,636,167"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html" title="Read notifications, process events." alt="" coords="16,11,637,168"/>
+</map>
+  <img src="uml_class_diagram_for_pyinotif_11.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_11" ismap="ismap" class="graph-without-title" />
+</center></center>
 <hr />
-<p>Read notifications, process events.</p>
+Read notifications, process events.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -168,8 +170,8 @@ object --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.Notifier-class.html#process_events" class="summary-sig-name">process_events</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Routine for processing events from queue by calling their associated 
-      proccessing function (instance of ProcessEvent).</td>
+      Routine for processing events from queue by calling their 
+      associated proccessing function (instance of ProcessEvent).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#Notifier.process_events">source&nbsp;code</a></span>
             
@@ -185,7 +187,7 @@ object --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.Notifier-class.html#__daemonize" class="summary-sig-name" onclick="show_private();">__daemonize</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pyinotify.Notifier-class.html#__daemonize" class="summary-sig-name">__daemonize</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">pid_file</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">force_kill</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">stdin</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/dev/null</code><code class="variable-quote">'</code></span>,
@@ -228,8 +230,8 @@ object --+
         <span class="summary-sig-arg">callback</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">daemonize</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">**args</span>)</span><br />
-      Events are read only once time every min(read_freq, timeout) seconds 
-      at best and only if the size to read is &gt;= treshold.</td>
+      Events are read only once time every min(read_freq, timeout) 
+      seconds at best and only if the size to read is &gt;= treshold.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#Notifier.loop">source&nbsp;code</a></span>
             
@@ -333,28 +335,29 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#Notifier.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Initialization. read_freq, treshold and timeout parameters are used 
-  when looping.</p>
+  Initialization. read_freq, treshold and timeout parameters are used 
+  when looping.
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>watch_manager</code></strong> (WatchManager instance) - Watch Manager.</li>
         <li><strong class="pname"><code>default_proc_fun</code></strong> (instance of ProcessEvent) - Default processing method.</li>
-        <li><strong class="pname"><code>read_freq</code></strong> (int) - if read_freq == 0, events are read asap, if read_freq is &gt; 0, 
-          this thread sleeps max(0, read_freq - timeout) seconds. But if 
+        <li><strong class="pname"><code>read_freq</code></strong> (int) - if read_freq == 0, events are read asap, if read_freq is &gt; 
+          0, this thread sleeps max(0, read_freq - timeout) seconds. But if
           timeout is None it can be different because poll is blocking 
           waiting for something to read.</li>
-        <li><strong class="pname"><code>treshold</code></strong> (int) - File descriptor will be read only if its size to read is &gt;= 
+        <li><strong class="pname"><code>treshold</code></strong> (int) - File descriptor will be read only if its size to read is &gt;=
           treshold. If != 0, you likely want to use it in combination with 
           read_freq because without that you keep looping without really 
           reading anything and that until the amount to read is &gt;= 
           treshold. At least with read_freq you may sleep.</li>
-        <li><strong class="pname"><code>timeout</code></strong> (int) - see http://docs.python.org/lib/poll-objects.html#poll-objects</li>
+        <li><strong class="pname"><code>timeout</code></strong> (int) - see 
+          http://docs.python.org/lib/poll-objects.html#poll-objects</li>
     </ul></dd>
     <dt>Overrides:
-        object.__init__
+      object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -371,10 +374,10 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#Notifier.check_events">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Check for new events available to read, blocks up to timeout 
-  milliseconds.</p>
+  Check for new events available to read, blocks up to timeout 
+  milliseconds.
   <dl class="fields">
     <dt>Returns: bool</dt>
         <dd>New events to read.</dd>
@@ -393,11 +396,11 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#Notifier.process_events">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Routine for processing events from queue by calling their associated 
+  Routine for processing events from queue by calling their associated 
   proccessing function (instance of ProcessEvent). It also do internal 
-  processings, to keep the system updated.</p>
+  processings, to keep the system updated.
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -419,11 +422,11 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#Notifier.__daemonize">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>pid_file: file to which pid will be written. force_kill: if True kill 
+  pid_file: file to which pid will be written. force_kill: if True kill 
   the process associated to pid_file. stdin, stdout, stderr: files 
-  associated to common streams.</p>
+  associated to common streams.
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -443,14 +446,14 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#Notifier.loop">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Events are read only once time every min(read_freq, timeout) seconds 
-  at best and only if the size to read is &gt;= treshold.</p>
+  Events are read only once time every min(read_freq, timeout) seconds 
+  at best and only if the size to read is &gt;= treshold.
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>callback</code></strong> (callable) - Functor called after each event processing. Expects to receive 
+        <li><strong class="pname"><code>callback</code></strong> (callable) - Functor called after each event processing. Expects to receive
           notifier object (self) as first parameter.</li>
         <li><strong class="pname"><code>daemonize</code></strong> (boolean) - This thread is daemonized if set to True.</li>
     </ul></dd>
@@ -469,10 +472,10 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#Notifier.stop">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Close the inotify's instance (close its file descriptor). It destroys 
-  all existing watches, pending events,...</p>
+  Close the inotify's instance (close its file descriptor). It destroys 
+  all existing watches, pending events,...
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -504,11 +507,10 @@ object --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Mar 31 19:54:46 2008
+    Generated by Epydoc 3.0beta1 on Sun Aug 10 13:37:38 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -519,8 +521,9 @@ object --+
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

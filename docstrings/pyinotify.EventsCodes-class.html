@@ -55,17 +55,32 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class EventsCodes</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes">source&nbsp;code</a></span></p>
-<pre class="base-tree">
-object --+
-         |
-        <strong class="uidshort">EventsCodes</strong>
-</pre>
-
+<h1 class="epydoc">Class EventsCodes</h1><span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_pyinotif_8" name="uml_class_diagram_for_pyinotif_8">
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_MOVED_FROM" title="File was moved from X." alt="" coords="17,28,156,46"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#FLAG_COLLECTIONS" title="pyinotify.EventsCodes.FLAG_COLLECTIONS" alt="" coords="17,46,156,65"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_CREATE" title="Subfile was created." alt="" coords="17,65,156,84"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_MOVED_TO" title="File was moved to Y." alt="" coords="17,84,156,102"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_MOVE_SELF" title="Self (watched item itself) was moved." alt="" coords="17,102,156,121"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#ALL_FLAGS" title="pyinotify.EventsCodes.ALL_FLAGS" alt="" coords="17,121,156,140"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_UNMOUNT" title="Backing fs was unmounted." alt="" coords="17,140,156,158"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_ONESHOT" title="Only send event once." alt="" coords="17,158,156,177"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_ONLYDIR" title="only watch the path if it is a directory (new in kernel 2.6.15)." alt="" coords="17,177,156,196"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_Q_OVERFLOW" title="Event queued overflowed." alt="" coords="17,196,156,214"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_IGNORED" title="File was ignored." alt="" coords="17,214,156,233"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_DELETE" title="Subfile was deleted." alt="" coords="17,233,156,252"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#OP_FLAGS" title="pyinotify.EventsCodes.OP_FLAGS" alt="" coords="17,252,156,270"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_OPEN" title="File was opened." alt="" coords="17,289,156,308"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#maskname" title="Return the event name associated to mask." alt="" coords="17,310,156,329"/>
+<area shape="rect" href="pyinotify.EventsCodes&#45;class.html" title="Set of codes corresponding to each kind of events." alt="" coords="16,10,157,330"/>
+</map>
+  <img src="uml_class_diagram_for_pyinotif_8.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_8" ismap="ismap" class="graph-without-title" />
+</center></center>
 <hr />
-<p>Set of codes corresponding to each kind of events. Some of these flags
+Set of codes corresponding to each kind of events. Some of these flags
   are used to communicate with inotify, whereas the others are sent to 
-  userspace by inotify notifying some events.</p>
+  userspace by inotify notifying some events.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -172,15 +187,15 @@ object --+
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify.EventsCodes-class.html#ALL_FLAGS" class="summary-name">ALL_FLAGS</a> = <code title="{'IN_ACCESS': 1,
+        <a href="pyinotify.EventsCodes-class.html#ALL_FLAGS" class="summary-name">ALL_FLAGS</a> = <code title="{'ALL_EVENTS': 4095,
+ 'IN_ACCESS': 1,
  'IN_ATTRIB': 4,
  'IN_CLOSE_NOWRITE': 16,
  'IN_CLOSE_WRITE': 8,
  'IN_CREATE': 256,
  'IN_DELETE': 512,
  'IN_DELETE_SELF': 1024,
- 'IN_DONT_FOLLOW': 33554432,
-..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-ellipsis">...</code></code>
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">ALL_EVENTS</code><code class="variable-quote">'</code><code class="variable-op">: </code>4095<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -298,7 +313,8 @@ object --+
       <span class="summary-type">int</span>
     </td><td class="summary">
         <a name="IN_MASK_ADD"></a><span class="summary-name">IN_MASK_ADD</span><br />
-      add to the mask of an already existing watch (new in kernel 2.6.14).
+      add to the mask of an already existing watch (new in kernel 
+      2.6.14).
     </td>
   </tr>
 <tr>
@@ -346,7 +362,8 @@ object --+
       <span class="summary-type">int</span>
     </td><td class="summary">
         <a name="IN_ONLYDIR"></a><span class="summary-name">IN_ONLYDIR</span><br />
-      only watch the path if it is a directory (new in kernel 2.6.15).
+      only watch the path if it is a directory (new in kernel 
+      2.6.15).
     </td>
   </tr>
 <tr>
@@ -456,11 +473,11 @@ object --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes.maskname">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Return the event name associated to mask. IN_ISDIR is appended when 
+  Return the event name associated to mask. IN_ISDIR is appended when 
   appropriate. Note: only one event is returned, because only one is raised
-  once at a time.</p>
+  once at a time.
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -528,14 +545,14 @@ object --+
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">,</code>
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">ALL_EVENTS</code><code class="variable-quote">'</code><code class="variable-op">: </code>4095<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-quote">'</code><code class="variable-op">: </code>16<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_WRITE</code><code class="variable-quote">'</code><code class="variable-op">: </code>8<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">IN_CREATE</code><code class="variable-quote">'</code><code class="variable-op">: </code>256<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">IN_DELETE</code><code class="variable-quote">'</code><code class="variable-op">: </code>512<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">IN_DELETE_SELF</code><code class="variable-quote">'</code><code class="variable-op">: </code>1024<code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">IN_DONT_FOLLOW</code><code class="variable-quote">'</code><code class="variable-op">: </code>33554432<code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -675,11 +692,10 @@ object --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Mar 31 19:54:46 2008
+    Generated by Epydoc 3.0beta1 on Sun Aug 10 13:37:37 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -690,8 +706,9 @@ object --+
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

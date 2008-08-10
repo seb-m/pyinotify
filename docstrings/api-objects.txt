@@ -1,6 +1,5 @@
 pyinotify	pyinotify-module.html
 pyinotify.IN_CREATE	pyinotify-module.html#IN_CREATE
-pyinotify.IN_MOVED_FROM	pyinotify-module.html#IN_MOVED_FROM
 pyinotify.LIBC	pyinotify-module.html#LIBC
 pyinotify.command_line	pyinotify-module.html#command_line
 pyinotify.IN_MOVED_TO	pyinotify-module.html#IN_MOVED_TO
@@ -9,6 +8,7 @@ pyinotify.valc	pyinotify-module.html#valc
 pyinotify.log	pyinotify-module.html#log
 pyinotify.IN_UNMOUNT	pyinotify-module.html#IN_UNMOUNT
 pyinotify.magic_check	pyinotify-module.html#magic_check
+pyinotify.IN_MOVED_FROM	pyinotify-module.html#IN_MOVED_FROM
 pyinotify.color_theme	pyinotify-module.html#color_theme
 pyinotify.glob1	pyinotify-module.html#glob1
 pyinotify.max_user_watches	pyinotify-module.html#max_user_watches
@@ -19,7 +19,6 @@ pyinotify.IN_ONLYDIR	pyinotify-module.html#IN_ONLYDIR
 pyinotify.IN_Q_OVERFLOW	pyinotify-module.html#IN_Q_OVERFLOW
 pyinotify.IN_IGNORED	pyinotify-module.html#IN_IGNORED
 pyinotify.has_magic	pyinotify-module.html#has_magic
-pyinotify.__author__	pyinotify-module.html#__author__
 pyinotify.IN_DELETE	pyinotify-module.html#IN_DELETE
 pyinotify.IN_ATTRIB	pyinotify-module.html#IN_ATTRIB
 pyinotify.IN_CLOSE_WRITE	pyinotify-module.html#IN_CLOSE_WRITE
@@ -171,6 +170,11 @@ pyinotify.EventsCodes.IN_DELETE_SELF	pyinotify.EventsCodes-class.html#IN_DELETE_
 pyinotify.EventsCodes.ALL_EVENTS	pyinotify.EventsCodes-class.html#ALL_EVENTS
 pyinotify.EventsCodes.EVENT_FLAGS	pyinotify.EventsCodes-class.html#EVENT_FLAGS
 pyinotify.EventsCodes.IN_OPEN	pyinotify.EventsCodes-class.html#IN_OPEN
+pyinotify.ExcludeFilter	pyinotify.ExcludeFilter-class.html
+pyinotify.ExcludeFilter._match	pyinotify.ExcludeFilter-class.html#_match
+pyinotify.ExcludeFilter.__call__	pyinotify.ExcludeFilter-class.html#__call__
+pyinotify.ExcludeFilter._load_patterns	pyinotify.ExcludeFilter-class.html#_load_patterns
+pyinotify.ExcludeFilter.__init__	pyinotify.ExcludeFilter-class.html#__init__
 pyinotify.NoTheme	pyinotify.NoTheme-class.html
 pyinotify.ColorTheme.__getattr__	pyinotify.ColorTheme-class.html#__getattr__
 pyinotify.ColorTheme.__repr__	pyinotify.ColorTheme-class.html#__repr__

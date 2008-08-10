@@ -17,11 +17,8 @@ function toggle_private() {
           if (elts[i].className == "private") {
             elts[i].style.display = ((cmd && cmd.substr(0,4)=="hide")?"none":"block");
           }
-          else if (elts[i].className == "public") {
-            elts[i].style.display = ((cmd && cmd.substr(0,4)=="hide")?"block":"none");
-          }
         }
-        // Update all table rows containing private objects.  Note, we
+        // Update all table rowss containing private objects.  Note, we
         // use "" instead of "block" becaue IE & firefox disagree on what
         // this should be (block vs table-row), and "" just gives the
         // default for both browsers.
@@ -36,7 +33,7 @@ function toggle_private() {
         for(var i=0; i<elts.length; i++) {
           if (elts[i].className == "private") {
             elts[i].style.display = ((cmd && cmd.substr(0,4)=="hide")?
-                                        "none":"");
+                                        "none":"list-item");
           }
         }
         // Update all list items containing private objects.
@@ -48,16 +45,6 @@ function toggle_private() {
         }
         // Set a cookie to remember the current option.
         document.cookie = "EpydocPrivate="+cmd;
-      }
-function show_private() {
-        var elts = document.getElementsByTagName("a");
-        for(var i=0; i<elts.length; i++) {
-          if (elts[i].className == "privatelink") {
-            cmd = elts[i].innerHTML;
-            if (cmd && cmd.substr(0,4)=="show")
-                toggle_private();
-          }
-        }
       }
 function getCookie(name) {
         var dc = document.cookie;
@@ -108,7 +95,7 @@ function collapse(id) {
   var elt = document.getElementById(id+"-expanded-linenums");
   if (elt) elt.style.display = "none";
   var elt = document.getElementById(id+"-collapsed-linenums");
-  if (elt) { elt.innerHTML = "<br />"; elt.style.display="block"; }
+  if (elt) { elt.innerHTML = "<br/>"; elt.style.display="block"; }
   var elt = document.getElementById(id+"-toggle");
   if (elt) { elt.innerHTML = "+"; }
   var elt = document.getElementById(id+"-collapsed");

@@ -55,29 +55,40 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ThreadedNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier">source&nbsp;code</a></span></p>
-<pre class="base-tree">
-        object --+        
-                 |        
-threading._Verbose --+    
-                     |    
-      threading.Thread --+
-                         |
-            object --+   |
-                     |   |
-              <a href="pyinotify.Notifier-class.html">Notifier</a> --+
-                         |
-                        <strong class="uidshort">ThreadedNotifier</strong>
-</pre>
-
+<h1 class="epydoc">Class ThreadedNotifier</h1><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_pyinotif_17" name="uml_class_diagram_for_pyinotif_17">
+<area shape="rect" href="javascript: void(0);" title="threading.Thread.isDaemon" alt="" coords="345,97,508,116"/>
+<area shape="rect" href="javascript: void(0);" title="threading.Thread.isAlive" alt="" coords="345,116,508,134"/>
+<area shape="rect" href="javascript: void(0);" title="threading.Thread.getName" alt="" coords="345,134,508,153"/>
+<area shape="rect" href="javascript: void(0);" title="threading.Thread.start" alt="" coords="345,153,508,172"/>
+<area shape="rect" href="javascript: void(0);" title="threading.Thread.setName" alt="" coords="345,172,508,190"/>
+<area shape="rect" href="javascript: void(0);" title="threading.Thread.setDaemon" alt="" coords="345,190,508,209"/>
+<area shape="rect" href="javascript: void(0);" title="threading.Thread.join" alt="" coords="345,209,508,228"/>
+<area shape="rect" href="javascript: void(0);" title="repr(x)" alt="" coords="345,228,508,246"/>
+<area shape="rect" href="javascript: void(0);" title="threading.Thread" alt="" coords="344,72,509,248"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier&#45;class.html#run" title="Start the thread&#39;s loop: read and process events until the method stop() is called." alt="" coords="17,302,639,321"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier&#45;class.html#__init__" title="Initialization, initialize base classes." alt="" coords="17,321,639,340"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier&#45;class.html#stop" title="Stop the notifier&#39;s loop." alt="" coords="17,340,639,358"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier&#45;class.html#loop" title="Thread&#39;s main loop." alt="" coords="17,358,639,377"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier&#45;class.html" title="This notifier inherits from threading.Thread for instantiating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="16,277,640,378"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="169,134,292,153"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="169,153,292,172"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="169,172,292,190"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html#process_events" title="Routine for processing events from queue by calling their associated  proccessing function (instance of ProcessEvent)." alt="" coords="169,190,292,209"/>
+<area shape="rect" href="pyinotify.Notifier&#45;class.html" title="Read notifications, process events." alt="" coords="168,109,293,210"/>
+<area shape="rect" href="javascript: void(0);" title="threading._Verbose" alt="" coords="369,10,484,42"/>
+</map>
+  <img src="uml_class_diagram_for_pyinotif_17.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_17" ismap="ismap" class="graph-without-title" />
+</center></center>
 <hr />
 <p>This notifier inherits from threading.Thread for instantiating a 
   separate thread, and also inherits from Notifier, because it is a 
   threaded notifier.</p>
-  <p>This class is only maintained for legacy reasons, everything possible 
+  This class is only maintained for legacy reasons, everything possible 
   with this class is also possible with Notifier, but Notifier is _better_ 
   under many aspects (not threaded, can be daemonized, won't unnecessarily 
-  read for events).</p>
+  read for events).<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -195,7 +206,7 @@ threading._Verbose --+
       <code><a href="pyinotify.Notifier-class.html#read_events">read_events</a></code>
       </p>
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b> (private):
-      <code><a href="pyinotify.Notifier-class.html#_sleep" onclick="show_private();">_sleep</a></code>
+      <code><a href="pyinotify.Notifier-class.html#_sleep">_sleep</a></code>
       </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
@@ -271,18 +282,18 @@ threading._Verbose --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Initialization, initialize base classes. read_freq, treshold and 
-  timeout parameters are used when looping.</p>
+  Initialization, initialize base classes. read_freq, treshold and 
+  timeout parameters are used when looping.
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>watch_manager</code></strong> (WatchManager instance) - Watch Manager.</li>
         <li><strong class="pname"><code>default_proc_fun</code></strong> (instance of ProcessEvent) - Default processing method.</li>
-        <li><strong class="pname"><code>read_freq</code></strong> (int) - if read_freq == 0, events are read asap, if read_freq is &gt; 0, 
-          this thread sleeps max(0, read_freq - timeout) seconds.</li>
-        <li><strong class="pname"><code>treshold</code></strong> (int) - File descriptor will be read only if its size to read is &gt;= 
+        <li><strong class="pname"><code>read_freq</code></strong> (int) - if read_freq == 0, events are read asap, if read_freq is &gt; 
+          0, this thread sleeps max(0, read_freq - timeout) seconds.</li>
+        <li><strong class="pname"><code>treshold</code></strong> (int) - File descriptor will be read only if its size to read is &gt;=
           treshold. If != 0, you likely want to use it in combination with 
           read_freq because without that you keep looping without really 
           reading anything and that until the amount to read is &gt;= 
@@ -292,7 +303,7 @@ threading._Verbose --+
           it.</li>
     </ul></dd>
     <dt>Overrides:
-        object.__init__
+      threading.Thread.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -309,12 +320,12 @@ threading._Verbose --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.stop">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Stop the notifier's loop. Stop notification. Join the thread.</p>
+  Stop the notifier's loop. Stop notification. Join the thread.
   <dl class="fields">
     <dt>Overrides:
-        <a href="pyinotify.Notifier-class.html#stop">Notifier.stop</a>
+      <a href="pyinotify.Notifier-class.html#stop">Notifier.stop</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -331,21 +342,15 @@ threading._Verbose --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.loop">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Thread's main loop. don't meant to be called by user directly. Call 
   start() instead.</p>
-  <p>Events are read only once time every min(read_freq, timeout) seconds 
-  at best and only if the size to read is &gt;= treshold.</p>
+  Events are read only once time every min(read_freq, timeout) seconds 
+  at best and only if the size to read is &gt;= treshold.
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>callback</code></strong> - Functor called after each event processing. Expects to receive 
-          notifier object (self) as first parameter.</li>
-        <li><strong class="pname"><code>daemonize</code></strong> - This thread is daemonized if set to True.</li>
-    </ul></dd>
     <dt>Overrides:
-        <a href="pyinotify.Notifier-class.html#loop">Notifier.loop</a>
+      <a href="pyinotify.Notifier-class.html#loop">Notifier.loop</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -362,15 +367,15 @@ threading._Verbose --+
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.run">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Start the thread's loop: read and process events until the method 
+  Start the thread's loop: read and process events until the method 
   stop() is called. Never call this method directly, instead call the 
   start() method inherited from threading.Thread, which then will call 
-  run().</p>
+  run().
   <dl class="fields">
     <dt>Overrides:
-        threading.Thread.run
+      threading.Thread.run
     </dt>
   </dl>
 </td></tr></table>
@@ -402,11 +407,10 @@ threading._Verbose --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Mon Mar 31 19:54:47 2008
+    Generated by Epydoc 3.0beta1 on Sun Aug 10 13:37:38 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -417,8 +421,9 @@ threading._Verbose --+
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

@@ -55,7 +55,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.0t"
+__version__ = "0.8.1"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -78,9 +78,8 @@ try:
     import psyco
     psyco.full()
 except ImportError:
-    log.info('Maybe it could speed-up a little bit'
-             ' if you had psyco installed (not required).')
-
+    # Cannot import psyco
+    pass
 
 
 ### inotify's variables ###
@@ -1818,9 +1817,9 @@ def command_line():
                                 s.proc_fun()))
         cb_fun = cb
 
-    wm.add_watch(path, mask, rec=options.recursive, auto_add=options.auto_add)
+    log.debug('Start monitoring %s, (press c^c to halt pyinotify)' % path)
 
-    log.debug('start monitoring %s, (press c^c to halt pyinotify)' % path)
+    wm.add_watch(path, mask, rec=options.recursive, auto_add=options.auto_add)
     # Loop forever (until sigint signal)
     notifier.loop(callback=cb_fun)
 

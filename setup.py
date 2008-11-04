@@ -33,14 +33,14 @@ classif=[
 
 setup(
     name='pyinotify',
-    version='0.8.0',
+    version='0.8.1',
     description='Filesystem monitoring, use inotify',
     author='Sebastien Martini',
     author_email='sebastien.martini@gmail.com',
     license='GPL 2',
     platforms='Linux',
     classifiers=classif,
-    url='http://seb.dbzteam.org/pages/pyinotify-dev.html',
+    url='http://trac.dbzteam.org/pyinotify',
     download_url='http://git.dbzteam.org/?p=pyinotify.git;a=snapshot;h=HEAD;sf=tgz',
     py_modules=['pyinotify'],
     )

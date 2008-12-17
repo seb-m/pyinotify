@@ -61,8 +61,15 @@ __metaclass__ = type  # Use new-style classes by default
 
 
 # load libc
-# ctypes.CDLL("libc.so.6")
-LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('libc'))
+LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
+
+# the libc version check.
+# XXX: Maybe it is better to check if the libc has the needed functions inside?
+#      Because there are inotify patches for libc 2.3.6.
+if not ctypes.cast(LIBC.gnu_get_libc_version(),
+                   ctypes.c_char_p).value >= '2.4':
+    sys.stderr.write('pyinotify needs libc6 version 2.4 or higher')
+    sys.exit(1)
 
 
 # logging

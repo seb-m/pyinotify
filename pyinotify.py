@@ -94,16 +94,13 @@ __metaclass__ = type  # Use new-style classes by default
 # load libc
 LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
 
-# Fixme: code commented for now, there is a problem on arch 64 bits
-# see http://bugs.python.org/issue4854
-
 # the libc version check.
 # XXX: Maybe it is better to check if the libc has the needed functions inside?
 #      Because there are inotify patches for libc 2.3.6.
-#LIBC_VERSION = ctypes.cast(LIBC.gnu_get_libc_version(),
-#                   ctypes.c_char_p).value
-#if not LIBC_VERSION >= '2.4':
-#    raise UnsupportedLibcVersionError(LIBC_VERSION)
+LIBC.gnu_get_libc_version.restype = ctypes.c_char_p
+LIBC_VERSION = LIBC.gnu_get_libc_version()
+if LIBC_VERSION < '2.4':
+    raise UnsupportedLibcVersionError(LIBC_VERSION)
 
 
 # logging

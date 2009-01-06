@@ -1,2 +1,3 @@
-- Optionally store watchs in a db to reduce memory footprint
-- Check for right glibc version
+- Optionally store watchs in a DB to reduce memory footprint
+- Removes sys.exit replace by appropriate exceptions
+- Convert to Python 3

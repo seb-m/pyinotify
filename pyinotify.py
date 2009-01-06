@@ -26,11 +26,42 @@ pyinotify
 @contact: seb@dbzteam.org
 """
 
+class PyinotifyError(Exception):
+    """Indicates exceptions raised by a Pyinotify class."""
+
+
+class UnsupportedPythonVersionError(PyinotifyError):
+    """
+    Raised for unsupported Python version.
+    """
+    def __init__(self, version):
+        """
+        @param version: Current Python version
+        @type version: string
+        """
+        PyinotifyError.__init__(self,
+                                ('Python %s is unsupported, requires '
+                                'at least Python 2.4') % version)
+
+
+class UnsupportedLibcVersionError(PyinotifyError):
+    """
+    Raised for unsupported libc version.
+    """
+    def __init__(self, version):
+        """
+        @param version: Current Libc version
+        @type version: string
+        """
+        PyinotifyError.__init__(self,
+                                ('Libc %s is unsupported, requires '
+                                'at least Libc 2.4') % version)
+
+
 # Check version
 import sys
 if sys.version < '2.4':
-    sys.stderr.write('This module requires at least Python 2.4\n')
-    sys.exit(1)
+    raise UnsupportedPythonVersionError(sys.version)
 
 
 # Import directives
@@ -55,7 +86,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.1"
+__version__ = "0.8.2"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -63,13 +94,16 @@ __metaclass__ = type  # Use new-style classes by default
 # load libc
 LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
 
+# Fixme: code commented for now, there is a problem on arch 64 bits
+# see http://bugs.python.org/issue4854
+
 # the libc version check.
 # XXX: Maybe it is better to check if the libc has the needed functions inside?
 #      Because there are inotify patches for libc 2.3.6.
-if not ctypes.cast(LIBC.gnu_get_libc_version(),
-                   ctypes.c_char_p).value >= '2.4':
-    sys.stderr.write('pyinotify needs libc6 version 2.4 or higher')
-    sys.exit(1)
+#LIBC_VERSION = ctypes.cast(LIBC.gnu_get_libc_version(),
+#                   ctypes.c_char_p).value
+#if not LIBC_VERSION >= '2.4':
+#    raise UnsupportedLibcVersionError(LIBC_VERSION)
 
 
 # logging
@@ -475,16 +509,16 @@ class Event(_Event):
             pass
 
 
-class ProcessEventError(Exception):
+class ProcessEventError(PyinotifyError):
     """
     ProcessEventError Exception. Raised on ProcessEvent error.
     """
-    def __init__(self, msg):
+    def __init__(self, err):
         """
-        @param msg: Exception string's description.
-        @type msg: string
+        @param err: Exception error description.
+        @type err: string
         """
-        Exception.__init__(self, msg)
+        PyinotifyError.__init__(self, err)
 
 
 class _ProcessEvent:
@@ -836,17 +870,17 @@ class Stats(ProcessEvent):
         return s
 
 
-class NotifierError(Exception):
+class NotifierError(PyinotifyError):
     """
     Notifier Exception. Raised on Notifier error.
 
     """
-    def __init__(self, msg):
+    def __init__(self, err):
         """
-        @param msg: Exception string's description.
-        @type msg: string
+        @param err: Exception string's description.
+        @type err: string
         """
-        Exception.__init__(self, msg)
+        PyinotifyError.__init__(self, err)
 
 
 class Notifier:

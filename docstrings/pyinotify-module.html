@@ -54,16 +54,13 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module pyinotify</h1><span class="codelink"><a href="pyinotify-pysrc.html">source&nbsp;code</a></span><br /><br />
-pyinotify<br /><br />
+<h1 class="epydoc">Module pyinotify</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html">source&nbsp;code</a></span></p>
+<p>pyinotify</p>
 
 <hr />
-<div class="fields">      <dl><dt>Authors:</dt>
-        <dd>
-          Sebastien Martini,
-          seb@dbzteam.org (Sebastien Martini)
-        </dd>
-      </dl>
+<div class="fields">      <p><strong>Author:</strong>
+        Sebastien Martini
+      </p>
       <p><strong>License:</strong>
         GPL 2
       </p>
@@ -71,7 +68,7 @@ pyinotify<br /><br />
         seb@dbzteam.org
       </p>
       <p><strong>Version:</strong>
-        0.8.0t
+        0.8.2
       </p>
 </div><!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -94,6 +91,30 @@ pyinotify<br /><br />
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a href="pyinotify.PyinotifyError-class.html" class="summary-name">PyinotifyError</a><br />
+      Indicates exceptions raised by a Pyinotify class.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.UnsupportedPythonVersionError-class.html" class="summary-name">UnsupportedPythonVersionError</a><br />
+      Raised for unsupported Python version.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.UnsupportedLibcVersionError-class.html" class="summary-name">UnsupportedLibcVersionError</a><br />
+      Raised for unsupported libc version.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a href="pyinotify.SysCtlINotify-class.html" class="summary-name">SysCtlINotify</a><br />
       Access (read, write) inotify's variables through sysctl.
     </td>
@@ -110,7 +131,7 @@ pyinotify<br /><br />
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify._Event-class.html" class="summary-name">_Event</a><br />
+        <a href="pyinotify._Event-class.html" class="summary-name" onclick="show_private();">_Event</a><br />
       Event structure, represent events raised by the system.
     </td>
   </tr>
@@ -118,7 +139,7 @@ pyinotify<br /><br />
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify._RawEvent-class.html" class="summary-name">_RawEvent</a><br />
+        <a href="pyinotify._RawEvent-class.html" class="summary-name" onclick="show_private();">_RawEvent</a><br />
       Raw event, it contains only the informations provided by the 
         system.
     </td>
@@ -128,8 +149,8 @@ pyinotify<br /><br />
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.Event-class.html" class="summary-name">Event</a><br />
-      This class contains all the useful informations about the 
-        observed event.
+      This class contains all the useful informations about the observed 
+        event.
     </td>
   </tr>
 <tr>
@@ -144,7 +165,7 @@ pyinotify<br /><br />
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify._ProcessEvent-class.html" class="summary-name">_ProcessEvent</a><br />
+        <a href="pyinotify._ProcessEvent-class.html" class="summary-name" onclick="show_private();">_ProcessEvent</a><br />
       Abstract processing event class.
     </td>
   </tr>
@@ -152,7 +173,7 @@ pyinotify<br /><br />
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify._SysProcessEvent-class.html" class="summary-name">_SysProcessEvent</a><br />
+        <a href="pyinotify._SysProcessEvent-class.html" class="summary-name" onclick="show_private();">_SysProcessEvent</a><br />
       There is three kind of processing according to each event:
     </td>
   </tr>
@@ -161,7 +182,7 @@ pyinotify<br /><br />
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.ProcessEvent-class.html" class="summary-name">ProcessEvent</a><br />
-      Process events objects, can be specialized via subclassing, thus
+      Process events objects, can be specialized via subclassing, thus 
         its behavior can be overriden:
     </td>
   </tr>
@@ -170,7 +191,7 @@ pyinotify<br /><br />
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.ChainIf-class.html" class="summary-name">ChainIf</a><br />
-      Makes conditional chaining depending on the result of the nested
+      Makes conditional chaining depending on the result of the nested 
         processing instance.
     </td>
   </tr>
@@ -202,7 +223,7 @@ pyinotify<br /><br />
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.ThreadedNotifier-class.html" class="summary-name">ThreadedNotifier</a><br />
-      This notifier inherits from threading.Thread for instantiating a
+      This notifier inherits from threading.Thread for instantiating a 
         separate thread, and also inherits from Notifier, because it is a 
         threaded notifier.
     </td>
@@ -403,7 +424,21 @@ pyinotify<br /><br />
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="LIBC"></a><span class="summary-name">LIBC</span> = <code title="&lt;CDLL 'None', handle 4001b668 at 84703ac&gt;">&lt;CDLL 'None', handle 4001b668 at 84703ac&gt;</code>
+        <a name="__author__"></a><span class="summary-name">__author__</span> = <code title="'seb@dbzteam.org (Sebastien Martini)'"><code class="variable-quote">'</code><code class="variable-string">seb@dbzteam.org (Sebastien Martini)</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="LIBC"></a><span class="summary-name">LIBC</span> = <code title="&lt;CDLL 'libc.so.6', handle 2aed351844a8 at ea0850&gt;">&lt;CDLL 'libc.so.6', handle 2aed351844a8 at ea0850&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="LIBC_VERSION"></a><span class="summary-name">LIBC_VERSION</span> = <code title="'2.8.90'"><code class="variable-quote">'</code><code class="variable-string">2.8.90</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
 <tr>
@@ -701,10 +736,11 @@ pyinotify<br /><br />
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Sun Aug 10 13:37:37 2008
+    Generated by Epydoc 3.0.1 on Tue Jan  6 22:57:23 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -715,9 +751,8 @@ pyinotify<br /><br />
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

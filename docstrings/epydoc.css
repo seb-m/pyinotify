@@ -17,6 +17,7 @@
  *     defined below).
  */
 body                        { background: #ffffff; color: #000000; }
+p                           { margin-top: 0.5em; margin-bottom: 0.5em; }
 a:link                      { color: #0000ff; }
 a:visited                   { color: #204080; }
 dt                          { font-weight: bold; }
@@ -27,6 +28,8 @@ h2                          { font-size: +125%; font-style: italic;
 h3                          { font-size: +110%; font-style: italic;
                               font-weight: normal; }
 code                        { font-size: 100%; }
+/* N.B.: class, not pseudoclass */
+a.link                      { font-family: monospace; }
  
 /* Page Header & Footer
  *   - The standard page header consists of a navigation bar (with
@@ -41,7 +44,8 @@ code                        { font-size: 100%; }
  */ 
 h1.epydoc                   { margin: 0; font-size: +140%; font-weight: bold; }
 h2.epydoc                   { font-size: +130%; font-weight: bold; }
-h3.epydoc                   { font-size: +115%; font-weight: bold; }
+h3.epydoc                   { font-size: +115%; font-weight: bold;
+                              margin-top: 0.2em; }
 td h3.epydoc                { font-size: +115%; font-weight: bold;
                               margin-bottom: 0; }
 table.navbar                { background: #a0c0ff; color: #000000;
@@ -112,6 +116,7 @@ table.details a:visited     { color: #204080; }
 dl.fields                   { margin-left: 2em; margin-top: 1em;
                               margin-bottom: 1em; }
 dl.fields dd ul             { margin-left: 0em; padding-left: 0em; }
+dl.fields dd ul li ul       { margin-left: 2em; padding-left: 0em; }
 div.fields                  { margin-left: 2em; }
 div.fields p                { margin-bottom: 0.5em; }
 
@@ -154,6 +159,11 @@ table.summary a.summary-sig-name:visited
                             { color: #006080; font-weight: bold; }
 .summary-sig-arg            { color: #006040; }
 .summary-sig-default        { color: #501800; }
+
+/* Subclass list
+ */
+ul.subclass-list { display: inline; }
+ul.subclass-list li { display: inline; }
 
 /* To render variables, classes etc. like functions */
 table.summary .summary-name { color: #006080; font-weight: bold;

@@ -1,3 +1,2 @@
 - Optionally store watchs in a DB to reduce memory footprint
-- Removes sys.exit replace by appropriate exceptions
 - Convert to Python 3

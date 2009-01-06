@@ -55,23 +55,24 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class WatchManager</h1><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class WatchManager</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_19" name="uml_class_diagram_for_pyinotif_19">
+<center>  <map id="uml_class_diagram_for_pyinotif_22" name="uml_class_diagram_for_pyinotif_22">
 <area shape="rect" href="pyinotify.WatchManager&#45;class.html#__init__" title="Initialization: init inotify, init watch manager dictionary." alt="" coords="17,36,732,55"/>
-<area shape="rect" href="pyinotify.WatchManager&#45;class.html#rm_watch" title="Removes watch(s)." alt="" coords="17,55,732,74"/>
-<area shape="rect" href="pyinotify.WatchManager&#45;class.html#get_wd" title="Returns the watch descriptor associated to path." alt="" coords="17,74,732,92"/>
-<area shape="rect" href="pyinotify.WatchManager&#45;class.html#update_watch" title="Update existing watch(s)." alt="" coords="17,92,732,111"/>
-<area shape="rect" href="pyinotify.WatchManager&#45;class.html#add_watch" title="Add watch(s) on given path(s) with the specified mask and optionnally with  a processing function and recursive flag." alt="" coords="17,111,732,130"/>
-<area shape="rect" href="pyinotify.WatchManager&#45;class.html#get_path" title="Returns the path associated to WD, if WD is unknown None is returned." alt="" coords="17,130,732,148"/>
-<area shape="rect" href="pyinotify.WatchManager&#45;class.html#watch_transient_file" title="Watch a transient file, which will be created and deleted frequently over  time (e.g." alt="" coords="17,148,732,167"/>
+<area shape="rect" href="pyinotify.WatchManager&#45;class.html#add_watch" title="Add watch(s) on given path(s) with the specified mask and optionnally with &#160;a processing function and recursive flag." alt="" coords="17,55,732,74"/>
+<area shape="rect" href="pyinotify.WatchManager&#45;class.html#update_watch" title="Update existing watch(s)." alt="" coords="17,74,732,92"/>
+<area shape="rect" href="pyinotify.WatchManager&#45;class.html#get_wd" title="Returns the watch descriptor associated to path." alt="" coords="17,92,732,111"/>
+<area shape="rect" href="pyinotify.WatchManager&#45;class.html#get_path" title="Returns the path associated to WD, if WD is unknown None is returned." alt="" coords="17,111,732,130"/>
+<area shape="rect" href="pyinotify.WatchManager&#45;class.html#rm_watch" title="Removes watch(s)." alt="" coords="17,130,732,148"/>
+<area shape="rect" href="pyinotify.WatchManager&#45;class.html#watch_transient_file" title="Watch a transient file, which will be created and deleted frequently over &#160;time (e.g." alt="" coords="17,148,732,167"/>
 <area shape="rect" href="pyinotify.WatchManager&#45;class.html" title="Provide operations for watching files and directories." alt="" coords="16,11,733,168"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_19.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_19" ismap="ismap" class="graph-without-title" />
-</center></center>
+  <img src="uml_class_diagram_for_pyinotif_22.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_22" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
 <hr />
-Provide operations for watching files and directories. Integrated 
-  dictionary is used to reference watched items.<br /><br />
+<p>Provide operations for watching files and directories. Integrated 
+  dictionary is used to reference watched items.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -97,7 +98,7 @@ Provide operations for watching files and directories. Integrated
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x84b172c&gt;</span>)</span><br />
+        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0xebe500&gt;</span>)</span><br />
       Initialization: init inotify, init watch manager dictionary.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__init__">source&nbsp;code</a></span>
@@ -114,13 +115,13 @@ Provide operations for watching files and directories. Integrated
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__add_watch" class="summary-sig-name">__add_watch</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__add_watch" class="summary-sig-name" onclick="show_private();">__add_watch</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">path</span>,
         <span class="summary-sig-arg">mask</span>,
         <span class="summary-sig-arg">proc_fun</span>,
         <span class="summary-sig-arg">auto_add</span>)</span><br />
-      Add a watch on path, build a Watch object and insert it in the 
-      watch manager dictionary.</td>
+      Add a watch on path, build a Watch object and insert it in the watch 
+      manager dictionary.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__add_watch">source&nbsp;code</a></span>
             
@@ -163,8 +164,8 @@ Provide operations for watching files and directories. Integrated
         <span class="summary-sig-arg">do_glob</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Add watch(s) on given path(s) with the specified mask and 
-      optionnally with a processing function and recursive flag.</td>
+      Add watch(s) on given path(s) with the specified mask and optionnally
+      with a processing function and recursive flag.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.add_watch">source&nbsp;code</a></span>
             
@@ -180,10 +181,10 @@ Provide operations for watching files and directories. Integrated
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__get_sub_rec" class="summary-sig-name">__get_sub_rec</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__get_sub_rec" class="summary-sig-name" onclick="show_private();">__get_sub_rec</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">lpath</span>)</span><br />
-      Get every wd from self._wmd if its path is under the path of one 
-      (at least) of those in lpath.</td>
+      Get every wd from self._wmd if its path is under the path of one (at 
+      least) of those in lpath.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__get_sub_rec">source&nbsp;code</a></span>
             
@@ -222,7 +223,7 @@ Provide operations for watching files and directories. Integrated
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__format_param" class="summary-sig-name">__format_param</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__format_param" class="summary-sig-name" onclick="show_private();">__format_param</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">param</span>)</span><br />
       Returns:
       wrap param.</td>
@@ -261,8 +262,7 @@ Provide operations for watching files and directories. Integrated
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#get_path" class="summary-sig-name">get_path</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">wd</span>)</span><br />
-      Returns the path associated to WD, if WD is unknown None is 
-      returned.</td>
+      Returns the path associated to WD, if WD is unknown None is returned.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_path">source&nbsp;code</a></span>
             
@@ -278,7 +278,7 @@ Provide operations for watching files and directories. Integrated
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__walk_rec" class="summary-sig-name">__walk_rec</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__walk_rec" class="summary-sig-name" onclick="show_private();">__walk_rec</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">top</span>,
         <span class="summary-sig-arg">rec</span>)</span><br />
       Yields each subdirectories of top, doesn't follow symlinks.</td>
@@ -321,8 +321,8 @@ Provide operations for watching files and directories. Integrated
         <span class="summary-sig-arg">filename</span>,
         <span class="summary-sig-arg">mask</span>,
         <span class="summary-sig-arg">proc_class</span>)</span><br />
-      Watch a transient file, which will be created and deleted 
-      frequently over time (e.g.</td>
+      Watch a transient file, which will be created and deleted frequently 
+      over time (e.g.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.watch_transient_file">source&nbsp;code</a></span>
             
@@ -399,25 +399,25 @@ Provide operations for watching files and directories. Integrated
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x84b172c&gt;</span>)</span>
+        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0xebe500&gt;</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Initialization: init inotify, init watch manager dictionary. Raise 
-  OSError if initialization fails.
+  <p>Initialization: init inotify, init watch manager dictionary. Raise 
+  OSError if initialization fails.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>exclude_filter</code></strong> (bool) - boolean function, returns True if current path must be 
-          excluded from being watched. Convenient for providing a common 
-          exclusion filter for every call to add_watch.</li>
+        <li><strong class="pname"><code>exclude_filter</code></strong> (bool) - boolean function, returns True if current path must be excluded 
+          from being watched. Convenient for providing a common exclusion 
+          filter for every call to add_watch.</li>
     </ul></dd>
     <dt>Overrides:
-      object.__init__
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -438,10 +438,10 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__add_watch">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Add a watch on path, build a Watch object and insert it in the watch 
-  manager dictionary. Return the wd value.
+  <p>Add a watch on path, build a Watch object and insert it in the watch 
+  manager dictionary. Return the wd value.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -466,28 +466,28 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.add_watch">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Add watch(s) on given path(s) with the specified mask and optionnally 
-  with a processing function and recursive flag.
+  <p>Add watch(s) on given path(s) with the specified mask and optionnally 
+  with a processing function and recursive flag.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string or list of string) - Path to watch, the path can either be a file or a directory. 
-          Also accepts a sequence (list) of paths.</li>
+        <li><strong class="pname"><code>path</code></strong> (string or list of string) - Path to watch, the path can either be a file or a directory. Also
+          accepts a sequence (list) of paths.</li>
         <li><strong class="pname"><code>mask</code></strong> (int) - Bitmask of events.</li>
         <li><strong class="pname"><code>proc_fun</code></strong> (function or ProcessEvent instance or instance of one of its 
           subclasses or callable object.) - Processing object.</li>
-        <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively add watches from path on all its subdirectories, 
-          set to False by default (doesn't follows symlinks).</li>
+        <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively add watches from path on all its subdirectories, set 
+          to False by default (doesn't follows symlinks).</li>
         <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically add watches on newly created directories in the 
           watch's path.</li>
         <li><strong class="pname"><code>do_glob</code></strong> (bool) - Do globbing on pathname.</li>
         <li><strong class="pname"><code>quiet</code></strong> (bool) - if True raise an WatchManagerError exception on error. See 
           example not_quiet.py</li>
-        <li><strong class="pname"><code>exclude_filter</code></strong> (bool) - boolean function, returns True if current path must be 
-          excluded from being watched. Has precedence on exclude_filter 
-          defined into __init__.</li>
+        <li><strong class="pname"><code>exclude_filter</code></strong> (bool) - boolean function, returns True if current path must be excluded 
+          from being watched. Has precedence on exclude_filter defined into
+          __init__.</li>
     </ul></dd>
     <dt>Returns: dict of {str: int}</dt>
         <dd>dict of paths associated to watch descriptors. A wd value is 
@@ -510,10 +510,10 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__get_sub_rec">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Get every wd from self._wmd if its path is under the path of one (at 
-  least) of those in lpath. Doesn't follow symlinks.
+  <p>Get every wd from self._wmd if its path is under the path of one (at 
+  least) of those in lpath. Doesn't follow symlinks.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -542,10 +542,10 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.update_watch">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Update existing watch(s). Both the mask and the processing object can 
-  be modified.
+  <p>Update existing watch(s). Both the mask and the processing object can 
+  be modified.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -562,8 +562,8 @@ Provide operations for watching files and directories. Integrated
           example not_quiet.py</li>
     </ul></dd>
     <dt>Returns: dict of int: bool</dt>
-        <dd>dict of watch descriptors associated to booleans values. True 
-          if the corresponding wd has been successfully updated, False 
+        <dd>dict of watch descriptors associated to booleans values. True if 
+          the corresponding wd has been successfully updated, False 
           otherwise.</dd>
   </dl>
 </td></tr></table>
@@ -581,7 +581,7 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__format_param">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
   
   <dl class="fields">
@@ -607,11 +607,11 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_wd">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Returns the watch descriptor associated to path. This method has an 
+  <p>Returns the watch descriptor associated to path. This method has an 
   prohibitive cost, always prefer to keep the WD. If path is unknown None 
-  is returned.
+  is returned.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -635,10 +635,10 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_path">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Returns the path associated to WD, if WD is unknown None is 
-  returned.
+  <p>Returns the path associated to WD, if WD is unknown None is 
+  returned.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -663,10 +663,10 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__walk_rec">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Yields each subdirectories of top, doesn't follow symlinks. If rec is 
-  false, only yield top.
+  <p>Yields each subdirectories of top, doesn't follow symlinks. If rec is 
+  false, only yield top.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -693,9 +693,9 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.rm_watch">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Removes watch(s).
+  <p>Removes watch(s).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -707,8 +707,8 @@ Provide operations for watching files and directories. Integrated
           example not_quiet.py</li>
     </ul></dd>
     <dt>Returns: dict of int: bool</dt>
-        <dd>dict of watch descriptors associated to booleans values. True 
-          if the corresponding wd has been successfully removed, False 
+        <dd>dict of watch descriptors associated to booleans values. True if 
+          the corresponding wd has been successfully removed, False 
           otherwise.</dd>
   </dl>
 </td></tr></table>
@@ -728,17 +728,17 @@ Provide operations for watching files and directories. Integrated
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.watch_transient_file">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Watch a transient file, which will be created and deleted frequently 
-  over time (e.g. pid file).
+  <p>Watch a transient file, which will be created and deleted frequently 
+  over time (e.g. pid file).</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>filename</code></strong> (string) - Filename.</li>
         <li><strong class="pname"><code>mask</code></strong> (int) - Bitmask of events, should contain IN_CREATE and IN_DELETE.</li>
-        <li><strong class="pname"><code>proc_class</code></strong> (ProcessEvent's instance or of one of its subclasses.) - ProcessEvent (or of one of its subclass), beware of accepting 
-          a ProcessEvent's instance as argument into __init__, see 
+        <li><strong class="pname"><code>proc_class</code></strong> (ProcessEvent's instance or of one of its subclasses.) - ProcessEvent (or of one of its subclass), beware of accepting a 
+          ProcessEvent's instance as argument into __init__, see 
           transient_file.py example for more details.</li>
     </ul></dd>
     <dt>Returns: See add_watch().</dt>
@@ -773,10 +773,11 @@ Provide operations for watching files and directories. Integrated
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Sun Aug 10 13:37:38 2008
+    Generated by Epydoc 3.0.1 on Tue Jan  6 22:57:24 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -787,9 +788,8 @@ Provide operations for watching files and directories. Integrated
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

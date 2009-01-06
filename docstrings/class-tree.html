@@ -58,98 +58,14 @@
     <li> <strong class="uidlink">object</strong>:
       <em class="summary">The most base type</em>
     <ul>
-    <li> <strong class="uidlink"><a href="pyinotify.EventsCodes-class.html">pyinotify.EventsCodes</a></strong>:
-      <em class="summary">Set of codes corresponding to each kind of events.</em>
-    </li>
-    <li> <strong class="uidlink">threading._Verbose</strong>
-    <ul>
-    <li> <strong class="uidlink">threading.Thread</strong>
-    <ul>
-    <li> <strong class="uidlink"><a href="pyinotify.ThreadedNotifier-class.html">pyinotify.ThreadedNotifier</a></strong>:
-      <em class="summary">This notifier inherits from threading.Thread for instantiating a
-        separate thread, and also inherits from Notifier, because it is a 
-        threaded notifier.</em>
-    </li>
-    </ul>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify._ProcessEvent-class.html">pyinotify._ProcessEvent</a></strong>:
-      <em class="summary">Abstract processing event class.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pyinotify._SysProcessEvent-class.html">pyinotify._SysProcessEvent</a></strong>:
-      <em class="summary">There is three kind of processing according to each event:</em>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.ProcessEvent-class.html">pyinotify.ProcessEvent</a></strong>:
-      <em class="summary">Process events objects, can be specialized via subclassing, thus
-        its behavior can be overriden:</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pyinotify.Stats-class.html">pyinotify.Stats</a></strong>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.ChainIf-class.html">pyinotify.ChainIf</a></strong>:
-      <em class="summary">Makes conditional chaining depending on the result of the nested
-        processing instance.</em>
-    </li>
-    </ul>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify._Event-class.html">pyinotify._Event</a></strong>:
-      <em class="summary">Event structure, represent events raised by the system.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pyinotify._RawEvent-class.html">pyinotify._RawEvent</a></strong>:
-      <em class="summary">Raw event, it contains only the informations provided by the 
-        system.</em>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.Event-class.html">pyinotify.Event</a></strong>:
-      <em class="summary">This class contains all the useful informations about the 
-        observed event.</em>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.Notifier-class.html">pyinotify.Notifier</a></strong>:
-      <em class="summary">Read notifications, process events.</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="pyinotify.ThreadedNotifier-class.html">pyinotify.ThreadedNotifier</a></strong>:
-      <em class="summary">This notifier inherits from threading.Thread for instantiating a
-        separate thread, and also inherits from Notifier, because it is a 
-        threaded notifier.</em>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.Color-class.html">pyinotify.Color</a></strong>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.Watch-class.html">pyinotify.Watch</a></strong>:
-      <em class="summary">Represent a watch, i.e.</em>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.ExcludeFilter-class.html">pyinotify.ExcludeFilter</a></strong>:
-      <em class="summary">ExcludeFilter is an exclusion filter.</em>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.WatchManager-class.html">pyinotify.WatchManager</a></strong>:
-      <em class="summary">Provide operations for watching files and directories.</em>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.ColorTheme-class.html">pyinotify.ColorTheme</a></strong>
-    <ul>
-    <li> <strong class="uidlink"><a href="pyinotify.NoTheme-class.html">pyinotify.NoTheme</a></strong>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.AnsiColorTheme-class.html">pyinotify.AnsiColorTheme</a></strong>
-    <ul>
-    <li> <strong class="uidlink"><a href="pyinotify.DefaultTheme-class.html">pyinotify.DefaultTheme</a></strong>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.BlackAndWhite-class.html">pyinotify.BlackAndWhite</a></strong>
-    </li>
-    </ul>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="pyinotify.SysCtlINotify-class.html">pyinotify.SysCtlINotify</a></strong>:
-      <em class="summary">Access (read, write) inotify's variables through sysctl.</em>
-    </li>
     <li> <strong class="uidlink">exceptions.BaseException</strong>:
       <em class="summary">Common base class for all exceptions</em>
     <ul>
     <li> <strong class="uidlink">exceptions.Exception</strong>:
       <em class="summary">Common base class for all non-exit exceptions.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.PyinotifyError-class.html">pyinotify.PyinotifyError</a></strong>:
+      <em class="summary">Indicates exceptions raised by a Pyinotify class.</em>
     <ul>
     <li> <strong class="uidlink"><a href="pyinotify.NotifierError-class.html">pyinotify.NotifierError</a></strong>:
       <em class="summary">Notifier Exception.</em>
@@ -157,8 +73,103 @@
     <li> <strong class="uidlink"><a href="pyinotify.ProcessEventError-class.html">pyinotify.ProcessEventError</a></strong>:
       <em class="summary">ProcessEventError Exception.</em>
     </li>
+    <li> <strong class="uidlink"><a href="pyinotify.UnsupportedLibcVersionError-class.html">pyinotify.UnsupportedLibcVersionError</a></strong>:
+      <em class="summary">Raised for unsupported libc version.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.UnsupportedPythonVersionError-class.html">pyinotify.UnsupportedPythonVersionError</a></strong>:
+      <em class="summary">Raised for unsupported Python version.</em>
+    </li>
+    </ul>
+    </li>
     <li> <strong class="uidlink"><a href="pyinotify.WatchManagerError-class.html">pyinotify.WatchManagerError</a></strong>:
       <em class="summary">WatchManager Exception.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.Color-class.html">pyinotify.Color</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.ColorTheme-class.html">pyinotify.ColorTheme</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.AnsiColorTheme-class.html">pyinotify.AnsiColorTheme</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.BlackAndWhite-class.html">pyinotify.BlackAndWhite</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.DefaultTheme-class.html">pyinotify.DefaultTheme</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.NoTheme-class.html">pyinotify.NoTheme</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.EventsCodes-class.html">pyinotify.EventsCodes</a></strong>:
+      <em class="summary">Set of codes corresponding to each kind of events.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.ExcludeFilter-class.html">pyinotify.ExcludeFilter</a></strong>:
+      <em class="summary">ExcludeFilter is an exclusion filter.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.Notifier-class.html">pyinotify.Notifier</a></strong>:
+      <em class="summary">Read notifications, process events.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.ThreadedNotifier-class.html">pyinotify.ThreadedNotifier</a></strong>:
+      <em class="summary">This notifier inherits from threading.Thread for instantiating a 
+        separate thread, and also inherits from Notifier, because it is a 
+        threaded notifier.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.SysCtlINotify-class.html">pyinotify.SysCtlINotify</a></strong>:
+      <em class="summary">Access (read, write) inotify's variables through sysctl.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.Watch-class.html">pyinotify.Watch</a></strong>:
+      <em class="summary">Represent a watch, i.e.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.WatchManager-class.html">pyinotify.WatchManager</a></strong>:
+      <em class="summary">Provide operations for watching files and directories.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify._Event-class.html" onclick="show_private();">pyinotify._Event</a></strong>:
+      <em class="summary">Event structure, represent events raised by the system.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.Event-class.html">pyinotify.Event</a></strong>:
+      <em class="summary">This class contains all the useful informations about the observed 
+        event.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify._RawEvent-class.html" onclick="show_private();">pyinotify._RawEvent</a></strong>:
+      <em class="summary">Raw event, it contains only the informations provided by the 
+        system.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify._ProcessEvent-class.html" onclick="show_private();">pyinotify._ProcessEvent</a></strong>:
+      <em class="summary">Abstract processing event class.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.ProcessEvent-class.html">pyinotify.ProcessEvent</a></strong>:
+      <em class="summary">Process events objects, can be specialized via subclassing, thus 
+        its behavior can be overriden:</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.ChainIf-class.html">pyinotify.ChainIf</a></strong>:
+      <em class="summary">Makes conditional chaining depending on the result of the nested 
+        processing instance.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.Stats-class.html">pyinotify.Stats</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify._SysProcessEvent-class.html" onclick="show_private();">pyinotify._SysProcessEvent</a></strong>:
+      <em class="summary">There is three kind of processing according to each event:</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">threading._Verbose</strong>
+    <ul>
+    <li> <strong class="uidlink">threading.Thread</strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.ThreadedNotifier-class.html">pyinotify.ThreadedNotifier</a></strong>:
+      <em class="summary">This notifier inherits from threading.Thread for instantiating a 
+        separate thread, and also inherits from Notifier, because it is a 
+        threaded notifier.</em>
     </li>
     </ul>
     </li>
@@ -193,10 +204,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Sun Aug 10 13:37:36 2008
+    Generated by Epydoc 3.0.1 on Tue Jan  6 22:57:23 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -207,9 +219,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

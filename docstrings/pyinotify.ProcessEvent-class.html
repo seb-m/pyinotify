@@ -55,33 +55,34 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ProcessEvent</h1><span class="codelink"><a href="pyinotify-pysrc.html#ProcessEvent">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Class ProcessEvent</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#ProcessEvent">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_13" name="uml_class_diagram_for_pyinotif_13">
-<area shape="rect" href="pyinotify._ProcessEvent&#45;class.html#__repr__" title="repr(x)" alt="" coords="79,36,167,54"/>
-<area shape="rect" href="pyinotify._ProcessEvent&#45;class.html" title="Abstract processing event class." alt="" coords="77,10,168,56"/>
-<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#pevent" title="pyinotify.ProcessEvent.pevent" alt="" coords="17,102,228,121"/>
-<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#my_init" title="Override this method when subclassing if you want to achieve custom  initialization of your subclass&#39; instance." alt="" coords="17,124,228,142"/>
-<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#nested_pevent" title="pyinotify.ProcessEvent.nested_pevent" alt="" coords="17,142,228,161"/>
-<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#process_default" title="Default default processing event method." alt="" coords="17,161,228,180"/>
-<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#__call__" title="To behave like a functor the object must be callable." alt="" coords="17,180,228,198"/>
-<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#__init__" title="Enable chaining of ProcessEvent instances." alt="" coords="17,198,228,217"/>
-<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html" title="Process events objects, can be specialized via subclassing, thus its behavior can be overriden:" alt="" coords="16,85,229,218"/>
-<area shape="rect" href="pyinotify.ChainIf&#45;class.html" title="Makes conditional chaining depending on the result of the nested processing instance." alt="" coords="47,248,100,274"/>
-<area shape="rect" href="pyinotify.Stats&#45;class.html" title="pyinotify.Stats" alt="" coords="151,248,196,274"/>
+<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#pevent" title="pyinotify.ProcessEvent.pevent" alt="" coords="17,102,231,121"/>
+<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#__init__" title="Enable chaining of ProcessEvent instances." alt="" coords="17,124,231,142"/>
+<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#my_init" title="Override this method when subclassing if you want to achieve custom &#160;initialization of your subclass&#39; instance." alt="" coords="17,142,231,161"/>
+<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#__call__" title="To behave like a functor the object must be callable." alt="" coords="17,161,231,180"/>
+<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#nested_pevent" title="pyinotify.ProcessEvent.nested_pevent" alt="" coords="17,180,231,198"/>
+<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html#process_default" title="Default default processing event method." alt="" coords="17,198,231,217"/>
+<area shape="rect" href="pyinotify.ProcessEvent&#45;class.html" title="Process events objects, can be specialized via subclassing, thus its behavior can be overriden:" alt="" coords="16,85,232,218"/>
+<area shape="rect" href="pyinotify.Stats&#45;class.html" title="pyinotify.Stats" alt="" coords="52,248,97,274"/>
+<area shape="rect" href="pyinotify.ChainIf&#45;class.html" title="Makes conditional chaining depending on the result of the nested processing instance." alt="" coords="148,248,201,274"/>
+<area shape="rect" href="pyinotify._ProcessEvent&#45;class.html#__repr__" title="repr(x)" alt="" coords="80,36,168,54"/>
+<area shape="rect" href="pyinotify._ProcessEvent&#45;class.html" title="Abstract processing event class." alt="" coords="79,10,169,56"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_13.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_13" ismap="ismap" class="graph-without-title" />
-</center></center>
+</center>
+</center>
 <hr />
 <p>Process events objects, can be specialized via subclassing, thus its 
   behavior can be overriden:</p>
-  Note: you should not override __init__ in your subclass instead define
+  <p>Note: you should not override __init__ in your subclass instead define
   a my_init() method, this method will be called from the constructor of 
-  this class with optional parameters.
+  this class with optional parameters.</p>
   <ol start="1">
     <li>
-      Provide methods, e.g. process_IN_DELETE for processing a given 
-      kind of event (eg. IN_DELETE in this case).
+      Provide methods, e.g. process_IN_DELETE for processing a given kind 
+      of event (eg. IN_DELETE in this case).
     </li>
     <li>
       Or/and provide methods for processing events by 'family', e.g. 
@@ -90,10 +91,10 @@
       process_IN_CLOSE_NOWRITE aren't defined).
     </li>
     <li>
-      Or/and override process_default for processing the remaining kind 
-      of events.
+      Or/and override process_default for processing the remaining kind of 
+      events.
     </li>
-  </ol><br /><br />
+  </ol>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -139,8 +140,8 @@
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.ProcessEvent-class.html#my_init" class="summary-sig-name">my_init</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">**kargs</span>)</span><br />
-      Override this method when subclassing if you want to achieve 
-      custom initialization of your subclass' instance.</td>
+      Override this method when subclassing if you want to achieve custom 
+      initialization of your subclass' instance.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#ProcessEvent.my_init">source&nbsp;code</a></span>
             
@@ -204,7 +205,7 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify._ProcessEvent-class.html">_ProcessEvent</a></code></b>:
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify._ProcessEvent-class.html" onclick="show_private();">_ProcessEvent</a></code></b>:
       <code><a href="pyinotify._ProcessEvent-class.html#__repr__">__repr__</a></code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
@@ -303,9 +304,9 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ProcessEvent.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Enable chaining of ProcessEvent instances.
+  <p>Enable chaining of ProcessEvent instances.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -314,7 +315,7 @@
         <li><strong class="pname"><code>kargs</code></strong> (dict) - optional arguments delagated to template method my_init</li>
     </ul></dd>
     <dt>Overrides:
-      object.__init__
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
@@ -332,11 +333,11 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ProcessEvent.my_init">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Override this method when subclassing if you want to achieve custom 
+  <p>Override this method when subclassing if you want to achieve custom 
   initialization of your subclass' instance. You MUST pass keyword 
-  arguments. This method does nothing by default.
+  arguments. This method does nothing by default.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -359,10 +360,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ProcessEvent.__call__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  To behave like a functor the object must be callable. This method is a
-  dispatch method. Lookup order:
+  <p>To behave like a functor the object must be callable. This method is a
+  dispatch method. Lookup order:</p>
   <ol start="1">
     <li>
       process_MASKNAME method
@@ -375,6 +376,10 @@
     </li>
   </ol>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>event</code></strong> - Event to be processed.</li>
+    </ul></dd>
     <dt>Returns: bool</dt>
         <dd>By convention when used from the ProcessEvent class:
           <ul>
@@ -383,12 +388,16 @@
               executing next chained functors (see chain.py example).
             </li>
             <li>
-              Returning True instead means do not execute next 
-              processing functions.
+              Returning True instead means do not execute next processing 
+              functions.
             </li>
           </ul></dd>
+    <dt>Raises:</dt>
+    <dd><ul class="nomargin-top">
+        <li><code><strong class='fraise'><a href="pyinotify.ProcessEventError-class.html">ProcessEventError</a></strong></code> - Event object undispatchable, unknown event.</li>
+    </ul></dd>
     <dt>Overrides:
-      <a href="pyinotify._ProcessEvent-class.html#__call__">_ProcessEvent.__call__</a>
+        <a href="pyinotify._ProcessEvent-class.html#__call__">_ProcessEvent.__call__</a>
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
@@ -407,10 +416,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#ProcessEvent.process_default">source&nbsp;code</a></span>&nbsp;
     </td>
-  </table>
+  </tr></table>
   
-  Default default processing event method. Print event on standart 
-  output.
+  <p>Default default processing event method. Print event on standart 
+  output.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -446,10 +455,11 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Sun Aug 10 13:37:38 2008
+    Generated by Epydoc 3.0.1 on Tue Jan  6 22:57:24 2009
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -460,9 +470,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>

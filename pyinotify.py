@@ -58,7 +58,7 @@ class UnsupportedLibcVersionError(PyinotifyError):
                                 'at least Libc 2.4') % version)
 
 
-# Check version
+# Check Python version
 import sys
 if sys.version < '2.4':
     raise UnsupportedPythonVersionError(sys.version)
@@ -86,7 +86,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.2"
+__version__ = "0.8.3"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -109,12 +109,14 @@ console_handler = logging.StreamHandler()
 console_handler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
 log.addHandler(console_handler)
 log.setLevel(20)
+log.propagate = False
 
 
 # Try to speed-up execution with psyco
 try:
-    import psyco
-    psyco.full()
+    if False:
+        import psyco
+        psyco.full()
 except ImportError:
     # Cannot import psyco
     pass
@@ -1125,8 +1127,8 @@ class Notifier:
                 # Stop monitoring
                 self.stop()
                 break
-            except Exception, err:
-                log.error(err)
+            except:
+                log.error("Exception caught while processing event")
 
     def stop(self):
         """
@@ -1858,7 +1860,7 @@ def command_line():
     log.debug('Start monitoring %s, (press c^c to halt pyinotify)' % path)
 
     wm.add_watch(path, mask, rec=options.recursive, auto_add=options.auto_add)
-    # Loop forever (until sigint signal)
+    # Loop forever (until sigint signal get caught)
     notifier.loop(callback=cb_fun)
 
 

@@ -1,5 +1,6 @@
 # Example
 #
+# This example logs the observed events into a log file.
 from pyinotify import *
 
 

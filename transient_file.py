@@ -1,5 +1,7 @@
 # Example
 #
+# Permit to watch a transient file, run this code, then run
+# transient_file.sh in another shell.
 from pyinotify import *
 
 
@@ -11,14 +13,16 @@ class ProcessTransientFile(ProcessEvent):
 
     def process_default(self, event):
         # Implicitely IN_CREATE and IN_DELATE are watched too. You can
-        # ignore them and provide an empty process_default or you process them,
-        # either with process_default or their dedicated method
-        # (process_IN_CREATE, process_IN_DELETE), which will override
-        # process_default.
+        # ignore them and provide an empty process_default or you can
+        # process them, either with process_default or their dedicated
+        # method (process_IN_CREATE, process_IN_DELETE) which would
+        # override process_default.
         print 'default: ', event.maskname
 
 
 wm = WatchManager()
 notifier = Notifier(wm)
+# In this case you must give the class object (ProcessTransientFile)
+# as last parameter not a class instance.
 wm.watch_transient_file('/tmp/test1234', IN_MODIFY, ProcessTransientFile)
 notifier.loop()

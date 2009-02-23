@@ -1,5 +1,6 @@
 # Example
 #
+# Prints statistics.
 from pyinotify import *
 
 

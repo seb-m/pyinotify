@@ -86,7 +86,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.3"
+__version__ = "0.8.4"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -109,7 +109,6 @@ console_handler = logging.StreamHandler()
 console_handler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
 log.addHandler(console_handler)
 log.setLevel(20)
-log.propagate = False
 
 
 # Try to speed-up execution with psyco
@@ -770,9 +769,14 @@ class ProcessEvent(_ProcessEvent):
     def __call__(self, event):
         stop_chaining = False
         if self.pevent is not None:
+            # By default methods return None so we fix as guideline
+            # that methods asking for stop chaining must explicitely
+            # return non None or False values, otherwise the default
+            # behavior is to chain call to the corresponding local
+            # method.
             stop_chaining = self.pevent(event)
         if not stop_chaining:
-            _ProcessEvent.__call__(self, event)
+            return _ProcessEvent.__call__(self, event)
 
     def nested_pevent(self):
         return self.pevent
@@ -788,7 +792,7 @@ class ProcessEvent(_ProcessEvent):
         print(repr(event))
 
 
-class ChainIf(ProcessEvent):
+class ChainIfTrue(ProcessEvent):
     """
     Makes conditional chaining depending on the result of the nested
     processing instance.
@@ -1127,8 +1131,8 @@ class Notifier:
                 # Stop monitoring
                 self.stop()
                 break
-            except:
-                log.error("Exception caught while processing event")
+            except Exception, err:
+                log.error(err)
 
     def stop(self):
         """
@@ -1679,7 +1683,7 @@ class WatchManager:
         def cmp_name(event):
             return basename == event.name
         return self.add_watch(dirname, mask,
-                              proc_fun=proc_class(ChainIf(func=cmp_name)),
+                              proc_fun=proc_class(ChainIfTrue(func=cmp_name)),
                               rec=False,
                               auto_add=False, do_glob=False)
 

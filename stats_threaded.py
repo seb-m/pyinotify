@@ -26,13 +26,12 @@ wm.add_watch('/tmp/', ALL_EVENTS, rec=True, auto_add=True)
 while True:
     try:
         print repr(s)
-        print
         print s
         print
         time.sleep(5)
     except KeyboardInterrupt:
-        print 'stop monitoring...'
         notifier.stop()
         break
-    except Exception, err:
-        print err
+    except:
+        notifier.stop()
+        raise

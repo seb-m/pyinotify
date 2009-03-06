@@ -86,7 +86,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.4"
+__version__ = "0.8.5"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -137,13 +137,6 @@ class SysCtlINotify:
                      'max_user_watches': 2,
                      'max_queued_events': 3}
 
-    def __new__(cls, *p, **k):
-        attrname = p[0]
-        if not attrname in globals():
-            globals()[attrname] = super(SysCtlINotify, cls).__new__(cls, *p,
-                                                                    **k)
-        return globals()[attrname]
-
     def __init__(self, attrname):
         sino = ctypes.c_int * 3
         self._attrname = attrname
@@ -188,8 +181,8 @@ class SysCtlINotify:
 # read int: myvar = max_queued_events.value
 # update: max_queued_events.value = 42
 #
-for i in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
-    SysCtlINotify(i)
+for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
+    globals()[attrname] = SysCtlINotify(attrname)
 
 
 # fixme: put those tests elsewhere
@@ -210,7 +203,7 @@ for i in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
 # Code taken from standart Python Lib, slightly modified in order to work
 # with pyinotify (don't exclude dotted files/dirs like .foo).
 # Original version:
-# http://svn.python.org/projects/python/trunk/Lib/glob.py
+# @see: http://svn.python.org/projects/python/trunk/Lib/glob.py
 
 def iglob(pathname):
     if not has_magic(pathname):
@@ -915,7 +908,7 @@ class Notifier:
                          is >= treshold. At least with read_freq you may sleep.
         @type treshold: int
         @param timeout:
-           see http://docs.python.org/lib/poll-objects.html#poll-objects
+            http://docs.python.org/lib/poll-objects.html#poll-objects
         @type timeout: int
         """
         # watch manager instance
@@ -925,6 +918,8 @@ class Notifier:
         # poll object and registration
         self._pollobj = select.poll()
         self._pollobj.register(self._fd, select.POLLIN)
+        # This pipe is correctely initialized and used by ThreadedNotifier
+        self._pipe = (-1, -1)
         # event queue
         self._eventq = deque()
         # system processing functor, common to all events
@@ -959,7 +954,7 @@ class Notifier:
             else:
                 break
 
-        if not ret:
+        if not ret or (self._pipe[0] == ret[0][0]):
             return False
         # only one fd is polled
         return ret[0][1] & select.POLLIN
@@ -1126,14 +1121,12 @@ class Notifier:
                     self._sleep(ref_time)
                     self.read_events()
             except KeyboardInterrupt:
-                # Unless sigint is caught (c^c)
-                log.debug('stop monitoring...')
+                # Unless sigint is caught (Control-C)
+                log.debug('Pyinotify stops monitoring.')
                 # Stop monitoring
                 self.stop()
                 break
-            except Exception, err:
-                log.error(err)
-
+ 
     def stop(self):
         """
         Close the inotify's instance (close its file descriptor).
@@ -1148,13 +1141,12 @@ class ThreadedNotifier(threading.Thread, Notifier):
     This notifier inherits from threading.Thread for instantiating a separate
     thread, and also inherits from Notifier, because it is a threaded notifier.
 
-    This class is only maintained for legacy reasons, everything possible with
-    this class is also possible with Notifier, but Notifier is _better_ under
-    many aspects (not threaded, can be daemonized, won't unnecessarily read
-    for events).
+    Note that everything possible with this class is also possible through
+    Notifier. Moreover Notifier is _better_ under many aspects: not threaded,
+    can be easily daemonized.
     """
     def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
-                 read_freq=0, treshold=0, timeout=10000):
+                 read_freq=0, treshold=0, timeout=None):
         """
         Initialization, initialize base classes. read_freq, treshold and
         timeout parameters are used when looping.
@@ -1180,39 +1172,44 @@ class ThreadedNotifier(threading.Thread, Notifier):
            it.
         @type timeout: int
         """
-        # init threading base class
+        # Init threading base class
         threading.Thread.__init__(self)
-        # stop condition
+        # Stop condition
         self._stop_event = threading.Event()
-        # init Notifier base class
+        # Init Notifier base class
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
                           treshold, timeout)
+        # Create a new pipe used for thread termination
+        self._pipe = os.pipe()
+        self._pollobj.register(self._pipe[0], select.POLLIN)
 
     def stop(self):
         """
         Stop the notifier's loop. Stop notification. Join the thread.
         """
         self._stop_event.set()
+        os.write(self._pipe[1], 'stop')
         threading.Thread.join(self)
         Notifier.stop(self)
+        self._pollobj.unregister(self._pipe[0])
+        os.close(self._pipe[0])
+        os.close(self._pipe[1])
 
     def loop(self):
         """
-        Thread's main loop. don't meant to be called by user directly.
+        Thread's main loop. Don't meant to be called by user directly.
         Call start() instead.
 
         Events are read only once time every min(read_freq, timeout)
-        seconds at best and only if the size to read is >= treshold.
+        seconds at best and only if the size of events to read is >= treshold.
         """
-        # Read and process events while _stop_event condition
-        # remains unset.
+        # When the loop must be terminated .stop() is called, 'stop'
+        # is written to pipe fd so poll() returns and .check_events()
+        # returns False which make evaluate the While's stop condition
+        # ._stop_event.isSet() wich put an end to the thread's execution.
         while not self._stop_event.isSet():
             self.process_events()
             ref_time = time.time()
-            # There is a timeout here because without that poll() could
-            # block until an event is received and therefore
-            # _stop_event.isSet() would not be evaluated until then, thus
-            # this thread won't be able to stop its execution.
             if self.check_events():
                 self._sleep(ref_time)
                 self.read_events()
@@ -1661,6 +1658,13 @@ class WatchManager:
         Watch a transient file, which will be created and deleted frequently
         over time (e.g. pid file).
 
+        @attention: Under the call to this function it will be impossible 
+        to correctly watch the events triggered into the same
+        base directory than the directory where is located this watched
+        transient file. For instance it would actually be wrong to make these
+        two successive calls: wm.watch_transient_file('/var/run/foo.pid', ...)
+        and wm.add_watch('/var/run/', ...)
+
         @param filename: Filename.
         @type filename: string
         @param mask: Bitmask of events, should contain IN_CREATE and IN_DELETE.
@@ -1690,7 +1694,7 @@ class WatchManager:
 
 #
 # The color mechanism is taken from Scapy:
-# http://www.secdev.org/projects/scapy/
+# @see: http://www.secdev.org/projects/scapy/
 # Thanks to Philippe Biondi for his awesome tool and design.
 #
 

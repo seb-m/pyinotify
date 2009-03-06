@@ -100,7 +100,8 @@
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.EventsCodes-class.html#ALL_VALUES">ALL_VALUES</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.EventsCodes-class.html">EventsCodes</a>)</span></td>
-<td width="33%" class="link-index">&nbsp;</td>
+<td width="33%" class="link-index"><a href="pyinotify-module.html#attrname">attrname</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 </tr>
 </table>
 </td></tr>
@@ -128,7 +129,7 @@
 <td valign="top">
 <table class="link-index" width="100%" border="1">
 <tr>
-<td width="33%" class="link-index"><a href="pyinotify.ChainIf-class.html">ChainIf</a><br />
+<td width="33%" class="link-index"><a href="pyinotify.ChainIfTrue-class.html">ChainIfTrue</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.Color-class.html">Color</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
@@ -241,14 +242,6 @@
 <td valign="top">
 <table class="link-index" width="100%" border="1">
 <tr>
-<td width="33%" class="link-index"><a href="pyinotify-module.html#i">i</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify-module.html#IN_DELETE_SELF">IN_DELETE_SELF</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify-module.html#IN_MOVED_TO">IN_MOVED_TO</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
-</tr>
-<tr>
 <td width="33%" class="link-index"><a href="pyinotify-module.html#iglob">iglob()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify-module.html#IN_DONT_FOLLOW">IN_DONT_FOLLOW</a><br />
@@ -304,6 +297,13 @@
 <td width="33%" class="link-index"><a href="pyinotify.Color-class.html#invert">invert</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.Color-class.html">Color</a>)</span></td>
 </tr>
+<tr>
+<td width="33%" class="link-index"><a href="pyinotify-module.html#IN_DELETE_SELF">IN_DELETE_SELF</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify-module.html#IN_MOVED_TO">IN_MOVED_TO</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
+<td width="33%" class="link-index">&nbsp;</td>
+</tr>
 </table>
 </td></tr>
 <tr valign="top"><td valign="top" width="1%"><h2 class="epydoc"><a name="L">L</a></h2></td>
@@ -348,8 +348,8 @@
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify-module.html#max_queued_events">max_queued_events</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.ChainIf-class.html#my_init">my_init()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.ChainIf-class.html">ChainIf</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.ChainIfTrue-class.html#my_init">my_init()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.ChainIfTrue-class.html">ChainIfTrue</a>)</span></td>
 <td width="33%" class="link-index">&nbsp;</td>
 </tr>
 </table>
@@ -407,8 +407,8 @@
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 </tr>
 <tr>
-<td width="33%" class="link-index"><a href="pyinotify.ChainIf-class.html#process_default">process_default()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.ChainIf-class.html">ChainIf</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.ChainIfTrue-class.html#process_default">process_default()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.ChainIfTrue-class.html">ChainIfTrue</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify._SysProcessEvent-class.html#process_IN_IGNORED">process_IN_IGNORED()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify._SysProcessEvent-class.html" onclick="show_private();">_SysProcessEvent</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.ProcessEventError-class.html">ProcessEventError</a><br />
@@ -681,63 +681,63 @@
 <span class="index-where">(in&nbsp;<a href="pyinotify.WatchManager-class.html">WatchManager</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.ProcessEvent-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.ProcessEvent-class.html">ProcessEvent</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.SysCtlINotify-class.html#__repr__">__repr__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.SysCtlINotify-class.html">SysCtlINotify</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.Watch-class.html#__repr__">__repr__()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.Watch-class.html">Watch</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify-module.html#__author__">__author__</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.ProcessEventError-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.ProcessEventError-class.html">ProcessEventError</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.Watch-class.html#__repr__">__repr__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.Watch-class.html">Watch</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify._Event-class.html#__repr__">__repr__()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify._Event-class.html" onclick="show_private();">_Event</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify.ExcludeFilter-class.html#__call__">__call__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.ExcludeFilter-class.html">ExcludeFilter</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.SysCtlINotify-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.SysCtlINotify-class.html">SysCtlINotify</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify._Event-class.html#__repr__">__repr__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify._Event-class.html" onclick="show_private();">_Event</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify._ProcessEvent-class.html#__repr__">__repr__()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify._ProcessEvent-class.html" onclick="show_private();">_ProcessEvent</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify.ProcessEvent-class.html#__call__">__call__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.ProcessEvent-class.html">ProcessEvent</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.ThreadedNotifier-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.ThreadedNotifier-class.html">ThreadedNotifier</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify._ProcessEvent-class.html#__repr__">__repr__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify._ProcessEvent-class.html" onclick="show_private();">_ProcessEvent</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.Stats-class.html#__str__">__str__()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.Stats-class.html">Stats</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify._ProcessEvent-class.html#__call__">__call__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify._ProcessEvent-class.html" onclick="show_private();">_ProcessEvent</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.UnsupportedLibcVersionError-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.UnsupportedLibcVersionError-class.html">UnsupportedLibcVersionError</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.Stats-class.html#__str__">__str__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.Stats-class.html">Stats</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.WatchManager-class.html#__walk_rec">__walk_rec()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.WatchManager-class.html">WatchManager</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify.Notifier-class.html#__daemonize">__daemonize()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.Notifier-class.html">Notifier</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.UnsupportedPythonVersionError-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.UnsupportedPythonVersionError-class.html">UnsupportedPythonVersionError</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.WatchManager-class.html#__walk_rec">__walk_rec()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.WatchManager-class.html">WatchManager</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify._Event-class.html">_Event</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify.WatchManager-class.html#__format_param">__format_param()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.WatchManager-class.html">WatchManager</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.Watch-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.Watch-class.html">Watch</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify._Event-class.html">_Event</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.ExcludeFilter-class.html#_load_patterns">_load_patterns()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.ExcludeFilter-class.html">ExcludeFilter</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify.WatchManager-class.html#__get_sub_rec">__get_sub_rec()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.WatchManager-class.html">WatchManager</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.WatchManager-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.WatchManager-class.html">WatchManager</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.ExcludeFilter-class.html#_load_patterns">_load_patterns()</a><br />
+<td width="33%" class="link-index"><a href="pyinotify.ExcludeFilter-class.html#_match">_match()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.ExcludeFilter-class.html">ExcludeFilter</a>)</span></td>
 </tr>
 <tr>
@@ -745,15 +745,15 @@
 <span class="index-where">(in&nbsp;<a href="pyinotify.AnsiColorTheme-class.html">AnsiColorTheme</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.WatchManagerError-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.WatchManagerError-class.html">WatchManagerError</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.ExcludeFilter-class.html#_match">_match()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.ExcludeFilter-class.html">ExcludeFilter</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify._ProcessEvent-class.html">_ProcessEvent</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify.ColorTheme-class.html#__getattr__">__getattr__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.ColorTheme-class.html">ColorTheme</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify._Event-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify._Event-class.html" onclick="show_private();">_Event</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify._ProcessEvent-class.html">_ProcessEvent</a><br />
+<td width="33%" class="link-index"><a href="pyinotify._RawEvent-class.html">_RawEvent</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 </tr>
 <tr>
@@ -761,38 +761,37 @@
 <span class="index-where">(in&nbsp;<a href="pyinotify.WatchManager-class.html">WatchManager</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify._RawEvent-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify._RawEvent-class.html" onclick="show_private();">_RawEvent</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify._RawEvent-class.html">_RawEvent</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.Notifier-class.html#_sleep">_sleep()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.Notifier-class.html">Notifier</a>)</span></td>
 </tr>
 <tr>
 <td width="33%" class="link-index"><a href="pyinotify.Event-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.Event-class.html">Event</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify._SysProcessEvent-class.html#__init__">__init__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify._SysProcessEvent-class.html" onclick="show_private();">_SysProcessEvent</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.Notifier-class.html#_sleep">_sleep()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.Notifier-class.html">Notifier</a>)</span></td>
-</tr>
-<tr>
-<td width="33%" class="link-index"><a href="pyinotify.ExcludeFilter-class.html#__init__">__init__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.ExcludeFilter-class.html">ExcludeFilter</a>)</span></td>
-<td width="33%" class="link-index"><a href="pyinotify.SysCtlINotify-class.html#__new__">__new__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.SysCtlINotify-class.html">SysCtlINotify</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.Stats-class.html#_stats_copy">_stats_copy()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.Stats-class.html">Stats</a>)</span></td>
 </tr>
 <tr>
-<td width="33%" class="link-index"><a href="pyinotify.Notifier-class.html#__init__">__init__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.Notifier-class.html">Notifier</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.ExcludeFilter-class.html#__init__">__init__()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.ExcludeFilter-class.html">ExcludeFilter</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.ColorTheme-class.html#__repr__">__repr__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.ColorTheme-class.html">ColorTheme</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify._SysProcessEvent-class.html">_SysProcessEvent</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify-module.html">pyinotify</a>)</span></td>
 </tr>
 <tr>
-<td width="33%" class="link-index"><a href="pyinotify.NotifierError-class.html#__init__">__init__()</a><br />
-<span class="index-where">(in&nbsp;<a href="pyinotify.NotifierError-class.html">NotifierError</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.Notifier-class.html#__init__">__init__()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.Notifier-class.html">Notifier</a>)</span></td>
 <td width="33%" class="link-index"><a href="pyinotify.Stats-class.html#__repr__">__repr__()</a><br />
 <span class="index-where">(in&nbsp;<a href="pyinotify.Stats-class.html">Stats</a>)</span></td>
+<td width="33%" class="link-index">&nbsp;</td>
+</tr>
+<tr>
+<td width="33%" class="link-index"><a href="pyinotify.NotifierError-class.html#__init__">__init__()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.NotifierError-class.html">NotifierError</a>)</span></td>
+<td width="33%" class="link-index"><a href="pyinotify.SysCtlINotify-class.html#__repr__">__repr__()</a><br />
+<span class="index-where">(in&nbsp;<a href="pyinotify.SysCtlINotify-class.html">SysCtlINotify</a>)</span></td>
 <td width="33%" class="link-index">&nbsp;</td>
 </tr>
 </table>
@@ -824,7 +823,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Jan  6 22:57:23 2009
+    Generated by Epydoc 3.0.1 on Fri Mar  6 23:11:38 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

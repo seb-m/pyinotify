@@ -14,6 +14,7 @@ pyinotify.console_handler	pyinotify-module.html#console_handler
 pyinotify.LIBC_VERSION	pyinotify-module.html#LIBC_VERSION
 pyinotify.valc	pyinotify-module.html#valc
 pyinotify.IN_ONLYDIR	pyinotify-module.html#IN_ONLYDIR
+pyinotify.attrname	pyinotify-module.html#attrname
 pyinotify.glob1	pyinotify-module.html#glob1
 pyinotify.glob0	pyinotify-module.html#glob0
 pyinotify.IN_ISDIR	pyinotify-module.html#IN_ISDIR
@@ -25,7 +26,6 @@ pyinotify.max_queued_events	pyinotify-module.html#max_queued_events
 pyinotify.IN_IGNORED	pyinotify-module.html#IN_IGNORED
 pyinotify.__author__	pyinotify-module.html#__author__
 pyinotify.IN_DONT_FOLLOW	pyinotify-module.html#IN_DONT_FOLLOW
-pyinotify.i	pyinotify-module.html#i
 pyinotify.ALL_EVENTS	pyinotify-module.html#ALL_EVENTS
 pyinotify.IN_OPEN	pyinotify-module.html#IN_OPEN
 pyinotify.IN_MOVED_FROM	pyinotify-module.html#IN_MOVED_FROM
@@ -90,12 +90,12 @@ pyinotify.AnsiColorTheme.style_left	pyinotify.AnsiColorTheme-class.html#style_le
 pyinotify.AnsiColorTheme.style_closed	pyinotify.AnsiColorTheme-class.html#style_closed
 pyinotify.ColorTheme.__repr__	pyinotify.ColorTheme-class.html#__repr__
 pyinotify.AnsiColorTheme.style_active	pyinotify.AnsiColorTheme-class.html#style_active
-pyinotify.ChainIf	pyinotify.ChainIf-class.html
-pyinotify.ChainIf.my_init	pyinotify.ChainIf-class.html#my_init
+pyinotify.ChainIfTrue	pyinotify.ChainIfTrue-class.html
+pyinotify.ChainIfTrue.my_init	pyinotify.ChainIfTrue-class.html#my_init
 pyinotify.ProcessEvent.nested_pevent	pyinotify.ProcessEvent-class.html#nested_pevent
 pyinotify.ProcessEvent.pevent	pyinotify.ProcessEvent-class.html#pevent
 pyinotify._ProcessEvent.__repr__	pyinotify._ProcessEvent-class.html#__repr__
-pyinotify.ChainIf.process_default	pyinotify.ChainIf-class.html#process_default
+pyinotify.ChainIfTrue.process_default	pyinotify.ChainIfTrue-class.html#process_default
 pyinotify.ProcessEvent.__call__	pyinotify.ProcessEvent-class.html#__call__
 pyinotify.ProcessEvent.__init__	pyinotify.ProcessEvent-class.html#__init__
 pyinotify.Color	pyinotify.Color-class.html
@@ -215,7 +215,6 @@ pyinotify.Stats.process_default	pyinotify.Stats-class.html#process_default
 pyinotify.ProcessEvent.__call__	pyinotify.ProcessEvent-class.html#__call__
 pyinotify.ProcessEvent.__init__	pyinotify.ProcessEvent-class.html#__init__
 pyinotify.SysCtlINotify	pyinotify.SysCtlINotify-class.html
-pyinotify.SysCtlINotify.__new__	pyinotify.SysCtlINotify-class.html#__new__
 pyinotify.SysCtlINotify.set_val	pyinotify.SysCtlINotify-class.html#set_val
 pyinotify.SysCtlINotify.value	pyinotify.SysCtlINotify-class.html#value
 pyinotify.SysCtlINotify.get_val	pyinotify.SysCtlINotify-class.html#get_val

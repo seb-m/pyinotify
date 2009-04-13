@@ -22,7 +22,7 @@
 pyinotify
 
 @author: Sebastien Martini
-@license: GPL 2
+@license: GPLv2+
 @contact: seb@dbzteam.org
 """
 
@@ -86,7 +86,7 @@ import ctypes.util
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.5"
+__version__ = "0.8.6"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -423,14 +423,14 @@ class _Event:
                 value = hex(getattr(self, attr))
             elif isinstance(value, str) and not value:
                 value ="''"
-            s += ' %s%s%s' % (color_theme.field_name(attr),
-                              color_theme.punct('='),
-                              color_theme.field_value(value))
+            s += ' %s%s%s' % (Color.FieldName(attr),
+                              Color.Punctuation('='),
+                              Color.FieldValue(value))
 
-        s = '%s%s%s %s' % (color_theme.punct('<'),
-                           color_theme.class_name(self.__class__.__name__),
+        s = '%s%s%s %s' % (Color.Punctuation('<'),
+                           Color.ClassName(self.__class__.__name__),
                            s,
-                           color_theme.punct('>'))
+                           Color.Punctuation('>'))
         return s
 
 
@@ -836,9 +836,9 @@ class Stats(ProcessEvent):
 
         l = []
         for ev, value in sorted(stats.items(), key=lambda x: x[0]):
-            l.append(' %s=%s' % (color_theme.field_name(ev),
-                                 color_theme.field_value(value)))
-        s = '<%s%s >' % (color_theme.class_name(self.__class__.__name__),
+            l.append(' %s=%s' % (Color.FieldName(ev),
+                                 Color.FieldValue(value)))
+        s = '<%s%s >' % (Color.ClassName(self.__class__.__name__),
                          ''.join(l))
         return s
 
@@ -856,12 +856,12 @@ class Stats(ProcessEvent):
 
         m = max(stats.values())
         unity = int(round(float(m) / scale)) or 1
-        fmt = '%%-26s%%-%ds%%s' % (len(color_theme.field_value('@' * scale))
+        fmt = '%%-26s%%-%ds%%s' % (len(Color.FieldValue('@' * scale))
                                    + 1)
         def func(x):
-            return fmt % (color_theme.field_name(x[0]),
-                          color_theme.field_value('@' * (x[1] / unity)),
-                          color_theme.yellow('%d' % x[1]))
+            return fmt % (Color.FieldName(x[0]),
+                          Color.FieldValue('@' * (x[1] / unity)),
+                          Color.Simple('%d' % x[1], 'yellow'))
         s = '\n'.join(map(func, sorted(stats.items(), key=lambda x: x[0])))
         return s
 
@@ -1126,7 +1126,7 @@ class Notifier:
                 # Stop monitoring
                 self.stop()
                 break
- 
+
     def stop(self):
         """
         Close the inotify's instance (close its file descriptor).
@@ -1253,16 +1253,15 @@ class Watch:
         @return: String representation.
         @rtype: str
         """
-        s = ' '.join(['%s%s%s' % (color_theme.field_name(attr),
-                                  color_theme.punct('='),
-                                  color_theme.field_value(getattr(self,
-                                                                  attr))) \
+        s = ' '.join(['%s%s%s' % (Color.FieldName(attr),
+                                  Color.Punctuation('='),
+                                  Color.FieldValue(getattr(self, attr))) \
                       for attr in self.__dict__ if not attr.startswith('_')])
 
-        s = '%s%s %s %s' % (color_theme.punct('<'),
-                            color_theme.class_name(self.__class__.__name__),
+        s = '%s%s %s %s' % (Color.Punctuation('<'),
+                            Color.ClassName(self.__class__.__name__),
                             s,
-                            color_theme.punct('>'))
+                            Color.Punctuation('>'))
         return s
 
 
@@ -1658,7 +1657,7 @@ class WatchManager:
         Watch a transient file, which will be created and deleted frequently
         over time (e.g. pid file).
 
-        @attention: Under the call to this function it will be impossible 
+        @attention: Under the call to this function it will be impossible
         to correctly watch the events triggered into the same
         base directory than the directory where is located this watched
         transient file. For instance it would actually be wrong to make these
@@ -1692,12 +1691,6 @@ class WatchManager:
                               auto_add=False, do_glob=False)
 
 
-#
-# The color mechanism is taken from Scapy:
-# @see: http://www.secdev.org/projects/scapy/
-# Thanks to Philippe Biondi for his awesome tool and design.
-#
-
 class Color:
     normal = "\033[0m"
     black = "\033[30m"
@@ -1707,94 +1700,38 @@ class Color:
     blue = "\033[34m"
     purple = "\033[35m"
     cyan = "\033[36m"
-    grey = "\033[37m"
-
     bold = "\033[1m"
     uline = "\033[4m"
     blink = "\033[5m"
     invert = "\033[7m"
 
-class ColorTheme:
-    def __repr__(self):
-        return "<%s>" % self.__class__.__name__
-    def __getattr__(self, attr):
-        return lambda x:x
+    @staticmethod
+    def Punctuation(s):
+        return Color.normal + s + Color.normal
 
-class NoTheme(ColorTheme):
-    pass
+    @staticmethod
+    def FieldValue(s):
+        if not isinstance(s, str):
+            s = str(s)
+        return Color.purple + s + Color.normal
 
-class AnsiColorTheme(ColorTheme):
-    def __getattr__(self, attr):
-        if attr.startswith("__"):
-            raise AttributeError(attr)
-        s = "style_%s" % attr
-        if s in self.__class__.__dict__:
-            before = getattr(self, s)
-            after = self.style_normal
-        else:
-            before = after = ""
+    @staticmethod
+    def FieldName(s):
+        return Color.blue + s + Color.normal
 
-        def do_style(val, fmt=None, before=before, after=after):
-            if fmt is None:
-                if type(val) is not str:
-                    val = str(val)
-            else:
-                val = fmt % val
-            return before+val+after
-        return do_style
+    @staticmethod
+    def ClassName(s):
+        return Color.red + Color.bold + s + Color.normal
 
-
-    style_normal = ""
-    style_prompt = "" # '>>>'
-    style_punct = ""
-    style_id = ""
-    style_not_printable = ""
-    style_class_name = ""
-    style_field_name = ""
-    style_field_value = ""
-    style_emph_field_name = ""
-    style_emph_field_value = ""
-    style_watchlist_name = ""
-    style_watchlist_type = ""
-    style_watchlist_value = ""
-    style_fail = ""
-    style_success = ""
-    style_odd = ""
-    style_even = ""
-    style_yellow = ""
-    style_active = ""
-    style_closed = ""
-    style_left = ""
-    style_right = ""
-
-class BlackAndWhite(AnsiColorTheme):
-    pass
-
-class DefaultTheme(AnsiColorTheme):
-    style_normal = Color.normal
-    style_prompt = Color.blue+Color.bold
-    style_punct = Color.normal
-    style_id = Color.blue+Color.bold
-    style_not_printable = Color.grey
-    style_class_name = Color.red+Color.bold
-    style_field_name = Color.blue
-    style_field_value = Color.purple
-    style_emph_field_name = Color.blue+Color.uline+Color.bold
-    style_emph_field_value = Color.purple+Color.uline+Color.bold
-    style_watchlist_type = Color.blue
-    style_watchlist_value = Color.purple
-    style_fail = Color.red+Color.bold
-    style_success = Color.blue+Color.bold
-    style_even = Color.black+Color.bold
-    style_odd = Color.black
-    style_yellow = Color.yellow
-    style_active = Color.black
-    style_closed = Color.grey
-    style_left = Color.blue+Color.invert
-    style_right = Color.red+Color.invert
-
-color_theme = DefaultTheme()
-
+    @staticmethod
+    def Simple(s, color):
+        if not isinstance(s, str):
+            s = str(s)
+        try:
+            color_attr = getattr(Color, color)
+        except AttributeError:
+            return s
+        return color_attr + s + Color.normal
 
 
 def command_line():

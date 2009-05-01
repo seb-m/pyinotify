@@ -1401,7 +1401,7 @@ class WatchManager:
         @type auto_add: bool
         @param do_glob: Do globbing on pathname.
         @type do_glob: bool
-        @param quiet: if True raise an WatchManagerError exception on
+        @param quiet: if False raises a WatchManagerError exception on
                       error. See example not_quiet.py
         @type quiet: bool
         @param exclude_filter: boolean function, returns True if current
@@ -1498,7 +1498,7 @@ class WatchManager:
         @param auto_add: Automatically add watches on newly created
                          directories in the watch's path.
         @type auto_add: bool
-        @param quiet: if True raise an WatchManagerError exception on
+        @param quiet: if False raises a WatchManagerError exception on
                       error. See example not_quiet.py
         @type quiet: bool
         @return: dict of watch descriptors associated to booleans values.
@@ -1622,7 +1622,7 @@ class WatchManager:
         @param rec: Recursively removes watches on every already watched
                     subdirectories and subfiles.
         @type rec: bool
-        @param quiet: if True raise an WatchManagerError exception on
+        @param quiet: if False raises a WatchManagerError exception on
                       error. See example not_quiet.py
         @type quiet: bool
         @return: dict of watch descriptors associated to booleans values.

@@ -588,7 +588,7 @@ class _SysProcessEvent(_ProcessEvent):
         for seq in [self._mv_cookie, self._mv]:
             for k in seq.keys():
                if (date_cur_ - seq[k][1]) > timedelta(minutes=1):
-                   log.debug('cleanup: deleting entry %s' % seq[k][0])
+                   log.debug('cleanup: deleting entry %s', seq[k][0])
                    del seq[k]
 
     def process_IN_CREATE(self, raw_event):
@@ -665,8 +665,8 @@ class _SysProcessEvent(_ProcessEvent):
         if mv_:
             watch_.path = mv_[0]
         else:
-            log.error("The path %s of this watch %s must not "
-                      "be trusted anymore" % (watch_.path, watch_))
+            log.error("The path %s of this watch %s is not reliable anymore",
+                      watch_.path, watch_)
             if not watch_.path.endswith('-wrong-path'):
                 watch_.path += '-wrong-path'
         # FIXME: should we pass the cookie even if this is not standart?
@@ -690,7 +690,7 @@ class _SysProcessEvent(_ProcessEvent):
         try:
             del self._watch_manager._wmd[raw_event.wd]
         except KeyError, err:
-            log.error(err)
+            log.error(str(err))
         return event_
 
     def process_default(self, raw_event, to_append={}):
@@ -707,7 +707,7 @@ class _SysProcessEvent(_ProcessEvent):
             dir_ = watch_.dir
         else:
             dir_ = bool(raw_event.mask & IN_ISDIR)
-	dict_ = {'wd': raw_event.wd,
+        dict_ = {'wd': raw_event.wd,
                  'mask': raw_event.mask,
                  'path': watch_.path,
                  'name': raw_event.name,
@@ -970,10 +970,8 @@ class Notifier:
             return
         queue_size = buf_[0]
         if queue_size < self._treshold:
-            log.debug('(fd: %d) %d bytes available to read but '
-                      'treshold is fixed to %d bytes' % (self._fd,
-                                                         queue_size,
-                                                         self._treshold))
+            log.debug('(fd: %d) %d bytes available to read but treshold is '
+                      'fixed to %d bytes', self._fd, queue_size, self._treshold)
             return
 
         try:
@@ -981,7 +979,7 @@ class Notifier:
             r = os.read(self._fd, queue_size)
         except Exception, msg:
             raise NotifierError(msg)
-        log.debug('event queue size: %d' % queue_size)
+        log.debug('event queue size: %d', queue_size)
         rsum = 0  # counter
         while rsum < queue_size:
             s_size = 16
@@ -1092,7 +1090,7 @@ class Notifier:
             cur_time = time.time()
             sleep_amount = self._read_freq - (cur_time - ref_time)
             if sleep_amount > 0:
-                log.debug('Now sleeping %d seconds' % sleep_amount)
+                log.debug('Now sleeping %d seconds', sleep_amount)
                 time.sleep(sleep_amount)
 
 
@@ -1370,7 +1368,7 @@ class WatchManager:
         watch_ = Watch(wd=wd_, path=os.path.normpath(path), mask=mask,
                        proc_fun=proc_fun, auto_add=auto_add)
         self._wmd[wd_] = watch_
-        log.debug('New %s' % watch_)
+        log.debug('New %s', watch_)
         return wd_
 
     def __glob(self, path, do_glob):
@@ -1443,7 +1441,7 @@ class WatchManager:
                         # Let's say -2 means 'explicitely excluded
                         # from watching'.
                         ret_[rpath] = -2
-	return ret_
+        return ret_
 
     def __get_sub_rec(self, lpath):
         """
@@ -1548,8 +1546,8 @@ class WatchManager:
                 watch_.proc_fun = auto_add
 
             ret_[awd] = True
-            log.debug('Updated watch - %s' % self._wmd[awd])
-	return ret_
+            log.debug('Updated watch - %s', self._wmd[awd])
+        return ret_
 
     def __format_param(self, param):
         """
@@ -1579,7 +1577,7 @@ class WatchManager:
         for iwd in self._wmd.iteritems():
             if iwd[1].path == path:
                 return iwd[0]
-        log.debug('get_wd: unknown path %s' % path)
+        log.debug('get_wd: unknown path %s', path)
 
     def get_path(self, wd):
         """
@@ -1594,7 +1592,7 @@ class WatchManager:
         watch_ = self._wmd.get(wd)
         if watch_:
             return watch_.path
-        log.debug('get_path: unknown WD %d' % wd)
+        log.debug('get_path: unknown WD %d', wd)
 
     def __walk_rec(self, top, rec):
         """
@@ -1649,7 +1647,7 @@ class WatchManager:
                 raise WatchManagerError(err, ret_)
 
             ret_[awd] = True
-            log.debug('watch WD=%d (%s) removed' % (awd, self.get_path(awd)))
+            log.debug('watch WD=%d (%s) removed', awd, self.get_path(awd))
         return ret_
 
 

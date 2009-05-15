@@ -58,22 +58,22 @@
 <h1 class="epydoc">Class EventsCodes</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_4" name="uml_class_diagram_for_pyinotif_4">
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#FLAG_COLLECTIONS" title="pyinotify.EventsCodes.FLAG_COLLECTIONS" alt="" coords="17,28,175,46"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#ALL_FLAGS" title="pyinotify.EventsCodes.ALL_FLAGS" alt="" coords="17,46,175,65"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#ALL_VALUES" title="pyinotify.EventsCodes.ALL_VALUES" alt="" coords="17,65,175,84"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#ALL_EVENTS" title="Alias for considering all of the events." alt="" coords="17,84,175,102"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#EVENT_FLAGS" title="pyinotify.EventsCodes.EVENT_FLAGS" alt="" coords="17,102,175,121"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_ACCESS" title="File was accessed." alt="" coords="17,121,175,140"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_ATTRIB" title="Metadata changed." alt="" coords="17,140,175,158"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_CLOSE_NOWRITE" title="Unwrittable file closed." alt="" coords="17,158,175,177"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_CLOSE_WRITE" title="Writtable file was closed." alt="" coords="17,177,175,196"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_CREATE" title="Subfile was created." alt="" coords="17,196,175,214"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_DELETE" title="Subfile was deleted." alt="" coords="17,214,175,233"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_DELETE_SELF" title="Self (watched item itself) was deleted." alt="" coords="17,233,175,252"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#IN_DONT_FOLLOW" title="don&#39;t follow a symlink (new in kernel 2.6.15)." alt="" coords="17,252,175,270"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#SPECIAL_FLAGS" title="pyinotify.EventsCodes.SPECIAL_FLAGS" alt="" coords="17,289,175,308"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html#maskname" title="Return the event name associated to mask." alt="" coords="17,310,175,329"/>
-<area shape="rect" href="pyinotify.EventsCodes&#45;class.html" title="Set of codes corresponding to each kind of events." alt="" coords="16,10,176,330"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#FLAG_COLLECTIONS" title="pyinotify.EventsCodes.FLAG_COLLECTIONS" alt="" coords="17,28,175,47"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#ALL_FLAGS" title="pyinotify.EventsCodes.ALL_FLAGS" alt="" coords="17,47,175,65"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#ALL_VALUES" title="pyinotify.EventsCodes.ALL_VALUES" alt="" coords="17,65,175,84"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#ALL_EVENTS" title="Alias for considering all of the events." alt="" coords="17,84,175,103"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#EVENT_FLAGS" title="pyinotify.EventsCodes.EVENT_FLAGS" alt="" coords="17,103,175,121"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_ACCESS" title="File was accessed." alt="" coords="17,121,175,140"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_ATTRIB" title="Metadata changed." alt="" coords="17,140,175,159"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_CLOSE_NOWRITE" title="Unwrittable file closed." alt="" coords="17,159,175,177"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_CLOSE_WRITE" title="Writtable file was closed." alt="" coords="17,177,175,196"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_CREATE" title="Subfile was created." alt="" coords="17,196,175,215"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_DELETE" title="Subfile was deleted." alt="" coords="17,215,175,233"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_DELETE_SELF" title="Self (watched item itself) was deleted." alt="" coords="17,233,175,252"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_DONT_FOLLOW" title="don&#39;t follow a symlink (new in kernel 2.6.15)." alt="" coords="17,252,175,271"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#SPECIAL_FLAGS" title="pyinotify.EventsCodes.SPECIAL_FLAGS" alt="" coords="17,289,175,308"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#maskname" title="Return the event name associated to mask." alt="" coords="17,311,175,329"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html" title="Set of codes corresponding to each kind of events." alt="" coords="16,11,176,331"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_4.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_4" ismap="ismap" class="graph-without-title" />
 </center>
@@ -104,6 +104,7 @@
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
+      <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
       <code>__init__</code>,
@@ -112,7 +113,9 @@
       <code>__reduce_ex__</code>,
       <code>__repr__</code>,
       <code>__setattr__</code>,
-      <code>__str__</code>
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -691,7 +694,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May  1 22:52:52 2009
+    Generated by Epydoc 3.0.1 on Fri May 15 12:25:18 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

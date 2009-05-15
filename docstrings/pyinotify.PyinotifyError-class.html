@@ -58,26 +58,27 @@
 <h1 class="epydoc">Class PyinotifyError</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#PyinotifyError">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_10" name="uml_class_diagram_for_pyinotif_10">
-<area shape="rect" href="pyinotify.UnsupportedLibcVersionError&#45;class.html" title="Raised for unsupported libc version." alt="" coords="16,422,200,448"/>
-<area shape="rect" href="javascript:void(0);" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="325,292,451,311"/>
-<area shape="rect" href="javascript:void(0);" title="exceptions.Exception.__new__" alt="" coords="325,311,451,330"/>
-<area shape="rect" href="javascript:void(0);" title="Common base class for all non&#45;exit exceptions." alt="" coords="324,267,452,331"/>
-<area shape="rect" href="pyinotify.PyinotifyError&#45;class.html" title="Indicates exceptions raised by a Pyinotify class." alt="" coords="347,360,429,392"/>
-<area shape="rect" href="pyinotify.NotifierError&#45;class.html" title="Notifier Exception." alt="" coords="251,422,333,448"/>
-<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.args" alt="" coords="311,28,465,47"/>
-<area shape="rect" href="javascript:void(0);" title="exception message" alt="" coords="311,47,465,66"/>
-<area shape="rect" href="javascript:void(0);" title="x.__delattr__(&#39;name&#39;) &lt;==&gt; del x.name" alt="" coords="311,68,465,87"/>
-<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="311,87,465,106"/>
-<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="311,106,465,124"/>
-<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="311,124,465,143"/>
-<area shape="rect" href="javascript:void(0);" title="helper for pickle" alt="" coords="311,143,465,162"/>
-<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="311,162,465,180"/>
-<area shape="rect" href="javascript:void(0);" title="x.__setattr__(&#39;name&#39;, value) &lt;==&gt; x.name = value" alt="" coords="311,180,465,199"/>
-<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__setstate__" alt="" coords="311,199,465,218"/>
-<area shape="rect" href="javascript:void(0);" title="str(x)" alt="" coords="311,218,465,236"/>
-<area shape="rect" href="javascript:void(0);" title="Common base class for all exceptions" alt="" coords="309,11,467,238"/>
-<area shape="rect" href="pyinotify.UnsupportedPythonVersionError&#45;class.html" title="Raised for unsupported Python version." alt="" coords="384,422,584,448"/>
-<area shape="rect" href="pyinotify.ProcessEventError&#45;class.html" title="ProcessEventError Exception." alt="" coords="635,422,757,448"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.args" alt="" coords="293,28,448,47"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.message" alt="" coords="293,47,448,65"/>
+<area shape="rect" href="javascript:void(0);" title="x.__delattr__(&#39;name&#39;) &lt;==&gt; del x.name" alt="" coords="293,68,448,87"/>
+<area shape="rect" href="javascript:void(0);" title="x.__getattribute__(&#39;name&#39;) &lt;==&gt; x.name" alt="" coords="293,87,448,105"/>
+<area shape="rect" href="javascript:void(0);" title="x[y]" alt="" coords="293,105,448,124"/>
+<area shape="rect" href="javascript:void(0);" title="x[i:j]" alt="" coords="293,124,448,143"/>
+<area shape="rect" href="javascript:void(0);" title="helper for pickle" alt="" coords="293,143,448,161"/>
+<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="293,161,448,180"/>
+<area shape="rect" href="javascript:void(0);" title="x.__setattr__(&#39;name&#39;, value) &lt;==&gt; x.name = value" alt="" coords="293,180,448,199"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__setstate__" alt="" coords="293,199,448,217"/>
+<area shape="rect" href="javascript:void(0);" title="str(x)" alt="" coords="293,217,448,236"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.BaseException.__unicode__" alt="" coords="293,236,448,255"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all exceptions" alt="" coords="292,11,449,256"/>
+<area shape="rect" href="javascript:void(0);" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="308,311,433,329"/>
+<area shape="rect" href="javascript:void(0);" title="exceptions.Exception.__new__" alt="" coords="308,329,433,348"/>
+<area shape="rect" href="javascript:void(0);" title="Common base class for all non&#45;exit exceptions." alt="" coords="307,285,435,349"/>
+<area shape="rect" href="pyinotify.NotifierError-class.html" title="Notifier Exception." alt="" coords="16,440,99,467"/>
+<area shape="rect" href="pyinotify.UnsupportedPythonVersionError-class.html" title="Raised for unsupported Python version." alt="" coords="149,440,349,467"/>
+<area shape="rect" href="pyinotify.UnsupportedLibcVersionError-class.html" title="Raised for unsupported libc version." alt="" coords="400,440,584,467"/>
+<area shape="rect" href="pyinotify.PyinotifyError-class.html" title="Indicates exceptions raised by a Pyinotify class." alt="" coords="329,379,412,411"/>
+<area shape="rect" href="pyinotify.ProcessEventError-class.html" title="ProcessEventError Exception." alt="" coords="635,440,757,467"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_10.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_10" ismap="ismap" class="graph-without-title" />
 </center>
@@ -117,11 +118,15 @@
       <code>__repr__</code>,
       <code>__setattr__</code>,
       <code>__setstate__</code>,
-      <code>__str__</code>
+      <code>__str__</code>,
+      <code>__unicode__</code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__format__</code>,
       <code>__hash__</code>,
-      <code>__reduce_ex__</code>
+      <code>__reduce_ex__</code>,
+      <code>__sizeof__</code>,
+      <code>__subclasshook__</code>
       </p>
     </td>
   </tr>
@@ -181,7 +186,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May  1 22:52:52 2009
+    Generated by Epydoc 3.0.1 on Fri May 15 12:25:18 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

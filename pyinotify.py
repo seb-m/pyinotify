@@ -95,12 +95,14 @@ __metaclass__ = type  # Use new-style classes by default
 # load libc
 LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
 
-# the libc version check.
+# the libc version > 2.4 check.
 # XXX: Maybe it is better to check if the libc has the needed functions inside?
 #      Because there are inotify patches for libc 2.3.6.
 LIBC.gnu_get_libc_version.restype = ctypes.c_char_p
 LIBC_VERSION = LIBC.gnu_get_libc_version()
-if LIBC_VERSION < '2.4':
+if (int(LIBC_VERSION.split('.')[0]) < 2 or
+    (int(LIBC_VERSION.split('.')[0]) == 2 and
+     int(LIBC_VERSION.split('.')[1]) < 4)):
     raise UnsupportedLibcVersionError(LIBC_VERSION)
 
 

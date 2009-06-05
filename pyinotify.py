@@ -1326,9 +1326,8 @@ class WatchManagerError(Exception):
         """
         @param msg: Exception string's description.
         @type msg: string
-        @param wmd: Results of previous operations made by the same function
-                    on previous wd or paths. It also contains the item which
-                    raised this exception.
+        @param wmd: This dictionary contains the wd assigned to paths of the
+                    same call for which watches were successfully added.
         @type wmd: dict
         """
         self.wmd = wmd
@@ -1362,9 +1361,15 @@ class WatchManager:
         Add a watch on path, build a Watch object and insert it in the
         watch manager dictionary. Return the wd value.
         """
-        wd_ = LIBC.inotify_add_watch(self._fd,
-                                     ctypes.create_string_buffer(path),
-                                     mask)
+        ctypes_buffer = None
+        if isinstance(path, str):
+            ctypes_buffer = ctypes.create_string_buffer
+        elif isinstance(path, unicode):
+            ctypes_buffer = ctypes.create_unicode_buffer
+        else:
+            raise WatchManagerError("Invalid path type %s" % type(path), {})
+
+        wd_ = LIBC.inotify_add_watch(self._fd, ctypes_buffer(path), mask)
         if wd_ < 0:
             return wd_
         watch_ = Watch(wd=wd_, path=os.path.normpath(path), mask=mask,
@@ -1524,9 +1529,17 @@ class WatchManager:
 
             if mask:
                 addw = LIBC.inotify_add_watch
-                wd_ = addw(self._fd,
-                           ctypes.create_string_buffer(apath),
-                           mask)
+
+                ctypes_buffer = None
+                if isinstance(apath, str):
+                    ctypes_buffer = ctypes.create_string_buffer
+                elif isinstance(apath, unicode):
+                    ctypes_buffer = ctypes.create_unicode_buffer
+                else:
+                    raise WatchManagerError("Invalid path type %s"% type(apath),
+                                            ret_)
+
+                wd_ = addw(self._fd, ctypes_buffer(apath), mask)
                 if wd_ < 0:
                     ret_[awd] = False
                     err = 'update_watch: cannot update WD=%d (%s)' % (wd_,
@@ -1712,7 +1725,7 @@ class Color:
 
     @staticmethod
     def FieldValue(s):
-        if not isinstance(s, str):
+        if not isinstance(s, str) and not isinstance(s, unicode):
             s = str(s)
         return Color.purple + s + Color.normal
 
@@ -1726,7 +1739,7 @@ class Color:
 
     @staticmethod
     def Simple(s, color):
-        if not isinstance(s, str):
+        if not isinstance(s, str) and not isinstance(s, unicode):
             s = str(s)
         try:
             color_attr = getattr(Color, color)

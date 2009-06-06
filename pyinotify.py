@@ -83,7 +83,7 @@ import fnmatch
 import re
 import ctypes
 import ctypes.util
-
+import types
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
@@ -106,7 +106,48 @@ if (int(LIBC_VERSION.split('.')[0]) < 2 or
     raise UnsupportedLibcVersionError(LIBC_VERSION)
 
 
+class PyinotifyLogger(logging.Logger):
+    def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None,
+                   extra=None):
+        rv = UnicodeLogRecord(name, level, fn, lno, msg, args, exc_info, func)
+        if extra is not None:
+            for key in extra:
+                if (key in ["message", "asctime"]) or (key in rv.__dict__):
+                    raise KeyError("Attempt to overwrite %r in LogRecord" % key)
+                rv.__dict__[key] = extra[key]
+        return rv
+
+
+class UnicodeLogRecord(logging.LogRecord):
+    def __init__(self, name, level, pathname, lineno,
+                 msg, args, exc_info, func=None):
+        logging.LogRecord.__init__(self, name, level, pathname, lineno,
+                                   msg, args, exc_info, func)
+
+    def getMessage(self):
+        msg = self.msg
+        if not isinstance(msg, (unicode, str)):
+            try:
+                msg = str(self.msg)
+            except UnicodeError:
+                pass
+        if self.args:
+            if isinstance(self.args, tuple):
+                def StrToUnicode(s):
+                    if not isinstance(s, str):
+                        return s
+                    return unicode(s, sys.getfilesystemencoding())
+                args = tuple([StrToUnicode(m) for m in self.args])
+            else:
+                args = self.args
+            msg = msg % args
+        if not isinstance(msg, unicode):
+            msg = unicode(msg, sys.getfilesystemencoding())
+        return msg
+
+
 # logging
+logging.setLoggerClass(PyinotifyLogger)
 log = logging.getLogger("pyinotify")
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
@@ -424,7 +465,7 @@ class _Event:
                 continue
             if attr == 'mask':
                 value = hex(getattr(self, attr))
-            elif isinstance(value, str) and not value:
+            elif isinstance(value, basestring) and not value:
                 value ="''"
             s += ' %s%s%s' % (Color.FieldName(attr),
                               Color.Punctuation('='),
@@ -1361,18 +1402,22 @@ class WatchManager:
         Add a watch on path, build a Watch object and insert it in the
         watch manager dictionary. Return the wd value.
         """
-        ctypes_buffer = None
-        if isinstance(path, str):
-            ctypes_buffer = ctypes.create_string_buffer
-        elif isinstance(path, unicode):
-            ctypes_buffer = ctypes.create_unicode_buffer
+        # Unicode strings are converted to bytes strings, it seems to be
+        # required because LIBC.inotify_add_watch does not work well when
+        # it receives an ctypes.create_unicode_buffer instance as argument.
+        # Therefore even wd are indexed with bytes string and not with
+        # unicode paths.
+        if isinstance(path, unicode):
+            byte_path = path.encode(sys.getfilesystemencoding())
         else:
-            raise WatchManagerError("Invalid path type %s" % type(path), {})
+            byte_path = path
 
-        wd_ = LIBC.inotify_add_watch(self._fd, ctypes_buffer(path), mask)
+        wd_ = LIBC.inotify_add_watch(self._fd,
+                                     ctypes.create_string_buffer(byte_path),
+                                     mask)
         if wd_ < 0:
             return wd_
-        watch_ = Watch(wd=wd_, path=os.path.normpath(path), mask=mask,
+        watch_ = Watch(wd=wd_, path=os.path.normpath(byte_path), mask=mask,
                        proc_fun=proc_fun, auto_add=auto_add)
         self._wmd[wd_] = watch_
         log.debug('New %s', watch_)
@@ -1529,17 +1574,7 @@ class WatchManager:
 
             if mask:
                 addw = LIBC.inotify_add_watch
-
-                ctypes_buffer = None
-                if isinstance(apath, str):
-                    ctypes_buffer = ctypes.create_string_buffer
-                elif isinstance(apath, unicode):
-                    ctypes_buffer = ctypes.create_unicode_buffer
-                else:
-                    raise WatchManagerError("Invalid path type %s"% type(apath),
-                                            ret_)
-
-                wd_ = addw(self._fd, ctypes_buffer(apath), mask)
+                wd_ = addw(self._fd, ctypes.create_string_buffer(apath), mask)
                 if wd_ < 0:
                     ret_[awd] = False
                     err = 'update_watch: cannot update WD=%d (%s)' % (wd_,
@@ -1725,7 +1760,7 @@ class Color:
 
     @staticmethod
     def FieldValue(s):
-        if not isinstance(s, str) and not isinstance(s, unicode):
+        if not isinstance(s, basestring):
             s = str(s)
         return Color.purple + s + Color.normal
 
@@ -1739,7 +1774,7 @@ class Color:
 
     @staticmethod
     def Simple(s, color):
-        if not isinstance(s, str) and not isinstance(s, unicode):
+        if not isinstance(s, basestring):
             s = str(s)
         try:
             color_attr = getattr(Color, color)

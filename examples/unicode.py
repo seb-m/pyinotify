@@ -1,8 +1,13 @@
+# -*- coding: utf-8 -*-
 import os
+import sys
 from pyinotify import *
 
 # create path
-path = u'/tmp/test\u0444'
+#path = u'/tmp/test\u0444'
+path = '/tmp/testф'
+path = unicode(path, sys.getfilesystemencoding())
+
 if not os.path.isdir(path):
     os.mkdir(path)
 

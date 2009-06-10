@@ -708,11 +708,17 @@ class _SysProcessEvent(_ProcessEvent):
         if mv_:
             watch_.path = mv_[0]
         else:
-            log.error("The path %s of this watch %s is not reliable anymore",
-                      watch_.path, watch_)
-            if not watch_.path.endswith('-wrong-path'):
-                watch_.path += '-wrong-path'
-        # FIXME: should we pass the cookie even if this is not standart?
+            log.error("The pathname '%s' of this watch %s has probably changed "
+                      "and couldn't be updated, so it cannot be trusted "
+                      "anymore. To fix this error move directories/files only "
+                      "between watched parents directories, in this case eg. "
+                      "put a watch on '%s'.",
+                      watch_.path, watch_,
+                      os.path.normpath(os.path.join(watch_.path,
+                                                    os.path.pardir)))
+            if not watch_.path.endswith('-unknown-path'):
+                watch_.path += '-unknown-path'
+        # FIXME: should we pass the cookie even if this is not standard?
         return self.process_default(raw_event)
 
     def process_IN_Q_OVERFLOW(self, raw_event):

@@ -1384,7 +1384,10 @@ class WatchManagerError(Exception):
 class WatchManager:
     """
     Provide operations for watching files and directories. Integrated
-    dictionary is used to reference watched items.
+    dictionary is used to reference watched items. When used inside
+    threaded code, instanciates a new WatchManager instance for each
+    ThreadedNotifier.
+
     """
     def __init__(self, exclude_filter=lambda path: False):
         """
@@ -1408,7 +1411,7 @@ class WatchManager:
         Add a watch on path, build a Watch object and insert it in the
         watch manager dictionary. Return the wd value.
         """
-        # Unicode strings are converted to bytes strings, it seems to be
+        # Unicode strings are converted to byte strings, it seems to be
         # required because LIBC.inotify_add_watch does not work well when
         # it receives an ctypes.create_unicode_buffer instance as argument.
         # Therefore even wd are indexed with bytes string and not with
@@ -1439,12 +1442,17 @@ class WatchManager:
                   auto_add=False, do_glob=False, quiet=True,
                   exclude_filter=None):
         """
-        Add watch(s) on given path(s) with the specified mask and
-        optionnally with a processing function and recursive flag.
+        Add watch(s) on given |path|(s) with the specified |mask| and
+        optionnally with a processing |proc_fun| function and a recursive
+        flag |rec|.
+        Ideally |path| components should not be unicode objects. Note
+        that unicode paths are accepted but are converted to byte strings
+        before a watch is put on the path. The encoding used for converting
+        the unicode object is given by sys.getfilesystemencoding().
 
         @param path: Path to watch, the path can either be a file or a
                      directory. Also accepts a sequence (list) of paths.
-        @type path: string or list of string
+        @type path: string or list of strings
         @param mask: Bitmask of events.
         @type mask: int
         @param proc_fun: Processing object.
@@ -1539,8 +1547,9 @@ class WatchManager:
     def update_watch(self, wd, mask=None, proc_fun=None, rec=False,
                      auto_add=False, quiet=True):
         """
-        Update existing watch(s). Both the mask and the processing
-        object can be modified.
+        Update existing watch(s). The |mask|, the processing object
+        |proc_fun|, the recursive param |rec| and the |auto_add| and
+        |quiet| flags can be updated.
 
         @param wd: Watch Descriptor to update. Also accepts a list of
                      watch descriptors.

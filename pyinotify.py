@@ -92,9 +92,10 @@ __version__ = "0.8.6"
 __metaclass__ = type  # Use new-style classes by default
 
 
-# Compatibity mode: set it to True to improve compatibility with
-# Pyinotify 0.7.1
-COMPATIBILITY_MODE = False
+# Compatibity mode: set to True to improve compatibility with
+# Pyinotify 0.7.1. Do not set this variable yourself, call the
+# function compatibility_mode() instead.
+__COMPATIBILITY_MODE = False
 
 
 # load libc
@@ -437,15 +438,11 @@ for flagc, valc in EventsCodes.FLAG_COLLECTIONS.iteritems():
     # and masknames accessible by values.
     for name, val in valc.iteritems():
         globals()[name] = val
-        if COMPATIBILITY_MODE:
-            setattr(EventsCodes, name, val)
         EventsCodes.ALL_VALUES[val] = name
 
 
 # all 'normal' events
 ALL_EVENTS = reduce(lambda x, y: x | y, EventsCodes.OP_FLAGS.itervalues())
-if COMPATIBILITY_MODE:
-    setattr(EventsCodes, 'ALL_EVENTS', ALL_EVENTS)
 EventsCodes.ALL_FLAGS['ALL_EVENTS'] = ALL_EVENTS
 EventsCodes.ALL_VALUES[ALL_EVENTS] = 'ALL_EVENTS'
 
@@ -543,7 +540,7 @@ class Event(_Event):
         """
         _Event.__init__(self, raw)
         self.maskname = EventsCodes.maskname(self.mask)
-        if COMPATIBILITY_MODE:
+        if __COMPATIBILITY_MODE:
             self.event_name = self.maskname
         try:
             if self.name:
@@ -763,7 +760,7 @@ class _SysProcessEvent(_ProcessEvent):
         ret = None
         watch_ = self._watch_manager._wmd.get(raw_event.wd)
         if raw_event.mask & (IN_DELETE_SELF | IN_MOVE_SELF):
-            # unfornately information not provided by the kernel
+            # Unfornulately this information is not provided by the kernel
             dir_ = watch_.dir
         else:
             dir_ = bool(raw_event.mask & IN_ISDIR)
@@ -772,7 +769,7 @@ class _SysProcessEvent(_ProcessEvent):
                  'path': watch_.path,
                  'name': raw_event.name,
                  'dir': dir_}
-        if COMPATIBILITY_MODE:
+        if __COMPATIBILITY_MODE:
             dict_['is_dir'] = dir_
         dict_.update(to_append)
         return Event(dict_)
@@ -1809,6 +1806,22 @@ class Color:
         except AttributeError:
             return s
         return color_attr + s + Color.normal
+
+
+def compatibility_mode():
+    """
+    Use this function to turn on the compatibility mode. The compatibility
+    mode is used to improve compatibility with Pyinotify 0.7.1 programs.
+    The compatibility mode provides variables 'is_dir', 'event_name',
+    'EventsCodes.IN_*' and 'EventsCodes.ALL_EVENTS' as with Pyinotify 0.7.1.
+    Do not call this function if your program is developped for
+    Pyinotify >= 0.8.x.
+    """
+    setattr(EventsCodes, 'ALL_EVENTS', ALL_EVENTS)
+    for evname in globals():
+        if evname.startswith('IN_'):
+            setattr(EventsCodes, evname, globals()[evname])
+    __COMPATIBILITY_MODE = True
 
 
 def command_line():

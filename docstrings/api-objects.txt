@@ -1,5 +1,6 @@
 pyinotify	pyinotify-module.html
 pyinotify.IN_CREATE	pyinotify-module.html#IN_CREATE
+pyinotify.compatibility_mode	pyinotify-module.html#compatibility_mode
 pyinotify.IN_UNMOUNT	pyinotify-module.html#IN_UNMOUNT
 pyinotify.magic_check	pyinotify-module.html#magic_check
 pyinotify.max_queued_events	pyinotify-module.html#max_queued_events
@@ -16,6 +17,7 @@ pyinotify.IN_ONLYDIR	pyinotify-module.html#IN_ONLYDIR
 pyinotify.attrname	pyinotify-module.html#attrname
 pyinotify.glob1	pyinotify-module.html#glob1
 pyinotify.glob0	pyinotify-module.html#glob0
+pyinotify.__COMPATIBILITY_MODE	pyinotify-module.html#__COMPATIBILITY_MODE
 pyinotify.IN_ISDIR	pyinotify-module.html#IN_ISDIR
 pyinotify.LIBC	pyinotify-module.html#LIBC
 pyinotify.log	pyinotify-module.html#log

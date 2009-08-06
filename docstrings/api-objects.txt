@@ -4,10 +4,10 @@ pyinotify.compatibility_mode	pyinotify-module.html#compatibility_mode
 pyinotify.IN_UNMOUNT	pyinotify-module.html#IN_UNMOUNT
 pyinotify.magic_check	pyinotify-module.html#magic_check
 pyinotify.max_queued_events	pyinotify-module.html#max_queued_events
+pyinotify.COMPATIBILITY_MODE	pyinotify-module.html#COMPATIBILITY_MODE
 pyinotify.IN_DELETE	pyinotify-module.html#IN_DELETE
 pyinotify.IN_MODIFY	pyinotify-module.html#IN_MODIFY
 pyinotify.IN_CLOSE_WRITE	pyinotify-module.html#IN_CLOSE_WRITE
-pyinotify.max_user_instances	pyinotify-module.html#max_user_instances
 pyinotify.name	pyinotify-module.html#name
 pyinotify.IN_MOVE_SELF	pyinotify-module.html#IN_MOVE_SELF
 pyinotify.console_handler	pyinotify-module.html#console_handler
@@ -17,7 +17,6 @@ pyinotify.IN_ONLYDIR	pyinotify-module.html#IN_ONLYDIR
 pyinotify.attrname	pyinotify-module.html#attrname
 pyinotify.glob1	pyinotify-module.html#glob1
 pyinotify.glob0	pyinotify-module.html#glob0
-pyinotify.__COMPATIBILITY_MODE	pyinotify-module.html#__COMPATIBILITY_MODE
 pyinotify.IN_ISDIR	pyinotify-module.html#IN_ISDIR
 pyinotify.LIBC	pyinotify-module.html#LIBC
 pyinotify.log	pyinotify-module.html#log
@@ -33,6 +32,7 @@ pyinotify.IN_MOVED_TO	pyinotify-module.html#IN_MOVED_TO
 pyinotify.IN_ONESHOT	pyinotify-module.html#IN_ONESHOT
 pyinotify.command_line	pyinotify-module.html#command_line
 pyinotify.__package__	pyinotify-module.html#__package__
+pyinotify.max_user_instances	pyinotify-module.html#max_user_instances
 pyinotify.IN_Q_OVERFLOW	pyinotify-module.html#IN_Q_OVERFLOW
 pyinotify.has_magic	pyinotify-module.html#has_magic
 pyinotify.IN_ATTRIB	pyinotify-module.html#IN_ATTRIB
@@ -42,6 +42,16 @@ pyinotify.IN_MASK_ADD	pyinotify-module.html#IN_MASK_ADD
 pyinotify.IN_CLOSE_NOWRITE	pyinotify-module.html#IN_CLOSE_NOWRITE
 pyinotify.iglob	pyinotify-module.html#iglob
 pyinotify.IN_DELETE_SELF	pyinotify-module.html#IN_DELETE_SELF
+pyinotify.AsyncNotifier	pyinotify.AsyncNotifier-class.html
+pyinotify.Notifier.read_events	pyinotify.Notifier-class.html#read_events
+pyinotify.Notifier.proc_fun	pyinotify.Notifier-class.html#proc_fun
+pyinotify.Notifier._sleep	pyinotify.Notifier-class.html#_sleep
+pyinotify.AsyncNotifier.__init__	pyinotify.AsyncNotifier-class.html#__init__
+pyinotify.Notifier.process_events	pyinotify.Notifier-class.html#process_events
+pyinotify.Notifier.stop	pyinotify.Notifier-class.html#stop
+pyinotify.AsyncNotifier.handle_read	pyinotify.AsyncNotifier-class.html#handle_read
+pyinotify.Notifier.check_events	pyinotify.Notifier-class.html#check_events
+pyinotify.Notifier.loop	pyinotify.Notifier-class.html#loop
 pyinotify.ChainIfTrue	pyinotify.ChainIfTrue-class.html
 pyinotify.ChainIfTrue.my_init	pyinotify.ChainIfTrue-class.html#my_init
 pyinotify.ProcessEvent.nested_pevent	pyinotify.ProcessEvent-class.html#nested_pevent

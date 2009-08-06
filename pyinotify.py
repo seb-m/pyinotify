@@ -84,6 +84,7 @@ import re
 import ctypes
 import ctypes.util
 import types
+import asyncore
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
@@ -95,7 +96,7 @@ __metaclass__ = type  # Use new-style classes by default
 # Compatibity mode: set to True to improve compatibility with
 # Pyinotify 0.7.1. Do not set this variable yourself, call the
 # function compatibility_mode() instead.
-__COMPATIBILITY_MODE = False
+COMPATIBILITY_MODE = False
 
 
 # load libc
@@ -540,7 +541,7 @@ class Event(_Event):
         """
         _Event.__init__(self, raw)
         self.maskname = EventsCodes.maskname(self.mask)
-        if __COMPATIBILITY_MODE:
+        if COMPATIBILITY_MODE:
             self.event_name = self.maskname
         try:
             if self.name:
@@ -769,7 +770,7 @@ class _SysProcessEvent(_ProcessEvent):
                  'path': watch_.path,
                  'name': raw_event.name,
                  'dir': dir_}
-        if __COMPATIBILITY_MODE:
+        if COMPATIBILITY_MODE:
             dict_['is_dir'] = dir_
         dict_.update(to_append)
         return Event(dict_)
@@ -1280,6 +1281,33 @@ class ThreadedNotifier(threading.Thread, Notifier):
         inherited from threading.Thread, which then will call run().
         """
         self.loop()
+
+
+class AsyncNotifier(asyncore.file_dispatcher, Notifier):
+    """
+    This notifier inherits from asyncore.file_dispatcher in order to be able to
+    use pyinotify along with the asyncore framework.
+
+    """
+    def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
+                 read_freq=0, treshold=0, timeout=None, map=None):
+        """
+        Initializes the async notifier. The only additional parameter is 'map'
+        which is the optional asyncore private map.
+
+        """
+        Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
+                          treshold, timeout)
+        asyncore.file_dispatcher.__init__(self, self._fd, map)
+
+    def handle_read(self):
+        """When asyncore tells us we can read from the fd, we proceed processing
+        events. This method can be overridden for handling a notification
+        differently.
+
+        """
+        self.read_events()
+        self.process_events()
 
 
 class Watch:
@@ -1821,7 +1849,8 @@ def compatibility_mode():
     for evname in globals():
         if evname.startswith('IN_'):
             setattr(EventsCodes, evname, globals()[evname])
-    __COMPATIBILITY_MODE = True
+    global COMPATIBILITY_MODE
+    COMPATIBILITY_MODE = True
 
 
 def command_line():

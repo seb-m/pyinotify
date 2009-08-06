@@ -162,16 +162,6 @@ log.addHandler(console_handler)
 log.setLevel(20)
 
 
-# Try to speed-up execution with psyco
-try:
-    if False:
-        import psyco
-        psyco.full()
-except ImportError:
-    # Cannot import psyco
-    pass
-
-
 ### inotify's variables ###
 
 

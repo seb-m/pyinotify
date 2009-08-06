@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pyinotify.AsyncNotifier</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
+        Class&nbsp;AsyncNotifier
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="pyinotify.AsyncNotifier-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class AsyncNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#AsyncNotifier">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_pyinotif" name="uml_class_diagram_for_pyinotif">
+<area shape="rect" href="javascript:void(0);" title="asyncore.file_dispatcher.set_file" alt="" coords="429,507,571,525"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.file_dispatcher" alt="" coords="428,481,572,527"/>
+<area shape="rect" href="pyinotify.AsyncNotifier-class.html#__init__" title="Initializes the async notifier." alt="" coords="17,628,705,647"/>
+<area shape="rect" href="pyinotify.AsyncNotifier-class.html#handle_read" title="When asyncore tells us we can read from the fd, we proceed processing &#160;events." alt="" coords="17,647,705,665"/>
+<area shape="rect" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="16,603,707,667"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.debug" alt="" coords="397,28,603,47"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.connected" alt="" coords="397,47,603,65"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.accepting" alt="" coords="397,65,603,84"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.closing" alt="" coords="397,84,603,103"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.addr" alt="" coords="397,103,603,121"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.__repr__" alt="" coords="397,124,603,143"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.add_channel" alt="" coords="397,143,603,161"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.del_channel" alt="" coords="397,161,603,180"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.create_socket" alt="" coords="397,180,603,199"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.set_socket" alt="" coords="397,199,603,217"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.set_reuse_addr" alt="" coords="397,217,603,236"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.readable" alt="" coords="397,236,603,255"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.writable" alt="" coords="397,255,603,273"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.listen" alt="" coords="397,273,603,292"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.bind" alt="" coords="397,292,603,311"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.connect" alt="" coords="397,311,603,329"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.accept" alt="" coords="397,329,603,348"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.send" alt="" coords="397,348,603,367"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.handle_close" alt="" coords="397,385,603,404"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher" alt="" coords="396,11,604,405"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="69,460,376,479"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="69,479,376,497"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="69,497,376,516"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing function (instance of ProcessEvent)." alt="" coords="69,516,376,535"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#loop" title="Events are read only once time every min(read_freq, timeout) seconds at &#160;best and only if the size to read is &gt;= treshold." alt="" coords="69,535,376,553"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close the inotify&#39;s instance (close its file descriptor)." alt="" coords="69,553,376,572"/>
+<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="68,435,377,573"/>
+</map>
+  <img src="uml_class_diagram_for_pyinotif.gif" alt='' usemap="#uml_class_diagram_for_pyinotif" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>This notifier inherits from asyncore.file_dispatcher in order to be 
+  able to use pyinotify along with the asyncore framework.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.AsyncNotifier-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">watch_manager</span>,
+        <span class="summary-sig-arg">default_proc_fun</span>=<span class="summary-sig-default">&lt;ProcessEvent&gt;</span>,
+        <span class="summary-sig-arg">read_freq</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">treshold</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">timeout</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">map</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Initializes the async notifier.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#AsyncNotifier.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.AsyncNotifier-class.html#handle_read" class="summary-sig-name">handle_read</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      When asyncore tells us we can read from the fd, we proceed processing
+      events.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#AsyncNotifier.handle_read">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>asyncore.file_dispatcher</code></b>:
+      <code>set_file</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>asyncore.dispatcher</code></b>:
+      <code>__getattr__</code>,
+      <code>__repr__</code>,
+      <code>accept</code>,
+      <code>add_channel</code>,
+      <code>bind</code>,
+      <code>close</code>,
+      <code>connect</code>,
+      <code>create_socket</code>,
+      <code>del_channel</code>,
+      <code>handle_accept</code>,
+      <code>handle_close</code>,
+      <code>handle_connect</code>,
+      <code>handle_connect_event</code>,
+      <code>handle_error</code>,
+      <code>handle_expt</code>,
+      <code>handle_expt_event</code>,
+      <code>handle_read_event</code>,
+      <code>handle_write</code>,
+      <code>handle_write_event</code>,
+      <code>listen</code>,
+      <code>log</code>,
+      <code>log_info</code>,
+      <code>readable</code>,
+      <code>recv</code>,
+      <code>send</code>,
+      <code>set_reuse_addr</code>,
+      <code>set_socket</code>,
+      <code>writable</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b>:
+      <code><a href="pyinotify.Notifier-class.html#check_events">check_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#loop">loop</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#proc_fun">proc_fun</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#process_events">process_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#read_events">read_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#stop">stop</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b> (private):
+      <code><a href="pyinotify.Notifier-class.html#_sleep" onclick="show_private();">_sleep</a></code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>asyncore.dispatcher</code></b>:
+      <code>accepting</code>,
+      <code>addr</code>,
+      <code>closing</code>,
+      <code>connected</code>,
+      <code>debug</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">watch_manager</span>,
+        <span class="sig-arg">default_proc_fun</span>=<span class="sig-default">&lt;ProcessEvent&gt;</span>,
+        <span class="sig-arg">read_freq</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">treshold</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">timeout</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">map</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#AsyncNotifier.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Initializes the async notifier. The only additional parameter is 'map'
+  which is the optional asyncore private map.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>watch_manager</code></strong> - Watch Manager.</li>
+        <li><strong class="pname"><code>default_proc_fun</code></strong> - Default processing method.</li>
+        <li><strong class="pname"><code>read_freq</code></strong> - if read_freq == 0, events are read asap, if read_freq is &gt; 0, 
+          this thread sleeps max(0, read_freq - timeout) seconds. But if 
+          timeout is None it can be different because poll is blocking 
+          waiting for something to read.</li>
+        <li><strong class="pname"><code>treshold</code></strong> - File descriptor will be read only if its size to read is &gt;= 
+          treshold. If != 0, you likely want to use it in combination with 
+          read_freq because without that you keep looping without really 
+          reading anything and that until the amount to read is &gt;= 
+          treshold. At least with read_freq you may sleep.</li>
+        <li><strong class="pname"><code>timeout</code></strong> - http://docs.python.org/lib/poll-objects.html#poll-objects</li>
+    </ul></dd>
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="handle_read"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">handle_read</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#AsyncNotifier.handle_read">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>When asyncore tells us we can read from the fd, we proceed processing 
+  events. This method can be overridden for handling a notification 
+  differently.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        asyncore.dispatcher.handle_read
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Aug  6 15:45:57 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

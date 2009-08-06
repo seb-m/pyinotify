@@ -57,9 +57,9 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class WatchManager</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_17" name="uml_class_diagram_for_pyinotif_17">
+<center>  <map id="uml_class_diagram_for_pyinotif_19" name="uml_class_diagram_for_pyinotif_19">
 <area shape="rect" href="pyinotify.WatchManager-class.html#__init__" title="Initialization: init inotify, init watch manager dictionary." alt="" coords="17,36,732,55"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#add_watch" title="Add watch(s) on given path(s) with the specified mask and optionnally with &#160;a processing function and recursive flag." alt="" coords="17,55,732,73"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#add_watch" title="Add watch(s) on given |path|(s) with the specified |mask| and optionnally &#160;with a processing |proc_fun| function and a recursive flag |rec|." alt="" coords="17,55,732,73"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#update_watch" title="Update existing watch(s)." alt="" coords="17,73,732,92"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#get_wd" title="Returns the watch descriptor associated to path." alt="" coords="17,92,732,111"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#get_path" title="Returns the path associated to WD, if WD is unknown None is returned." alt="" coords="17,111,732,129"/>
@@ -67,12 +67,14 @@
 <area shape="rect" href="pyinotify.WatchManager-class.html#watch_transient_file" title="Watch a transient file, which will be created and deleted frequently over &#160;time (e.g." alt="" coords="17,148,732,167"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html" title="Provide operations for watching files and directories." alt="" coords="16,11,733,168"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_17.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_17" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_pyinotif_19.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_19" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
 <p>Provide operations for watching files and directories. Integrated 
-  dictionary is used to reference watched items.</p>
+  dictionary is used to reference watched items. When used inside threaded 
+  code, instanciate as many WatchManager instances as there are 
+  ThreadedNotifier instances.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -98,7 +100,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x960764c&gt;</span>)</span><br />
+        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x902279c&gt;</span>)</span><br />
       Initialization: init inotify, init watch manager dictionary.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__init__">source&nbsp;code</a></span>
@@ -164,8 +166,9 @@
         <span class="summary-sig-arg">do_glob</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Add watch(s) on given path(s) with the specified mask and optionnally
-      with a processing function and recursive flag.</td>
+      Add watch(s) on given |path|(s) with the specified |mask| and 
+      optionnally with a processing |proc_fun| function and a recursive 
+      flag |rec|.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.add_watch">source&nbsp;code</a></span>
             
@@ -402,7 +405,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x960764c&gt;</span>)</span>
+        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x902279c&gt;</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -471,12 +474,16 @@
     </td>
   </tr></table>
   
-  <p>Add watch(s) on given path(s) with the specified mask and optionnally 
-  with a processing function and recursive flag.</p>
+  <p>Add watch(s) on given |path|(s) with the specified |mask| and 
+  optionnally with a processing |proc_fun| function and a recursive flag 
+  |rec|. Ideally |path| components should not be unicode objects. Note that
+  unicode paths are accepted but are converted to byte strings before a 
+  watch is put on the path. The encoding used for converting the unicode 
+  object is given by sys.getfilesystemencoding().</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (string or list of string) - Path to watch, the path can either be a file or a directory. Also
+        <li><strong class="pname"><code>path</code></strong> (string or list of strings) - Path to watch, the path can either be a file or a directory. Also
           accepts a sequence (list) of paths.</li>
         <li><strong class="pname"><code>mask</code></strong> (int) - Bitmask of events.</li>
         <li><strong class="pname"><code>proc_fun</code></strong> (function or ProcessEvent instance or instance of one of its 
@@ -547,8 +554,9 @@
     </td>
   </tr></table>
   
-  <p>Update existing watch(s). Both the mask and the processing object can 
-  be modified.</p>
+  <p>Update existing watch(s). The |mask|, the processing object 
+  |proc_fun|, the recursive param |rec| and the |auto_add| and |quiet| 
+  flags can be updated.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -784,7 +792,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri May 15 12:25:19 2009
+    Generated by Epydoc 3.0.1 on Wed Jun 17 15:51:25 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pyinotify._RawEvent</title>
+  <title>pyinotify.UnicodeLogRecord</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
-        Class&nbsp;_RawEvent
+        Class&nbsp;UnicodeLogRecord
       </span>
     </td>
     <td>
@@ -48,28 +48,26 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="pyinotify._RawEvent-class.html"
+            >]&nbsp;|&nbsp;<a href="pyinotify.UnicodeLogRecord-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class _RawEvent</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#_RawEvent">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class UnicodeLogRecord</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#UnicodeLogRecord">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_25" name="uml_class_diagram_for_pyinotif_25">
-<area shape="rect" href="pyinotify._Event-class.html#__repr__" title="Returns: &#160;String representation." alt="" coords="89,36,175,55"/>
-<area shape="rect" href="pyinotify._Event-class.html" title="Event structure, represent events raised by the system." alt="" coords="88,11,176,56"/>
-<area shape="rect" href="pyinotify._RawEvent-class.html#__init__" title="Attach attributes (contained in dict_) to self." alt="" coords="17,111,247,129"/>
-<area shape="rect" href="pyinotify._RawEvent-class.html" title="Raw event, it contains only the informations provided by the system." alt="" coords="16,85,248,131"/>
+<center>  <map id="uml_class_diagram_for_pyinotif_15" name="uml_class_diagram_for_pyinotif_15">
+<area shape="rect" href="javascript:void(0);" title="logging.LogRecord.__str__" alt="" coords="189,36,296,55"/>
+<area shape="rect" href="javascript:void(0);" title="A LogRecord instance represents an event being logged." alt="" coords="188,11,297,56"/>
+<area shape="rect" href="pyinotify.UnicodeLogRecord-class.html#__init__" title="Initialize a logging record with interesting information." alt="" coords="17,111,468,129"/>
+<area shape="rect" href="pyinotify.UnicodeLogRecord-class.html#getMessage" title="Return the message for this LogRecord." alt="" coords="17,129,468,148"/>
+<area shape="rect" href="pyinotify.UnicodeLogRecord-class.html" title="pyinotify.UnicodeLogRecord" alt="" coords="16,85,469,149"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_25.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_25" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_pyinotif_15.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_15" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<p>Raw event, it contains only the informations provided by the system. 
-  It doesn't infer anything.</p>
-
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -93,14 +91,35 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify._RawEvent-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">wd</span>,
-        <span class="summary-sig-arg">mask</span>,
-        <span class="summary-sig-arg">cookie</span>,
-        <span class="summary-sig-arg">name</span>)</span><br />
-      Attach attributes (contained in dict_) to self.</td>
+          <td><span class="summary-sig"><a href="pyinotify.UnicodeLogRecord-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">level</span>,
+        <span class="summary-sig-arg">pathname</span>,
+        <span class="summary-sig-arg">lineno</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">args</span>,
+        <span class="summary-sig-arg">exc_info</span>,
+        <span class="summary-sig-arg">func</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Initialize a logging record with interesting information.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#_RawEvent.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#UnicodeLogRecord.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.UnicodeLogRecord-class.html#getMessage" class="summary-sig-name">getMessage</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return the message for this LogRecord.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#UnicodeLogRecord.getMessage">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -110,46 +129,8 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify._Event-class.html" onclick="show_private();">_Event</a></code></b>:
-      <code><a href="pyinotify._Event-class.html#__repr__">__repr__</a></code>
-      </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__delattr__</code>,
-      <code>__format__</code>,
-      <code>__getattribute__</code>,
-      <code>__hash__</code>,
-      <code>__new__</code>,
-      <code>__reduce__</code>,
-      <code>__reduce_ex__</code>,
-      <code>__setattr__</code>,
-      <code>__sizeof__</code>,
-      <code>__str__</code>,
-      <code>__subclasshook__</code>
-      </p>
-    </td>
-  </tr>
-</table>
-<!-- ==================== PROPERTIES ==================== -->
-<a name="section-Properties"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Properties</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Properties"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
-      <code>__class__</code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>logging.LogRecord</code></b>:
+      <code>__str__</code>
       </p>
     </td>
   </tr>
@@ -180,31 +161,51 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">wd</span>,
-        <span class="sig-arg">mask</span>,
-        <span class="sig-arg">cookie</span>,
-        <span class="sig-arg">name</span>)</span>
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">level</span>,
+        <span class="sig-arg">pathname</span>,
+        <span class="sig-arg">lineno</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">args</span>,
+        <span class="sig-arg">exc_info</span>,
+        <span class="sig-arg">func</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="pyinotify-pysrc.html#_RawEvent.__init__">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="pyinotify-pysrc.html#UnicodeLogRecord.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Attach attributes (contained in dict_) to self.</p>
+  <p>Initialize a logging record with interesting information.</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>wd</code></strong> (int) - Watch Descriptor.</li>
-        <li><strong class="pname"><code>mask</code></strong> (int) - Bitmask of events.</li>
-        <li><strong class="pname"><code>cookie</code></strong> (int) - Cookie.</li>
-        <li><strong class="pname"><code>name</code></strong> (string or None) - Basename of the file or directory against which the event was 
-          raised, in case where the watched directory is the parent 
-          directory. None if the event was raised on the watched item 
-          itself.</li>
-    </ul></dd>
     <dt>Overrides:
-        object.__init__
+        logging.LogRecord.__init__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getMessage"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getMessage</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#UnicodeLogRecord.getMessage">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return the message for this LogRecord.</p>
+  <p>Return the message for this LogRecord after merging any user-supplied 
+  arguments with the message.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        logging.LogRecord.getMessage
+        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>

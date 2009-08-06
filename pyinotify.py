@@ -92,6 +92,11 @@ __version__ = "0.8.6"
 __metaclass__ = type  # Use new-style classes by default
 
 
+# Compatibity mode: set it to True to improve compatibility with
+# Pyinotify 0.7.1
+COMPATIBILITY_MODE = False
+
+
 # load libc
 LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
 
@@ -432,11 +437,15 @@ for flagc, valc in EventsCodes.FLAG_COLLECTIONS.iteritems():
     # and masknames accessible by values.
     for name, val in valc.iteritems():
         globals()[name] = val
+        if COMPATIBILITY_MODE:
+            setattr(EventsCodes, name, val)
         EventsCodes.ALL_VALUES[val] = name
 
 
 # all 'normal' events
 ALL_EVENTS = reduce(lambda x, y: x | y, EventsCodes.OP_FLAGS.itervalues())
+if COMPATIBILITY_MODE:
+    setattr(EventsCodes, 'ALL_EVENTS', ALL_EVENTS)
 EventsCodes.ALL_FLAGS['ALL_EVENTS'] = ALL_EVENTS
 EventsCodes.ALL_VALUES[ALL_EVENTS] = 'ALL_EVENTS'
 
@@ -534,6 +543,8 @@ class Event(_Event):
         """
         _Event.__init__(self, raw)
         self.maskname = EventsCodes.maskname(self.mask)
+        if COMPATIBILITY_MODE:
+            self.event_name = self.maskname
         try:
             if self.name:
                 self.pathname = os.path.abspath(os.path.join(self.path,
@@ -761,6 +772,8 @@ class _SysProcessEvent(_ProcessEvent):
                  'path': watch_.path,
                  'name': raw_event.name,
                  'dir': dir_}
+        if COMPATIBILITY_MODE:
+            dict_['is_dir'] = dir_
         dict_.update(to_append)
         return Event(dict_)
 
@@ -1385,8 +1398,8 @@ class WatchManager:
     """
     Provide operations for watching files and directories. Integrated
     dictionary is used to reference watched items. When used inside
-    threaded code, instanciates a new WatchManager instance for each
-    ThreadedNotifier.
+    threaded code, instanciate as many WatchManager instances as
+    there are ThreadedNotifier instances.
 
     """
     def __init__(self, exclude_filter=lambda path: False):

@@ -83,7 +83,6 @@ import fnmatch
 import re
 import ctypes
 import ctypes.util
-import types
 import asyncore
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
@@ -463,7 +462,7 @@ class _Event:
             if attr == 'mask':
                 value = hex(getattr(self, attr))
             elif isinstance(value, basestring) and not value:
-                value ="''"
+                value = "''"
             s += ' %s%s%s' % (Color.FieldName(attr),
                               Color.Punctuation('='),
                               Color.FieldValue(value))
@@ -629,9 +628,9 @@ class _SysProcessEvent(_ProcessEvent):
         date_cur_ = datetime.now()
         for seq in [self._mv_cookie, self._mv]:
             for k in seq.keys():
-               if (date_cur_ - seq[k][1]) > timedelta(minutes=1):
-                   log.debug('cleanup: deleting entry %s', seq[k][0])
-                   del seq[k]
+                if (date_cur_ - seq[k][1]) > timedelta(minutes=1):
+                    log.debug('cleanup: deleting entry %s', seq[k][0])
+                    del seq[k]
 
     def process_IN_CREATE(self, raw_event):
         """
@@ -741,7 +740,7 @@ class _SysProcessEvent(_ProcessEvent):
             log.error(str(err))
         return event_
 
-    def process_default(self, raw_event, to_append={}):
+    def process_default(self, raw_event, to_append=None):
         """
         Common handling for the following events:
 
@@ -762,7 +761,8 @@ class _SysProcessEvent(_ProcessEvent):
                  'dir': dir_}
         if COMPATIBILITY_MODE:
             dict_['is_dir'] = dir_
-        dict_.update(to_append)
+        if to_append is not None:
+            dict_.update(to_append)
         return Event(dict_)
 
 
@@ -1085,7 +1085,7 @@ class Notifier:
                     try:
                         os.kill(pid, 0)
                     except OSError, err:
-                        pass
+                        log.error(err)
                     else:
                         if not force_kill:
                             s = 'There is already a pid file %s with pid %d'
@@ -1280,15 +1280,15 @@ class AsyncNotifier(asyncore.file_dispatcher, Notifier):
 
     """
     def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
-                 read_freq=0, treshold=0, timeout=None, map=None):
+                 read_freq=0, treshold=0, timeout=None, channel_map=None):
         """
-        Initializes the async notifier. The only additional parameter is 'map'
-        which is the optional asyncore private map.
+        Initializes the async notifier. The only additional parameter is
+        'channel_map' which is the optional asyncore private map.
 
         """
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
                           treshold, timeout)
-        asyncore.file_dispatcher.__init__(self, self._fd, map)
+        asyncore.file_dispatcher.__init__(self, self._fd, channel_map)
 
     def handle_read(self):
         """When asyncore tells us we can read from the fd, we proceed processing

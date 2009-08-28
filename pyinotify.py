@@ -29,11 +29,12 @@ pyinotify
 
 class PyinotifyError(Exception):
     """Indicates exceptions raised by a Pyinotify class."""
+    pass
 
 
 class UnsupportedPythonVersionError(PyinotifyError):
     """
-    Raised for unsupported Python version.
+    Raised on unsupported Python versions.
     """
     def __init__(self, version):
         """
@@ -47,7 +48,7 @@ class UnsupportedPythonVersionError(PyinotifyError):
 
 class UnsupportedLibcVersionError(PyinotifyError):
     """
-    Raised for unsupported libc version.
+    Raised on unsupported libc versions.
     """
     def __init__(self, version):
         """
@@ -55,8 +56,8 @@ class UnsupportedLibcVersionError(PyinotifyError):
         @type version: string
         """
         PyinotifyError.__init__(self,
-                                ('Libc %s is unsupported, requires '
-                                'at least Libc 2.4') % version)
+                                ('Libc %s is not supported, requires '
+                                 'at least Libc 2.4') % version)
 
 
 # Check Python version
@@ -98,10 +99,10 @@ __metaclass__ = type  # Use new-style classes by default
 COMPATIBILITY_MODE = False
 
 
-# load libc
+# Load libc
 LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
 
-# the libc version > 2.4 check.
+# The libc version > 2.4 check.
 # XXX: Maybe it is better to check if the libc has the needed functions inside?
 #      Because there are inotify patches for libc 2.3.6.
 LIBC.gnu_get_libc_version.restype = ctypes.c_char_p
@@ -113,6 +114,9 @@ if (int(LIBC_VERSION.split('.')[0]) < 2 or
 
 
 class PyinotifyLogger(logging.Logger):
+    """
+    Pyinotify logger used for logging unicode strings.
+    """
     def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None,
                    extra=None):
         rv = UnicodeLogRecord(name, level, fn, lno, msg, args, exc_info, func)
@@ -152,7 +156,7 @@ class UnicodeLogRecord(logging.LogRecord):
         return msg
 
 
-# logging
+# Logging
 logging.setLoggerClass(PyinotifyLogger)
 log = logging.getLogger("pyinotify")
 console_handler = logging.StreamHandler()
@@ -166,11 +170,12 @@ log.setLevel(20)
 
 class SysCtlINotify:
     """
-    Access (read, write) inotify's variables through sysctl.
+    Access (read, write) inotify's variables through sysctl. Usually it
+    requires administrator rights to update them.
 
     Examples:
-      - Read variable: myvar = max_queued_events.value
-      - Update variable: max_queued_events.value = 42
+      - Read max_queued_events attribute: myvar = max_queued_events.value
+      - Update max_queued_events attribute: max_queued_events.value = 42
     """
 
     inotify_attrs = {'max_user_instances': 1,
@@ -184,6 +189,8 @@ class SysCtlINotify:
 
     def get_val(self):
         """
+        Gets attribute's value.
+
         @return: stored value.
         @rtype: int
         """
@@ -197,7 +204,9 @@ class SysCtlINotify:
 
     def set_val(self, nval):
         """
-        @param nval: set to nval.
+        Sets new attribute's value.
+
+        @param nval: replaces current value by nval.
         @type nval: int
         """
         oldv = ctypes.c_int(0)
@@ -216,16 +225,16 @@ class SysCtlINotify:
         return '<%s=%d>' % (self._attrname, self.get_val())
 
 
-# singleton instances
+# Singleton instances
 #
-# read int: myvar = max_queued_events.value
+# read: myvar = max_queued_events.value
 # update: max_queued_events.value = 42
 #
 for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
     globals()[attrname] = SysCtlINotify(attrname)
 
 
-# fixme: put those tests elsewhere
+# FIXME: put those tests elsewhere
 #
 # print max_queued_events
 # print max_queued_events.value
@@ -394,9 +403,9 @@ class EventsCodes:
 
     def maskname(mask):
         """
-        Return the event name associated to mask. IN_ISDIR is appended when
-        appropriate. Note: only one event is returned, because only one is
-        raised once at a time.
+        Returns the event name associated to mask. IN_ISDIR is appended to
+        the result when appropriate. Note: only one event is returned, because
+        only one event can be raised at a given time.
 
         @param mask: mask.
         @type mask: int
@@ -446,13 +455,16 @@ class _Event:
     def __init__(self, dict_):
         """
         Attach attributes (contained in dict_) to self.
+
+        @param dict_: Set of attributes.
+        @type dict_: dictionary
         """
         for tpl in dict_.iteritems():
             setattr(self, *tpl)
 
     def __repr__(self):
         """
-        @return: String representation.
+        @return: Generic event string representation.
         @rtype: str
         """
         s = ''
@@ -488,7 +500,7 @@ class _RawEvent(_Event):
         @param cookie: Cookie.
         @type cookie: int
         @param name: Basename of the file or directory against which the
-                     event was raised, in case where the watched directory
+                     event was raised in case where the watched directory
                      is the parent directory. None if the event was raised
                      on the watched item itself.
         @type name: string or None
@@ -504,10 +516,10 @@ class _RawEvent(_Event):
 class Event(_Event):
     """
     This class contains all the useful informations about the observed
-    event. However, the incorporation of each field is not guaranteed and
+    event. However, the presence of each field is not guaranteed and
     depends on the type of event. In effect, some fields are irrelevant
     for some kind of event (for example 'cookie' is meaningless for
-    IN_CREATE whereas it is useful for IN_MOVE_TO).
+    IN_CREATE whereas it is mandatory for IN_MOVE_TO).
 
     The possible fields are:
       - wd (int): Watch Descriptor.
@@ -515,13 +527,13 @@ class Event(_Event):
       - maskname (str): Readable event name.
       - path (str): path of the file or directory being watched.
       - name (str): Basename of the file or directory against which the
-              event was raised, in case where the watched directory
+              event was raised in case where the watched directory
               is the parent directory. None if the event was raised
               on the watched item itself. This field is always provided
               even if the string is ''.
-      - pathname (str): absolute path of: path + name
+      - pathname (str): Concatenation of 'path' and 'name'.
       - cookie (int): Cookie.
-      - dir (bool): is the event raised against directory.
+      - dir (bool): True if the event was raised against a directory.
 
     """
     def __init__(self, raw):
@@ -561,10 +573,10 @@ class _ProcessEvent:
     def __call__(self, event):
         """
         To behave like a functor the object must be callable.
-        This method is a dispatch method. Lookup order:
+        This method is a dispatch method. Its lookup order is:
           1. process_MASKNAME method
           2. process_FAMILY_NAME method
-          3. otherwise call process_default
+          3. otherwise calls process_default
 
         @param event: Event to be processed.
         @type event: Event object
@@ -602,8 +614,8 @@ class _SysProcessEvent(_ProcessEvent):
     There is three kind of processing according to each event:
 
       1. special handling (deletion from internal container, bug, ...).
-      2. default treatment: which is applied to most of events.
-      4. IN_ISDIR is never sent alone, he is piggybacked with a standart
+      2. default treatment: which is applied to the majority of events.
+      4. IN_ISDIR is never sent alone, he is piggybacked with a standard
          event, he is not processed as the others events, instead, its
          value is captured and appropriately aggregated to dst event.
     """
@@ -612,8 +624,8 @@ class _SysProcessEvent(_ProcessEvent):
 
         @param wm: Watch Manager.
         @type wm: WatchManager instance
-        @param notifier: notifier.
-        @type notifier: Instance of Notifier.
+        @param notifier: Notifier.
+        @type notifier: Notifier instance
         """
         self._watch_manager = wm  # watch manager
         self._notifier = notifier  # notifier
@@ -629,14 +641,14 @@ class _SysProcessEvent(_ProcessEvent):
         for seq in [self._mv_cookie, self._mv]:
             for k in seq.keys():
                 if (date_cur_ - seq[k][1]) > timedelta(minutes=1):
-                    log.debug('cleanup: deleting entry %s', seq[k][0])
+                    log.debug('Cleanup: deleting entry %s', seq[k][0])
                     del seq[k]
 
     def process_IN_CREATE(self, raw_event):
         """
-        If the event concerns a directory and the auto_add flag of the
+        If the event affects a directory and the auto_add flag of the
         targetted watch is set to True, a new watch is added on this
-        new directory, with the same attributes's values than those of
+        new directory, with the same attribute values than those of
         this watch.
         """
         if raw_event.mask & IN_ISDIR:
@@ -690,13 +702,13 @@ class _SysProcessEvent(_ProcessEvent):
 
     def process_IN_MOVE_SELF(self, raw_event):
         """
-        STATUS: the following bug has been fixed in the recent kernels (fixme:
+        STATUS: the following bug has been fixed in recent kernels (FIXME:
         which version ?). Now it raises IN_DELETE_SELF instead.
 
-        Old kernels are bugged, this event is raised when the watched item
-        was moved, so we must update its path, but under some circumstances it
-        can be impossible: if its parent directory and its destination
-        directory aren't watched. The kernel (see include/linux/fsnotify.h)
+        Old kernels were bugged, this event raised when the watched item
+        were moved, so we had to update its path, but under some circumstances
+        it was impossible: if its parent directory and its destination
+        directory wasn't watched. The kernel (see include/linux/fsnotify.h)
         doesn't bring us enough informations like the destination path of
         moved items.
         """
@@ -709,7 +721,7 @@ class _SysProcessEvent(_ProcessEvent):
             log.error("The pathname '%s' of this watch %s has probably changed "
                       "and couldn't be updated, so it cannot be trusted "
                       "anymore. To fix this error move directories/files only "
-                      "between watched parents directories, in this case eg. "
+                      "between watched parents directories, in this case e.g. "
                       "put a watch on '%s'.",
                       watch_.path, watch_,
                       os.path.normpath(os.path.join(watch_.path,
@@ -721,7 +733,7 @@ class _SysProcessEvent(_ProcessEvent):
 
     def process_IN_Q_OVERFLOW(self, raw_event):
         """
-        Only signal overflow, most of the common flags are irrelevant
+        Only signal an overflow, most of the common flags are irrelevant
         for this event (path, wd, name).
         """
         return Event({'mask': raw_event.mask})
@@ -729,9 +741,9 @@ class _SysProcessEvent(_ProcessEvent):
     def process_IN_IGNORED(self, raw_event):
         """
         The watch descriptor raised by this event is now ignored (forever),
-        it can be safely deleted from watch manager dictionary.
-        After this event we can be sure that neither the event queue
-        neither the system will raise an event associated to this wd.
+        it can be safely deleted from the watch manager dictionary.
+        After this event we can be sure that neither the event queue nor
+        the system will raise an event associated to this wd again.
         """
         event_ = self.process_default(raw_event)
         try:
@@ -742,12 +754,11 @@ class _SysProcessEvent(_ProcessEvent):
 
     def process_default(self, raw_event, to_append=None):
         """
-        Common handling for the following events:
+        Commons handling for the followings events:
 
         IN_ACCESS, IN_MODIFY, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE,
         IN_OPEN, IN_DELETE, IN_DELETE_SELF, IN_UNMOUNT.
         """
-        ret = None
         watch_ = self._watch_manager._wmd.get(raw_event.wd)
         if raw_event.mask & (IN_DELETE_SELF | IN_MOVE_SELF):
             # Unfornulately this information is not provided by the kernel
@@ -773,16 +784,16 @@ class ProcessEvent(_ProcessEvent):
 
     Note: you should not override __init__ in your subclass instead define
     a my_init() method, this method will be called from the constructor of
-    this class with optional parameters.
+    this class with its optional parameters.
 
-      1. Provide methods, e.g. process_IN_DELETE for processing a given kind
-         of event (eg. IN_DELETE in this case).
+      1. Provide specialized individual methods, e.g. process_IN_DELETE for
+         processing a precise type of event (e.g. IN_DELETE in this case).
       2. Or/and provide methods for processing events by 'family', e.g.
          process_IN_CLOSE method will process both IN_CLOSE_WRITE and
          IN_CLOSE_NOWRITE events (if process_IN_CLOSE_WRITE and
-         process_IN_CLOSE_NOWRITE aren't defined).
-      3. Or/and override process_default for processing the remaining kind of
-         events.
+         process_IN_CLOSE_NOWRITE aren't defined though).
+      3. Or/and override process_default for catching and processing all
+         the remaining types of events.
     """
     pevent = None
 
@@ -790,10 +801,11 @@ class ProcessEvent(_ProcessEvent):
         """
         Enable chaining of ProcessEvent instances.
 
-        @param pevent: optional callable object, will be called on event
+        @param pevent: Optional callable object, will be called on event
                        processing (before self).
         @type pevent: callable
-        @param kargs: optional arguments delagated to template method my_init
+        @param kargs: Optional arguments wich will be delegated to the
+                      template method my_init().
         @type kargs: dict
         """
         self.pevent = pevent
@@ -813,11 +825,11 @@ class ProcessEvent(_ProcessEvent):
     def __call__(self, event):
         stop_chaining = False
         if self.pevent is not None:
-            # By default methods return None so we fix as guideline
+            # By default methods return None so we set as guideline
             # that methods asking for stop chaining must explicitely
-            # return non None or False values, otherwise the default
-            # behavior is to chain call to the corresponding local
-            # method.
+            # return non None or non False values, otherwise the default
+            # behavior will be to accept chain call to the corresponding
+            # local method.
             stop_chaining = self.pevent(event)
         if not stop_chaining:
             return _ProcessEvent.__call__(self, event)
@@ -827,8 +839,8 @@ class ProcessEvent(_ProcessEvent):
 
     def process_default(self, event):
         """
-        Default default processing event method. Print event
-        on standart output.
+        Default processing event method. By default uses print statement
+        to output event on standard output.
 
         @param event: Event to be processed.
         @type event: Event instance
@@ -842,6 +854,9 @@ class ChainIfTrue(ProcessEvent):
     processing instance.
     """
     def my_init(self, func):
+        """
+        Template method called from base class constructor.
+        """
         self._func = func
 
     def process_default(self, event):
@@ -849,7 +864,13 @@ class ChainIfTrue(ProcessEvent):
 
 
 class Stats(ProcessEvent):
+    """
+    Compute and display trivial statistics about processed events.
+    """
     def my_init(self):
+        """
+        Template method called from base class constructor.
+        """
         self._start_time = time.time()
         self._stats = {}
         self._stats_lock = threading.Lock()
@@ -894,6 +915,12 @@ class Stats(ProcessEvent):
         return s
 
     def dump(self, filename):
+        """
+        Dumps statistics to file.
+
+        @param filename: pathname.
+        @type filename: string
+        """
         fo = file(filename, 'wb')
         try:
             fo.write(str(self))
@@ -951,33 +978,34 @@ class Notifier:
                           timeout is None it can be different because
                           poll is blocking waiting for something to read.
         @type read_freq: int
-        @param treshold: File descriptor will be read only if its size to
-                         read is >= treshold. If != 0, you likely want to
-                         use it in combination with read_freq because
-                         without that you keep looping without really reading
-                         anything and that until the amount to read
-                         is >= treshold. At least with read_freq you may sleep.
+        @param treshold: File descriptor will be read only if the accumulated
+                         size to read becomes >= treshold. If != 0, you likely
+                         want to use it in combination with an appropriate
+                         value for read_freq because without that you would
+                         keep looping without really reading anything and that
+                         until the amount of events to read becomes >= treshold.
+                         At least with read_freq set you might sleep.
         @type treshold: int
         @param timeout:
             http://docs.python.org/lib/poll-objects.html#poll-objects
         @type timeout: int
         """
-        # watch manager instance
+        # Watch Manager instance
         self._watch_manager = watch_manager
-        # file descriptor
+        # File descriptor
         self._fd = self._watch_manager._fd
-        # poll object and registration
+        # Poll object and registration
         self._pollobj = select.poll()
         self._pollobj.register(self._fd, select.POLLIN)
         # This pipe is correctely initialized and used by ThreadedNotifier
         self._pipe = (-1, -1)
-        # event queue
+        # Event queue
         self._eventq = deque()
-        # system processing functor, common to all events
+        # System processing functor, common to all events
         self._sys_proc_fun = _SysProcessEvent(self._watch_manager, self)
-        # default processing method
+        # Default processing method
         self._default_proc_fun = default_proc_fun
-        # loop parameters
+        # Loop parameters
         self._read_freq = read_freq
         self._treshold = treshold
         self._timeout = timeout
@@ -1025,7 +1053,7 @@ class Notifier:
             return
 
         try:
-            # read content from file
+            # Read content from file
             r = os.read(self._fd, queue_size)
         except Exception, msg:
             raise NotifierError(msg)
@@ -1033,13 +1061,13 @@ class Notifier:
         rsum = 0  # counter
         while rsum < queue_size:
             s_size = 16
-            # retrieve wd, mask, cookie
+            # Retrieve wd, mask, cookie
             s_ = struct.unpack('iIII', r[rsum:rsum+s_size])
-            # length of name
+            # Length of name
             fname_len = s_[3]
             # field 'length' useless
             s_ = s_[:-1]
-            # retrieve name
+            # Retrieve name
             s_ += struct.unpack('%ds' % fname_len,
                                 r[rsum + s_size:rsum + s_size + fname_len])
             self._eventq.append(_RawEvent(*s_))
@@ -1048,8 +1076,8 @@ class Notifier:
     def process_events(self):
         """
         Routine for processing events from queue by calling their
-        associated proccessing function (instance of ProcessEvent).
-        It also do internal processings, to keep the system updated.
+        associated proccessing method (an instance of ProcessEvent).
+        It also does internal processings, to keep the system updated.
         """
         while self._eventq:
             raw_event = self._eventq.popleft()  # pop next event
@@ -1065,7 +1093,7 @@ class Notifier:
     def __daemonize(self, pid_file=None, force_kill=False, stdin=os.devnull,
                     stdout=os.devnull, stderr=os.devnull):
         """
-        pid_file: file to which pid will be written.
+        pid_file: file to which the pid will be written.
         force_kill: if True kill the process associated to pid_file.
         stdin, stdout, stderr: files associated to common streams.
         """
@@ -1178,7 +1206,7 @@ class Notifier:
 
     def stop(self):
         """
-        Close the inotify's instance (close its file descriptor).
+        Close inotify's instance (close its file descriptor).
         It destroys all existing watches, pending events,...
         """
         self._pollobj.unregister(self._fd)
@@ -1187,12 +1215,12 @@ class Notifier:
 
 class ThreadedNotifier(threading.Thread, Notifier):
     """
-    This notifier inherits from threading.Thread for instantiating a separate
+    This notifier inherits from threading.Thread for instanciating a separate
     thread, and also inherits from Notifier, because it is a threaded notifier.
 
-    Note that everything possible with this class is also possible through
-    Notifier. Moreover Notifier is _better_ under many aspects: not threaded,
-    can be easily daemonized.
+    Note that every functionality provided by this class is also provided
+    through Notifier class. Moreover Notifier should be considered first because
+    it is not threaded and could be easily daemonized.
     """
     def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
                  read_freq=0, treshold=0, timeout=None):
@@ -1208,17 +1236,16 @@ class ThreadedNotifier(threading.Thread, Notifier):
                           if read_freq is > 0, this thread sleeps
                           max(0, read_freq - timeout) seconds.
         @type read_freq: int
-        @param treshold: File descriptor will be read only if its size to
-                         read is >= treshold. If != 0, you likely want to
-                         use it in combination with read_freq because
-                         without that you keep looping without really reading
-                         anything and that until the amount to read
-                         is >= treshold. At least with read_freq you may sleep.
+        @param treshold: File descriptor will be read only if the accumulated
+                         size to read becomes >= treshold. If != 0, you likely
+                         want to use it in combination with an appropriate
+                         value set for read_freq because without that you would
+                         keep looping without really reading anything and that
+                         until the amount of events to read becomes >= treshold.
+                         At least with read_freq you might sleep.
         @type treshold: int
         @param timeout:
            see http://docs.python.org/lib/poll-objects.html#poll-objects
-           Read the corresponding comment in the source code before changing
-           it.
         @type timeout: int
         """
         # Init threading base class
@@ -1234,7 +1261,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
 
     def stop(self):
         """
-        Stop the notifier's loop. Stop notification. Join the thread.
+        Stop notifier's loop. Stop notification. Join the thread.
         """
         self._stop_event.set()
         os.write(self._pipe[1], 'stop')
@@ -1247,7 +1274,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
     def loop(self):
         """
         Thread's main loop. Don't meant to be called by user directly.
-        Call start() instead.
+        Call inherited start() method instead.
 
         Events are read only once time every min(read_freq, timeout)
         seconds at best and only if the size of events to read is >= treshold.
@@ -1265,10 +1292,11 @@ class ThreadedNotifier(threading.Thread, Notifier):
 
     def run(self):
         """
-        Start the thread's loop: read and process events until the method
+        Start thread's loop: read and process events until the method
         stop() is called.
         Never call this method directly, instead call the start() method
-        inherited from threading.Thread, which then will call run().
+        inherited from threading.Thread, which then will call run() in
+        its turn.
         """
         self.loop()
 
@@ -1283,7 +1311,8 @@ class AsyncNotifier(asyncore.file_dispatcher, Notifier):
                  read_freq=0, treshold=0, timeout=None, channel_map=None):
         """
         Initializes the async notifier. The only additional parameter is
-        'channel_map' which is the optional asyncore private map.
+        'channel_map' which is the optional asyncore private map. See
+        Notifier class for the meaning of the others parameters.
 
         """
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
@@ -1291,7 +1320,8 @@ class AsyncNotifier(asyncore.file_dispatcher, Notifier):
         asyncore.file_dispatcher.__init__(self, self._fd, channel_map)
 
     def handle_read(self):
-        """When asyncore tells us we can read from the fd, we proceed processing
+        """
+        When asyncore tells us we can read from the fd, we proceed processing
         events. This method can be overridden for handling a notification
         differently.
 
@@ -1345,7 +1375,6 @@ class ExcludeFilter:
     """
     ExcludeFilter is an exclusion filter.
     """
-
     def __init__(self, arg_lst):
         """
         @param arg_lst: is either a list or dict of patterns:
@@ -1379,9 +1408,9 @@ class ExcludeFilter:
 
     def __call__(self, path):
         """
-        @param path: path to match against regexps.
+        @param path: Path to match against provided regexps.
         @type path: str
-        @return: return True is path has been matched and should
+        @return: Return True if path has been matched and should
                  be excluded, False otherwise.
         @rtype: bool
         """
@@ -1411,9 +1440,9 @@ class WatchManagerError(Exception):
 
 class WatchManager:
     """
-    Provide operations for watching files and directories. Integrated
+    Provide operations for watching files and directories. Its internal
     dictionary is used to reference watched items. When used inside
-    threaded code, instanciate as many WatchManager instances as
+    threaded code, one must instanciate as many WatchManager instances as
     there are ThreadedNotifier instances.
 
     """
@@ -1470,9 +1499,9 @@ class WatchManager:
                   auto_add=False, do_glob=False, quiet=True,
                   exclude_filter=None):
         """
-        Add watch(s) on given |path|(s) with the specified |mask| and
-        optionnally with a processing |proc_fun| function and a recursive
-        flag |rec|.
+        Add watch(s) on provided |path|(s) with associated |mask| flag
+        value and optionally with a processing |proc_fun| function and the
+        recursive flag |rec| set to True.
         Ideally |path| components should not be unicode objects. Note
         that unicode paths are accepted but are converted to byte strings
         before a watch is put on the path. The encoding used for converting
@@ -1488,15 +1517,16 @@ class WatchManager:
                         one of its subclasses or callable object.
         @param rec: Recursively add watches from path on all its
                     subdirectories, set to False by default (doesn't
-                    follows symlinks).
+                    follows symlinks in any case).
         @type rec: bool
         @param auto_add: Automatically add watches on newly created
-                         directories in the watch's path.
+                         directories in watched parent |path| directory.
         @type auto_add: bool
-        @param do_glob: Do globbing on pathname.
+        @param do_glob: Do globbing on pathname (see standard globbing
+                        module for more informations).
         @type do_glob: bool
         @param quiet: if False raises a WatchManagerError exception on
-                      error. See example not_quiet.py
+                      error. See example not_quiet.py.
         @type quiet: bool
         @param exclude_filter: boolean function, returns True if current
                                path must be excluded from being watched.
@@ -1504,9 +1534,9 @@ class WatchManager:
                                into __init__.
         @type exclude_filter: bool
         @return: dict of paths associated to watch descriptors. A wd value
-                 is positive if the watch has been sucessfully added,
-                 otherwise the value is negative. If the path is invalid
-                 it will be not included into this dict.
+                 is positive if the watch was added sucessfully,
+                 otherwise the value is negative. If the path was invalid
+                 it is not included into this returned dictionary.
         @rtype: dict of {str: int}
         """
         ret_ = {} # return {path: wd, ...}
@@ -1575,25 +1605,26 @@ class WatchManager:
     def update_watch(self, wd, mask=None, proc_fun=None, rec=False,
                      auto_add=False, quiet=True):
         """
-        Update existing watch(s). The |mask|, the processing object
-        |proc_fun|, the recursive param |rec| and the |auto_add| and
-        |quiet| flags can be updated.
+        Update existing watch descriptors |wd|. The |mask| value, the
+        processing object |proc_fun|, the recursive param |rec| and the
+        |auto_add| and |quiet| flags can all be updated.
 
         @param wd: Watch Descriptor to update. Also accepts a list of
-                     watch descriptors.
+                   watch descriptors.
         @type wd: int or list of int
         @param mask: Optional new bitmask of events.
         @type mask: int
         @param proc_fun: Optional new processing function.
         @type proc_fun: function or ProcessEvent instance or instance of
                         one of its subclasses or callable object.
-        @param rec: Recursively update watches on every already watched
-                    subdirectories and subfiles.
+        @param rec: Optionally adds watches recursively on all
+                    subdirectories contained into |wd| directory.
         @type rec: bool
-        @param auto_add: Automatically add watches on newly created
-                         directories in the watch's path.
+        @param auto_add: Automatically adds watches on newly created
+                         directories in the watch's path corresponding to
+                         |wd|.
         @type auto_add: bool
-        @param quiet: if False raises a WatchManagerError exception on
+        @param quiet: If False raises a WatchManagerError exception on
                       error. See example not_quiet.py
         @type quiet: bool
         @return: dict of watch descriptors associated to booleans values.
@@ -1658,10 +1689,10 @@ class WatchManager:
     def get_wd(self, path):
         """
         Returns the watch descriptor associated to path. This method
-        has an prohibitive cost, always prefer to keep the WD.
-        If path is unknown None is returned.
+        presents a prohibitive cost, always prefer to keep the WD
+        returned by add_watch(). If the path is unknown it returns None.
 
-        @param path: path.
+        @param path: Path.
         @type path: str
         @return: WD or None.
         @rtype: int or None
@@ -1674,12 +1705,11 @@ class WatchManager:
 
     def get_path(self, wd):
         """
-        Returns the path associated to WD, if WD is unknown
-        None is returned.
+        Returns the path associated to WD, if WD is unknown it returns None.
 
-        @param wd: watch descriptor.
+        @param wd: Watch descriptor.
         @type wd: int
-        @return: path or None.
+        @return: Path or None.
         @rtype: string or None
         """
         watch_ = self._wmd.get(wd)
@@ -1715,7 +1745,7 @@ class WatchManager:
         @param rec: Recursively removes watches on every already watched
                     subdirectories and subfiles.
         @type rec: bool
-        @param quiet: if False raises a WatchManagerError exception on
+        @param quiet: If False raises a WatchManagerError exception on
                       error. See example not_quiet.py
         @type quiet: bool
         @return: dict of watch descriptors associated to booleans values.
@@ -1749,10 +1779,10 @@ class WatchManager:
         Watch a transient file, which will be created and deleted frequently
         over time (e.g. pid file).
 
-        @attention: Under the call to this function it will be impossible
-        to correctly watch the events triggered into the same
+        @attention: Currently under the call to this function it is not
+        possible to correctly watch the events triggered into the same
         base directory than the directory where is located this watched
-        transient file. For instance it would actually be wrong to make these
+        transient file. For instance it would be wrong to make these
         two successive calls: wm.watch_transient_file('/var/run/foo.pid', ...)
         and wm.add_watch('/var/run/', ...)
 
@@ -1784,6 +1814,9 @@ class WatchManager:
 
 
 class Color:
+    """
+    Internal class. Provide fancy colors used by string representations.
+    """
     normal = "\033[0m"
     black = "\033[30m"
     red = "\033[31m"
@@ -1799,20 +1832,24 @@ class Color:
 
     @staticmethod
     def Punctuation(s):
+        """Punctuation color."""
         return Color.normal + s + Color.normal
 
     @staticmethod
     def FieldValue(s):
+        """Field value color."""
         if not isinstance(s, basestring):
             s = str(s)
         return Color.purple + s + Color.normal
 
     @staticmethod
     def FieldName(s):
+        """Field name color."""
         return Color.blue + s + Color.normal
 
     @staticmethod
     def ClassName(s):
+        """Class name color."""
         return Color.red + Color.bold + s + Color.normal
 
     @staticmethod
@@ -1829,11 +1866,11 @@ class Color:
 def compatibility_mode():
     """
     Use this function to turn on the compatibility mode. The compatibility
-    mode is used to improve compatibility with Pyinotify 0.7.1 programs.
-    The compatibility mode provides variables 'is_dir', 'event_name',
-    'EventsCodes.IN_*' and 'EventsCodes.ALL_EVENTS' as with Pyinotify 0.7.1.
-    Do not call this function if your program is developped for
-    Pyinotify >= 0.8.x.
+    mode is used to improve compatibility with Pyinotify 0.7.1 (or older)
+    programs. The compatibility mode provides additional variables 'is_dir',
+    'event_name', 'EventsCodes.IN_*' and 'EventsCodes.ALL_EVENTS' as
+    Pyinotify 0.7.1 provided. Do not call this function from new programs!!
+    Especially if there are developped for Pyinotify >= 0.8.x.
     """
     setattr(EventsCodes, 'ALL_EVENTS', ALL_EVENTS)
     for evname in globals():
@@ -1844,11 +1881,10 @@ def compatibility_mode():
 
 
 def command_line():
-    #
-    # - By default the watched path is '/tmp' for all events.
-    # - The monitoring execution blocks and serve forever, type c^c
-    #   to stop it.
-    #
+    """
+    By default the watched path is '/tmp' for all events. The monitoring
+    serves forever, type c^c to stop it.
+    """
     from optparse import OptionParser
 
     usage = "usage: %prog [options] [path1] [path2] [pathn]"

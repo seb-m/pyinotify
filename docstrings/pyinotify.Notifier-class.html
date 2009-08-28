@@ -59,14 +59,14 @@
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_7" name="uml_class_diagram_for_pyinotif_7">
 <area shape="rect" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="207,197,297,224"/>
-<area shape="rect" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instantiating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="348,197,455,224"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="348,197,455,224"/>
 <area shape="rect" href="pyinotify.Notifier-class.html#__init__" title="Initialization." alt="" coords="17,36,636,55"/>
 <area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="17,55,636,73"/>
 <area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="17,73,636,92"/>
 <area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="17,92,636,111"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing function (instance of ProcessEvent)." alt="" coords="17,111,636,129"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="17,111,636,129"/>
 <area shape="rect" href="pyinotify.Notifier-class.html#loop" title="Events are read only once time every min(read_freq, timeout) seconds at &#160;best and only if the size to read is &gt;= treshold." alt="" coords="17,129,636,148"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close the inotify&#39;s instance (close its file descriptor)." alt="" coords="17,148,636,167"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="17,148,636,167"/>
 <area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="16,11,637,168"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_7.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_7" ismap="ismap" class="graph-without-title" />
@@ -173,7 +173,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.Notifier-class.html#process_events" class="summary-sig-name">process_events</a>(<span class="summary-sig-arg">self</span>)</span><br />
       Routine for processing events from queue by calling their associated 
-      proccessing function (instance of ProcessEvent).</td>
+      proccessing method (an instance of ProcessEvent).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#Notifier.process_events">source&nbsp;code</a></span>
             
@@ -195,7 +195,7 @@
         <span class="summary-sig-arg">stdin</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/dev/null</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">stdout</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/dev/null</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">stderr</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/dev/null</code><code class="variable-quote">'</code></span>)</span><br />
-      pid_file: file to which pid will be written.</td>
+      pid_file: file to which the pid will be written.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#Notifier.__daemonize">source&nbsp;code</a></span>
             
@@ -250,7 +250,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.Notifier-class.html#stop" class="summary-sig-name">stop</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Close the inotify's instance (close its file descriptor).</td>
+      Close inotify's instance (close its file descriptor).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#Notifier.stop">source&nbsp;code</a></span>
             
@@ -353,11 +353,12 @@
           this thread sleeps max(0, read_freq - timeout) seconds. But if 
           timeout is None it can be different because poll is blocking 
           waiting for something to read.</li>
-        <li><strong class="pname"><code>treshold</code></strong> (int) - File descriptor will be read only if its size to read is &gt;= 
-          treshold. If != 0, you likely want to use it in combination with 
-          read_freq because without that you keep looping without really 
-          reading anything and that until the amount to read is &gt;= 
-          treshold. At least with read_freq you may sleep.</li>
+        <li><strong class="pname"><code>treshold</code></strong> (int) - File descriptor will be read only if the accumulated size to read
+          becomes &gt;= treshold. If != 0, you likely want to use it in 
+          combination with an appropriate value for read_freq because 
+          without that you would keep looping without really reading 
+          anything and that until the amount of events to read becomes 
+          &gt;= treshold. At least with read_freq set you might sleep.</li>
         <li><strong class="pname"><code>timeout</code></strong> (int) - http://docs.python.org/lib/poll-objects.html#poll-objects</li>
     </ul></dd>
     <dt>Overrides:
@@ -403,7 +404,7 @@
   </tr></table>
   
   <p>Routine for processing events from queue by calling their associated 
-  proccessing function (instance of ProcessEvent). It also do internal 
+  proccessing method (an instance of ProcessEvent). It also does internal 
   processings, to keep the system updated.</p>
   <dl class="fields">
   </dl>
@@ -428,8 +429,8 @@
     </td>
   </tr></table>
   
-  <p>pid_file: file to which pid will be written. force_kill: if True kill 
-  the process associated to pid_file. stdin, stdout, stderr: files 
+  <p>pid_file: file to which the pid will be written. force_kill: if True 
+  kill the process associated to pid_file. stdin, stdout, stderr: files 
   associated to common streams.</p>
   <dl class="fields">
   </dl>
@@ -478,8 +479,8 @@
     </td>
   </tr></table>
   
-  <p>Close the inotify's instance (close its file descriptor). It destroys 
-  all existing watches, pending events,...</p>
+  <p>Close inotify's instance (close its file descriptor). It destroys all 
+  existing watches, pending events,...</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -511,7 +512,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Aug  6 15:45:58 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:34 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -58,19 +58,19 @@
 <h1 class="epydoc">Class _SysProcessEvent</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#_SysProcessEvent">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_27" name="uml_class_diagram_for_pyinotif_27">
-<area shape="rect" href="pyinotify._ProcessEvent-class.html#__call__" title="To behave like a functor the object must be callable." alt="" coords="95,36,215,55"/>
-<area shape="rect" href="pyinotify._ProcessEvent-class.html#__repr__" title="repr(x)" alt="" coords="95,55,215,73"/>
-<area shape="rect" href="pyinotify._ProcessEvent-class.html" title="Abstract processing event class." alt="" coords="93,11,216,75"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,129,292,148"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#cleanup" title="Cleanup (delete) old (&gt;1mn) records contained in self._mv_cookie and &#160;self._mv." alt="" coords="17,148,292,167"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_CREATE" title="If the event concerns a directory and the auto_add flag of the targetted &#160;watch is set to True, a new watch is added on this new directory, with the &#160;same attributes&#39;s values than those of this watch." alt="" coords="17,167,292,185"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_MOVED_FROM" title="Map the cookie with the source path (+ date for cleaning)." alt="" coords="17,185,292,204"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_MOVED_TO" title="Map the source path with the destination path (+ date for cleaning)." alt="" coords="17,204,292,223"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_MOVE_SELF" title="STATUS: the following bug has been fixed in the recent kernels (fixme: &#160;which version ?)." alt="" coords="17,223,292,241"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_Q_OVERFLOW" title="Only signal overflow, most of the common flags are irrelevant for this &#160;event (path, wd, name)." alt="" coords="17,241,292,260"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_IGNORED" title="The watch descriptor raised by this event is now ignored (forever), it can &#160;be safely deleted from watch manager dictionary." alt="" coords="17,260,292,279"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_default" title="Common handling for the following events:" alt="" coords="17,279,292,297"/>
-<area shape="rect" href="pyinotify._SysProcessEvent-class.html" title="There is three kind of processing according to each event:" alt="" coords="16,104,293,299"/>
+<area shape="rect" href="pyinotify._ProcessEvent-class.html#__call__" title="To behave like a functor the object must be callable." alt="" coords="105,36,225,55"/>
+<area shape="rect" href="pyinotify._ProcessEvent-class.html#__repr__" title="repr(x)" alt="" coords="105,55,225,73"/>
+<area shape="rect" href="pyinotify._ProcessEvent-class.html" title="Abstract processing event class." alt="" coords="104,11,227,75"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,129,313,148"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#cleanup" title="Cleanup (delete) old (&gt;1mn) records contained in self._mv_cookie and &#160;self._mv." alt="" coords="17,148,313,167"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_CREATE" title="If the event affects a directory and the auto_add flag of the targetted &#160;watch is set to True, a new watch is added on this new directory, with the &#160;same attribute values than those of this watch." alt="" coords="17,167,313,185"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_MOVED_FROM" title="Map the cookie with the source path (+ date for cleaning)." alt="" coords="17,185,313,204"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_MOVED_TO" title="Map the source path with the destination path (+ date for cleaning)." alt="" coords="17,204,313,223"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_MOVE_SELF" title="STATUS: the following bug has been fixed in recent kernels (FIXME: which &#160;version ?)." alt="" coords="17,223,313,241"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_Q_OVERFLOW" title="Only signal an overflow, most of the common flags are irrelevant for this &#160;event (path, wd, name)." alt="" coords="17,241,313,260"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_IN_IGNORED" title="The watch descriptor raised by this event is now ignored (forever), it can &#160;be safely deleted from the watch manager dictionary." alt="" coords="17,260,313,279"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html#process_default" title="Commons handling for the followings events:" alt="" coords="17,279,313,297"/>
+<area shape="rect" href="pyinotify._SysProcessEvent-class.html" title="There is three kind of processing according to each event:" alt="" coords="16,104,315,299"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_27.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_27" ismap="ismap" class="graph-without-title" />
 </center>
@@ -82,12 +82,12 @@
       special handling (deletion from internal container, bug, ...).
     </li>
     <li>
-      default treatment: which is applied to most of events.
+      default treatment: which is applied to the majority of events.
     </li>
   </ol>
   <ol start="4">
     <li>
-      IN_ISDIR is never sent alone, he is piggybacked with a standart 
+      IN_ISDIR is never sent alone, he is piggybacked with a standard 
       event, he is not processed as the others events, instead, its value 
       is captured and appropriately aggregated to dst event.
     </li>
@@ -155,10 +155,9 @@
         <tr>
           <td><span class="summary-sig"><a name="process_IN_CREATE"></a><span class="summary-sig-name">process_IN_CREATE</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">raw_event</span>)</span><br />
-      If the event concerns a directory and the auto_add flag of the 
+      If the event affects a directory and the auto_add flag of the 
       targetted watch is set to True, a new watch is added on this new 
-      directory, with the same attributes's values than those of this 
-      watch.</td>
+      directory, with the same attribute values than those of this watch.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#_SysProcessEvent.process_IN_CREATE">source&nbsp;code</a></span>
             
@@ -212,8 +211,8 @@
         <tr>
           <td><span class="summary-sig"><a href="pyinotify._SysProcessEvent-class.html#process_IN_MOVE_SELF" class="summary-sig-name">process_IN_MOVE_SELF</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">raw_event</span>)</span><br />
-      STATUS: the following bug has been fixed in the recent kernels 
-      (fixme: which version ?).</td>
+      STATUS: the following bug has been fixed in recent kernels (FIXME: 
+      which version ?).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#_SysProcessEvent.process_IN_MOVE_SELF">source&nbsp;code</a></span>
             
@@ -231,7 +230,7 @@
         <tr>
           <td><span class="summary-sig"><a name="process_IN_Q_OVERFLOW"></a><span class="summary-sig-name">process_IN_Q_OVERFLOW</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">raw_event</span>)</span><br />
-      Only signal overflow, most of the common flags are irrelevant for 
+      Only signal an overflow, most of the common flags are irrelevant for 
       this event (path, wd, name).</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#_SysProcessEvent.process_IN_Q_OVERFLOW">source&nbsp;code</a></span>
@@ -251,7 +250,7 @@
           <td><span class="summary-sig"><a href="pyinotify._SysProcessEvent-class.html#process_IN_IGNORED" class="summary-sig-name">process_IN_IGNORED</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">raw_event</span>)</span><br />
       The watch descriptor raised by this event is now ignored (forever), 
-      it can be safely deleted from watch manager dictionary.</td>
+      it can be safely deleted from the watch manager dictionary.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#_SysProcessEvent.process_IN_IGNORED">source&nbsp;code</a></span>
             
@@ -269,8 +268,8 @@
         <tr>
           <td><span class="summary-sig"><a href="pyinotify._SysProcessEvent-class.html#process_default" class="summary-sig-name">process_default</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">raw_event</span>,
-        <span class="summary-sig-arg">to_append</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
-      Common handling for the following events:</td>
+        <span class="summary-sig-arg">to_append</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Commons handling for the followings events:</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#_SysProcessEvent.process_default">source&nbsp;code</a></span>
             
@@ -368,7 +367,7 @@
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>wm</code></strong> (WatchManager instance) - Watch Manager.</li>
-        <li><strong class="pname"><code>notifier</code></strong> (Instance of Notifier.) - notifier.</li>
+        <li><strong class="pname"><code>notifier</code></strong> (Notifier instance) - Notifier.</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
@@ -391,11 +390,11 @@
     </td>
   </tr></table>
   
-  <p>STATUS: the following bug has been fixed in the recent kernels (fixme:
+  <p>STATUS: the following bug has been fixed in recent kernels (FIXME: 
   which version ?). Now it raises IN_DELETE_SELF instead.</p>
-  <p>Old kernels are bugged, this event is raised when the watched item was
-  moved, so we must update its path, but under some circumstances it can be
-  impossible: if its parent directory and its destination directory aren't 
+  <p>Old kernels were bugged, this event raised when the watched item were 
+  moved, so we had to update its path, but under some circumstances it was 
+  impossible: if its parent directory and its destination directory wasn't 
   watched. The kernel (see include/linux/fsnotify.h) doesn't bring us 
   enough informations like the destination path of moved items.</p>
   <dl class="fields">
@@ -418,9 +417,9 @@
   </tr></table>
   
   <p>The watch descriptor raised by this event is now ignored (forever), it
-  can be safely deleted from watch manager dictionary. After this event we 
-  can be sure that neither the event queue neither the system will raise an
-  event associated to this wd.</p>
+  can be safely deleted from the watch manager dictionary. After this event
+  we can be sure that neither the event queue nor the system will raise an 
+  event associated to this wd again.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -434,14 +433,14 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">process_default</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">raw_event</span>,
-        <span class="sig-arg">to_append</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
+        <span class="sig-arg">to_append</span>=<span class="sig-default">None</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="pyinotify-pysrc.html#_SysProcessEvent.process_default">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Common handling for the following events:</p>
+  <p>Commons handling for the followings events:</p>
   <p>IN_ACCESS, IN_MODIFY, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE, 
   IN_OPEN, IN_DELETE, IN_DELETE_SELF, IN_UNMOUNT.</p>
   <dl class="fields">
@@ -475,7 +474,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Aug  6 15:45:58 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:35 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

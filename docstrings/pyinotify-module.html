@@ -100,7 +100,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.UnsupportedPythonVersionError-class.html" class="summary-name">UnsupportedPythonVersionError</a><br />
-      Raised for unsupported Python version.
+      Raised on unsupported Python versions.
     </td>
   </tr>
 <tr>
@@ -108,14 +108,15 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.UnsupportedLibcVersionError-class.html" class="summary-name">UnsupportedLibcVersionError</a><br />
-      Raised for unsupported libc version.
+      Raised on unsupported libc versions.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify.PyinotifyLogger-class.html" class="summary-name">PyinotifyLogger</a>
+        <a href="pyinotify.PyinotifyLogger-class.html" class="summary-name">PyinotifyLogger</a><br />
+      Pyinotify logger used for logging unicode strings.
     </td>
   </tr>
 <tr>
@@ -213,7 +214,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify.Stats-class.html" class="summary-name">Stats</a>
+        <a href="pyinotify.Stats-class.html" class="summary-name">Stats</a><br />
+      Compute and display trivial statistics about processed events.
     </td>
   </tr>
 <tr>
@@ -237,7 +239,7 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a href="pyinotify.ThreadedNotifier-class.html" class="summary-name">ThreadedNotifier</a><br />
-      This notifier inherits from threading.Thread for instantiating a 
+      This notifier inherits from threading.Thread for instanciating a 
         separate thread, and also inherits from Notifier, because it is a 
         threaded notifier.
     </td>
@@ -287,7 +289,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify.Color-class.html" class="summary-name">Color</a>
+        <a href="pyinotify.Color-class.html" class="summary-name">Color</a><br />
+      Internal class.
     </td>
   </tr>
 </table>
@@ -397,7 +400,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="command_line"></a><span class="summary-sig-name">command_line</span>()</span></td>
+          <td><span class="summary-sig"><a href="pyinotify-module.html#command_line" class="summary-sig-name">command_line</a>()</span><br />
+      By default the watched path is '/tmp' for all events.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#command_line">source&nbsp;code</a></span>
             
@@ -443,7 +447,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="LIBC"></a><span class="summary-name">LIBC</span> = <code title="&lt;CDLL 'libc.so.6', handle 400527f8 at 93c398c&gt;">&lt;CDLL 'libc.so.6', handle 400527f8 at 93c398c&gt;</code>
+        <a name="LIBC"></a><span class="summary-name">LIBC</span> = <code title="&lt;CDLL 'libc.so.6', handle 400527f8 at 8a7f90c&gt;">&lt;CDLL 'libc.so.6', handle 400527f8 at 8a7f90c&gt;</code>
     </td>
   </tr>
 <tr>
@@ -718,11 +722,31 @@
   </tr></table>
   
   <p>Use this function to turn on the compatibility mode. The compatibility
-  mode is used to improve compatibility with Pyinotify 0.7.1 programs. The 
-  compatibility mode provides variables 'is_dir', 'event_name', 
-  'EventsCodes.IN_*' and 'EventsCodes.ALL_EVENTS' as with Pyinotify 0.7.1. 
-  Do not call this function if your program is developped for Pyinotify 
-  &gt;= 0.8.x.</p>
+  mode is used to improve compatibility with Pyinotify 0.7.1 (or older) 
+  programs. The compatibility mode provides additional variables 'is_dir', 
+  'event_name', 'EventsCodes.IN_*' and 'EventsCodes.ALL_EVENTS' as 
+  Pyinotify 0.7.1 provided. Do not call this function from new programs!! 
+  Especially if there are developped for Pyinotify &gt;= 0.8.x.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="command_line"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">command_line</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#command_line">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>By default the watched path is '/tmp' for all events. The monitoring 
+  serves forever, type c^c to stop it.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -791,7 +815,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Aug  6 15:45:57 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:33 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -59,10 +59,10 @@
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_20" name="uml_class_diagram_for_pyinotif_20">
 <area shape="rect" href="pyinotify.WatchManager-class.html#__init__" title="Initialization: init inotify, init watch manager dictionary." alt="" coords="17,36,732,55"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#add_watch" title="Add watch(s) on given |path|(s) with the specified |mask| and optionnally &#160;with a processing |proc_fun| function and a recursive flag |rec|." alt="" coords="17,55,732,73"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#update_watch" title="Update existing watch(s)." alt="" coords="17,73,732,92"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#add_watch" title="Add watch(s) on provided |path|(s) with associated |mask| flag value and &#160;optionally with a processing |proc_fun| function and the recursive flag &#160;|rec| set to True." alt="" coords="17,55,732,73"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#update_watch" title="Update existing watch descriptors |wd|." alt="" coords="17,73,732,92"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#get_wd" title="Returns the watch descriptor associated to path." alt="" coords="17,92,732,111"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#get_path" title="Returns the path associated to WD, if WD is unknown None is returned." alt="" coords="17,111,732,129"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#get_path" title="Returns the path associated to WD, if WD is unknown it returns None." alt="" coords="17,111,732,129"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#rm_watch" title="Removes watch(s)." alt="" coords="17,129,732,148"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#watch_transient_file" title="Watch a transient file, which will be created and deleted frequently over &#160;time (e.g." alt="" coords="17,148,732,167"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html" title="Provide operations for watching files and directories." alt="" coords="16,11,733,168"/>
@@ -71,9 +71,9 @@
 </center>
 </center>
 <hr />
-<p>Provide operations for watching files and directories. Integrated 
+<p>Provide operations for watching files and directories. Its internal 
   dictionary is used to reference watched items. When used inside threaded 
-  code, instanciate as many WatchManager instances as there are 
+  code, one must instanciate as many WatchManager instances as there are 
   ThreadedNotifier instances.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
@@ -100,7 +100,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x93c848c&gt;</span>)</span><br />
+        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x8a84454&gt;</span>)</span><br />
       Initialization: init inotify, init watch manager dictionary.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__init__">source&nbsp;code</a></span>
@@ -166,9 +166,9 @@
         <span class="summary-sig-arg">do_glob</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Add watch(s) on given |path|(s) with the specified |mask| and 
-      optionnally with a processing |proc_fun| function and a recursive 
-      flag |rec|.</td>
+      Add watch(s) on provided |path|(s) with associated |mask| flag value 
+      and optionally with a processing |proc_fun| function and the 
+      recursive flag |rec| set to True.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.add_watch">source&nbsp;code</a></span>
             
@@ -210,7 +210,7 @@
         <span class="summary-sig-arg">rec</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">auto_add</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">True</span>)</span><br />
-      Update existing watch(s).</td>
+      Update existing watch descriptors |wd|.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.update_watch">source&nbsp;code</a></span>
             
@@ -265,7 +265,7 @@
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#get_path" class="summary-sig-name">get_path</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">wd</span>)</span><br />
-      Returns the path associated to WD, if WD is unknown None is returned.</td>
+      Returns the path associated to WD, if WD is unknown it returns None.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_path">source&nbsp;code</a></span>
             
@@ -405,7 +405,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x93c848c&gt;</span>)</span>
+        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x8a84454&gt;</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -474,12 +474,13 @@
     </td>
   </tr></table>
   
-  <p>Add watch(s) on given |path|(s) with the specified |mask| and 
-  optionnally with a processing |proc_fun| function and a recursive flag 
-  |rec|. Ideally |path| components should not be unicode objects. Note that
-  unicode paths are accepted but are converted to byte strings before a 
-  watch is put on the path. The encoding used for converting the unicode 
-  object is given by sys.getfilesystemencoding().</p>
+  <p>Add watch(s) on provided |path|(s) with associated |mask| flag value 
+  and optionally with a processing |proc_fun| function and the recursive 
+  flag |rec| set to True. Ideally |path| components should not be unicode 
+  objects. Note that unicode paths are accepted but are converted to byte 
+  strings before a watch is put on the path. The encoding used for 
+  converting the unicode object is given by 
+  sys.getfilesystemencoding().</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -489,21 +490,22 @@
         <li><strong class="pname"><code>proc_fun</code></strong> (function or ProcessEvent instance or instance of one of its 
           subclasses or callable object.) - Processing object.</li>
         <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively add watches from path on all its subdirectories, set 
-          to False by default (doesn't follows symlinks).</li>
-        <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically add watches on newly created directories in the 
-          watch's path.</li>
-        <li><strong class="pname"><code>do_glob</code></strong> (bool) - Do globbing on pathname.</li>
+          to False by default (doesn't follows symlinks in any case).</li>
+        <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically add watches on newly created directories in watched
+          parent |path| directory.</li>
+        <li><strong class="pname"><code>do_glob</code></strong> (bool) - Do globbing on pathname (see standard globbing module for more 
+          informations).</li>
         <li><strong class="pname"><code>quiet</code></strong> (bool) - if False raises a WatchManagerError exception on error. See 
-          example not_quiet.py</li>
+          example not_quiet.py.</li>
         <li><strong class="pname"><code>exclude_filter</code></strong> (bool) - boolean function, returns True if current path must be excluded 
           from being watched. Has precedence on exclude_filter defined into
           __init__.</li>
     </ul></dd>
     <dt>Returns: dict of {str: int}</dt>
         <dd>dict of paths associated to watch descriptors. A wd value is 
-          positive if the watch has been sucessfully added, otherwise the 
-          value is negative. If the path is invalid it will be not included
-          into this dict.</dd>
+          positive if the watch was added sucessfully, otherwise the value 
+          is negative. If the path was invalid it is not included into this
+          returned dictionary.</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -554,9 +556,9 @@
     </td>
   </tr></table>
   
-  <p>Update existing watch(s). The |mask|, the processing object 
-  |proc_fun|, the recursive param |rec| and the |auto_add| and |quiet| 
-  flags can be updated.</p>
+  <p>Update existing watch descriptors |wd|. The |mask| value, the 
+  processing object |proc_fun|, the recursive param |rec| and the 
+  |auto_add| and |quiet| flags can all be updated.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
@@ -565,11 +567,11 @@
         <li><strong class="pname"><code>mask</code></strong> (int) - Optional new bitmask of events.</li>
         <li><strong class="pname"><code>proc_fun</code></strong> (function or ProcessEvent instance or instance of one of its 
           subclasses or callable object.) - Optional new processing function.</li>
-        <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively update watches on every already watched 
-          subdirectories and subfiles.</li>
-        <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically add watches on newly created directories in the 
-          watch's path.</li>
-        <li><strong class="pname"><code>quiet</code></strong> (bool) - if False raises a WatchManagerError exception on error. See 
+        <li><strong class="pname"><code>rec</code></strong> (bool) - Optionally adds watches recursively on all subdirectories 
+          contained into |wd| directory.</li>
+        <li><strong class="pname"><code>auto_add</code></strong> (bool) - Automatically adds watches on newly created directories in the 
+          watch's path corresponding to |wd|.</li>
+        <li><strong class="pname"><code>quiet</code></strong> (bool) - If False raises a WatchManagerError exception on error. See 
           example not_quiet.py</li>
     </ul></dd>
     <dt>Returns: dict of int: bool</dt>
@@ -620,13 +622,13 @@
     </td>
   </tr></table>
   
-  <p>Returns the watch descriptor associated to path. This method has an 
-  prohibitive cost, always prefer to keep the WD. If path is unknown None 
-  is returned.</p>
+  <p>Returns the watch descriptor associated to path. This method presents 
+  a prohibitive cost, always prefer to keep the WD returned by add_watch().
+  If the path is unknown it returns None.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>path</code></strong> (str) - path.</li>
+        <li><strong class="pname"><code>path</code></strong> (str) - Path.</li>
     </ul></dd>
     <dt>Returns: int or None</dt>
         <dd>WD or None.</dd>
@@ -648,15 +650,15 @@
     </td>
   </tr></table>
   
-  <p>Returns the path associated to WD, if WD is unknown None is 
-  returned.</p>
+  <p>Returns the path associated to WD, if WD is unknown it returns 
+  None.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>wd</code></strong> (int) - watch descriptor.</li>
+        <li><strong class="pname"><code>wd</code></strong> (int) - Watch descriptor.</li>
     </ul></dd>
     <dt>Returns: string or None</dt>
-        <dd>path or None.</dd>
+        <dd>Path or None.</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -714,7 +716,7 @@
           accepts a list of WDs.</li>
         <li><strong class="pname"><code>rec</code></strong> (bool) - Recursively removes watches on every already watched 
           subdirectories and subfiles.</li>
-        <li><strong class="pname"><code>quiet</code></strong> (bool) - if False raises a WatchManagerError exception on error. See 
+        <li><strong class="pname"><code>quiet</code></strong> (bool) - If False raises a WatchManagerError exception on error. See 
           example not_quiet.py</li>
     </ul></dd>
     <dt>Returns: dict of int: bool</dt>
@@ -756,11 +758,11 @@
         <dd>See add_watch().</dd>
   </dl>
 <div class="fields">      <p><strong>Attention:</strong>
-        Under the call to this function it will be impossible to correctly 
-        watch the events triggered into the same base directory than the 
-        directory where is located this watched transient file. For 
-        instance it would actually be wrong to make these two successive 
-        calls: wm.watch_transient_file('/var/run/foo.pid', ...) and 
+        Currently under the call to this function it is not possible to 
+        correctly watch the events triggered into the same base directory 
+        than the directory where is located this watched transient file. 
+        For instance it would be wrong to make these two successive calls: 
+        wm.watch_transient_file('/var/run/foo.pid', ...) and 
         wm.add_watch('/var/run/', ...)
       </p>
 </div></td></tr></table>
@@ -792,7 +794,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Aug  6 15:45:58 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:34 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

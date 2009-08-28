@@ -59,10 +59,10 @@
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_14" name="uml_class_diagram_for_pyinotif_14">
 <area shape="rect" href="pyinotify.SysCtlINotify-class.html#inotify_attrs" title="pyinotify.SysCtlINotify.inotify_attrs" alt="" coords="17,28,156,47"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#value" title="pyinotify.SysCtlINotify.value" alt="" coords="17,47,156,65"/>
+<area shape="rect" href="pyinotify.SysCtlINotify-class.html#value" title="Gets attribute&#39;s value." alt="" coords="17,47,156,65"/>
 <area shape="rect" href="pyinotify.SysCtlINotify-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,68,156,87"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#get_val" title="Returns: &#160;stored value." alt="" coords="17,87,156,105"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#set_val" title="pyinotify.SysCtlINotify.set_val" alt="" coords="17,105,156,124"/>
+<area shape="rect" href="pyinotify.SysCtlINotify-class.html#get_val" title="Gets attribute&#39;s value." alt="" coords="17,87,156,105"/>
+<area shape="rect" href="pyinotify.SysCtlINotify-class.html#set_val" title="Sets new attribute&#39;s value." alt="" coords="17,105,156,124"/>
 <area shape="rect" href="pyinotify.SysCtlINotify-class.html#__repr__" title="repr(x)" alt="" coords="17,124,156,143"/>
 <area shape="rect" href="pyinotify.SysCtlINotify-class.html" title="Access (read, write) inotify&#39;s variables through sysctl." alt="" coords="16,11,157,144"/>
 </map>
@@ -70,14 +70,15 @@
 </center>
 </center>
 <hr />
-<p>Access (read, write) inotify's variables through sysctl.</p>
+<p>Access (read, write) inotify's variables through sysctl. Usually it 
+  requires administrator rights to update them.</p>
   <p>Examples:</p>
   <ul>
     <li>
-      Read variable: myvar = max_queued_events.value
+      Read max_queued_events attribute: myvar = max_queued_events.value
     </li>
     <li>
-      Update variable: max_queued_events.value = 42
+      Update max_queued_events attribute: max_queued_events.value = 42
     </li>
   </ul>
 
@@ -123,8 +124,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.SysCtlINotify-class.html#get_val" class="summary-sig-name">get_val</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Returns:
-      stored value.</td>
+      Gets attribute's value.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#SysCtlINotify.get_val">source&nbsp;code</a></span>
             
@@ -141,7 +141,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.SysCtlINotify-class.html#set_val" class="summary-sig-name">set_val</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">nval</span>)</span></td>
+        <span class="summary-sig-arg">nval</span>)</span><br />
+      Sets new attribute's value.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#SysCtlINotify.set_val">source&nbsp;code</a></span>
             
@@ -234,7 +235,8 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">int</span>
     </td><td class="summary">
-        <a href="pyinotify.SysCtlINotify-class.html#value" class="summary-name">value</a>
+        <a href="pyinotify.SysCtlINotify-class.html#value" class="summary-name">value</a><br />
+      Gets attribute's value.
     </td>
   </tr>
   <tr>
@@ -303,7 +305,7 @@
     </td>
   </tr></table>
   
-  
+  <p>Gets attribute's value.</p>
   <dl class="fields">
     <dt>Returns: int</dt>
         <dd>stored value.</dd>
@@ -325,11 +327,11 @@
     </td>
   </tr></table>
   
-  
+  <p>Sets new attribute's value.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>nval</code></strong> (int) - set to nval.</li>
+        <li><strong class="pname"><code>nval</code></strong> (int) - replaces current value by nval.</li>
     </ul></dd>
   </dl>
 </td></tr></table>
@@ -422,16 +424,16 @@
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <h3 class="epydoc">value</h3>
-  
+  <p>Gets attribute's value.</p>
   <dl class="fields">
     <dt>Get Method:</dt>
     <dd class="value"><span class="summary-sig"><a href="pyinotify.SysCtlINotify-class.html#get_val" class="summary-sig-name">get_val</a>(<span class="summary-sig-arg">self</span>)</span>
-        - Returns:
-      stored value.
+        - Gets attribute's value.
     </dd>
     <dt>Set Method:</dt>
     <dd class="value"><span class="summary-sig"><a href="pyinotify.SysCtlINotify-class.html#set_val" class="summary-sig-name">set_val</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">nval</span>)</span>
+        - Sets new attribute's value.
     </dd>
     <dt>Type:</dt>
       <dd>int</dd>
@@ -465,7 +467,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Aug  6 15:45:58 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:34 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

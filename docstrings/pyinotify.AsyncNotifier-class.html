@@ -58,11 +58,11 @@
 <h1 class="epydoc">Class AsyncNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#AsyncNotifier">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif" name="uml_class_diagram_for_pyinotif">
-<area shape="rect" href="javascript:void(0);" title="asyncore.file_dispatcher.set_file" alt="" coords="456,507,597,525"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.file_dispatcher" alt="" coords="455,481,599,527"/>
-<area shape="rect" href="pyinotify.AsyncNotifier-class.html#__init__" title="Initializes the async notifier." alt="" coords="17,628,759,647"/>
-<area shape="rect" href="pyinotify.AsyncNotifier-class.html#handle_read" title="When asyncore tells us we can read from the fd, we proceed processing &#160;events." alt="" coords="17,647,759,665"/>
-<area shape="rect" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="16,603,760,667"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.file_dispatcher.set_file" alt="" coords="456,516,597,535"/>
+<area shape="rect" href="javascript:void(0);" title="asyncore.file_dispatcher" alt="" coords="455,491,599,536"/>
+<area shape="rect" href="pyinotify.AsyncNotifier-class.html#__init__" title="Initializes the async notifier." alt="" coords="17,647,759,665"/>
+<area shape="rect" href="pyinotify.AsyncNotifier-class.html#handle_read" title="When asyncore tells us we can read from the fd, we proceed processing &#160;events." alt="" coords="17,665,759,684"/>
+<area shape="rect" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="16,621,760,685"/>
 <area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.debug" alt="" coords="424,28,629,47"/>
 <area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.connected" alt="" coords="424,47,629,65"/>
 <area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.accepting" alt="" coords="424,65,629,84"/>
@@ -83,13 +83,14 @@
 <area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.send" alt="" coords="424,348,629,367"/>
 <area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.handle_close" alt="" coords="424,385,629,404"/>
 <area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher" alt="" coords="423,11,631,405"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="96,460,403,479"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="96,479,403,497"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="96,497,403,516"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="96,516,403,535"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#loop" title="Events are read only once time every min(read_freq, timeout) seconds at &#160;best and only if the size to read is &gt;= treshold." alt="" coords="96,535,403,553"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="96,553,403,572"/>
-<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="95,435,404,573"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="96,460,403,479"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="96,479,403,497"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="96,497,403,516"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="96,516,403,535"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="96,535,403,553"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#loop" title="Events are read only once time every min(read_freq, timeout) seconds at &#160;best and only if the size to read is &gt;= treshold." alt="" coords="96,553,403,572"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="96,572,403,591"/>
+<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="95,435,404,592"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif.gif" alt='' usemap="#uml_class_diagram_for_pyinotif" ismap="ismap" class="graph-without-title" />
 </center>
@@ -192,6 +193,7 @@
       <code>writable</code>
       </p>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b>:
+      <code><a href="pyinotify.Notifier-class.html#append_event">append_event</a></code>,
       <code><a href="pyinotify.Notifier-class.html#check_events">check_events</a></code>,
       <code><a href="pyinotify.Notifier-class.html#loop">loop</a></code>,
       <code><a href="pyinotify.Notifier-class.html#proc_fun">proc_fun</a></code>,
@@ -388,7 +390,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:33 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 11:36:40 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

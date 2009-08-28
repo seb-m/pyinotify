@@ -59,13 +59,16 @@
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_20" name="uml_class_diagram_for_pyinotif_20">
 <area shape="rect" href="pyinotify.WatchManager-class.html#__init__" title="Initialization: init inotify, init watch manager dictionary." alt="" coords="17,36,732,55"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#add_watch" title="Add watch(s) on provided |path|(s) with associated |mask| flag value and &#160;optionally with a processing |proc_fun| function and the recursive flag &#160;|rec| set to True." alt="" coords="17,55,732,73"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#update_watch" title="Update existing watch descriptors |wd|." alt="" coords="17,73,732,92"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#get_wd" title="Returns the watch descriptor associated to path." alt="" coords="17,92,732,111"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#get_path" title="Returns the path associated to WD, if WD is unknown it returns None." alt="" coords="17,111,732,129"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#rm_watch" title="Removes watch(s)." alt="" coords="17,129,732,148"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#watch_transient_file" title="Watch a transient file, which will be created and deleted frequently over &#160;time (e.g." alt="" coords="17,148,732,167"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html" title="Provide operations for watching files and directories." alt="" coords="16,11,733,168"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#get_fd" title="Return assigned inotify&#39;s file descriptor." alt="" coords="17,55,732,73"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#get_watch" title="Get watch from provided watch descriptor wd." alt="" coords="17,73,732,92"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#del_watch" title="Remove watch entry associated to watch descriptor wd." alt="" coords="17,92,732,111"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#add_watch" title="Add watch(s) on provided |path|(s) with associated |mask| flag value and &#160;optionally with a processing |proc_fun| function and the recursive flag &#160;|rec| set to True." alt="" coords="17,111,732,129"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#update_watch" title="Update existing watch descriptors |wd|." alt="" coords="17,129,732,148"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#get_wd" title="Returns the watch descriptor associated to path." alt="" coords="17,148,732,167"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#get_path" title="Returns the path associated to WD, if WD is unknown it returns None." alt="" coords="17,167,732,185"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#rm_watch" title="Removes watch(s)." alt="" coords="17,185,732,204"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#watch_transient_file" title="Watch a transient file, which will be created and deleted frequently over &#160;time (e.g." alt="" coords="17,204,732,223"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html" title="Provide operations for watching files and directories." alt="" coords="16,11,733,224"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_20.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_20" ismap="ismap" class="graph-without-title" />
 </center>
@@ -100,10 +103,63 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x8a84454&gt;</span>)</span><br />
+        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x9ecb454&gt;</span>)</span><br />
       Initialization: init inotify, init watch manager dictionary.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#get_fd" class="summary-sig-name">get_fd</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return assigned inotify's file descriptor.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_fd">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#get_watch" class="summary-sig-name">get_watch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wd</span>)</span><br />
+      Get watch from provided watch descriptor wd.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_watch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#del_watch" class="summary-sig-name">del_watch</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">wd</span>)</span><br />
+      Remove watch entry associated to watch descriptor wd.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.del_watch">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -405,7 +461,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x8a84454&gt;</span>)</span>
+        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x9ecb454&gt;</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -425,6 +481,75 @@
     <dt>Overrides:
         object.__init__
     </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_fd"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_fd</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_fd">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return assigned inotify's file descriptor.</p>
+  <dl class="fields">
+    <dt>Returns: int</dt>
+        <dd>File descriptor.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_watch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_watch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wd</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.get_watch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get watch from provided watch descriptor wd.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>wd</code></strong> (int) - Watch descriptor.</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="del_watch"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">del_watch</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">wd</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.del_watch">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove watch entry associated to watch descriptor wd.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>wd</code></strong> (int) - Watch descriptor.</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -794,7 +919,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:34 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 11:36:41 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

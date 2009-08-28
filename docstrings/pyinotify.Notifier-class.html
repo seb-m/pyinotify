@@ -58,16 +58,17 @@
 <h1 class="epydoc">Class Notifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#Notifier">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_7" name="uml_class_diagram_for_pyinotif_7">
-<area shape="rect" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="207,197,297,224"/>
-<area shape="rect" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="348,197,455,224"/>
+<area shape="rect" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="207,216,297,243"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="348,216,455,243"/>
 <area shape="rect" href="pyinotify.Notifier-class.html#__init__" title="Initialization." alt="" coords="17,36,636,55"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="17,55,636,73"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="17,73,636,92"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="17,92,636,111"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="17,111,636,129"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#loop" title="Events are read only once time every min(read_freq, timeout) seconds at &#160;best and only if the size to read is &gt;= treshold." alt="" coords="17,129,636,148"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="17,148,636,167"/>
-<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="16,11,637,168"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="17,55,636,73"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="17,73,636,92"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="17,92,636,111"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="17,111,636,129"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="17,129,636,148"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#loop" title="Events are read only once time every min(read_freq, timeout) seconds at &#160;best and only if the size to read is &gt;= treshold." alt="" coords="17,148,636,167"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="17,167,636,185"/>
+<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="16,11,637,187"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_7.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_7" ismap="ismap" class="graph-without-title" />
 </center>
@@ -107,6 +108,24 @@
       Initialization.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#Notifier.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.Notifier-class.html#append_event" class="summary-sig-name">append_event</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">event</span>)</span><br />
+      Append a raw event to the event queue.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#Notifier.append_event">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -367,6 +386,30 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="append_event"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">append_event</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">event</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#Notifier.append_event">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Append a raw event to the event queue.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>event</code></strong> (_RawEvent instance.) - An event.</li>
+    </ul></dd>
+  </dl>
+</td></tr></table>
+</div>
 <a name="check_events"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
@@ -512,7 +555,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:34 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 11:36:41 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -143,11 +143,12 @@ class UnicodeLogRecord(logging.LogRecord):
                 pass
         if self.args:
             if isinstance(self.args, tuple):
-                def StrToUnicode(s):
+                def str_to_unicode(s):
+                    """Return unicode string."""
                     if not isinstance(s, str):
                         return s
                     return unicode(s, sys.getfilesystemencoding())
-                args = tuple([StrToUnicode(m) for m in self.args])
+                args = tuple([str_to_unicode(m) for m in self.args])
             else:
                 args = self.args
             msg = msg % args
@@ -157,12 +158,19 @@ class UnicodeLogRecord(logging.LogRecord):
 
 
 # Logging
-logging.setLoggerClass(PyinotifyLogger)
-log = logging.getLogger("pyinotify")
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
-log.addHandler(console_handler)
-log.setLevel(20)
+def logger_init():
+    """Initialize logger instance."""
+    logging.setLoggerClass(PyinotifyLogger)
+    log = logging.getLogger("pyinotify")
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(
+        logging.Formatter("[Pyinotify %(levelname)s] %(message)s"))
+    log.addHandler(console_handler)
+    log.setLevel(20)
+    return log
+
+log = logger_init()
+
 
 
 ### inotify's variables ###
@@ -234,17 +242,6 @@ for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
     globals()[attrname] = SysCtlINotify(attrname)
 
 
-# FIXME: put those tests elsewhere
-#
-# print max_queued_events
-# print max_queued_events.value
-# save = max_queued_events.value
-# print save
-# max_queued_events.value += 42
-# print max_queued_events
-# max_queued_events.value = save
-# print max_queued_events
-
 
 ### iglob ###
 
@@ -303,10 +300,10 @@ def glob0(dirname, basename):
             return [basename]
     return []
 
-magic_check = re.compile('[*?[]')
+MAGIC_CHECK = re.compile('[*?[]')
 
 def has_magic(s):
-    return magic_check.search(s) is not None
+    return MAGIC_CHECK.search(s) is not None
 
 
 
@@ -475,14 +472,14 @@ class _Event:
                 value = hex(getattr(self, attr))
             elif isinstance(value, basestring) and not value:
                 value = "''"
-            s += ' %s%s%s' % (Color.FieldName(attr),
-                              Color.Punctuation('='),
-                              Color.FieldValue(value))
+            s += ' %s%s%s' % (Color.field_name(attr),
+                              Color.punctuation('='),
+                              Color.field_value(value))
 
-        s = '%s%s%s %s' % (Color.Punctuation('<'),
-                           Color.ClassName(self.__class__.__name__),
+        s = '%s%s%s %s' % (Color.punctuation('<'),
+                           Color.class_name(self.__class__.__name__),
                            s,
-                           Color.Punctuation('>'))
+                           Color.punctuation('>'))
         return s
 
 
@@ -550,8 +547,8 @@ class Event(_Event):
                                                              self.name))
             else:
                 self.pathname = os.path.abspath(self.path)
-        except AttributeError:
-            pass
+        except AttributeError, err:
+            log.error(err)
 
 
 class ProcessEventError(PyinotifyError):
@@ -652,7 +649,7 @@ class _SysProcessEvent(_ProcessEvent):
         this watch.
         """
         if raw_event.mask & IN_ISDIR:
-            watch_ = self._watch_manager._wmd.get(raw_event.wd)
+            watch_ = self._watch_manager.get_watch(raw_event.wd)
             if watch_.auto_add:
                 addw = self._watch_manager.add_watch
                 newwd = addw(os.path.join(watch_.path, raw_event.name),
@@ -674,14 +671,14 @@ class _SysProcessEvent(_ProcessEvent):
                             rawevent = _RawEvent(newwd[base],
                                                  IN_CREATE | IN_ISDIR,
                                                  0, name)
-                            self._notifier._eventq.append(rawevent)
+                            self._notifier.append_event(rawevent)
         return self.process_default(raw_event)
 
     def process_IN_MOVED_FROM(self, raw_event):
         """
         Map the cookie with the source path (+ date for cleaning).
         """
-        watch_ = self._watch_manager._wmd.get(raw_event.wd)
+        watch_ = self._watch_manager.get_watch(raw_event.wd)
         path_ = watch_.path
         src_path = os.path.normpath(os.path.join(path_, raw_event.name))
         self._mv_cookie[raw_event.cookie] = (src_path, datetime.now())
@@ -692,7 +689,7 @@ class _SysProcessEvent(_ProcessEvent):
         Map the source path with the destination path (+ date for
         cleaning).
         """
-        watch_ = self._watch_manager._wmd.get(raw_event.wd)
+        watch_ = self._watch_manager.get_watch(raw_event.wd)
         path_ = watch_.path
         dst_path = os.path.normpath(os.path.join(path_, raw_event.name))
         mv_ = self._mv_cookie.get(raw_event.cookie)
@@ -712,7 +709,7 @@ class _SysProcessEvent(_ProcessEvent):
         doesn't bring us enough informations like the destination path of
         moved items.
         """
-        watch_ = self._watch_manager._wmd.get(raw_event.wd)
+        watch_ = self._watch_manager.get_watch(raw_event.wd)
         src_path = watch_.path
         mv_ = self._mv.get(src_path)
         if mv_:
@@ -746,10 +743,7 @@ class _SysProcessEvent(_ProcessEvent):
         the system will raise an event associated to this wd again.
         """
         event_ = self.process_default(raw_event)
-        try:
-            del self._watch_manager._wmd[raw_event.wd]
-        except KeyError, err:
-            log.error(str(err))
+        self._watch_manager.del_watch(raw_event.wd)
         return event_
 
     def process_default(self, raw_event, to_append=None):
@@ -759,7 +753,7 @@ class _SysProcessEvent(_ProcessEvent):
         IN_ACCESS, IN_MODIFY, IN_ATTRIB, IN_CLOSE_WRITE, IN_CLOSE_NOWRITE,
         IN_OPEN, IN_DELETE, IN_DELETE_SELF, IN_UNMOUNT.
         """
-        watch_ = self._watch_manager._wmd.get(raw_event.wd)
+        watch_ = self._watch_manager.get_watch(raw_event.wd)
         if raw_event.mask & (IN_DELETE_SELF | IN_MOVE_SELF):
             # Unfornulately this information is not provided by the kernel
             dir_ = watch_.dir
@@ -895,22 +889,23 @@ class Stats(ProcessEvent):
     def __repr__(self):
         stats = self._stats_copy()
 
-        t = int(time.time() - self._start_time)
-        if t < 60:
-            ts = str(t) + 'sec'
-        elif 60 <= t < 3600:
-            ts = '%dmn%dsec' % (t / 60, t % 60)
-        elif 3600 <= t < 86400:
-            ts = '%dh%dmn' % (t / 3600, (t % 3600) / 60)
-        elif t >= 86400:
-            ts = '%dd%dh' % (t / 86400, (t % 86400) / 3600)
-        stats['ElapsedTime'] = ts
+        elapsed = int(time.time() - self._start_time)
+        elapsed_str = ''
+        if elapsed < 60:
+            elapsed_str = str(elapsed) + 'sec'
+        elif 60 <= elapsed < 3600:
+            elapsed_str = '%dmn%dsec' % (elapsed / 60, elapsed % 60)
+        elif 3600 <= elapsed < 86400:
+            elapsed_str = '%dh%dmn' % (elapsed / 3600, (elapsed % 3600) / 60)
+        elif elapsed >= 86400:
+            elapsed_str = '%dd%dh' % (elapsed / 86400, (elapsed % 86400) / 3600)
+        stats['ElapsedTime'] = elapsed_str
 
         l = []
         for ev, value in sorted(stats.items(), key=lambda x: x[0]):
-            l.append(' %s=%s' % (Color.FieldName(ev),
-                                 Color.FieldValue(value)))
-        s = '<%s%s >' % (Color.ClassName(self.__class__.__name__),
+            l.append(' %s=%s' % (Color.field_name(ev),
+                                 Color.field_value(value)))
+        s = '<%s%s >' % (Color.class_name(self.__class__.__name__),
                          ''.join(l))
         return s
 
@@ -921,11 +916,11 @@ class Stats(ProcessEvent):
         @param filename: pathname.
         @type filename: string
         """
-        fo = file(filename, 'wb')
+        file_obj = file(filename, 'wb')
         try:
-            fo.write(str(self))
+            file_obj.write(str(self))
         finally:
-            fo.close()
+            file_obj.close()
 
     def __str__(self, scale=45):
         stats = self._stats_copy()
@@ -934,12 +929,12 @@ class Stats(ProcessEvent):
 
         m = max(stats.values())
         unity = int(round(float(m) / scale)) or 1
-        fmt = '%%-26s%%-%ds%%s' % (len(Color.FieldValue('@' * scale))
+        fmt = '%%-26s%%-%ds%%s' % (len(Color.field_value('@' * scale))
                                    + 1)
         def func(x):
-            return fmt % (Color.FieldName(x[0]),
-                          Color.FieldValue('@' * (x[1] / unity)),
-                          Color.Simple('%d' % x[1], 'yellow'))
+            return fmt % (Color.field_name(x[0]),
+                          Color.field_value('@' * (x[1] / unity)),
+                          Color.simple('%d' % x[1], 'yellow'))
         s = '\n'.join(map(func, sorted(stats.items(), key=lambda x: x[0])))
         return s
 
@@ -993,7 +988,7 @@ class Notifier:
         # Watch Manager instance
         self._watch_manager = watch_manager
         # File descriptor
-        self._fd = self._watch_manager._fd
+        self._fd = self._watch_manager.get_fd()
         # Poll object and registration
         self._pollobj = select.poll()
         self._pollobj.register(self._fd, select.POLLIN)
@@ -1009,6 +1004,15 @@ class Notifier:
         self._read_freq = read_freq
         self._treshold = treshold
         self._timeout = timeout
+
+    def append_event(self, event):
+        """
+        Append a raw event to the event queue.
+
+        @param event: An event.
+        @type event: _RawEvent instance.
+        """
+        self._eventq.append(event)
 
     def proc_fun(self):
         return self._default_proc_fun
@@ -1057,7 +1061,7 @@ class Notifier:
             r = os.read(self._fd, queue_size)
         except Exception, msg:
             raise NotifierError(msg)
-        log.debug('event queue size: %d', queue_size)
+        log.debug('Event queue size: %d', queue_size)
         rsum = 0  # counter
         while rsum < queue_size:
             s_size = 16
@@ -1081,7 +1085,7 @@ class Notifier:
         """
         while self._eventq:
             raw_event = self._eventq.popleft()  # pop next event
-            watch_ = self._watch_manager._wmd.get(raw_event.wd)
+            watch_ = self._watch_manager.get_watch(raw_event.wd)
             revent = self._sys_proc_fun(raw_event)  # system processings
             if watch_ and watch_.proc_fun:
                 watch_.proc_fun(revent)  # user processings
@@ -1153,11 +1157,11 @@ class Notifier:
         fork_daemon()
 
         # Write pid
-        fo = file(pid_file, 'wb')
+        file_obj = file(pid_file, 'wb')
         try:
-            fo.write(str(os.getpid()) + '\n')
+            file_obj.write(str(os.getpid()) + '\n')
         finally:
-            fo.close()
+            file_obj.close()
 
         atexit.register(lambda : os.unlink(pid_file))
 
@@ -1359,15 +1363,15 @@ class Watch:
         @return: String representation.
         @rtype: str
         """
-        s = ' '.join(['%s%s%s' % (Color.FieldName(attr),
-                                  Color.Punctuation('='),
-                                  Color.FieldValue(getattr(self, attr))) \
+        s = ' '.join(['%s%s%s' % (Color.field_name(attr),
+                                  Color.punctuation('='),
+                                  Color.field_value(getattr(self, attr))) \
                       for attr in self.__dict__ if not attr.startswith('_')])
 
-        s = '%s%s %s %s' % (Color.Punctuation('<'),
-                            Color.ClassName(self.__class__.__name__),
+        s = '%s%s %s %s' % (Color.punctuation('<'),
+                            Color.class_name(self.__class__.__name__),
                             s,
-                            Color.Punctuation('>'))
+                            Color.punctuation('>'))
         return s
 
 
@@ -1462,6 +1466,36 @@ class WatchManager:
         self._fd = LIBC.inotify_init() # inotify's init, file descriptor
         if self._fd < 0:
             raise OSError()
+
+    def get_fd(self):
+        """
+        Return assigned inotify's file descriptor.
+
+        @return: File descriptor.
+        @rtype: int
+        """
+        return self._fd
+
+    def get_watch(self, wd):
+        """
+        Get watch from provided watch descriptor wd.
+
+        @param wd: Watch descriptor.
+        @type wd: int
+        """
+        return self._wmd.get(wd)
+
+    def del_watch(self, wd):
+        """
+        Remove watch entry associated to watch descriptor wd.
+
+        @param wd: Watch descriptor.
+        @type wd: int
+        """
+        try:
+            del self._wmd[wd]
+        except KeyError, err:
+            log.error(str(err))
 
     def __add_watch(self, path, mask, proc_fun, auto_add):
         """
@@ -1770,7 +1804,7 @@ class WatchManager:
                 raise WatchManagerError(err, ret_)
 
             ret_[awd] = True
-            log.debug('watch WD=%d (%s) removed', awd, self.get_path(awd))
+            log.debug('Watch WD=%d (%s) removed', awd, self.get_path(awd))
         return ret_
 
 
@@ -1831,29 +1865,29 @@ class Color:
     invert = "\033[7m"
 
     @staticmethod
-    def Punctuation(s):
+    def punctuation(s):
         """Punctuation color."""
         return Color.normal + s + Color.normal
 
     @staticmethod
-    def FieldValue(s):
+    def field_value(s):
         """Field value color."""
         if not isinstance(s, basestring):
             s = str(s)
         return Color.purple + s + Color.normal
 
     @staticmethod
-    def FieldName(s):
+    def field_name(s):
         """Field name color."""
         return Color.blue + s + Color.normal
 
     @staticmethod
-    def ClassName(s):
+    def class_name(s):
         """Class name color."""
         return Color.red + Color.bold + s + Color.normal
 
     @staticmethod
-    def Simple(s, color):
+    def simple(s, color):
         if not isinstance(s, basestring):
             s = str(s)
         try:

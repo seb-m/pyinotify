@@ -58,30 +58,31 @@
 <h1 class="epydoc">Class ThreadedNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_15" name="uml_class_diagram_for_pyinotif_15">
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.name" alt="" coords="344,89,509,108"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.ident" alt="" coords="344,108,509,127"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.daemon" alt="" coords="344,127,509,145"/>
-<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="344,148,509,167"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.start" alt="" coords="344,167,509,185"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.join" alt="" coords="344,185,509,204"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.isAlive" alt="" coords="344,204,509,223"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.is_alive" alt="" coords="344,223,509,241"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.isDaemon" alt="" coords="344,241,509,260"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.setDaemon" alt="" coords="344,260,509,279"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.getName" alt="" coords="344,279,509,297"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread.setName" alt="" coords="344,297,509,316"/>
-<area shape="rect" href="javascript:void(0);" title="threading.Thread" alt="" coords="343,72,511,317"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.name" alt="" coords="351,89,516,108"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.ident" alt="" coords="351,108,516,127"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.daemon" alt="" coords="351,127,516,145"/>
+<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="351,148,516,167"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.start" alt="" coords="351,167,516,185"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.join" alt="" coords="351,185,516,204"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.isAlive" alt="" coords="351,204,516,223"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.is_alive" alt="" coords="351,223,516,241"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.isDaemon" alt="" coords="351,241,516,260"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.setDaemon" alt="" coords="351,260,516,279"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.getName" alt="" coords="351,279,516,297"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.setName" alt="" coords="351,297,516,316"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread" alt="" coords="349,72,517,317"/>
 <area shape="rect" href="pyinotify.ThreadedNotifier-class.html#__init__" title="Initialization, initialize base classes." alt="" coords="17,372,636,391"/>
 <area shape="rect" href="pyinotify.ThreadedNotifier-class.html#stop" title="Stop notifier&#39;s loop." alt="" coords="17,391,636,409"/>
 <area shape="rect" href="pyinotify.ThreadedNotifier-class.html#loop" title="Thread&#39;s main loop." alt="" coords="17,409,636,428"/>
 <area shape="rect" href="pyinotify.ThreadedNotifier-class.html#run" title="Start thread&#39;s loop: read and process events until the method stop() is &#160;called." alt="" coords="17,428,636,447"/>
 <area shape="rect" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="16,347,637,448"/>
-<area shape="rect" href="javascript:void(0);" title="threading._Verbose" alt="" coords="369,11,484,43"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="165,169,291,188"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="165,188,291,207"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="165,207,291,225"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="165,225,291,244"/>
-<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="164,144,292,245"/>
+<area shape="rect" href="javascript:void(0);" title="threading._Verbose" alt="" coords="376,11,491,43"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="145,160,297,179"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="145,179,297,197"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="145,197,297,216"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="145,216,297,235"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="145,235,297,253"/>
+<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="144,135,299,255"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_15.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_15" ismap="ismap" class="graph-without-title" />
 </center>
@@ -206,6 +207,7 @@
       <code>_note</code>
       </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b>:
+      <code><a href="pyinotify.Notifier-class.html#append_event">append_event</a></code>,
       <code><a href="pyinotify.Notifier-class.html#check_events">check_events</a></code>,
       <code><a href="pyinotify.Notifier-class.html#proc_fun">proc_fun</a></code>,
       <code><a href="pyinotify.Notifier-class.html#process_events">process_events</a></code>,
@@ -426,7 +428,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Aug 28 02:53:34 2009
+    Generated by Epydoc 3.0.1 on Fri Aug 28 11:36:41 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

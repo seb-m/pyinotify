@@ -529,6 +529,9 @@ class Event(_Event):
               on the watched item itself. This field is always provided
               even if the string is ''.
       - pathname (str): Concatenation of 'path' and 'name'.
+      - src_pathname (str): Only present for IN_MOVED_TO events and only in
+              the case where IN_MOVED_FROM events are watched too. Holds the
+              source pathname from where pathname was moved from.
       - cookie (int): Cookie.
       - dir (bool): True if the event was raised against a directory.
 
@@ -693,9 +696,16 @@ class _SysProcessEvent(_ProcessEvent):
         path_ = watch_.path
         dst_path = os.path.normpath(os.path.join(path_, raw_event.name))
         mv_ = self._mv_cookie.get(raw_event.cookie)
-        if mv_:
+        to_append = {'cookie': raw_event.cookie}
+        if mv_ is not None:
             self._mv[mv_[0]] = (dst_path, datetime.now())
-        return self.process_default(raw_event, {'cookie': raw_event.cookie})
+            # Let's assume that IN_MOVED_FROM event is always queued before
+            # that its associated (they share a common cookie) IN_MOVED_TO
+            # event is queued itself. It is then possible in that scenario
+            # to provide as additional information to the IN_MOVED_TO event
+            # the original pathname of the moved file/directory.
+            to_append['src_pathname'] = mv_[0]
+        return self.process_default(raw_event, to_append)
 
     def process_IN_MOVE_SELF(self, raw_event):
         """
@@ -1017,10 +1027,14 @@ class Notifier:
     def proc_fun(self):
         return self._default_proc_fun
 
-    def check_events(self):
+    def check_events(self, timeout=None):
         """
         Check for new events available to read, blocks up to timeout
         milliseconds.
+
+        @param timeout: If specified it overrides the corresponding instance
+                        attribute _timeout.
+        @type timeout: int
 
         @return: New events to read.
         @rtype: bool
@@ -1028,7 +1042,9 @@ class Notifier:
         while True:
             try:
                 # blocks up to 'timeout' milliseconds
-                ret = self._pollobj.poll(self._timeout)
+                if timeout is None:
+                    timeout = self._timeout
+                ret = self._pollobj.poll(timeout)
             except select.error, err:
                 if err[0] == errno.EINTR:
                     continue # interrupted, retry

@@ -2,7 +2,7 @@
 # -*- coding: iso-8859-1 -*-
 #
 # pyinotify.py - python interface to inotify
-# Copyright (C) Sébastien Martini <sebastien.martini@gmail.com>
+# Copyright (C) Sebastien Martini <sebastien.martini@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -1533,13 +1533,13 @@ class WatchManager:
                   auto_add=False, do_glob=False, quiet=True,
                   exclude_filter=None):
         """
-        Add watch(s) on provided |path|(s) with associated |mask| flag
-        value and optionally with a processing |proc_fun| function and the
+        Add watch(s) on the provided |path|(s) with associated |mask| flag
+        value and optionally with a processing |proc_fun| function and
         recursive flag |rec| set to True.
-        Ideally |path| components should not be unicode objects. Note
-        that unicode paths are accepted but are converted to byte strings
-        before a watch is put on the path. The encoding used for converting
-        the unicode object is given by sys.getfilesystemencoding().
+        Ideally |path| components should not be unicode objects. Note that
+        although unicode paths are accepted there are converted to byte
+        strings before a watch is put on that path. The encoding used for
+        converting the unicode object is given by sys.getfilesystemencoding().
 
         @param path: Path to watch, the path can either be a file or a
                      directory. Also accepts a sequence (list) of paths.
@@ -1664,7 +1664,7 @@ class WatchManager:
         @return: dict of watch descriptors associated to booleans values.
                  True if the corresponding wd has been successfully
                  updated, False otherwise.
-        @rtype: dict of int: bool
+        @rtype: dict of {int: bool}
         """
         lwd = self.__format_param(wd)
         if rec:
@@ -1785,7 +1785,7 @@ class WatchManager:
         @return: dict of watch descriptors associated to booleans values.
                  True if the corresponding wd has been successfully
                  removed, False otherwise.
-        @rtype: dict of int: bool
+        @rtype: dict of {int: bool}
         """
         lwd = self.__format_param(wd)
         if rec:
@@ -1829,8 +1829,8 @@ class WatchManager:
                            __init__, see transient_file.py example for more
                            details.
         @type proc_class: ProcessEvent's instance or of one of its subclasses.
-        @return: See add_watch().
-        @rtype: See add_watch().
+        @return: Same as add_watch().
+        @rtype: Same as add_watch().
         """
         dirname = os.path.dirname(filename)
         if dirname == '':

@@ -59,7 +59,7 @@
 <a name="L2"></a><tt class="py-lineno">   2</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: iso-8859-1 -*-</tt> </tt>
 <a name="L3"></a><tt class="py-lineno">   3</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L4"></a><tt class="py-lineno">   4</tt>  <tt class="py-line"><tt class="py-comment"># pyinotify.py - python interface to inotify</tt> </tt>
-<a name="L5"></a><tt class="py-lineno">   5</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (C) S&#233;bastien Martini &lt;sebastien.martini@gmail.com&gt;</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">   5</tt>  <tt class="py-line"><tt class="py-comment"># Copyright (C) Sebastien Martini &lt;sebastien.martini@gmail.com&gt;</tt> </tt>
 <a name="L6"></a><tt class="py-lineno">   6</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
 <a name="L7"></a><tt class="py-lineno">   7</tt>  <tt class="py-line"><tt class="py-comment"># This program is free software; you can redistribute it and/or</tt> </tt>
 <a name="L8"></a><tt class="py-lineno">   8</tt>  <tt class="py-line"><tt class="py-comment"># modify it under the terms of the GNU General Public License</tt> </tt>
@@ -1819,13 +1819,13 @@ pyinotify._SysProcessEvent.__init__" class="py-name" href="#" onclick="return do
 <a name="L1533"></a><tt class="py-lineno">1533</tt>  <tt class="py-line">                  <tt class="py-param">auto_add</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-param">do_glob</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-param">quiet</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">,</tt> </tt>
 <a name="L1534"></a><tt class="py-lineno">1534</tt>  <tt class="py-line">                  <tt class="py-param">exclude_filter</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="WatchManager.add_watch-collapsed" style="display:none;" pad="++++" indent="++++++++"></div><div id="WatchManager.add_watch-expanded"><a name="L1535"></a><tt class="py-lineno">1535</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
-<a name="L1536"></a><tt class="py-lineno">1536</tt>  <tt class="py-line"><tt class="py-docstring">        Add watch(s) on provided |path|(s) with associated |mask| flag</tt> </tt>
-<a name="L1537"></a><tt class="py-lineno">1537</tt>  <tt class="py-line"><tt class="py-docstring">        value and optionally with a processing |proc_fun| function and the</tt> </tt>
+<a name="L1536"></a><tt class="py-lineno">1536</tt>  <tt class="py-line"><tt class="py-docstring">        Add watch(s) on the provided |path|(s) with associated |mask| flag</tt> </tt>
+<a name="L1537"></a><tt class="py-lineno">1537</tt>  <tt class="py-line"><tt class="py-docstring">        value and optionally with a processing |proc_fun| function and</tt> </tt>
 <a name="L1538"></a><tt class="py-lineno">1538</tt>  <tt class="py-line"><tt class="py-docstring">        recursive flag |rec| set to True.</tt> </tt>
-<a name="L1539"></a><tt class="py-lineno">1539</tt>  <tt class="py-line"><tt class="py-docstring">        Ideally |path| components should not be unicode objects. Note</tt> </tt>
-<a name="L1540"></a><tt class="py-lineno">1540</tt>  <tt class="py-line"><tt class="py-docstring">        that unicode paths are accepted but are converted to byte strings</tt> </tt>
-<a name="L1541"></a><tt class="py-lineno">1541</tt>  <tt class="py-line"><tt class="py-docstring">        before a watch is put on the path. The encoding used for converting</tt> </tt>
-<a name="L1542"></a><tt class="py-lineno">1542</tt>  <tt class="py-line"><tt class="py-docstring">        the unicode object is given by sys.getfilesystemencoding().</tt> </tt>
+<a name="L1539"></a><tt class="py-lineno">1539</tt>  <tt class="py-line"><tt class="py-docstring">        Ideally |path| components should not be unicode objects. Note that</tt> </tt>
+<a name="L1540"></a><tt class="py-lineno">1540</tt>  <tt class="py-line"><tt class="py-docstring">        although unicode paths are accepted there are converted to byte</tt> </tt>
+<a name="L1541"></a><tt class="py-lineno">1541</tt>  <tt class="py-line"><tt class="py-docstring">        strings before a watch is put on that path. The encoding used for</tt> </tt>
+<a name="L1542"></a><tt class="py-lineno">1542</tt>  <tt class="py-line"><tt class="py-docstring">        converting the unicode object is given by sys.getfilesystemencoding().</tt> </tt>
 <a name="L1543"></a><tt class="py-lineno">1543</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
 <a name="L1544"></a><tt class="py-lineno">1544</tt>  <tt class="py-line"><tt class="py-docstring">        @param path: Path to watch, the path can either be a file or a</tt> </tt>
 <a name="L1545"></a><tt class="py-lineno">1545</tt>  <tt class="py-line"><tt class="py-docstring">                     directory. Also accepts a sequence (list) of paths.</tt> </tt>
@@ -1950,7 +1950,7 @@ pyinotify._SysProcessEvent.__init__" class="py-name" href="#" onclick="return do
 <a name="L1664"></a><tt class="py-lineno">1664</tt>  <tt class="py-line"><tt class="py-docstring">        @return: dict of watch descriptors associated to booleans values.</tt> </tt>
 <a name="L1665"></a><tt class="py-lineno">1665</tt>  <tt class="py-line"><tt class="py-docstring">                 True if the corresponding wd has been successfully</tt> </tt>
 <a name="L1666"></a><tt class="py-lineno">1666</tt>  <tt class="py-line"><tt class="py-docstring">                 updated, False otherwise.</tt> </tt>
-<a name="L1667"></a><tt class="py-lineno">1667</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: dict of int: bool</tt> </tt>
+<a name="L1667"></a><tt class="py-lineno">1667</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: dict of {int: bool}</tt> </tt>
 <a name="L1668"></a><tt class="py-lineno">1668</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
 <a name="L1669"></a><tt class="py-lineno">1669</tt>  <tt class="py-line">        <tt class="py-name">lwd</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-274" class="py-name"><a title="pyinotify.WatchManager.__format_param" class="py-name" href="#" onclick="return doclink('link-274', '__format_param', 'link-266');">__format_param</a></tt><tt class="py-op">(</tt><tt class="py-name">wd</tt><tt class="py-op">)</tt> </tt>
 <a name="L1670"></a><tt class="py-lineno">1670</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">rec</tt><tt class="py-op">:</tt> </tt>
@@ -2071,7 +2071,7 @@ pyinotify._SysProcessEvent.__init__" class="py-name" href="#" onclick="return do
 <a name="L1785"></a><tt class="py-lineno">1785</tt>  <tt class="py-line"><tt class="py-docstring">        @return: dict of watch descriptors associated to booleans values.</tt> </tt>
 <a name="L1786"></a><tt class="py-lineno">1786</tt>  <tt class="py-line"><tt class="py-docstring">                 True if the corresponding wd has been successfully</tt> </tt>
 <a name="L1787"></a><tt class="py-lineno">1787</tt>  <tt class="py-line"><tt class="py-docstring">                 removed, False otherwise.</tt> </tt>
-<a name="L1788"></a><tt class="py-lineno">1788</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: dict of int: bool</tt> </tt>
+<a name="L1788"></a><tt class="py-lineno">1788</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: dict of {int: bool}</tt> </tt>
 <a name="L1789"></a><tt class="py-lineno">1789</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
 <a name="L1790"></a><tt class="py-lineno">1790</tt>  <tt class="py-line">        <tt class="py-name">lwd</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-290" class="py-name"><a title="pyinotify.WatchManager.__format_param" class="py-name" href="#" onclick="return doclink('link-290', '__format_param', 'link-266');">__format_param</a></tt><tt class="py-op">(</tt><tt class="py-name">wd</tt><tt class="py-op">)</tt> </tt>
 <a name="L1791"></a><tt class="py-lineno">1791</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">rec</tt><tt class="py-op">:</tt> </tt>
@@ -2115,8 +2115,8 @@ pyinotify._SysProcessEvent.__init__" class="py-name" href="#" onclick="return do
 <a name="L1829"></a><tt class="py-lineno">1829</tt>  <tt class="py-line"><tt class="py-docstring">                           __init__, see transient_file.py example for more</tt> </tt>
 <a name="L1830"></a><tt class="py-lineno">1830</tt>  <tt class="py-line"><tt class="py-docstring">                           details.</tt> </tt>
 <a name="L1831"></a><tt class="py-lineno">1831</tt>  <tt class="py-line"><tt class="py-docstring">        @type proc_class: ProcessEvent's instance or of one of its subclasses.</tt> </tt>
-<a name="L1832"></a><tt class="py-lineno">1832</tt>  <tt class="py-line"><tt class="py-docstring">        @return: See add_watch().</tt> </tt>
-<a name="L1833"></a><tt class="py-lineno">1833</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: See add_watch().</tt> </tt>
+<a name="L1832"></a><tt class="py-lineno">1832</tt>  <tt class="py-line"><tt class="py-docstring">        @return: Same as add_watch().</tt> </tt>
+<a name="L1833"></a><tt class="py-lineno">1833</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: Same as add_watch().</tt> </tt>
 <a name="L1834"></a><tt class="py-lineno">1834</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
 <a name="L1835"></a><tt class="py-lineno">1835</tt>  <tt class="py-line">        <tt class="py-name">dirname</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">dirname</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
 <a name="L1836"></a><tt class="py-lineno">1836</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">dirname</tt> <tt class="py-op">==</tt> <tt class="py-string">''</tt><tt class="py-op">:</tt> </tt>
@@ -2310,7 +2310,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Aug 28 11:36:42 2009
+    Generated by Epydoc 3.0.1 on Wed Sep  2 02:31:20 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

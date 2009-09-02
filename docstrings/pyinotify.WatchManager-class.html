@@ -62,7 +62,7 @@
 <area shape="rect" href="pyinotify.WatchManager-class.html#get_fd" title="Return assigned inotify&#39;s file descriptor." alt="" coords="17,55,732,73"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#get_watch" title="Get watch from provided watch descriptor wd." alt="" coords="17,73,732,92"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#del_watch" title="Remove watch entry associated to watch descriptor wd." alt="" coords="17,92,732,111"/>
-<area shape="rect" href="pyinotify.WatchManager-class.html#add_watch" title="Add watch(s) on provided |path|(s) with associated |mask| flag value and &#160;optionally with a processing |proc_fun| function and the recursive flag &#160;|rec| set to True." alt="" coords="17,111,732,129"/>
+<area shape="rect" href="pyinotify.WatchManager-class.html#add_watch" title="Add watch(s) on the provided |path|(s) with associated |mask| flag value &#160;and optionally with a processing |proc_fun| function and recursive flag &#160;|rec| set to True." alt="" coords="17,111,732,129"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#update_watch" title="Update existing watch descriptors |wd|." alt="" coords="17,129,732,148"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#get_wd" title="Returns the watch descriptor associated to path." alt="" coords="17,148,732,167"/>
 <area shape="rect" href="pyinotify.WatchManager-class.html#get_path" title="Returns the path associated to WD, if WD is unknown it returns None." alt="" coords="17,167,732,185"/>
@@ -103,7 +103,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.WatchManager-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x9ecb454&gt;</span>)</span><br />
+        <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">&lt;function &lt;lambda&gt; at 0x8e9e294&gt;</span>)</span><br />
       Initialization: init inotify, init watch manager dictionary.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.__init__">source&nbsp;code</a></span>
@@ -222,8 +222,8 @@
         <span class="summary-sig-arg">do_glob</span>=<span class="summary-sig-default">False</span>,
         <span class="summary-sig-arg">quiet</span>=<span class="summary-sig-default">True</span>,
         <span class="summary-sig-arg">exclude_filter</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Add watch(s) on provided |path|(s) with associated |mask| flag value 
-      and optionally with a processing |proc_fun| function and the 
+      Add watch(s) on the provided |path|(s) with associated |mask| flag 
+      value and optionally with a processing |proc_fun| function and 
       recursive flag |rec| set to True.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#WatchManager.add_watch">source&nbsp;code</a></span>
@@ -255,7 +255,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">dict of int: bool</span>
+      <span class="summary-type">dict of {int: bool}</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -352,7 +352,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">dict of int: bool</span>
+      <span class="summary-type">dict of {int: bool}</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -372,7 +372,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">See add_watch().</span>
+      <span class="summary-type">Same as add_watch().</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -461,7 +461,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x9ecb454&gt;</span>)</span>
+        <span class="sig-arg">exclude_filter</span>=<span class="sig-default">&lt;function &lt;lambda&gt; at 0x8e9e294&gt;</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -599,12 +599,12 @@
     </td>
   </tr></table>
   
-  <p>Add watch(s) on provided |path|(s) with associated |mask| flag value 
-  and optionally with a processing |proc_fun| function and the recursive 
+  <p>Add watch(s) on the provided |path|(s) with associated |mask| flag 
+  value and optionally with a processing |proc_fun| function and recursive 
   flag |rec| set to True. Ideally |path| components should not be unicode 
-  objects. Note that unicode paths are accepted but are converted to byte 
-  strings before a watch is put on the path. The encoding used for 
-  converting the unicode object is given by 
+  objects. Note that although unicode paths are accepted there are 
+  converted to byte strings before a watch is put on that path. The 
+  encoding used for converting the unicode object is given by 
   sys.getfilesystemencoding().</p>
   <dl class="fields">
     <dt>Parameters:</dt>
@@ -699,7 +699,7 @@
         <li><strong class="pname"><code>quiet</code></strong> (bool) - If False raises a WatchManagerError exception on error. See 
           example not_quiet.py</li>
     </ul></dd>
-    <dt>Returns: dict of int: bool</dt>
+    <dt>Returns: dict of {int: bool}</dt>
         <dd>dict of watch descriptors associated to booleans values. True if 
           the corresponding wd has been successfully updated, False 
           otherwise.</dd>
@@ -844,7 +844,7 @@
         <li><strong class="pname"><code>quiet</code></strong> (bool) - If False raises a WatchManagerError exception on error. See 
           example not_quiet.py</li>
     </ul></dd>
-    <dt>Returns: dict of int: bool</dt>
+    <dt>Returns: dict of {int: bool}</dt>
         <dd>dict of watch descriptors associated to booleans values. True if 
           the corresponding wd has been successfully removed, False 
           otherwise.</dd>
@@ -879,8 +879,8 @@
           ProcessEvent's instance as argument into __init__, see 
           transient_file.py example for more details.</li>
     </ul></dd>
-    <dt>Returns: See add_watch().</dt>
-        <dd>See add_watch().</dd>
+    <dt>Returns: Same as add_watch().</dt>
+        <dd>Same as add_watch().</dd>
   </dl>
 <div class="fields">      <p><strong>Attention:</strong>
         Currently under the call to this function it is not possible to 
@@ -919,7 +919,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Aug 28 11:36:41 2009
+    Generated by Epydoc 3.0.1 on Wed Sep  2 02:31:19 2009
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

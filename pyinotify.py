@@ -88,7 +88,7 @@ import asyncore
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.6"
+__version__ = "0.8.7"
 
 __metaclass__ = type  # Use new-style classes by default
 

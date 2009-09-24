@@ -18,7 +18,7 @@ platform = get_platform()
 
 # check linux platform
 if not platform.startswith('linux'):
-    raise Exception, "inotify not available under %s" % platform
+    raise Exception, "inotify is not available under %s" % platform
 
 classif=[
     'Environment :: Console',
@@ -33,7 +33,7 @@ classif=[
 
 setup(
     name='pyinotify',
-    version='0.8.6',
+    version='0.8.7',
     description='Linux filesystem events monitoring',
     author='Sebastien Martini',
     author_email='sebastien.martini@gmail.com',
@@ -41,6 +41,6 @@ setup(
     platforms='Linux',
     classifiers=classif,
     url='http://trac.dbzteam.org/pyinotify',
-    download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.8.6.tar.gz',
+    download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.8.7.tar.gz',
     py_modules=['pyinotify'],
     )

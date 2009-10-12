@@ -968,9 +968,9 @@ class Notifier:
 
     """
     def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
-                 read_freq=0, treshold=0, timeout=None):
+                 read_freq=0, threshold=0, timeout=None):
         """
-        Initialization. read_freq, treshold and timeout parameters are used
+        Initialization. read_freq, threshold and timeout parameters are used
         when looping.
 
         @param watch_manager: Watch Manager.
@@ -983,14 +983,14 @@ class Notifier:
                           timeout is None it can be different because
                           poll is blocking waiting for something to read.
         @type read_freq: int
-        @param treshold: File descriptor will be read only if the accumulated
-                         size to read becomes >= treshold. If != 0, you likely
-                         want to use it in combination with an appropriate
-                         value for read_freq because without that you would
-                         keep looping without really reading anything and that
-                         until the amount of events to read becomes >= treshold.
-                         At least with read_freq set you might sleep.
-        @type treshold: int
+        @param threshold: File descriptor will be read only if the accumulated
+                          size to read becomes >= threshold. If != 0, you likely
+                          want to use it in combination with an appropriate
+                          value for read_freq because without that you would
+                          keep looping without really reading anything and that
+                          until the amount of events to read is >= threshold.
+                          At least with read_freq set you might sleep.
+        @type threshold: int
         @param timeout:
             http://docs.python.org/lib/poll-objects.html#poll-objects
         @type timeout: int
@@ -1012,7 +1012,7 @@ class Notifier:
         self._default_proc_fun = default_proc_fun
         # Loop parameters
         self._read_freq = read_freq
-        self._treshold = treshold
+        self._threshold = threshold
         self._timeout = timeout
 
     def append_event(self, event):
@@ -1067,9 +1067,9 @@ class Notifier:
         if fcntl.ioctl(self._fd, termios.FIONREAD, buf_, 1) == -1:
             return
         queue_size = buf_[0]
-        if queue_size < self._treshold:
-            log.debug('(fd: %d) %d bytes available to read but treshold is '
-                      'fixed to %d bytes', self._fd, queue_size, self._treshold)
+        if queue_size < self._threshold:
+            log.debug('(fd: %d) %d bytes available to read but threshold is '
+                      'fixed to %d bytes', self._fd, queue_size, self._threshold)
             return
 
         try:
@@ -1195,7 +1195,7 @@ class Notifier:
     def loop(self, callback=None, daemonize=False, **args):
         """
         Events are read only once time every min(read_freq, timeout)
-        seconds at best and only if the size to read is >= treshold.
+        seconds at best and only if the size to read is >= threshold.
 
         @param callback: Functor called after each event processing. Expects
                          to receive notifier object (self) as first parameter.
@@ -1243,9 +1243,9 @@ class ThreadedNotifier(threading.Thread, Notifier):
     it is not threaded and could be easily daemonized.
     """
     def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
-                 read_freq=0, treshold=0, timeout=None):
+                 read_freq=0, threshold=0, timeout=None):
         """
-        Initialization, initialize base classes. read_freq, treshold and
+        Initialization, initialize base classes. read_freq, threshold and
         timeout parameters are used when looping.
 
         @param watch_manager: Watch Manager.
@@ -1256,14 +1256,14 @@ class ThreadedNotifier(threading.Thread, Notifier):
                           if read_freq is > 0, this thread sleeps
                           max(0, read_freq - timeout) seconds.
         @type read_freq: int
-        @param treshold: File descriptor will be read only if the accumulated
-                         size to read becomes >= treshold. If != 0, you likely
-                         want to use it in combination with an appropriate
-                         value set for read_freq because without that you would
-                         keep looping without really reading anything and that
-                         until the amount of events to read becomes >= treshold.
-                         At least with read_freq you might sleep.
-        @type treshold: int
+        @param threshold: File descriptor will be read only if the accumulated
+                          size to read becomes >= threshold. If != 0, you likely
+                          want to use it in combination with an appropriate
+                          value set for read_freq because without that you would
+                          keep looping without really reading anything and that
+                          until the amount of events to read is >= threshold. At
+                          least with read_freq you might sleep.
+        @type threshold: int
         @param timeout:
            see http://docs.python.org/lib/poll-objects.html#poll-objects
         @type timeout: int
@@ -1274,7 +1274,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
         self._stop_event = threading.Event()
         # Init Notifier base class
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
-                          treshold, timeout)
+                          threshold, timeout)
         # Create a new pipe used for thread termination
         self._pipe = os.pipe()
         self._pollobj.register(self._pipe[0], select.POLLIN)
@@ -1297,7 +1297,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
         Call inherited start() method instead.
 
         Events are read only once time every min(read_freq, timeout)
-        seconds at best and only if the size of events to read is >= treshold.
+        seconds at best and only if the size of events to read is >= threshold.
         """
         # When the loop must be terminated .stop() is called, 'stop'
         # is written to pipe fd so poll() returns and .check_events()
@@ -1328,7 +1328,7 @@ class AsyncNotifier(asyncore.file_dispatcher, Notifier):
 
     """
     def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
-                 read_freq=0, treshold=0, timeout=None, channel_map=None):
+                 read_freq=0, threshold=0, timeout=None, channel_map=None):
         """
         Initializes the async notifier. The only additional parameter is
         'channel_map' which is the optional asyncore private map. See
@@ -1336,7 +1336,7 @@ class AsyncNotifier(asyncore.file_dispatcher, Notifier):
 
         """
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
-                          treshold, timeout)
+                          threshold, timeout)
         asyncore.file_dispatcher.__init__(self, self._fd, channel_map)
 
     def handle_read(self):

@@ -131,8 +131,14 @@ class PyinotifyLogger(logging.Logger):
 class UnicodeLogRecord(logging.LogRecord):
     def __init__(self, name, level, pathname, lineno,
                  msg, args, exc_info, func=None):
-        logging.LogRecord.__init__(self, name, level, pathname, lineno,
-                                   msg, args, exc_info, func)
+        py_version = sys.version_info
+        # func argument was added in Python 2.5, just ignore it otherwise.
+        if py_version[0] >= 2 and py_version[1] >= 5:
+            logging.LogRecord.__init__(self, name, level, pathname, lineno,
+                                       msg, args, exc_info, func)
+        else:
+            logging.LogRecord.__init__(self, name, level, pathname, lineno,
+                                       msg, args, exc_info)
 
     def getMessage(self):
         msg = self.msg

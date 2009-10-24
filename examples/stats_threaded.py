@@ -8,12 +8,11 @@ from pyinotify import *
 # This example illustrates the use of this class but the recommanded
 # implementation is whom of stats.py
 
-
 class Identity(ProcessEvent):
     def process_default(self, event):
         # Does nothing, just to demonstrate how stuffs could be done
         # after having processed statistics.
-        pass
+        print 'Does nothing.'
 
 # Thread #1
 wm1 = WatchManager()

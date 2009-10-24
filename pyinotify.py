@@ -814,8 +814,9 @@ class ProcessEvent(_ProcessEvent):
         @param pevent: Optional callable object, will be called on event
                        processing (before self).
         @type pevent: callable
-        @param kargs: Optional arguments wich will be delegated to the
-                      template method my_init().
+        @param kargs: This constructor is a implemented as a template method
+                      delegating its optionals keyworded arguments to the method
+                      my_init().
         @type kargs: dict
         """
         self.pevent = pevent
@@ -823,11 +824,13 @@ class ProcessEvent(_ProcessEvent):
 
     def my_init(self, **kargs):
         """
-        Override this method when subclassing if you want to achieve
-        custom initialization of your subclass' instance. You MUST pass
-        keyword arguments. This method does nothing by default.
+        This method is called from base constructor ProcessEvent.__init__().
+        This method is useless here and is meant to be redifined in a
+        subclass of ProcessEvent. In effect, when subclassing just override
+        this method if you want to provide custom initialization to your
+        subclass' instance. You MUST pass keyword arguments though.
 
-        @param kargs: optional arguments delagated to template method my_init
+        @param kargs: optional delegated arguments from __init__().
         @type kargs: dict
         """
         pass
@@ -847,15 +850,58 @@ class ProcessEvent(_ProcessEvent):
     def nested_pevent(self):
         return self.pevent
 
+    def process_IN_Q_OVERFLOW(self, event):
+        """
+        By default this method only reports warning messages, you can overredide
+        it by subclassing ProcessEvent and implement your own
+        process_IN_Q_OVERFLOW method. The actions you can take on receiving this
+        event is either to update the variable max_queued_events in order to
+        handle more simultaneous events or to modify your code in order to
+        accomplish a better filtering diminishing the number of raised events.
+        Because this method is defined, IN_Q_OVERFLOW will never get
+        transmitted as arguments to process_default calls.
+
+        @param event: IN_Q_OVERFLOW event.
+        @type event: dict
+        """
+        log.warning('Event queue overflowed.')
+
     def process_default(self, event):
         """
-        Default processing event method. By default uses print statement
-        to output event on standard output.
+        Default processing event method. By default does nothing. Subclass
+        ProcessEvent and redefine this method in order to modify its behavior.
 
-        @param event: Event to be processed.
+        @param event: Event to be processed. Can be of any type of events but
+                      IN_Q_OVERFLOW events (see method process_IN_Q_OVERFLOW).
         @type event: Event instance
         """
-        print(repr(event))
+        pass
+
+
+class PrintAllEvents(ProcessEvent):
+    """
+    Dummy class used to print events strings representations. For instance this
+    class is used from command line to print all received events to stdout.
+    """
+    def my_init(self, out=None):
+        """
+        @param out: Where events will be written.
+        @type out: Object providing a valid file object interface.
+        """
+        if out is None:
+            out = sys.stdout
+        self._out = out
+
+    def process_default(self, event):
+        """
+        Writes event string representation to file object provided to
+        my_init().
+
+        @param event: Event to be processed. Can be of any type of events but
+                      IN_Q_OVERFLOW events (see method process_IN_Q_OVERFLOW).
+        @type event: Event instance
+        """
+        self._out.write(repr(event) + '\n')
 
 
 class ChainIfTrue(ProcessEvent):
@@ -865,7 +911,7 @@ class ChainIfTrue(ProcessEvent):
     """
     def my_init(self, func):
         """
-        Template method called from base class constructor.
+        Method automatically called from base class constructor.
         """
         self._func = func
 
@@ -879,7 +925,7 @@ class Stats(ProcessEvent):
     """
     def my_init(self):
         """
-        Template method called from base class constructor.
+        Method automatically called from base class constructor.
         """
         self._start_time = time.time()
         self._stats = {}
@@ -1979,7 +2025,7 @@ def command_line():
     if options.stats:
         notifier = Notifier(wm, default_proc_fun=Stats(), read_freq=5)
     else:
-        notifier = Notifier(wm)
+        notifier = Notifier(wm, default_proc_fun=PrintAllEvents())
 
     # What mask to apply
     mask = 0

@@ -3,14 +3,12 @@
 # Prints statistics.
 from pyinotify import *
 
-
 class Identity(ProcessEvent):
 
     def process_default(self, event):
         # Does nothing, just to demonstrate how stuffs could trivially
         # be accomplished after having processed statistics.
-        pass
-
+        print 'Does nothing.'
 
 def on_loop(notifier):
     # notifier.proc_fun() is Identity's instance

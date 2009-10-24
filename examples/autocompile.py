@@ -32,9 +32,6 @@ class OnWriteHandler(pyinotify.ProcessEvent):
             return
         self._run_cmd()
 
-    def process_default(self, event):
-        pass
-
 def auto_compile(path, extension, cmd):
     wm = pyinotify.WatchManager()
     handler = OnWriteHandler(cwd=path, extension=extension, cmd=cmd)

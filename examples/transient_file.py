@@ -4,7 +4,6 @@
 # transient_file.sh in another shell.
 from pyinotify import *
 
-
 class ProcessTransientFile(ProcessEvent):
 
     def process_IN_MODIFY(self, event):

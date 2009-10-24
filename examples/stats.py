@@ -1,10 +1,8 @@
-# Example
+# Example: prints statistics.
 #
-# Prints statistics.
 from pyinotify import *
 
 class Identity(ProcessEvent):
-
     def process_default(self, event):
         # Does nothing, just to demonstrate how stuffs could trivially
         # be accomplished after having processed statistics.

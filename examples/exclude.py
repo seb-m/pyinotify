@@ -1,4 +1,4 @@
-# Example
+# Example: excludes items from being monitored.
 #
 import pyinotify
 import os

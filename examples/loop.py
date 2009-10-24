@@ -1,4 +1,4 @@
-# Example
+# Example: loops monitoring events forever.
 #
 import pyinotify
 

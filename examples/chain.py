@@ -1,14 +1,13 @@
-# Example
+# Example: monitors events and logs them into a log file.
 #
-# This example logs the observed events into a log file.
 from pyinotify import *
 
 class Log(ProcessEvent):
     def my_init(self, fileobj):
         """
-        Template method automatically called from ProcessEvent.__init__().
-        And keyworded arguments passed to ProcessEvent.__init__() are delegated
-        to my_init().
+        Method automatically called from ProcessEvent.__init__(). Additional
+        keyworded arguments passed to ProcessEvent.__init__() are then
+        delegated to my_init(). This is the case for fileobj.
         """
         self._fileobj = fileobj
 

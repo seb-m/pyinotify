@@ -1,7 +1,6 @@
-# Example
+# Example: monitors transient files.
 #
-# Permit to watch a transient file, run this code, then run
-# transient_file.sh in another shell.
+# Run this code, then run transient_file.sh in another shell.
 from pyinotify import *
 
 class ProcessTransientFile(ProcessEvent):

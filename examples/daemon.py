@@ -1,4 +1,4 @@
-# Example
+# Example: daemonize pyinotify's notifier.
 #
 import pyinotify
 

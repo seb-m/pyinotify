@@ -1,8 +1,7 @@
-# Example
+# Example: raise exceptions on errors.
 #
-
-# Overrides default behavior and raise exception on add_watch, update_watch,
-# rm_watch errors.
+# Overrides default behavior and raise exception on add_watch, update_watch
+# or rm_watch errors.
 
 import pyinotify
 
@@ -16,7 +15,7 @@ print r
 
 # quiet=False raise exception
 try:
-    wm.add_watch(['/tmp', '/tmp-do-not-exist'], 
+    wm.add_watch(['/tmp', '/tmp-do-not-exist'],
                      pyinotify.ALL_EVENTS, quiet=False)
 except pyinotify.WatchManagerError, err:
     print err, err.wmd

@@ -1,4 +1,4 @@
-# Example
+# Example: prints statistics (threaded version).
 #
 import time
 from pyinotify import *

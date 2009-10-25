@@ -621,7 +621,7 @@ class _SysProcessEvent(_ProcessEvent):
 
       1. special handling (deletion from internal container, bug, ...).
       2. default treatment: which is applied to the majority of events.
-      4. IN_ISDIR is never sent alone, he is piggybacked with a standard
+      3. IN_ISDIR is never sent alone, he is piggybacked with a standard
          event, he is not processed as the others events, instead, its
          value is captured and appropriately aggregated to dst event.
     """
@@ -932,6 +932,9 @@ class Stats(ProcessEvent):
         self._stats_lock = threading.Lock()
 
     def process_default(self, event):
+        """
+        Processes |event|.
+        """
         self._stats_lock.acquire()
         try:
             events = event.maskname.split('|')
@@ -973,7 +976,7 @@ class Stats(ProcessEvent):
 
     def dump(self, filename):
         """
-        Dumps statistics to file.
+        Dumps statistics to file |filename|.
 
         @param filename: pathname.
         @type filename: string
@@ -1121,7 +1124,8 @@ class Notifier:
         queue_size = buf_[0]
         if queue_size < self._threshold:
             log.debug('(fd: %d) %d bytes available to read but threshold is '
-                      'fixed to %d bytes', self._fd, queue_size, self._threshold)
+                      'fixed to %d bytes', self._fd, queue_size,
+                      self._threshold)
             return
 
         try:
@@ -1198,6 +1202,7 @@ class Notifier:
 
         def fork_daemon():
             # Adapted from Chad J. Schroeder's recipe
+            # @see http://code.activestate.com/recipes/278731/
             pid = os.fork()
             if (pid == 0):
                 # parent 2
@@ -1984,8 +1989,8 @@ def compatibility_mode():
 
 def command_line():
     """
-    By default the watched path is '/tmp' for all events. The monitoring
-    serves forever, type c^c to stop it.
+    By default the watched path is '/tmp' and all types of events are
+    monitored. Events monitoring serves forever, type c^c to stop it.
     """
     from optparse import OptionParser
 
@@ -2007,7 +2012,7 @@ def command_line():
                            " to everything)"))
     parser.add_option("-s", "--stats", action="store_true",
                       dest="stats",
-                      help="Display statistics")
+                      help="Display dummy statistics")
 
     (options, args) = parser.parse_args()
 

@@ -711,6 +711,12 @@ class _SysProcessEvent(_ProcessEvent):
             # to provide as additional information to the IN_MOVED_TO event
             # the original pathname of the moved file/directory.
             to_append['src_pathname'] = mv_[0]
+        elif raw_event.mask & IN_ISDIR and watch_.auto_add:
+            # We got a diretory that's "moved in" from an unknown source and
+            # auto_add is enabled. Manually add watches to the inner subtrees.
+            self._watch_manager.add_watch(dst_path, watch_.mask,
+                                          proc_fun=watch_.proc_fun,
+                                          rec=True, auto_add=True)
         return self.process_default(raw_event, to_append)
 
     def process_IN_MOVE_SELF(self, raw_event):
@@ -731,7 +737,7 @@ class _SysProcessEvent(_ProcessEvent):
         if mv_:
             dest_path = mv_[0]
             watch_.path = dest_path
-            # The next loop renames all watches.
+            # The next loop renames all watches with src_path as base path.
             # It seems that IN_MOVE_SELF does not provide IN_ISDIR information
             # therefore the next loop is iterated even if raw_event is a file.
             for w in self._watch_manager.watches.itervalues():

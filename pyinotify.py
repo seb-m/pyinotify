@@ -729,7 +729,15 @@ class _SysProcessEvent(_ProcessEvent):
         src_path = watch_.path
         mv_ = self._mv.get(src_path)
         if mv_:
-            watch_.path = mv_[0]
+            dest_path = mv_[0]
+            watch_.path = dest_path
+            # The next loop renames all watches.
+            # It seems that IN_MOVE_SELF does not provide IN_ISDIR information
+            # therefore the next loop is iterated even if raw_event is a file.
+            for w in self._watch_manager.watches.itervalues():
+                if w.path.startswith(src_path):
+                    # Note that dest_path is a normalized path.
+                    w.path = os.path.join(dest_path, w.path[len(dest_path):])
         else:
             log.error("The pathname '%s' of this watch %s has probably changed "
                       "and couldn't be updated, so it cannot be trusted "
@@ -741,7 +749,6 @@ class _SysProcessEvent(_ProcessEvent):
                                                     os.path.pardir)))
             if not watch_.path.endswith('-unknown-path'):
                 watch_.path += '-unknown-path'
-        # FIXME: should we pass the cookie even if this is not standard?
         return self.process_default(raw_event)
 
     def process_IN_Q_OVERFLOW(self, raw_event):
@@ -1569,6 +1576,16 @@ class WatchManager:
             del self._wmd[wd]
         except KeyError, err:
             log.error(str(err))
+
+    @property
+    def watches(self):
+        """
+        Get a reference on the internal watch manager dictionary.
+
+        @return: Internal watch manager dictionary.
+        @rtype: dict
+        """
+        return self._wmd
 
     def __add_watch(self, path, mask, proc_fun, auto_add):
         """

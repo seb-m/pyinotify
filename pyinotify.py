@@ -737,13 +737,16 @@ class _SysProcessEvent(_ProcessEvent):
         if mv_:
             dest_path = mv_[0]
             watch_.path = dest_path
+            src_path_len = len(src_path)
+            sep_len = len(os.path.sep)
             # The next loop renames all watches with src_path as base path.
             # It seems that IN_MOVE_SELF does not provide IN_ISDIR information
             # therefore the next loop is iterated even if raw_event is a file.
             for w in self._watch_manager.watches.itervalues():
                 if w.path.startswith(src_path):
                     # Note that dest_path is a normalized path.
-                    w.path = os.path.join(dest_path, w.path[len(dest_path):])
+                    w.path = os.path.join(dest_path,
+                                          w.path[src_path_len + sep_len:])
         else:
             log.error("The pathname '%s' of this watch %s has probably changed "
                       "and couldn't be updated, so it cannot be trusted "

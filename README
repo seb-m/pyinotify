@@ -1,0 +1,31 @@
+==== Pyinotify ====
+
+Project URL: http://trac.dbzteam.org/pyinotify/
+
+
+==== Dependancies ====
+
+- Linux >= 2.6.13
+- Python (CPython) >= 2.4
+- Libc >= 2.4
+- ctypes
+- Epydoc (optional for regenerating docstrings)
+
+
+==== Install ====
+
+-> install from the tarball
+    $ cd pyinotify/
+    $ sudo python setup.py install
+
+-> OR install with "Easy Install"
+    $ wget http://peak.telecommunity.com/dist/ez_setup.py
+    $ sudo python ez_setup.py
+    $ sudo easy_install pyinotify
+
+
+==== Watch a directory ====
+
+Install pyinotify and run this command from a shell:
+
+    $ python -m pyinotify -v /my-dir-to-watch

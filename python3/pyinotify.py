@@ -1,17 +1,7 @@
 #!/usr/bin/env python
-# -*- coding: iso-8859-1 -*-
 #
-# pyinotify3k.py - python interface to inotify
-#
-# This module is a port of pyinotify.py to Python >= 3.0.
-#
-# Warning:
-#   It is currently called pyinotify3k.py BUT this name can change
-#   in the future once I will have a better understanding on how to
-#   maintain two versions (if it turns out we can't do otherwise) of
-#   pyinotify (pre 3.0 and post 3.0).
-#
-#
+# pyinotify.py - python interface to inotify
+# This module is a port of Pyinotify to Python >= 3.0.
 #
 # Copyright (C) Sebastien Martini <sebastien.martini@gmail.com>
 #
@@ -121,9 +111,11 @@ LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
 #      Because there are inotify patches for libc 2.3.6.
 LIBC.gnu_get_libc_version.restype = ctypes.c_char_p
 LIBC_VERSION = LIBC.gnu_get_libc_version()
-if (int(LIBC_VERSION.split(b'.')[0]) < 2 or
-    (int(LIBC_VERSION.split(b'.')[0]) == 2 and
-     int(LIBC_VERSION.split(b'.')[1]) < 4)):
+if not isinstance(LIBC_VERSION, str):
+    LIBC_VERSION = LIBC_VERSION.decode()
+if (int(LIBC_VERSION.split('.')[0]) < 2 or
+    (int(LIBC_VERSION.split('.')[0]) == 2 and
+     int(LIBC_VERSION.split('.')[1]) < 4)):
     raise UnsupportedLibcVersionError(LIBC_VERSION)
 
 

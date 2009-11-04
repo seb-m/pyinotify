@@ -43,7 +43,7 @@ class UnsupportedPythonVersionError(PyinotifyError):
         """
         PyinotifyError.__init__(self,
                                 ('Python %s is unsupported, requires '
-                                'at least Python 2.4') % version)
+                                 'at least Python 2.4') % version)
 
 
 class UnsupportedLibcVersionError(PyinotifyError):
@@ -85,6 +85,11 @@ import re
 import ctypes
 import ctypes.util
 import asyncore
+
+try:
+    from functools import reduce
+except ImportError:
+    pass  # Will fail on Python 2.4 which has reduce() builtin anyway.
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
@@ -428,7 +433,7 @@ class EventsCodes:
 # So let's now turn the configuration into code
 EventsCodes.ALL_FLAGS = {}
 EventsCodes.ALL_VALUES = {}
-for flagc, valc in EventsCodes.FLAG_COLLECTIONS.iteritems():
+for flagc, valc in EventsCodes.FLAG_COLLECTIONS.items():
     # Make the collections' members directly accessible through the
     # class dictionary
     setattr(EventsCodes, flagc, valc)
@@ -438,13 +443,13 @@ for flagc, valc in EventsCodes.FLAG_COLLECTIONS.iteritems():
 
     # Make the individual masks accessible as 'constants' at globals() scope
     # and masknames accessible by values.
-    for name, val in valc.iteritems():
+    for name, val in valc.items():
         globals()[name] = val
         EventsCodes.ALL_VALUES[val] = name
 
 
 # all 'normal' events
-ALL_EVENTS = reduce(lambda x, y: x | y, EventsCodes.OP_FLAGS.itervalues())
+ALL_EVENTS = reduce(lambda x, y: x | y, EventsCodes.OP_FLAGS.values())
 EventsCodes.ALL_FLAGS['ALL_EVENTS'] = ALL_EVENTS
 EventsCodes.ALL_VALUES[ALL_EVENTS] = 'ALL_EVENTS'
 
@@ -462,7 +467,7 @@ class _Event:
         @param dict_: Set of attributes.
         @type dict_: dictionary
         """
-        for tpl in dict_.iteritems():
+        for tpl in dict_.items():
             setattr(self, *tpl)
 
     def __repr__(self):
@@ -742,7 +747,7 @@ class _SysProcessEvent(_ProcessEvent):
             # The next loop renames all watches with src_path as base path.
             # It seems that IN_MOVE_SELF does not provide IN_ISDIR information
             # therefore the next loop is iterated even if raw_event is a file.
-            for w in self._watch_manager.watches.itervalues():
+            for w in self._watch_manager.watches.values():
                 if w.path.startswith(src_path):
                     # Note that dest_path is a normalized path.
                     w.path = os.path.join(dest_path,
@@ -1009,12 +1014,12 @@ class Stats(ProcessEvent):
             return ''
 
         m = max(stats.values())
-        unity = int(round(float(m) / scale)) or 1
+        unity = float(scale) / m
         fmt = '%%-26s%%-%ds%%s' % (len(Color.field_value('@' * scale))
                                    + 1)
         def func(x):
             return fmt % (Color.field_name(x[0]),
-                          Color.field_value('@' * (x[1] / unity)),
+                          Color.field_value('@' * int(x[1] * unity)),
                           Color.simple('%d' % x[1], 'yellow'))
         s = '\n'.join(map(func, sorted(stats.items(), key=lambda x: x[0])))
         return s
@@ -1153,16 +1158,12 @@ class Notifier:
         rsum = 0  # counter
         while rsum < queue_size:
             s_size = 16
-            # Retrieve wd, mask, cookie
-            s_ = struct.unpack('iIII', r[rsum:rsum+s_size])
-            # Length of name
-            fname_len = s_[3]
-            # field 'length' useless
-            s_ = s_[:-1]
+            # Retrieve wd, mask, cookie and fname_len
+            wd, mask, cookie, fname_len = struct.unpack('iIII', r[rsum:rsum+s_size])
             # Retrieve name
-            s_ += struct.unpack('%ds' % fname_len,
-                                r[rsum + s_size:rsum + s_size + fname_len])
-            self._eventq.append(_RawEvent(*s_))
+            fname, = struct.unpack('%ds' % fname_len,
+                                   r[rsum + s_size:rsum + s_size + fname_len])
+            self._eventq.append(_RawEvent(wd, mask, cookie, fname))
             rsum += s_size + fname_len
 
     def process_events(self):
@@ -1443,7 +1444,7 @@ class Watch:
         @param auto_add: Automatically add watches on new directories.
         @type auto_add: bool
         """
-        for k, v in keys.iteritems():
+        for k, v in keys.items():
             setattr(self, k, v)
         self.dir = os.path.isdir(self.path)
 
@@ -1489,7 +1490,7 @@ class ExcludeFilter:
 
     def _load_patterns(self, dct):
         lst = []
-        for path, varnames in dct.iteritems():
+        for path, varnames in dct.items():
             loc = {}
             execfile(path, {}, loc)
             for varname in varnames:
@@ -1831,7 +1832,7 @@ class WatchManager:
         @rtype: int or None
         """
         path = os.path.normpath(path)
-        for iwd in self._wmd.iteritems():
+        for iwd in self._wmd.items():
             if iwd[1].path == path:
                 return iwd[0]
         log.debug('get_wd: unknown path %s', path)

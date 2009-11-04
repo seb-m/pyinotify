@@ -1,2 +1,4 @@
 - Optionally store watchs in a DB to reduce memory footprint
-- Convert to Python 3
+- Port to Python 3.0:
+   - resolve threaded
+   - resolve std on forks

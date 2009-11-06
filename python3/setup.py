@@ -2,8 +2,8 @@
 
 # check Python's version
 import sys
-if sys.version < '2.4':
-    sys.stderr.write('This module requires Python 2.4 or later.\n')
+if sys.version < '3.0':
+    sys.stderr.write('This module requires Python 3.0 or later.\n')
     sys.exit(1)
 
 # import statements
@@ -27,8 +27,9 @@ classif=[
     'Natural Language :: English',
     'Operating System :: POSIX :: Linux',
     'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
     'Topic :: Software Development :: Libraries',
-    'Topic :: System :: Monitoring'
+    'Topic :: System :: Monitoring',
     ]
 
 setup(

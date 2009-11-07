@@ -779,8 +779,8 @@ class ProcessEvent(_ProcessEvent):
     behavior can be overriden:
 
     Note: you should not override __init__ in your subclass instead define
-    a my_init() method, this method will be called from the constructor of
-    this class with its optional parameters.
+    a my_init() method, this method will be called automatically from the
+    constructor of this class with its optionals parameters.
 
       1. Provide specialized individual methods, e.g. process_IN_DELETE for
          processing a precise type of event (e.g. IN_DELETE in this case).
@@ -800,9 +800,9 @@ class ProcessEvent(_ProcessEvent):
         @param pevent: Optional callable object, will be called on event
                        processing (before self).
         @type pevent: callable
-        @param kargs: This constructor is a implemented as a template method
-                      delegating its optionals keyworded arguments to the method
-                      my_init().
+        @param kargs: This constructor is implemented as a template method
+                      delegating its optionals keyworded arguments to the
+                      method my_init().
         @type kargs: dict
         """
         self.pevent = pevent
@@ -810,11 +810,13 @@ class ProcessEvent(_ProcessEvent):
 
     def my_init(self, **kargs):
         """
-        This method is called from base constructor ProcessEvent.__init__().
-        This method is useless here and is meant to be redifined in a
-        subclass of ProcessEvent. In effect, when subclassing just override
-        this method if you want to provide custom initialization to your
-        subclass' instance. You MUST pass keyword arguments though.
+        This method is called from ProcessEvent.__init__(). This method is
+        empty here and must be redefined to be useful. In effect, if you
+        need to specifically initialize your subclass' instance then you
+        just have to override this method in your subclass. Then all the
+        keyworded arguments passed to ProcessEvent.__init__() will be
+        transmitted as parameters to this method. Beware you MUST pass
+        keyword arguments though.
 
         @param kargs: optional delegated arguments from __init__().
         @type kargs: dict

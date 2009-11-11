@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-from pyinotify import *
+import pyinotify
+
 
 # create path
 #path = u'/tmp/test\u0444'
@@ -11,11 +12,11 @@ path = unicode(path, sys.getfilesystemencoding())
 if not os.path.isdir(path):
     os.mkdir(path)
 
-log.setLevel(10)
-wm = WatchManager()
-notifier = Notifier(wm)
+pyinotify.log.setLevel(10)
+wm = pyinotify.WatchManager()
+notifier = pyinotify.Notifier(wm)
 
-wdd = wm.add_watch(path, IN_OPEN)
-wm.update_watch(wdd[path], ALL_EVENTS)
+wdd = wm.add_watch(path, pyinotify.IN_OPEN)
+wm.update_watch(wdd[path], pyinotify.ALL_EVENTS)
 
 notifier.loop()

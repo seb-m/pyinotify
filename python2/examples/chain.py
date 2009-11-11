@@ -1,8 +1,8 @@
 # Example: monitors events and logs them into a log file.
 #
-from pyinotify import *
+import pyinotify
 
-class Log(ProcessEvent):
+class Log(pyinotify.ProcessEvent):
     def my_init(self, fileobj):
         """
         Method automatically called from ProcessEvent.__init__(). Additional
@@ -15,11 +15,11 @@ class Log(ProcessEvent):
         self._fileobj.write(str(event) + '\n')
         self._fileobj.flush()
 
-class TrackModifications(ProcessEvent):
+class TrackModifications(pyinotify.ProcessEvent):
     def process_IN_MODIFY(self, event):
         print 'IN_MODIFY'
 
-class Empty(ProcessEvent):
+class Empty(pyinotify.ProcessEvent):
     def my_init(self, msg):
         self._msg = msg
 
@@ -27,13 +27,14 @@ class Empty(ProcessEvent):
         print self._msg
 
 
-#log.setLevel(10)
+# pyinotify.log.setLevel(10)
 fo = file('/var/log/pyinotify_log', 'w')
-wm = WatchManager()
-# It is important to pass named extra arguments like 'fileobj'.
-notifier = Notifier(wm,
-                    default_proc_fun=Empty(TrackModifications(Log(fileobj=fo)),
-                                           msg='outtee chained function'))
-wm.add_watch('/tmp', ALL_EVENTS)
-notifier.loop()
-fo.close()
+try:
+    wm = pyinotify.WatchManager()
+    # It is important to pass named extra arguments like 'fileobj'.
+    handler = Empty(TrackModifications(Log(fileobj=fo)), msg='Outer chained method')
+    notifier = pyinotify.Notifier(wm, default_proc_fun=handler)
+    wm.add_watch('/tmp', pyinotify.ALL_EVENTS)
+    notifier.loop()
+finally:
+    fo.close()

@@ -527,7 +527,9 @@ class Event(_Event):
             else:
                 self.pathname = os.path.abspath(self.path)
         except AttributeError as err:
-            log.error(err)
+            # Usually it is not an error some events are perfectly valids
+            # despite the lack of these attributes.
+            log.debug(err)
 
 
 class ProcessEventError(PyinotifyError):
@@ -1903,6 +1905,8 @@ class WatchManager:
         mask |= IN_CREATE | IN_DELETE
 
         def cmp_name(event):
+            if getattr(event, 'name') is None:
+                return False
             return basename == event.name
         return self.add_watch(dirname, mask,
                               proc_fun=proc_class(ChainIfTrue(func=cmp_name)),

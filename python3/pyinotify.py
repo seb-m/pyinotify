@@ -1160,7 +1160,7 @@ class Notifier:
         """
         if pid_file is None:
             dirname = '/var/run/'
-            basename = sys.argv[0] or 'pyinotify'
+            basename = os.path.basename(sys.argv[0]) or 'pyinotify'
             pid_file = os.path.join(dirname, basename + '.pid')
 
         if os.path.exists(pid_file):

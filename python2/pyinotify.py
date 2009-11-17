@@ -666,25 +666,27 @@ class _SysProcessEvent(_ProcessEvent):
         """
         if raw_event.mask & IN_ISDIR:
             watch_ = self._watch_manager.get_watch(raw_event.wd)
-            if watch_.auto_add:
+            created_dir = os.path.join(watch_.path, raw_event.name)
+            if watch_.auto_add and not watch_.exclude_filter(created_dir):
                 addw = self._watch_manager.add_watch
-                newwd = addw(os.path.join(watch_.path, raw_event.name),
-                             watch_.mask, proc_fun=watch_.proc_fun,
-                             rec=False, auto_add=watch_.auto_add)
+                # The newly monitored directory inherits attributes from its
+                # parent directory.
+                newwd = addw(created_dir, watch_.mask, proc_fun=watch_.proc_fun,
+                             rec=False, auto_add=watch_.auto_add,
+                             exclude_filter=watch_.exclude_filter)
 
                 # Trick to handle mkdir -p /t1/t2/t3 where t1 is watched and
                 # t2 and t3 are created.
                 # Since the directory is new, then everything inside it
                 # must also be new.
-                base = os.path.join(watch_.path, raw_event.name)
-                if newwd[base] > 0:
-                    for name in os.listdir(base):
-                        inner = os.path.join(base, name)
+                if newwd[created_dir] > 0:
+                    for name in os.listdir(created_dir):
+                        inner = os.path.join(created_dir, name)
                         if (os.path.isdir(inner) and
                             self._watch_manager.get_wd(inner) is None):
                             # Generate (simulate) creation event for sub
                             # directories.
-                            rawevent = _RawEvent(newwd[base],
+                            rawevent = _RawEvent(newwd[created_dir],
                                                  IN_CREATE | IN_ISDIR,
                                                  0, name)
                             self._notifier.append_event(rawevent)
@@ -718,12 +720,16 @@ class _SysProcessEvent(_ProcessEvent):
             # to provide as additional information to the IN_MOVED_TO event
             # the original pathname of the moved file/directory.
             to_append['src_pathname'] = mv_[0]
-        elif raw_event.mask & IN_ISDIR and watch_.auto_add:
+        elif (raw_event.mask & IN_ISDIR and watch_.auto_add and
+              not watch_.exclude_filter(dst_path)):
             # We got a diretory that's "moved in" from an unknown source and
             # auto_add is enabled. Manually add watches to the inner subtrees.
+            # The newly monitored directory inherits attributes from its
+            # parent directory.
             self._watch_manager.add_watch(dst_path, watch_.mask,
                                           proc_fun=watch_.proc_fun,
-                                          rec=True, auto_add=True)
+                                          rec=True, auto_add=True,
+                                          exclude_filter=watch_.exclude_filter)
         return self.process_default(raw_event, to_append)
 
     def process_IN_MOVE_SELF(self, raw_event):
@@ -1163,7 +1169,8 @@ class Notifier:
         while rsum < queue_size:
             s_size = 16
             # Retrieve wd, mask, cookie and fname_len
-            wd, mask, cookie, fname_len = struct.unpack('iIII', r[rsum:rsum+s_size])
+            wd, mask, cookie, fname_len = struct.unpack('iIII',
+                                                        r[rsum:rsum+s_size])
             # Retrieve name
             fname, = struct.unpack('%ds' % fname_len,
                                    r[rsum + s_size:rsum + s_size + fname_len])
@@ -1433,7 +1440,7 @@ class Watch:
     Represent a watch, i.e. a file or directory being watched.
 
     """
-    def __init__(self, **keys):
+    def __init__(self, wd, path, mask, proc_fun, auto_add, exclude_filter):
         """
         Initializations.
 
@@ -1447,9 +1454,17 @@ class Watch:
         @type proc_fun:
         @param auto_add: Automatically add watches on new directories.
         @type auto_add: bool
+        @param exclude_filter: Boolean function, used to exclude new
+                               directories from being automatically watched.
+                               See WatchManager.__init__
+        @type exclude_filter: callable object
         """
-        for k, v in keys.items():
-            setattr(self, k, v)
+        self.wd = wd
+        self.path = path
+        self.mask = mask
+        self.proc_fun = proc_fun
+        self.auto_add = auto_add
+        self.exclude_filter = exclude_filter
         self.dir = os.path.isdir(self.path)
 
     def __repr__(self):
@@ -1553,7 +1568,7 @@ class WatchManager:
                                path must be excluded from being watched.
                                Convenient for providing a common exclusion
                                filter for every call to add_watch.
-        @type exclude_filter: bool
+        @type exclude_filter: callable object
         """
         self._exclude_filter = exclude_filter
         self._wmd = {}  # watch dict key: watch descriptor, value: watch
@@ -1601,7 +1616,7 @@ class WatchManager:
         """
         return self._wmd
 
-    def __add_watch(self, path, mask, proc_fun, auto_add):
+    def __add_watch(self, path, mask, proc_fun, auto_add, exclude_filter):
         """
         Add a watch on path, build a Watch object and insert it in the
         watch manager dictionary. Return the wd value.
@@ -1622,7 +1637,8 @@ class WatchManager:
         if wd_ < 0:
             return wd_
         watch_ = Watch(wd=wd_, path=os.path.normpath(byte_path), mask=mask,
-                       proc_fun=proc_fun, auto_add=auto_add)
+                       proc_fun=proc_fun, auto_add=auto_add,
+                       exclude_filter=exclude_filter)
         self._wmd[wd_] = watch_
         log.debug('New %s', watch_)
         return wd_
@@ -1666,11 +1682,12 @@ class WatchManager:
         @param quiet: if False raises a WatchManagerError exception on
                       error. See example not_quiet.py.
         @type quiet: bool
-        @param exclude_filter: boolean function, returns True if current
-                               path must be excluded from being watched.
-                               Has precedence on exclude_filter defined
-                               into __init__.
-        @type exclude_filter: bool
+        @param exclude_filter: predicate (boolean function), which returns
+                               True if the current path must be excluded
+                               from being watched. This argument has
+                               precedence over exclude_filter passed to
+                               the class' constructor.
+        @type exclude_filter: callable object
         @return: dict of paths associated to watch descriptors. A wd value
                  is positive if the watch was added sucessfully,
                  otherwise the value is negative. If the path was invalid
@@ -1691,7 +1708,8 @@ class WatchManager:
                     if not exclude_filter(rpath):
                         wd = ret_[rpath] = self.__add_watch(rpath, mask,
                                                             proc_fun,
-                                                            auto_add)
+                                                            auto_add,
+                                                            exclude_filter)
                         if wd < 0:
                             err = 'add_watch: cannot watch %s (WD=%d)'
                             err = err % (rpath, wd)
@@ -1950,7 +1968,8 @@ class WatchManager:
         return self.add_watch(dirname, mask,
                               proc_fun=proc_class(ChainIfTrue(func=cmp_name)),
                               rec=False,
-                              auto_add=False, do_glob=False)
+                              auto_add=False, do_glob=False,
+                              exclude_filter=lambda path: False)
 
 
 class Color:

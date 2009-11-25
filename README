@@ -8,18 +8,18 @@ Project URL: http://trac.dbzteam.org/pyinotify/
 - Linux >= 2.6.13
 - Python (CPython) >= 2.4
 - Libc >= 2.4
-- ctypes
-- Epydoc (optional, needed for regenerating docstrings)
+- ctypes (already included with Python >= 2.5)
+- Epydoc (optional, needed to generate docstrings)
 
 
 ==== Install ====
 
--> install from the tarball
+-> Install from the distributed tarball
     # Choose your Python interpreter: either Python2 or Python3
     $ cd pyinotify/python[23]
     $ sudo python setup.py install
 
--> OR install with "Easy Install" (currently will only work for Python2)
+-> OR install with "Easy Install" (currently will only works for Python2)
     $ wget http://peak.telecommunity.com/dist/ez_setup.py
     $ sudo python ez_setup.py
     $ sudo easy_install pyinotify

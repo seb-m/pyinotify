@@ -15,11 +15,11 @@ Project URL: http://trac.dbzteam.org/pyinotify/
 ==== Install ====
 
 -> Install from the distributed tarball
-    # Choose your Python interpreter: either Python2 or Python3
-    $ cd pyinotify/python[23]
-    $ sudo python setup.py install
+    # Choose your Python interpreter: either python, python2.6, python3.0,..
+    # Replacing XXX accordingly with your previous choice type:
+    $ sudo pythonXXX setup.py install
 
--> OR install with "Easy Install" (currently will only works for Python2)
+-> OR install with "Easy Install" (currently seems to work only for Python2)
     $ wget http://peak.telecommunity.com/dist/ez_setup.py
     $ sudo python ez_setup.py
     $ sudo easy_install pyinotify

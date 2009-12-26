@@ -11,7 +11,7 @@ from distutils.core import setup, Extension
 from distutils.util import get_platform
 
 # debug
-DISTUTILS_DEBUG = True
+DISTUTILS_DEBUG = False
 
 # get platform
 platform = get_platform()

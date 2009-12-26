@@ -2,8 +2,8 @@
 
 # check Python's version
 import sys
-if sys.version < '3.0':
-    sys.stderr.write('This module requires Python 3.0 or later.\n')
+if sys.version < '2.4':
+    sys.stderr.write('This module requires at least Python 2.4\n')
     sys.exit(1)
 
 # import statements
@@ -18,19 +18,24 @@ platform = get_platform()
 
 # check linux platform
 if not platform.startswith('linux'):
-    raise Exception, "inotify is not available under %s" % platform
+    sys.stderr.write("inotify is not available under %s\n" % platform)
+    sys.exit(1)
 
-classif=[
+classif = [
     'Environment :: Console',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: GNU General Public License (GPL)',
     'Natural Language :: English',
     'Operating System :: POSIX :: Linux',
     'Programming Language :: Python',
-    'Programming Language :: Python :: 3',
     'Topic :: Software Development :: Libraries',
-    'Topic :: System :: Monitoring',
+    'Topic :: System :: Monitoring'
     ]
+
+if sys.version_info[0] >= 3:
+    package_dir = {'': 'python3'}
+else:
+    package_dir = {'': 'python2'}
 
 setup(
     name='pyinotify',
@@ -44,4 +49,6 @@ setup(
     url='http://trac.dbzteam.org/pyinotify',
     download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.8.8.tar.gz',
     py_modules=['pyinotify'],
+    package_dir=package_dir,
+    packages=[''],
     )

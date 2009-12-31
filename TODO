@@ -1,3 +1,1 @@
 - Optionally store watchs in a DB to reduce memory footprint
-- Port to Python 3.0, current known issues:
-   - Can't write in files from daemonized exec (flush??)

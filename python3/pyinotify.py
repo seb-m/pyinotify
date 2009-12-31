@@ -897,7 +897,8 @@ class PrintAllEvents(ProcessEvent):
                       IN_Q_OVERFLOW events (see method process_IN_Q_OVERFLOW).
         @type event: Event instance
         """
-        self._out.write(repr(event) + '\n')
+        self._out.write(repr(event))
+        self._out.write('\n')
 
 
 class ChainIfTrue(ProcessEvent):
@@ -1015,15 +1016,16 @@ class Notifier:
     Read notifications, process events.
 
     """
-    def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
-                 read_freq=0, threshold=0, timeout=None):
+    def __init__(self, watch_manager, default_proc_fun=None, read_freq=0,
+                 threshold=0, timeout=None):
         """
         Initialization. read_freq, threshold and timeout parameters are used
         when looping.
 
         @param watch_manager: Watch Manager.
         @type watch_manager: WatchManager instance
-        @param default_proc_fun: Default processing method.
+        @param default_proc_fun: Default processing method. If None, a new
+                                 instance of PrintAllEvents will be assigned.
         @type default_proc_fun: instance of ProcessEvent
         @param read_freq: if read_freq == 0, events are read asap,
                           if read_freq is > 0, this thread sleeps
@@ -1058,6 +1060,8 @@ class Notifier:
         self._sys_proc_fun = _SysProcessEvent(self._watch_manager, self)
         # Default processing method
         self._default_proc_fun = default_proc_fun
+        if default_proc_fun is None:
+            self._default_proc_fun = PrintAllEvents()
         # Loop parameters
         self._read_freq = read_freq
         self._threshold = threshold
@@ -1180,7 +1184,10 @@ class Notifier:
                     try:
                         os.kill(pid, 0)
                     except OSError as err:
-                        log.error(err)
+                        if err.errno == errno.ESRCH:
+                            log.debug(err)
+                        else:
+                            log.error(err)
                     else:
                         if not force_kill:
                             s = 'There is already a pid file %s with pid %d'
@@ -1245,6 +1252,10 @@ class Notifier:
         @type callback: callable
         @param daemonize: This thread is daemonized if set to True.
         @type daemonize: boolean
+        @param args: Optional and relevant only if daemonize is True. Remaining
+                     keyworded arguments are directly passed to daemonize see
+                     __daemonize() method.
+        @type args: various
         """
         if daemonize:
             self.__daemonize(**args)
@@ -1285,15 +1296,15 @@ class ThreadedNotifier(threading.Thread, Notifier):
     through Notifier class. Moreover Notifier should be considered first because
     it is not threaded and could be easily daemonized.
     """
-    def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
-                 read_freq=0, threshold=0, timeout=None):
+    def __init__(self, watch_manager, default_proc_fun=None, read_freq=0,
+                 threshold=0, timeout=None):
         """
         Initialization, initialize base classes. read_freq, threshold and
         timeout parameters are used when looping.
 
         @param watch_manager: Watch Manager.
         @type watch_manager: WatchManager instance
-        @param default_proc_fun: Default processing method.
+        @param default_proc_fun: Default processing method. See base class.
         @type default_proc_fun: instance of ProcessEvent
         @param read_freq: if read_freq == 0, events are read asap,
                           if read_freq is > 0, this thread sleeps
@@ -1370,8 +1381,8 @@ class AsyncNotifier(asyncore.file_dispatcher, Notifier):
     use pyinotify along with the asyncore framework.
 
     """
-    def __init__(self, watch_manager, default_proc_fun=ProcessEvent(),
-                 read_freq=0, threshold=0, timeout=None, channel_map=None):
+    def __init__(self, watch_manager, default_proc_fun=None, read_freq=0,
+                 threshold=0, timeout=None, channel_map=None):
         """
         Initializes the async notifier. The only additional parameter is
         'channel_map' which is the optional asyncore private map. See

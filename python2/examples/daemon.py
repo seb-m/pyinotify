@@ -6,6 +6,9 @@ import sys
 import pyinotify
 
 class Counter(object):
+    """
+    Simple counter.
+    """
     def __init__(self):
         self.count = 0
 
@@ -26,13 +29,16 @@ def on_loop(notifier, counter):
 wm = pyinotify.WatchManager()
 notifier = pyinotify.Notifier(wm)
 wm.add_watch('/tmp', pyinotify.ALL_EVENTS)
-
 on_loop_func = functools.partial(on_loop, counter=Counter())
-# Child process' PID is written to /tmp/pyinotify.pid (note that this file
-# should be deleted when the child process exits), /tmp/stdout.txt is used
+
+# Notifier instance spawns a new process when daemonize is set to True. This
+# child process' PID is written to /tmp/pyinotify.pid (it also automatically
+# deletes it when it exits normally). If no custom pid_file is provided it
+# would write it more traditionally under /var/run/. /tmp/stdout.txt is used
 # as stdout stream thus traces of events will be written in it, force_kill
-# means that if there is already a /tmp/pyinotify.pid with a corresponding
+# means that if there is already an /tmp/pyinotify.pid with a corresponding
 # running process it will be killed first. callback is the above function
 # and will be called after each event loop.
-notifier.loop(daemonize=True, callback=on_loop_func, pid_file='/tmp/pyinotify.pid',
-              force_kill=True, stdout='/tmp/stdout.txt')
+notifier.loop(daemonize=True, callback=on_loop_func,
+              pid_file='/tmp/pyinotify.pid', force_kill=True,
+              stdout='/tmp/stdout.txt')

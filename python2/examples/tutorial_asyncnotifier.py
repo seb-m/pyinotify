@@ -2,23 +2,20 @@
 #
 # See: http://trac.dbzteam.org/pyinotify/wiki/Tutorial
 #
-from pyinotify import WatchManager, AsyncNotifier, \
-     ThreadedNotifier, ProcessEvent, IN_DELETE, \
-     IN_CREATE
 import asyncore
+import pyinotify
 
-wm = WatchManager()  # Watch Manager
-mask = IN_DELETE | IN_CREATE  # watched events
+wm = pyinotify.WatchManager()  # Watch Manager
+mask = pyinotify.IN_DELETE | pyinotify.IN_CREATE  # watched events
 
-class PTmp(ProcessEvent):
+class HandleEvents(pyinotify.ProcessEvent):
     def process_IN_CREATE(self, event):
         print "Creating:", event.pathname
 
     def process_IN_DELETE(self, event):
         print "Removing:", event.pathname
 
-p = PTmp()
-notifier = AsyncNotifier(wm, p)
+notifier = pyinotify.AsyncNotifier(wm, HandleEvents())
 wdd = wm.add_watch('/tmp', mask, rec=True)
 
 asyncore.loop()

@@ -2,14 +2,12 @@
 #
 # See: http://trac.dbzteam.org/pyinotify/wiki/Tutorial
 #
-from pyinotify import WatchManager, Notifier, \
-    ThreadedNotifier, ProcessEvent, IN_DELETE, \
-    IN_CREATE, log
+import pyinotify
 
-wm = WatchManager()  # Watch Manager
-mask = IN_DELETE | IN_CREATE  # watched events
+wm = pyinotify.WatchManager()  # Watch Manager
+mask = pyinotify.IN_DELETE | pyinotify.IN_CREATE  # watched events
 
-class PTmp(ProcessEvent):
+class HandleEvents(pyinotify.ProcessEvent):
     def process_IN_CREATE(self, event):
         print "Creating:", event.pathname
 
@@ -18,7 +16,7 @@ class PTmp(ProcessEvent):
 
 
 #log.setLevel(10)
-notifier = ThreadedNotifier(wm, PTmp())
+notifier = pyinotify.ThreadedNotifier(wm, HandleEvents())
 notifier.start()
 
 wdd = wm.add_watch('/tmp', mask, rec=True)

@@ -1,0 +1,12 @@
+# File associated to exclude.py
+#
+# List of patterns using regexps as defined into re standard module.
+# These regexps are matched against submitted paths with re.match().
+
+# Put only one pattern by line.
+^/etc/apache[2]?/
+^/etc/rc.*
+^/etc/hostname
+^/etc/hosts
+^/etc/(fs|m)tab
+^/etc/cron\..*

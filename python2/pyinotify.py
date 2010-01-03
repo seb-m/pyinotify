@@ -85,6 +85,7 @@ import re
 import ctypes
 import ctypes.util
 import asyncore
+import glob
 
 try:
     from functools import reduce
@@ -183,10 +184,7 @@ def logger_init():
 log = logger_init()
 
 
-
-### inotify's variables ###
-
-
+# inotify's variables
 class SysCtlINotify:
     """
     Access (read, write) inotify's variables through sysctl. Usually it
@@ -251,74 +249,6 @@ class SysCtlINotify:
 #
 for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
     globals()[attrname] = SysCtlINotify(attrname)
-
-
-
-### iglob ###
-
-
-# Code taken from standart Python Lib, slightly modified in order to work
-# with pyinotify (don't exclude dotted files/dirs like .foo).
-# Original version:
-# @see: http://svn.python.org/projects/python/trunk/Lib/glob.py
-
-def iglob(pathname):
-    if not has_magic(pathname):
-        if hasattr(os.path, 'lexists'):
-            if os.path.lexists(pathname):
-                yield pathname
-        else:
-            if os.path.islink(pathname) or os.path.exists(pathname):
-                yield pathname
-        return
-    dirname, basename = os.path.split(pathname)
-    # relative pathname
-    if not dirname:
-        return
-    # absolute pathname
-    if has_magic(dirname):
-        dirs = iglob(dirname)
-    else:
-        dirs = [dirname]
-    if has_magic(basename):
-        glob_in_dir = glob1
-    else:
-        glob_in_dir = glob0
-    for dirname in dirs:
-        for name in glob_in_dir(dirname, basename):
-            yield os.path.join(dirname, name)
-
-def glob1(dirname, pattern):
-    if not dirname:
-        dirname = os.curdir
-    try:
-        names = os.listdir(dirname)
-    except os.error:
-        return []
-    return fnmatch.filter(names, pattern)
-
-def glob0(dirname, basename):
-    if basename == '' and os.path.isdir(dirname):
-        # `os.path.split()` returns an empty basename for paths ending with a
-        # directory separator.  'q*x/' should match only directories.
-        return [basename]
-    if hasattr(os.path, 'lexists'):
-        if os.path.lexists(os.path.join(dirname, basename)):
-            return [basename]
-    else:
-        if (os.path.islink(os.path.join(dirname, basename)) or
-            os.path.exists(os.path.join(dirname, basename))):
-            return [basename]
-    return []
-
-MAGIC_CHECK = re.compile('[*?[]')
-
-def has_magic(s):
-    return MAGIC_CHECK.search(s) is not None
-
-
-
-### Core ###
 
 
 class EventsCodes:
@@ -1501,14 +1431,20 @@ class ExcludeFilter:
     """
     def __init__(self, arg_lst):
         """
+        Examples:
+          ef1 = ExcludeFilter(["^/etc/rc.*", "^/etc/hostname"])
+          ef2 = ExcludeFilter("/my/path/exclude.lst")
+          Where exclude.lst contains:
+          ^/etc/rc.*
+          ^/etc/hostname
+
         @param arg_lst: is either a list or dict of patterns:
-                        [pattern1, ..., patternn]
-                        {'filename1': (list1, listn), ...} where list1 is
-                        a list of patterns
-        @type arg_lst: list or dict
+                        [pattern1, ..., patternn] or a filename from which
+                        patterns will be loaded.
+        @type arg_lst: list(str) or str
         """
-        if isinstance(arg_lst, dict):
-            lst = self._load_patterns(arg_lst)
+        if isinstance(arg_lst, str):
+            lst = self._load_patterns_from_file(arg_lst)
         elif isinstance(arg_lst, list):
             lst = arg_lst
         else:
@@ -1518,13 +1454,18 @@ class ExcludeFilter:
         for regex in lst:
             self._lregex.append(re.compile(regex, re.UNICODE))
 
-    def _load_patterns(self, dct):
+    def _load_patterns_from_file(self, filename):
         lst = []
-        for path, varnames in dct.items():
-            loc = {}
-            execfile(path, {}, loc)
-            for varname in varnames:
-                lst.extend(loc.get(varname, []))
+        file_obj = file(filename, 'r')
+        try:
+            for line in file_obj.readlines():
+                # Trim leading an trailing whitespaces
+                pattern = line.strip()
+                if not pattern or pattern.startswith('#'):
+                    continue
+                lst.append(pattern)
+        finally:
+            file_obj.close()
         return lst
 
     def _match(self, regex, path):
@@ -1656,7 +1597,7 @@ class WatchManager:
 
     def __glob(self, path, do_glob):
         if do_glob:
-            return iglob(path)
+            return glob.iglob(path)
         else:
             return [path]
 

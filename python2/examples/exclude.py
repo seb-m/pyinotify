@@ -1,27 +1,30 @@
-# Example: excludes items from being monitored.
+# Example: exclude items from being monitored.
 #
-import pyinotify
 import os
-
-excl_file = os.path.join(os.getcwd(), 'exclude.patterns')
+import pyinotify
 
 wm = pyinotify.WatchManager()
 notifier = pyinotify.Notifier(wm)
 
-
 ### Method 1:
-# Exclude filter object
-excl = pyinotify.ExcludeFilter({excl_file: ('excl_lst1', 'excl_lst2')})
+# Exclude patterns from file
+excl_file = os.path.join(os.getcwd(), 'exclude.lst')
+excl = pyinotify.ExcludeFilter(excl_file)
 # Add watches
-wm.add_watch(['/etc/*', '/var'], pyinotify.ALL_EVENTS,
-             rec=True, do_glob=True, exclude_filter=excl)
-
+res = wm.add_watch(['/etc/hostname', '/etc/cups', '/etc/rc0.d'],
+                   pyinotify.ALL_EVENTS, rec=True, exclude_filter=excl)
 
 ### Method 2 (Equivalent)
-wm.add_watch('/etc/*', pyinotify.ALL_EVENTS, rec=True, do_glob=True,
-             exclude_filter=pyinotify.ExcludeFilter({excl_file:('excl_lst1',)}))
-wm.add_watch('/var', pyinotify.ALL_EVENTS, rec=True,
-             exclude_filter=pyinotify.ExcludeFilter({excl_file:('excl_lst2',)}))
+# Exclude patterns from list
+excl_lst = ['^/etc/apache[2]?/',
+            '^/etc/rc.*',
+            '^/etc/hostname',
+            '^/etc/hosts',
+            '^/etc/(fs|m)tab',
+            '^/etc/cron\..*']
+excl = pyinotify.ExcludeFilter(excl_lst)
+# Add watches
+res = wm.add_watch(['/etc/hostname', '/etc/cups', '/etc/rc0.d'],
+                   pyinotify.ALL_EVENTS, rec=True, exclude_filter=excl)
 
-
-notifier.loop()
+#notifier.loop()

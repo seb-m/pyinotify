@@ -95,7 +95,7 @@ except ImportError:
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.8.8"
+__version__ = "0.8.9"
 
 
 # Compatibity mode: set to True to improve compatibility with

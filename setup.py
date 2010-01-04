@@ -39,7 +39,7 @@ else:
 
 setup(
     name='pyinotify',
-    version='0.8.8',
+    version='0.8.9',
     description='Linux filesystem events monitoring',
     author='Sebastien Martini',
     author_email='sebastien.martini@gmail.com',
@@ -47,7 +47,7 @@ setup(
     platforms='Linux',
     classifiers=classif,
     url='http://trac.dbzteam.org/pyinotify',
-    download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.8.8.tar.gz',
+    download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.8.9.tar.gz',
     py_modules=['pyinotify'],
     package_dir=package_dir,
     packages=[''],

@@ -24,7 +24,7 @@ if not platform.startswith('linux'):
 classif = [
     'Environment :: Console',
     'Intended Audience :: Developers',
-    'License :: OSI Approved :: GNU General Public License (GPL)',
+    'License :: OSI Approved :: MIT License',
     'Natural Language :: English',
     'Operating System :: POSIX :: Linux',
     'Programming Language :: Python',
@@ -43,7 +43,7 @@ setup(
     description='Linux filesystem events monitoring',
     author='Sebastien Martini',
     author_email='sebastien.martini@gmail.com',
-    license='GPLv2+',
+    license='MIT License',
     platforms='Linux',
     classifiers=classif,
     url='http://trac.dbzteam.org/pyinotify',

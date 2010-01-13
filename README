@@ -1,9 +1,10 @@
 ==== Pyinotify ====
 
+License: MIT License
 Project URL: http://trac.dbzteam.org/pyinotify/
 
 
-==== Dependancies ====
+==== Dependencies ====
 
 - Linux >= 2.6.13
 - Python (CPython) >= 2.4

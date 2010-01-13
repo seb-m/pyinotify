@@ -14,7 +14,7 @@ class Counter(object):
 
 def on_loop(notifier, counter):
     """
-    Dummy functor called after each event loop, this method only
+    Dummy function called after each event loop, this method only
     ensures the child process eventually exits (after 5 iterations).
     """
     if counter.count > 4:

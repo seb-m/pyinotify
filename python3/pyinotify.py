@@ -694,13 +694,6 @@ class _SysProcessEvent(_ProcessEvent):
         IN_OPEN, IN_DELETE, IN_DELETE_SELF, IN_UNMOUNT.
         """
         watch_ = self._watch_manager.get_watch(raw_event.wd)
-        if watch_ is None:
-            # Not really sure how we ended up here, nor how we should
-            # handle these types of events and if it is appropriate to
-            # completly skip them or not (like we are doing here).
-            log.debug("Unable to retrieve Watch object associated to event %s",
-                      repr(raw_event))
-            return
         if raw_event.mask & (IN_DELETE_SELF | IN_MOVE_SELF):
             # Unfornulately this information is not provided by the kernel
             dir_ = watch_.dir
@@ -1091,9 +1084,14 @@ class Notifier:
         while self._eventq:
             raw_event = self._eventq.popleft()  # pop next event
             watch_ = self._watch_manager.get_watch(raw_event.wd)
-            revent = self._sys_proc_fun(raw_event)  # system processings
-            if revent is None:
+            if watch_ is None:
+                # Not really sure how we ended up here, nor how we should
+                # handle these types of events and if it is appropriate to
+                # completly skip them (like we are doing here).
+                log.warning("Unable to retrieve Watch object associated to %s",
+                            repr(raw_event))
                 continue
+            revent = self._sys_proc_fun(raw_event)  # system processings
             if watch_ and watch_.proc_fun:
                 watch_.proc_fun(revent)  # user processings
             else:

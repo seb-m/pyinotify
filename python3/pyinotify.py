@@ -1028,7 +1028,7 @@ class Notifier:
                     timeout = self._timeout
                 ret = self._pollobj.poll(timeout)
             except select.error as err:
-                if err[0] == errno.EINTR:
+                if err.errno == errno.EINTR:
                     continue # interrupted, retry
                 else:
                     raise
@@ -1403,10 +1403,9 @@ class ExcludeFilter:
           ^/etc/rc.*
           ^/etc/hostname
 
-        @param arg_lst: is either a list or dict of patterns:
-                        [pattern1, ..., patternn] or a filename from which
+        @param arg_lst: is either a list of patterns or a filename from which
                         patterns will be loaded.
-        @type arg_lst: list(str) or str
+        @type arg_lst: list of str or str
         """
         if isinstance(arg_lst, str):
             lst = self._load_patterns_from_file(arg_lst)

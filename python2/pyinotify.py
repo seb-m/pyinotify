@@ -1224,12 +1224,17 @@ class Notifier:
 
     def loop(self, callback=None, daemonize=False, **args):
         """
-        Events are read only once time every min(read_freq, timeout)
+        Events are read only one time every min(read_freq, timeout)
         seconds at best and only if the size to read is >= threshold.
+        After this method returns it must not be called again for the same
+        instance.
 
-        @param callback: Functor called after each event processing. Expects
-                         to receive notifier object (self) as first parameter.
-        @type callback: callable
+        @param callback: Functor called after each event processing iteration.
+                         Expects to receive the notifier object (self) as first
+                         parameter. If this function returns True the loop is
+                         immediately terminated otherwise the loop method keeps
+                         looping.
+        @type callback: callable object or function
         @param daemonize: This thread is daemonized if set to True.
         @type daemonize: boolean
         @param args: Optional and relevant only if daemonize is True. Remaining
@@ -1244,24 +1249,26 @@ class Notifier:
         while 1:
             try:
                 self.process_events()
-                if callback is not None:
-                    callback(self)
+                if (callback is not None) and (callback(self) is True):
+                    break
                 ref_time = time.time()
                 # check_events is blocking
                 if self.check_events():
                     self._sleep(ref_time)
                     self.read_events()
             except KeyboardInterrupt:
-                # Unless sigint is caught (Control-C)
+                # Stop monitoring if sigint is caught (Control-C).
                 log.debug('Pyinotify stops monitoring.')
-                # Stop monitoring
-                self.stop()
                 break
+        # Close internals
+        self.stop()
+
 
     def stop(self):
         """
         Close inotify's instance (close its file descriptor).
         It destroys all existing watches, pending events,...
+        This method is automatically called at the end of loop().
         """
         self._pollobj.unregister(self._fd)
         os.close(self._fd)

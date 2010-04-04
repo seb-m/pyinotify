@@ -546,8 +546,8 @@ class _SysProcessEvent(_ProcessEvent):
         and self._mv.
         """
         date_cur_ = datetime.now()
-        for seq in [self._mv_cookie, self._mv]:
-            for k in seq.keys():
+        for seq in (self._mv_cookie, self._mv):
+            for k in list(seq.keys()):
                 if (date_cur_ - seq[k][1]) > timedelta(minutes=1):
                     log.debug('Cleanup: deleting entry %s', seq[k][0])
                     del seq[k]

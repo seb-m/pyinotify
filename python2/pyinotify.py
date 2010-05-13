@@ -1790,7 +1790,7 @@ class WatchManager:
                 watch_.proc_fun = proc_fun
 
             if auto_add:
-                watch_.proc_fun = auto_add
+                watch_.auto_add = auto_add
 
             ret_[awd] = True
             log.debug('Updated watch - %s', self._wmd[awd])

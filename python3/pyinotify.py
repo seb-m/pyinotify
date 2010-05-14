@@ -1537,13 +1537,20 @@ class WatchManager:
         """
         return self._wmd
 
+    def __format_path(self, path):
+        """
+        Format path to its internal (stored in watch manager) representation.
+        """
+        # path must be a unicode string (str) and is just normalized.
+        return os.path.normpath(path)
+
     def __add_watch(self, path, mask, proc_fun, auto_add, exclude_filter):
         """
         Add a watch on path, build a Watch object and insert it in the
         watch manager dictionary. Return the wd value.
         """
-        # path must be a unicode string (str) it is then converted to a
-        # bytes string. This conversion seems to be required because
+        path = self.__format_path(path)
+        # path to a bytes string. This conversion seems to be required because
         # ctypes.create_string_buffer seems to manipulate bytes
         # strings representations internally.
         # Moreover it seems that LIBC.inotify_add_watch does not work very
@@ -1556,9 +1563,8 @@ class WatchManager:
                                      mask)
         if wd_ < 0:
             return wd_
-        watch_ = Watch(wd=wd_, path=os.path.normpath(path), mask=mask,
-                       proc_fun=proc_fun, auto_add=auto_add,
-                       exclude_filter=exclude_filter)
+        watch_ = Watch(wd=wd_, path=path, mask=mask, proc_fun=proc_fun,
+                       auto_add=auto_add, exclude_filter=exclude_filter)
         self._wmd[wd_] = watch_
         log.debug('New %s', watch_)
         return wd_
@@ -1577,6 +1583,9 @@ class WatchManager:
         value and optionally with a processing |proc_fun| function and
         recursive flag |rec| set to True.
         All |path| components _must_ be str (i.e. unicode) objects.
+        If |path| is already watched it is ignored, but if it is called with
+        option rec=True a watch is put on each one of its not-watched
+        subdirectory.
 
         @param path: Path to watch, the path can either be a file or a
                      directory. Also accepts a sequence (list) of paths.
@@ -1606,9 +1615,9 @@ class WatchManager:
                                the class' constructor.
         @type exclude_filter: callable object
         @return: dict of paths associated to watch descriptors. A wd value
-                 is positive if the watch was added sucessfully,
-                 otherwise the value is negative. If the path was invalid
-                 it is not included into this returned dictionary.
+                 is positive if the watch was added sucessfully, otherwise
+                 the value is negative. If the path was invalid or was already
+                 watched it is not included into this returned dictionary.
         @rtype: dict of {str: int}
         """
         ret_ = {} # return {path: wd, ...}
@@ -1627,6 +1636,11 @@ class WatchManager:
             for apath in self.__glob(npath, do_glob):
                 # recursively list subdirs according to rec param
                 for rpath in self.__walk_rec(apath, rec):
+                    if self.get_wd(rpath) is not None:
+                        # We decide to ignore paths already inserted into
+                        # the watch manager. Need to be removed with rm_watch()
+                        # first. Or simply call update_watch() to update it.
+                        continue
                     if not exclude_filter(rpath):
                         wd = ret_[rpath] = self.__add_watch(rpath, mask,
                                                             proc_fun,
@@ -1657,7 +1671,7 @@ class WatchManager:
         """
         for d in lpath:
             root = self.get_path(d)
-            if root:
+            if root is not None:
                 # always keep root
                 yield d
             else:
@@ -1779,11 +1793,10 @@ class WatchManager:
         @return: WD or None.
         @rtype: int or None
         """
-        path = os.path.normpath(path)
+        path = self.__format_path(path)
         for iwd in self._wmd.items():
             if iwd[1].path == path:
                 return iwd[0]
-        log.debug('get_wd: unknown path %s', path)
 
     def get_path(self, wd):
         """
@@ -1795,9 +1808,8 @@ class WatchManager:
         @rtype: string or None
         """
         watch_ = self._wmd.get(wd)
-        if watch_:
+        if watch_ is not None:
             return watch_.path
-        log.debug('get_path: unknown WD %d', wd)
 
     def __walk_rec(self, top, rec):
         """

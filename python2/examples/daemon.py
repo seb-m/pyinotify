@@ -11,6 +11,8 @@ class Counter(object):
     """
     def __init__(self):
         self.count = 0
+    def plusone(self):
+        self.count += 1
 
 def on_loop(notifier, counter):
     """
@@ -24,7 +26,7 @@ def on_loop(notifier, counter):
         sys.exit(0)
     else:
         sys.stdout.write("Loop %d\n" % counter.count)
-        counter.count += 1
+        counter.plusone()
 
 wm = pyinotify.WatchManager()
 notifier = pyinotify.Notifier(wm)

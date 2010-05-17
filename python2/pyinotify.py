@@ -602,22 +602,24 @@ class _SysProcessEvent(_ProcessEvent):
                 addw = self._watch_manager.add_watch
                 # The newly monitored directory inherits attributes from its
                 # parent directory.
-                newwd = addw(created_dir, watch_.mask, proc_fun=watch_.proc_fun,
-                             rec=False, auto_add=watch_.auto_add,
-                             exclude_filter=watch_.exclude_filter)
+                addw_ret = addw(created_dir, watch_.mask,
+                                proc_fun=watch_.proc_fun,
+                                rec=False, auto_add=watch_.auto_add,
+                                exclude_filter=watch_.exclude_filter)
 
                 # Trick to handle mkdir -p /t1/t2/t3 where t1 is watched and
                 # t2 and t3 are created.
                 # Since the directory is new, then everything inside it
                 # must also be new.
-                if newwd[created_dir] > 0:
+                created_dir_wd = addw_ret.get(created_dir)
+                if (created_dir_wd is not None) and created_dir_wd > 0:
                     for name in os.listdir(created_dir):
                         inner = os.path.join(created_dir, name)
                         if (os.path.isdir(inner) and
                             self._watch_manager.get_wd(inner) is None):
                             # Generate (simulate) creation event for sub
                             # directories.
-                            rawevent = _RawEvent(newwd[created_dir],
+                            rawevent = _RawEvent(created_dir_wd,
                                                  IN_CREATE | IN_ISDIR,
                                                  0, name)
                             self._notifier.append_event(rawevent)

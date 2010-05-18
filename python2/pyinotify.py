@@ -107,7 +107,17 @@ COMPATIBILITY_MODE = False
 
 
 # Load libc
-LIBC = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
+LIBC = None
+STRERRNO = None
+if sys.version_info[0] >= 2 and sys.version_info[1] >= 6:
+    LIBC = ctypes.CDLL(ctypes.util.find_library('c'), use_errno=True)
+    def _strerrno():
+        code = ctypes.get_errno()
+        return ' Errno=%s (%s)' % (os.strerror(code), errno.errorcode[code])
+    STRERRNO = _strerrno
+else:
+    LIBC = ctypes.CDLL(ctypes.util.find_library('c'))
+    STRERRNO = lambda : ''
 
 # The libc version > 2.4 check.
 # XXX: Maybe it is better to check if the libc has the needed functions inside?
@@ -1543,7 +1553,8 @@ class WatchManager:
         self._wmd = {}  # watch dict key: watch descriptor, value: watch
         self._fd = LIBC.inotify_init() # inotify's init, file descriptor
         if self._fd < 0:
-            raise OSError()
+            err = 'Cannot initialize new instance of inotify%s' % STRERRNO()
+            raise OSError(err)
 
     def get_fd(self):
         """
@@ -1692,8 +1703,8 @@ class WatchManager:
                                                             auto_add,
                                                             exclude_filter)
                         if wd < 0:
-                            err = 'add_watch: cannot watch %s (WD=%d)'
-                            err = err % (rpath, wd)
+                            err = 'add_watch: cannot watch %s WD=%d%s'
+                            err = err % (rpath, wd, STRERRNO())
                             if quiet:
                                 log.error(err)
                             else:
@@ -1788,8 +1799,8 @@ class WatchManager:
                 wd_ = addw(self._fd, ctypes.create_string_buffer(apath), mask)
                 if wd_ < 0:
                     ret_[awd] = False
-                    err = 'update_watch: cannot update WD=%d (%s)' % (wd_,
-                                                                      apath)
+                    err = 'update_watch: cannot update %s WD=%d%s'
+                    err = err % (apath, wd_, STRERRNO())
                     if quiet:
                         log.error(err)
                         continue
@@ -1898,7 +1909,7 @@ class WatchManager:
             wd_ = LIBC.inotify_rm_watch(self._fd, awd)
             if wd_ < 0:
                 ret_[awd] = False
-                err = 'rm_watch: cannot remove WD=%d' % awd
+                err = 'rm_watch: cannot remove WD=%d%s' % (awd, STRERRNO())
                 if quiet:
                     log.error(err)
                     continue

@@ -1646,8 +1646,6 @@ class WatchManager:
         If |path| si already watched it is ignored, but if it is called with
         option rec=True a watch is put on each one of its not-watched
         subdirectory.
-        This method returns immediately on first ENOSPC error encountered
-        (see http://trac.dbzteam.org/pyinotify/wiki/FrequentlyAskedQuestions).
 
         @param path: Path to watch, the path can either be a file or a
                      directory. Also accepts a sequence (list) of paths.
@@ -1709,11 +1707,6 @@ class WatchManager:
                             err = err % (rpath, wd, STRERRNO())
                             if quiet:
                                 log.error(err)
-                                if (sys.version_info[0] >= 2 and
-                                    sys.version_info[1] >= 6 and
-                                    errno.ENOSPC == ctypes.get_errno()):
-                                    # In this case return immediately
-                                    return ret_
                             else:
                                 raise WatchManagerError(err, ret_)
                     else:

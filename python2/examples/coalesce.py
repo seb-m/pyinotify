@@ -26,7 +26,7 @@ import pyinotify
 wm = pyinotify.WatchManager()
 # Put an arbitrary large value (10 seconds) to aggregate together a larger
 # chunk of events. For instance if you repeat several times a given action
-# on the same file its events will be coalesced into a signe event and only
+# on the same file its events will be coalesced into a single event and only
 # one event of this type will be reported (for this period).
 notifier = pyinotify.Notifier(wm, read_freq=10)
 # Enable coalescing of events.

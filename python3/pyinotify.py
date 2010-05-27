@@ -418,31 +418,14 @@ class _RawEvent(_Event):
                                'cookie': cookie,
                                'name': name.rstrip('\0')})
         log.debug(repr(self))
-        # Hash value is cached as soon as computed
-        self._hash = None
-
-    def __eq__(self, rhs):
-        if (self.wd == rhs.wd and self.mask == rhs.mask and
-            self.cookie == rhs.cookie and self.name and rhs.name):
-            return True
-        return False
+        # Use this variable to cache the result of str(self)
+        self._str = None
 
     def __str__(self):
-        s = '%s %s %s %s' % (str(self.wd), str(self.mask), str(self.cookie),
-                             self.name)
-        return s
-
-    def _djb_hash(self):
-        # Daniel J. Bernstein's hash function
-        h = 0
-        for c in str(self):
-            h = 33 * h ^ ord(c)
-        return h
-
-    def __hash__(self):
-        if self._hash is None:
-            self._hash = self._djb_hash()
-        return self._hash
+        if self._str is None:
+            self._str = '%s %s %s %s' % (str(self.wd), str(self.mask),
+                                         str(self.cookie), self.name)
+        return self._str
 
 
 class Event(_Event):
@@ -1030,7 +1013,8 @@ class Notifier:
         self._timeout = timeout
         # Coalesce events option
         self._coalesce = False
-        self._eventset = set()  # Only used when coalesce option is True
+        # set of str(raw_event), only used when coalesce option is True
+        self._eventset = set()
 
     def append_event(self, event):
         """
@@ -1044,7 +1028,7 @@ class Notifier:
     def proc_fun(self):
         return self._default_proc_fun
 
-    def coalesce_events(self, value=True):
+    def coalesce_events(self, coalesce=True):
         """
         Coalescing events. Events are usually processed by batchs, their size
         depend on various factors. Thus, before processing them, events received
@@ -1053,13 +1037,14 @@ class Notifier:
         unique events are enqueued, doublons are discarded. An event is unique
         when the combination of its fields (wd, mask, cookie, name) is unique
         among events of a same batch. After a batch of events is processed any
-        events is accepted again.
+        events is accepted again. By default this option is disabled, you have
+        to explictly call this function to turn it on.
 
-        @param value: Optional coalescing value. True by default.
-        @type value: Bool
+        @param coalesce: Optional new coalescing value. True by default.
+        @type coalesce: Bool
         """
-        self._coalesce = value
-        if not value:
+        self._coalesce = coalesce
+        if not coalesce:
             self._eventset.clear()
 
     def check_events(self, timeout=None):
@@ -1128,8 +1113,9 @@ class Notifier:
             rawevent = _RawEvent(wd, mask, cookie, uname)
             if self._coalesce:
                 # Only enqueue new (unique) events.
-                if rawevent not in self._eventset:
-                    self._eventset.add(rawevent)
+                raweventstr = str(rawevent)
+                if raweventstr not in self._eventset:
+                    self._eventset.add(raweventstr)
                     self._eventq.append(rawevent)
             else:
                 self._eventq.append(rawevent)

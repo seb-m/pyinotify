@@ -455,11 +455,36 @@ class _RawEvent(_Event):
         @type name: string or None
         """
         # name: remove trailing '\0'
-        super(_RawEvent, self).__init__({'wd': wd,
-                                         'mask': mask,
-                                         'cookie': cookie,
-                                         'name': name.rstrip('\0')})
+        _Event.__init__(self, {'wd': wd,
+                               'mask': mask,
+                               'cookie': cookie,
+                               'name': name.rstrip('\0')})
         log.debug(repr(self))
+        # Hash value is cached as soon as computed
+        self._hash = None
+
+    def __eq__(self, rhs):
+        if (self.wd == rhs.wd and self.mask == rhs.mask and
+            self.cookie == rhs.cookie and self.name and rhs.name):
+            return True
+        return False
+
+    def __str__(self):
+        s = '%s %s %s %s' % (str(self.wd), str(self.mask), str(self.cookie),
+                             self.name)
+        return s
+
+    def _djb_hash(self):
+        # Daniel J. Bernstein's hash function
+        h = 0
+        for c in str(self):
+            h = 33 * h ^ ord(c)
+        return h
+
+    def __hash__(self):
+        if self._hash is None:
+            self._hash = self._djb_hash()
+        return self._hash
 
 
 class Event(_Event):
@@ -1012,7 +1037,7 @@ class Notifier:
         @param read_freq: if read_freq == 0, events are read asap,
                           if read_freq is > 0, this thread sleeps
                           max(0, read_freq - timeout) seconds. But if
-                          timeout is None it can be different because
+                          timeout is None it may be different because
                           poll is blocking waiting for something to read.
         @type read_freq: int
         @param threshold: File descriptor will be read only if the accumulated
@@ -1048,6 +1073,9 @@ class Notifier:
         self._read_freq = read_freq
         self._threshold = threshold
         self._timeout = timeout
+        # Coalesce events option
+        self._coalesce = False
+        self._eventset = set()  # Only used when coalesce option is True
 
     def append_event(self, event):
         """
@@ -1060,6 +1088,24 @@ class Notifier:
 
     def proc_fun(self):
         return self._default_proc_fun
+
+    def coalesce_events(self, value=True):
+        """
+        Coalescing events. Events are usually processed by batchs, their size
+        depend on various factors. Thus, before processing them, events received
+        from inotify are aggregated in a fifo queue. If this coalescing
+        option is enabled events are filtered based on their unicity, only
+        unique events are enqueued, doublons are discarded. An event is unique
+        when the combination of its fields (wd, mask, cookie, name) is unique
+        among events of a same batch. After a batch of events is processed any
+        events is accepted again.
+
+        @param value: Optional coalescing value. True by default.
+        @type value: Bool
+        """
+        self._coalesce = value
+        if not value:
+            self._eventset.clear()
 
     def check_events(self, timeout=None):
         """
@@ -1122,7 +1168,14 @@ class Notifier:
             # Retrieve name
             fname, = struct.unpack('%ds' % fname_len,
                                    r[rsum + s_size:rsum + s_size + fname_len])
-            self._eventq.append(_RawEvent(wd, mask, cookie, fname))
+            rawevent = _RawEvent(wd, mask, cookie, fname)
+            if self._coalesce:
+                # Only enqueue new (unique) events.
+                if rawevent not in self._eventset:
+                    self._eventset.add(rawevent)
+                    self._eventq.append(rawevent)
+            else:
+                self._eventq.append(rawevent)
             rsum += s_size + fname_len
 
     def process_events(self):
@@ -1147,7 +1200,8 @@ class Notifier:
             else:
                 self._default_proc_fun(revent)
         self._sys_proc_fun.cleanup()  # remove olds MOVED_* events records
-
+        if self._coalesce:
+            self._eventset.clear()
 
     def __daemonize(self, pid_file=None, force_kill=False, stdin=os.devnull,
                     stdout=os.devnull, stderr=os.devnull):

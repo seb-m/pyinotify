@@ -47,9 +47,10 @@ class UnsupportedPythonVersionError(PyinotifyError):
                                  'at least Python 3.0') % version)
 
 
-class UnsupportedLibcVersionError(PyinotifyError):
+class LibcError(PyinotifyError):
     """
-    Raised on unsupported libc versions.
+    Raised when libc couldn't be loaded or when inotify functions werent
+    provided.
     """
     def __init__(self):
         err = 'libc does not provide required inotify support'
@@ -100,17 +101,32 @@ COMPATIBILITY_MODE = False
 
 
 # Load libc
-LIBC = ctypes.CDLL(ctypes.util.find_library('c'), use_errno=True)
+LIBC = None
 
 def strerrno():
     code = ctypes.get_errno()
     return '%s (%s)' % (os.strerror(code), errno.errorcode[code])
 
-# Check that libc has needed functions inside.
-if (not hasattr(LIBC, 'inotify_init') or
-    not hasattr(LIBC, 'inotify_add_watch') or
-    not hasattr(LIBC, 'inotify_rm_watch')):
-    raise UnsupportedLibcVersionError()
+def load_libc():
+    global LIBC
+
+    l = None
+    try:
+        l = ctypes.util.find_library('c')
+    except OSError as err:
+        pass  # Will attemp to load it with None anyway.
+    except IOError as err:
+        pass
+
+    LIBC = ctypes.CDLL(l, use_errno=True)
+
+    # Check that libc has needed functions inside.
+    if (not hasattr(LIBC, 'inotify_init') or
+        not hasattr(LIBC, 'inotify_add_watch') or
+        not hasattr(LIBC, 'inotify_rm_watch')):
+        raise LibcError()
+
+load_libc()
 
 
 class PyinotifyLogger(logging.Logger):

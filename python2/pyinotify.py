@@ -179,7 +179,7 @@ def logger_init():
     log = logging.getLogger("pyinotify")
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(
-        logging.Formatter("[Pyinotify %(levelname)s] %(message)s"))
+        logging.Formatter("[%(asctime)s %(name)s %(levelname)s] %(message)s"))
     log.addHandler(console_handler)
     log.setLevel(20)
     return log

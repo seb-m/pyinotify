@@ -882,6 +882,7 @@ class PrintAllEvents(ProcessEvent):
         """
         self._out.write(str(event))
         self._out.write('\n')
+        self._out.flush()
 
 
 class ChainIfTrue(ProcessEvent):
@@ -2142,8 +2143,11 @@ def command_line():
     cb_fun = None
     if options.stats:
         def cb(s):
-            print('%s\n%s\n' % (repr(s.proc_fun()),
-                                s.proc_fun()))
+            sys.stdout.write(repr(s.proc_fun()))
+            sys.stdout.write('\n')
+            sys.stdout.write(str(s.proc_fun()))
+            sys.stdout.write('\n')
+            sys.stdout.flush()
         cb_fun = cb
 
     log.debug('Start monitoring %s, (press c^c to halt pyinotify)' % path)

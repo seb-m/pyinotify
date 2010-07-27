@@ -51,14 +51,9 @@ class UnsupportedLibcVersionError(PyinotifyError):
     """
     Raised on unsupported libc versions.
     """
-    def __init__(self, version):
-        """
-        @param version: Current Libc version
-        @type version: string
-        """
-        PyinotifyError.__init__(self,
-                                ('Libc %s is not supported, requires '
-                                 'at least Libc 2.4') % version)
+    def __init__(self):
+        err = 'libc does not provide required inotify support'
+        PyinotifyError.__init__(self, err)
 
 
 # Check Python version
@@ -119,15 +114,12 @@ else:
     LIBC = ctypes.CDLL(ctypes.util.find_library('c'))
     STRERRNO = lambda : ''
 
-# The libc version > 2.4 check.
-# XXX: Maybe it is better to check if the libc has the needed functions inside?
-#      Because there are inotify patches for libc 2.3.6.
-LIBC.gnu_get_libc_version.restype = ctypes.c_char_p
-LIBC_VERSION = LIBC.gnu_get_libc_version()
-if (int(LIBC_VERSION.split('.')[0]) < 2 or
-    (int(LIBC_VERSION.split('.')[0]) == 2 and
-     int(LIBC_VERSION.split('.')[1]) < 4)):
-    raise UnsupportedLibcVersionError(LIBC_VERSION)
+
+# Check that libc has needed functions inside.
+if (not hasattr(LIBC, 'inotify_init') or
+    not hasattr(LIBC, 'inotify_add_watch') or
+    not hasattr(LIBC, 'inotify_rm_watch')):
+    raise UnsupportedLibcVersionError()
 
 
 class PyinotifyLogger(logging.Logger):

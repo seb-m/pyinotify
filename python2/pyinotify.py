@@ -2087,11 +2087,16 @@ def command_line():
     parser.add_option("-s", "--stats", action="store_true",
                       dest="stats",
                       help="Display dummy statistics")
+    parser.add_option("-V", "--version", action="store_true",
+                      dest="version",  help="Pyinotify version")
 
     (options, args) = parser.parse_args()
 
     if options.verbose:
         log.setLevel(10)
+
+    if options.version:
+        print(__version__)
 
     if len(args) < 1:
         path = '/tmp'  # default watched path

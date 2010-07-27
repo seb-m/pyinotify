@@ -103,16 +103,16 @@ COMPATIBILITY_MODE = False
 
 # Load libc
 LIBC = None
-STRERRNO = None
+strerrno = None
 if sys.version_info[0] >= 2 and sys.version_info[1] >= 6:
     LIBC = ctypes.CDLL(ctypes.util.find_library('c'), use_errno=True)
     def _strerrno():
         code = ctypes.get_errno()
         return ' Errno=%s (%s)' % (os.strerror(code), errno.errorcode[code])
-    STRERRNO = _strerrno
+    strerrno = _strerrno
 else:
     LIBC = ctypes.CDLL(ctypes.util.find_library('c'))
-    STRERRNO = lambda : ''
+    strerrno = lambda : ''
 
 
 # Check that libc has needed functions inside.
@@ -416,15 +416,18 @@ class _Event:
                 value = hex(getattr(self, attr))
             elif isinstance(value, basestring) and not value:
                 value = "''"
-            s += ' %s%s%s' % (Color.field_name(attr),
-                              Color.punctuation('='),
-                              Color.field_value(value))
+            s += ' %s%s%s' % (output_format.field_name(attr),
+                              output_format.punctuation('='),
+                              output_format.field_value(value))
 
-        s = '%s%s%s %s' % (Color.punctuation('<'),
-                           Color.class_name(self.__class__.__name__),
+        s = '%s%s%s %s' % (output_format.punctuation('<'),
+                           output_format.class_name(self.__class__.__name__),
                            s,
-                           Color.punctuation('>'))
+                           output_format.punctuation('>'))
         return s
+
+    def __str__(self):
+        return repr(self)
 
 
 class _RawEvent(_Event):
@@ -446,19 +449,20 @@ class _RawEvent(_Event):
                      on the watched item itself.
         @type name: string or None
         """
-        # name: remove trailing '\0'
-        _Event.__init__(self, {'wd': wd,
-                               'mask': mask,
-                               'cookie': cookie,
-                               'name': name.rstrip('\0')})
-        log.debug(repr(self))
-        # Use this variable to cache the result of str(self)
+        # Use this variable to cache the result of str(self), this object
+        # is immutable.
         self._str = None
+        # name: remove trailing '\0'
+        d = {'wd': wd,
+             'mask': mask,
+             'cookie': cookie,
+             'name': name.rstrip('\0')}
+        _Event.__init__(self, d)
+        log.debug(str(self))
 
     def __str__(self):
         if self._str is None:
-            self._str = '%s %s %s %s' % (str(self.wd), str(self.mask),
-                                         str(self.cookie), self.name)
+            self._str = _Event.__str__(self)
         return self._str
 
 
@@ -876,7 +880,7 @@ class PrintAllEvents(ProcessEvent):
                       IN_Q_OVERFLOW events (see method process_IN_Q_OVERFLOW).
         @type event: Event instance
         """
-        self._out.write(repr(event))
+        self._out.write(str(event))
         self._out.write('\n')
 
 
@@ -944,9 +948,9 @@ class Stats(ProcessEvent):
 
         l = []
         for ev, value in sorted(stats.items(), key=lambda x: x[0]):
-            l.append(' %s=%s' % (Color.field_name(ev),
-                                 Color.field_value(value)))
-        s = '<%s%s >' % (Color.class_name(self.__class__.__name__),
+            l.append(' %s=%s' % (output_format.field_name(ev),
+                                 output_format.field_value(value)))
+        s = '<%s%s >' % (output_format.class_name(self.__class__.__name__),
                          ''.join(l))
         return s
 
@@ -970,12 +974,12 @@ class Stats(ProcessEvent):
 
         m = max(stats.values())
         unity = float(scale) / m
-        fmt = '%%-26s%%-%ds%%s' % (len(Color.field_value('@' * scale))
+        fmt = '%%-26s%%-%ds%%s' % (len(output_format.field_value('@' * scale))
                                    + 1)
         def func(x):
-            return fmt % (Color.field_name(x[0]),
-                          Color.field_value('@' * int(x[1] * unity)),
-                          Color.simple('%d' % x[1], 'yellow'))
+            return fmt % (output_format.field_name(x[0]),
+                          output_format.field_value('@' * int(x[1] * unity)),
+                          output_format.simple('%d' % x[1], 'yellow'))
         s = '\n'.join(map(func, sorted(stats.items(), key=lambda x: x[0])))
         return s
 
@@ -1473,15 +1477,16 @@ class Watch:
         @return: String representation.
         @rtype: str
         """
-        s = ' '.join(['%s%s%s' % (Color.field_name(attr),
-                                  Color.punctuation('='),
-                                  Color.field_value(getattr(self, attr))) \
+        s = ' '.join(['%s%s%s' % (output_format.field_name(attr),
+                                  output_format.punctuation('='),
+                                  output_format.field_value(getattr(self,
+                                                                    attr))) \
                       for attr in self.__dict__ if not attr.startswith('_')])
 
-        s = '%s%s %s %s' % (Color.punctuation('<'),
-                            Color.class_name(self.__class__.__name__),
+        s = '%s%s %s %s' % (output_format.punctuation('<'),
+                            output_format.class_name(self.__class__.__name__),
                             s,
-                            Color.punctuation('>'))
+                            output_format.punctuation('>'))
         return s
 
 
@@ -1585,7 +1590,7 @@ class WatchManager:
         self._wmd = {}  # watch dict key: watch descriptor, value: watch
         self._fd = LIBC.inotify_init() # inotify's init, file descriptor
         if self._fd < 0:
-            err = 'Cannot initialize new instance of inotify%s' % STRERRNO()
+            err = 'Cannot initialize new instance of inotify%s' % strerrno()
             raise OSError(err)
 
     def get_fd(self):
@@ -1736,7 +1741,7 @@ class WatchManager:
                                                             exclude_filter)
                         if wd < 0:
                             err = 'add_watch: cannot watch %s WD=%d%s'
-                            err = err % (rpath, wd, STRERRNO())
+                            err = err % (rpath, wd, strerrno())
                             if quiet:
                                 log.error(err)
                             else:
@@ -1832,7 +1837,7 @@ class WatchManager:
                 if wd_ < 0:
                     ret_[awd] = False
                     err = 'update_watch: cannot update %s WD=%d%s'
-                    err = err % (apath, wd_, STRERRNO())
+                    err = err % (apath, wd_, strerrno())
                     if quiet:
                         log.error(err)
                         continue
@@ -1941,7 +1946,7 @@ class WatchManager:
             wd_ = LIBC.inotify_rm_watch(self._fd, awd)
             if wd_ < 0:
                 ret_[awd] = False
-                err = 'rm_watch: cannot remove WD=%d%s' % (awd, STRERRNO())
+                err = 'rm_watch: cannot remove WD=%d%s' % (awd, strerrno())
                 if quiet:
                     log.error(err)
                     continue
@@ -1994,54 +1999,55 @@ class WatchManager:
                               exclude_filter=lambda path: False)
 
 
-class Color:
+class RawOutputFormat:
     """
-    Internal class. Provide fancy colors used by string representations.
+    Format string representations.
     """
-    normal = "\033[0m"
-    black = "\033[30m"
-    red = "\033[31m"
-    green = "\033[32m"
-    yellow = "\033[33m"
-    blue = "\033[34m"
-    purple = "\033[35m"
-    cyan = "\033[36m"
-    bold = "\033[1m"
-    uline = "\033[4m"
-    blink = "\033[5m"
-    invert = "\033[7m"
+    def __init__(self, format=None):
+        self.format = format or {}
 
-    @staticmethod
-    def punctuation(s):
+    def simple(self, s, attribute):
+        if not isinstance(s, str):
+            s = str(s)
+        return (self.format.get(attribute, '') + s +
+                self.format.get('normal', ''))
+
+    def punctuation(self, s):
         """Punctuation color."""
-        return Color.normal + s + Color.normal
+        return self.simple(s, 'normal')
 
-    @staticmethod
-    def field_value(s):
+    def field_value(self, s):
         """Field value color."""
-        if not isinstance(s, basestring):
-            s = str(s)
-        return Color.purple + s + Color.normal
+        return self.simple(s, 'purple')
 
-    @staticmethod
-    def field_name(s):
+    def field_name(self, s):
         """Field name color."""
-        return Color.blue + s + Color.normal
+        return self.simple(s, 'blue')
 
-    @staticmethod
-    def class_name(s):
+    def class_name(self, s):
         """Class name color."""
-        return Color.red + Color.bold + s + Color.normal
+        return self.format.get('red', '') + self.simple(s, 'bold')
 
-    @staticmethod
-    def simple(s, color):
-        if not isinstance(s, basestring):
-            s = str(s)
-        try:
-            color_attr = getattr(Color, color)
-        except AttributeError:
-            return s
-        return color_attr + s + Color.normal
+output_format = RawOutputFormat()
+
+class ColoredOutputFormat(RawOutputFormat):
+    """
+    Format colored string representations.
+    """
+    def __init__(self):
+        f = {'normal': '\033[0m',
+             'black': '\033[30m',
+             'red': '\033[31m',
+             'green': '\033[32m',
+             'yellow': '\033[33m',
+             'blue': '\033[34m',
+             'purple': '\033[35m',
+             'cyan': '\033[36m',
+             'bold': '\033[1m',
+             'uline': '\033[4m',
+             'blink': '\033[5m',
+             'invert': '\033[7m'}
+        RawOutputFormat.__init__(self, f)
 
 
 def compatibility_mode():
@@ -2089,6 +2095,9 @@ def command_line():
                       help="Display dummy statistics")
     parser.add_option("-V", "--version", action="store_true",
                       dest="version",  help="Pyinotify version")
+    parser.add_option("-f", "--raw-format", action="store_true",
+                      dest="raw_format",
+                      help="Disable enhanced output format.")
 
     (options, args) = parser.parse_args()
 
@@ -2097,6 +2106,10 @@ def command_line():
 
     if options.version:
         print(__version__)
+
+    if not options.raw_format:
+        global output_format
+        output_format = ColoredOutputFormat()
 
     if len(args) < 1:
         path = '/tmp'  # default watched path

@@ -113,7 +113,7 @@ def load_libc():
     l = None
     try:
         l = ctypes.util.find_library('c')
-    except OSError, IOError:
+    except (OSError, IOError):
         pass  # Will attemp to load it with None anyway.
 
     if sys.version_info[0] >= 2 and sys.version_info[1] >= 6:

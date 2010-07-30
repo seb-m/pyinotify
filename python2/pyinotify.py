@@ -47,7 +47,7 @@ class UnsupportedPythonVersionError(PyinotifyError):
                                  'at least Python 2.4') % version)
 
 
-class LibcError(PyinotifyError):
+class UnsupportedLibcVersionError(PyinotifyError):
     """
     Raised when libc couldn't be loaded or when inotify functions werent
     provided.
@@ -110,27 +110,27 @@ def load_libc():
     global strerrno
     global LIBC
 
-    l = None
+    libc = None
     try:
-        l = ctypes.util.find_library('c')
+        libc = ctypes.util.find_library('c')
     except (OSError, IOError):
         pass  # Will attemp to load it with None anyway.
 
     if sys.version_info[0] >= 2 and sys.version_info[1] >= 6:
-        LIBC = ctypes.CDLL(l, use_errno=True)
+        LIBC = ctypes.CDLL(libc, use_errno=True)
         def _strerrno():
             code = ctypes.get_errno()
             return ' Errno=%s (%s)' % (os.strerror(code), errno.errorcode[code])
         strerrno = _strerrno
     else:
-        LIBC = ctypes.CDLL(l)
+        LIBC = ctypes.CDLL(libc)
         strerrno = lambda : ''
 
     # Check that libc has needed functions inside.
     if (not hasattr(LIBC, 'inotify_init') or
         not hasattr(LIBC, 'inotify_add_watch') or
         not hasattr(LIBC, 'inotify_rm_watch')):
-        raise LibcError()
+        raise UnsupportedLibcVersionError()
 
 load_libc()
 

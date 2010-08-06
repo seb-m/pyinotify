@@ -8,9 +8,9 @@ Project URL: http://trac.dbzteam.org/pyinotify/
 
 - Linux >= 2.6.13
 - Python (CPython) >= 2.4
-- Libc >= 2.4
-- ctypes (already included with Python >= 2.5)
-- Epydoc (optional, needed to generate docstrings)
+- Libc with inotify support (usually version >= 2.4 for GLibc)
+- ctypes (part of the standard library since Python 2.5)
+- Epydoc (optional, used to generate html documentation from docstrings)
 
 
 ==== Install ====

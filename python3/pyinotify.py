@@ -1922,6 +1922,9 @@ class WatchManager:
                     continue
                 raise WatchManagerError(err, ret_)
 
+            # Remove watch from our dictionary
+            if awd in self._wmd:
+                del self._wmd[awd]
             ret_[awd] = True
             log.debug('Watch WD=%d (%s) removed', awd, self.get_path(awd))
         return ret_

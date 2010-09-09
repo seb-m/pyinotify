@@ -1607,6 +1607,18 @@ class WatchManager:
             err = 'Cannot initialize new instance of inotify%s' % strerrno()
             raise OSError(err)
 
+    def close(self):
+        """
+        Close inotify's file descriptor, this action will also automatically
+        remove (i.e. stop watching) all its associated watch descriptors.
+        After a call to this method the WatchManager's instance become useless
+        and cannot be reused, a new instance must then be instanciated. It
+        makes sense to call this method in few situations for instance if
+        several independant WatchManager must be instanciated or if all watches
+        must be removed and no other watches need to be added.
+        """
+        os.close(self._fd)
+
     def get_fd(self):
         """
         Return assigned inotify's file descriptor.

@@ -1163,7 +1163,9 @@ class Notifier:
     def __daemonize(self, pid_file=None, stdin=os.devnull, stdout=os.devnull,
                     stderr=os.devnull):
         """
-        pid_file: file to which the pid will be written.
+        pid_file: file where the pid will be written. If pid_file=None the pid
+                  is written to /var/run/<sys.argv[0]|pyinotify>.pid, if 
+                  pid_file=False no pid_file is written.
         stdin, stdout, stderr: files associated to common streams.
         """
         if pid_file is None:
@@ -1171,7 +1173,7 @@ class Notifier:
             basename = os.path.basename(sys.argv[0]) or 'pyinotify'
             pid_file = os.path.join(dirname, basename + '.pid')
 
-        if os.path.lexists(pid_file):
+        if pid_file != False and os.path.lexists(pid_file):
             err = 'Cannot daemonize: pid file %s already exists.' % pid_file
             raise NotifierError(err)
 
@@ -1205,13 +1207,14 @@ class Notifier:
         fork_daemon()
 
         # Write pid
-        flags = os.O_WRONLY|os.O_CREAT|os.O_NOFOLLOW|os.O_EXCL
-        fd_pid = os.open(pid_file, flags, 0o0600)
-        os.write(fd_pid,  bytes(str(os.getpid()) + '\n',
-                                locale.getpreferredencoding()))
-        os.close(fd_pid)
-
-        atexit.register(lambda : os.unlink(pid_file))
+        if pid_file != False:
+            flags = os.O_WRONLY|os.O_CREAT|os.O_NOFOLLOW|os.O_EXCL
+            fd_pid = os.open(pid_file, flags, 0o0600)
+            os.write(fd_pid,  bytes(str(os.getpid()) + '\n',
+                                    locale.getpreferredencoding()))
+            os.close(fd_pid)
+            # Register unlink function
+            atexit.register(lambda : os.unlink(pid_file))
 
 
     def _sleep(self, ref_time):
@@ -1241,7 +1244,12 @@ class Notifier:
         @type daemonize: boolean
         @param args: Optional and relevant only if daemonize is True. Remaining
                      keyworded arguments are directly passed to daemonize see
-                     __daemonize() method.
+                     __daemonize() method. If pid_file=None or is set to a
+                     pathname the caller must ensure the file does not exist
+                     before this method is called otherwise an exception 
+                     pyinotify.NotifierError will be raised. If pid_file=False
+                     it is still daemonized but the pid is not written in any
+                     file.
         @type args: various
         """
         if daemonize:

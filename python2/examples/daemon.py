@@ -37,10 +37,7 @@ on_loop_func = functools.partial(on_loop, counter=Counter())
 # child process' PID is written to /tmp/pyinotify.pid (it also automatically
 # deletes it when it exits normally). If no custom pid_file is provided it
 # would write it more traditionally under /var/run/. /tmp/stdout.txt is used
-# as stdout stream thus traces of events will be written in it, force_kill
-# means that if there is already an /tmp/pyinotify.pid with a corresponding
-# running process it will be killed first. callback is the above function
-# and will be called after each event loop.
+# as stdout stream thus traces of events will be written in it. callback is 
+# the above function and will be called after each event loop.
 notifier.loop(daemonize=True, callback=on_loop_func,
-              pid_file='/tmp/pyinotify.pid', force_kill=True,
-              stdout='/tmp/stdout.txt')
+              pid_file='/tmp/pyinotify.pid', stdout='/tmp/stdout.txt')

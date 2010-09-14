@@ -83,6 +83,7 @@ import ctypes
 import ctypes.util
 import asyncore
 import glob
+import locale
 
 try:
     from functools import reduce
@@ -928,13 +929,16 @@ class Stats(ProcessEvent):
 
     def dump(self, filename):
         """
-        Dumps statistics to file |filename|.
+        Dumps statistics.
 
-        @param filename: pathname.
+        @param filename: filename where stats will be dumped, filename is
+                         created and must not exist prior to this call.
         @type filename: string
         """
-        with open(filename, 'w') as file_obj:
-            file_obj.write(str(self))
+        flags = os.O_WRONLY|os.O_CREAT|os.O_NOFOLLOW|os.O_EXCL
+        fd = os.open(filename, flags, 0o0600)
+        os.write(fd, bytes(self.__str__(), locale.getpreferredencoding()))
+        os.close(fd)
 
     def __str__(self, scale=45):
         stats = self._stats_copy()
@@ -1156,11 +1160,10 @@ class Notifier:
         if self._coalesce:
             self._eventset.clear()
 
-    def __daemonize(self, pid_file=None, force_kill=False, stdin=os.devnull,
-                    stdout=os.devnull, stderr=os.devnull):
+    def __daemonize(self, pid_file=None, stdin=os.devnull, stdout=os.devnull,
+                    stderr=os.devnull):
         """
         pid_file: file to which the pid will be written.
-        force_kill: if True kill the process associated to pid_file.
         stdin, stdout, stderr: files associated to common streams.
         """
         if pid_file is None:
@@ -1168,27 +1171,9 @@ class Notifier:
             basename = os.path.basename(sys.argv[0]) or 'pyinotify'
             pid_file = os.path.join(dirname, basename + '.pid')
 
-        if os.path.exists(pid_file):
-            with open(pid_file, 'r') as fo:
-                try:
-                    pid = int(fo.read())
-                except ValueError:
-                    pid = None
-                if pid is not None:
-                    try:
-                        os.kill(pid, 0)
-                    except OSError as err:
-                        if err.errno == errno.ESRCH:
-                            log.debug(err)
-                        else:
-                            log.error(err)
-                    else:
-                        if not force_kill:
-                            s = 'There is already a pid file %s with pid %d'
-                            raise NotifierError(s % (pid_file, pid))
-                        else:
-                            os.kill(pid, 9)
-
+        if os.path.lexists(pid_file):
+            err = 'Cannot daemonize: pid file %s already exists.' % pid_file
+            raise NotifierError(err)
 
         def fork_daemon():
             # Adapted from Chad J. Schroeder's recipe
@@ -1201,7 +1186,7 @@ class Notifier:
                 if (pid == 0):
                     # child
                     os.chdir('/')
-                    os.umask(0)
+                    os.umask(0o022)
                 else:
                     # parent 2
                     os._exit(0)
@@ -1209,19 +1194,22 @@ class Notifier:
                 # parent 1
                 os._exit(0)
 
-            fd_inp = open(stdin, 'r')
-            os.dup2(fd_inp.fileno(), 0)
-            fd_out = open(stdout, 'w')
-            os.dup2(fd_out.fileno(), 1)
-            fd_err = open(stderr, 'w')
-            os.dup2(fd_err.fileno(), 2)
+            fd_inp = os.open(stdin, os.O_RDONLY)
+            os.dup2(fd_inp, 0)
+            fd_out = os.open(stdout, os.O_WRONLY|os.O_CREAT, 0o0600)
+            os.dup2(fd_out, 1)
+            fd_err = os.open(stderr, os.O_WRONLY|os.O_CREAT, 0o0600)
+            os.dup2(fd_err, 2)
 
         # Detach task
         fork_daemon()
 
         # Write pid
-        with open(pid_file, 'w') as file_obj:
-            file_obj.write(str(os.getpid()) + '\n')
+        flags = os.O_WRONLY|os.O_CREAT|os.O_NOFOLLOW|os.O_EXCL
+        fd_pid = os.open(pid_file, flags, 0o0600)
+        os.write(fd_pid,  bytes(str(os.getpid()) + '\n',
+                                locale.getpreferredencoding()))
+        os.close(fd_pid)
 
         atexit.register(lambda : os.unlink(pid_file))
 

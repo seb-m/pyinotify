@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pyinotify.ThreadedNotifier</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
+        Class&nbsp;ThreadedNotifier
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="pyinotify.ThreadedNotifier-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class ThreadedNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_pyinotif_17" name="uml_class_diagram_for_pyinotif_17">
+<area shape="rect" href="pyinotify.ThreadedNotifier-class.html#__init__" title="Initialization, initialize base classes." alt="" coords="17,372,575,391"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier-class.html#stop" title="Stop notifier&#39;s loop." alt="" coords="17,391,575,409"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier-class.html#loop" title="Thread&#39;s main loop." alt="" coords="17,409,575,428"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier-class.html#run" title="Start thread&#39;s loop: read and process events until the method stop() is &#160;called." alt="" coords="17,428,575,447"/>
+<area shape="rect" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="16,347,576,448"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.name" alt="" coords="89,89,255,108"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.ident" alt="" coords="89,108,255,127"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.daemon" alt="" coords="89,127,255,145"/>
+<area shape="rect" href="javascript:void(0);" title="repr(x)" alt="" coords="89,148,255,167"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.start" alt="" coords="89,167,255,185"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.join" alt="" coords="89,185,255,204"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.isAlive" alt="" coords="89,204,255,223"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.is_alive" alt="" coords="89,223,255,241"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.isDaemon" alt="" coords="89,241,255,260"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.setDaemon" alt="" coords="89,260,255,279"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.getName" alt="" coords="89,279,255,297"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread.setName" alt="" coords="89,297,255,316"/>
+<area shape="rect" href="javascript:void(0);" title="threading.Thread" alt="" coords="88,72,256,317"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="308,151,532,169"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="308,169,532,188"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="308,188,532,207"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="308,207,532,225"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="308,225,532,244"/>
+<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="308,244,532,263"/>
+<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="307,125,533,264"/>
+<area shape="rect" href="javascript:void(0);" title="threading._Verbose" alt="" coords="115,11,229,43"/>
+</map>
+  <img src="uml_class_diagram_for_pyinotif_17.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_17" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>This notifier inherits from threading.Thread for instanciating a 
+  separate thread, and also inherits from Notifier, because it is a 
+  threaded notifier.</p>
+  <p>Note that every functionality provided by this class is also provided 
+  through Notifier class. Moreover Notifier should be considered first 
+  because it is not threaded and could be easily daemonized.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.ThreadedNotifier-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">watch_manager</span>,
+        <span class="summary-sig-arg">default_proc_fun</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">read_freq</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">threshold</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">timeout</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Initialization, initialize base classes.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.ThreadedNotifier-class.html#stop" class="summary-sig-name">stop</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Stop notifier's loop.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.stop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.ThreadedNotifier-class.html#loop" class="summary-sig-name">loop</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Thread's main loop.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.loop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.ThreadedNotifier-class.html#run" class="summary-sig-name">run</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Start thread's loop: read and process events until the method stop() 
+      is called.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.run">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>threading.Thread</code></b>:
+      <code>__repr__</code>,
+      <code>getName</code>,
+      <code>isAlive</code>,
+      <code>isDaemon</code>,
+      <code>is_alive</code>,
+      <code>join</code>,
+      <code>setDaemon</code>,
+      <code>setName</code>,
+      <code>start</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>threading.Thread</code></b> (private):
+      <code>_set_daemon</code>,
+      <code>_set_ident</code>
+      </p></div>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>threading._Verbose</code></b> (private):
+      <code>_note</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b>:
+      <code><a href="pyinotify.Notifier-class.html#append_event">append_event</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#check_events">check_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#coalesce_events">coalesce_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#proc_fun">proc_fun</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#process_events">process_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#read_events">read_events</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b> (private):
+      <code><a href="pyinotify.Notifier-class.html#_sleep" onclick="show_private();">_sleep</a></code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>threading.Thread</code></b>:
+      <code>daemon</code>,
+      <code>ident</code>,
+      <code>name</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">watch_manager</span>,
+        <span class="sig-arg">default_proc_fun</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">read_freq</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">threshold</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">timeout</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Initialization, initialize base classes. read_freq, threshold and 
+  timeout parameters are used when looping.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>watch_manager</code></strong> (WatchManager instance) - Watch Manager.</li>
+        <li><strong class="pname"><code>default_proc_fun</code></strong> (instance of ProcessEvent) - Default processing method. See base class.</li>
+        <li><strong class="pname"><code>read_freq</code></strong> (int) - if read_freq == 0, events are read asap, if read_freq is &gt; 0, 
+          this thread sleeps max(0, read_freq - timeout) seconds.</li>
+        <li><strong class="pname"><code>threshold</code></strong> (int) - File descriptor will be read only if the accumulated size to read
+          becomes &gt;= threshold. If != 0, you likely want to use it in 
+          combination with an appropriate value set for read_freq because 
+          without that you would keep looping without really reading 
+          anything and that until the amount of events to read is &gt;= 
+          threshold. At least with read_freq you might sleep.</li>
+        <li><strong class="pname"><code>timeout</code></strong> (int) - see http://docs.python.org/lib/poll-objects.html#poll-objects</li>
+    </ul></dd>
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="stop"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">stop</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.stop">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Stop notifier's loop. Stop notification. Join the thread.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="pyinotify.Notifier-class.html#stop">Notifier.stop</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="loop"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">loop</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.loop">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Thread's main loop. Don't meant to be called by user directly. Call 
+  inherited start() method instead.</p>
+  <p>Events are read only once time every min(read_freq, timeout) seconds 
+  at best and only if the size of events to read is &gt;= threshold.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>callback</code></strong> - Functor called after each event processing iteration. Expects to 
+          receive the notifier object (self) as first parameter. If this 
+          function returns True the loop is immediately terminated 
+          otherwise the loop method keeps looping.</li>
+        <li><strong class="pname"><code>daemonize</code></strong> - This thread is daemonized if set to True.</li>
+        <li><strong class="pname"><code>args</code></strong> - Optional and relevant only if daemonize is True. Remaining 
+          keyworded arguments are directly passed to daemonize see 
+          __daemonize() method. If pid_file=None or is set to a pathname 
+          the caller must ensure the file does not exist before this method
+          is called otherwise an exception pyinotify.NotifierError will be 
+          raised. If pid_file=False it is still daemonized but the pid is 
+          not written in any file.</li>
+    </ul></dd>
+    <dt>Overrides:
+        <a href="pyinotify.Notifier-class.html#loop">Notifier.loop</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="run"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">run</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#ThreadedNotifier.run">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Start thread's loop: read and process events until the method stop() 
+  is called. Never call this method directly, instead call the start() 
+  method inherited from threading.Thread, which then will call run() in its
+  turn.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        threading.Thread.run
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Sep 15 21:46:50 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

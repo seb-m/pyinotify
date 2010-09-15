@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pyinotify.PyinotifyLogger</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
+        Class&nbsp;PyinotifyLogger
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="pyinotify.PyinotifyLogger-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PyinotifyLogger</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#PyinotifyLogger">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_pyinotif_13" name="uml_class_diagram_for_pyinotif_13">
+<area shape="rect" href="pyinotify.PyinotifyLogger-class.html#makeRecord" title="A factory method which can be overridden in subclasses to create &#160;specialized LogRecords." alt="" coords="17,516,508,535"/>
+<area shape="rect" href="pyinotify.PyinotifyLogger-class.html" title="Pyinotify logger used for logging unicode strings." alt="" coords="16,491,509,536"/>
+<area shape="rect" href="javascript:void(0);" title="logging.Logger.root" alt="" coords="156,140,369,159"/>
+<area shape="rect" href="javascript:void(0);" title="logging.Logger.manager" alt="" coords="156,159,369,177"/>
+<area shape="rect" href="javascript:void(0);" title="Initialize the logger with a name and an optional level." alt="" coords="156,180,369,199"/>
+<area shape="rect" href="javascript:void(0);" title="Set the logging level of this logger." alt="" coords="156,199,369,217"/>
+<area shape="rect" href="javascript:void(0);" title="Log &#39;msg % args&#39; with severity &#39;DEBUG&#39;." alt="" coords="156,217,369,236"/>
+<area shape="rect" href="javascript:void(0);" title="Log &#39;msg % args&#39; with severity &#39;INFO&#39;." alt="" coords="156,236,369,255"/>
+<area shape="rect" href="javascript:void(0);" title="Log &#39;msg % args&#39; with severity &#39;WARNING&#39;." alt="" coords="156,255,369,273"/>
+<area shape="rect" href="javascript:void(0);" title="Log &#39;msg % args&#39; with severity &#39;WARNING&#39;." alt="" coords="156,273,369,292"/>
+<area shape="rect" href="javascript:void(0);" title="Log &#39;msg % args&#39; with severity &#39;ERROR&#39;." alt="" coords="156,292,369,311"/>
+<area shape="rect" href="javascript:void(0);" title="Convenience method for logging an ERROR with exception information." alt="" coords="156,311,369,329"/>
+<area shape="rect" href="javascript:void(0);" title="Log &#39;msg % args&#39; with severity &#39;CRITICAL&#39;." alt="" coords="156,329,369,348"/>
+<area shape="rect" href="javascript:void(0);" title="Log &#39;msg % args&#39; with severity &#39;CRITICAL&#39;." alt="" coords="156,348,369,367"/>
+<area shape="rect" href="javascript:void(0);" title="Log &#39;msg % args&#39; with the integer severity &#39;level&#39;." alt="" coords="156,367,369,385"/>
+<area shape="rect" href="javascript:void(0);" title="Find the stack frame of the caller so that we can note the source file &#160;name, line number and function name." alt="" coords="156,385,369,404"/>
+<area shape="rect" href="javascript:void(0);" title="Call the handlers for the specified record." alt="" coords="156,404,369,423"/>
+<area shape="rect" href="javascript:void(0);" title="Is this logger enabled for level &#39;level&#39;?" alt="" coords="156,441,369,460"/>
+<area shape="rect" href="javascript:void(0);" title="Instances of the Logger class represent a single logging channel." alt="" coords="155,123,371,461"/>
+<area shape="rect" href="javascript:void(0);" title="Add the specified filter to this handler." alt="" coords="195,36,331,55"/>
+<area shape="rect" href="javascript:void(0);" title="Remove the specified filter from this handler." alt="" coords="195,55,331,73"/>
+<area shape="rect" href="javascript:void(0);" title="Determine if a record is loggable by consulting all the filters." alt="" coords="195,73,331,92"/>
+<area shape="rect" href="javascript:void(0);" title="A base class for loggers and handlers which allows them to share common code." alt="" coords="193,11,332,93"/>
+</map>
+  <img src="uml_class_diagram_for_pyinotif_13.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_13" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>Pyinotify logger used for logging unicode strings.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.PyinotifyLogger-class.html#makeRecord" class="summary-sig-name">makeRecord</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">level</span>,
+        <span class="summary-sig-arg">fn</span>,
+        <span class="summary-sig-arg">lno</span>,
+        <span class="summary-sig-arg">msg</span>,
+        <span class="summary-sig-arg">args</span>,
+        <span class="summary-sig-arg">exc_info</span>,
+        <span class="summary-sig-arg">func</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">extra</span>=<span class="summary-sig-default">None</span>)</span><br />
+      A factory method which can be overridden in subclasses to create 
+      specialized LogRecords.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#PyinotifyLogger.makeRecord">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>logging.Logger</code></b>:
+      <code>__init__</code>,
+      <code>addHandler</code>,
+      <code>callHandlers</code>,
+      <code>critical</code>,
+      <code>debug</code>,
+      <code>error</code>,
+      <code>exception</code>,
+      <code>fatal</code>,
+      <code>findCaller</code>,
+      <code>getEffectiveLevel</code>,
+      <code>handle</code>,
+      <code>info</code>,
+      <code>isEnabledFor</code>,
+      <code>log</code>,
+      <code>removeHandler</code>,
+      <code>setLevel</code>,
+      <code>warn</code>,
+      <code>warning</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code>logging.Logger</code></b> (private):
+      <code>_log</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>logging.Filterer</code></b>:
+      <code>addFilter</code>,
+      <code>filter</code>,
+      <code>removeFilter</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>logging.Logger</code></b>:
+      <code>manager</code>,
+      <code>root</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="makeRecord"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">makeRecord</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">level</span>,
+        <span class="sig-arg">fn</span>,
+        <span class="sig-arg">lno</span>,
+        <span class="sig-arg">msg</span>,
+        <span class="sig-arg">args</span>,
+        <span class="sig-arg">exc_info</span>,
+        <span class="sig-arg">func</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">extra</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#PyinotifyLogger.makeRecord">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>A factory method which can be overridden in subclasses to create 
+  specialized LogRecords.</p>
+  <dl class="fields">
+    <dt>Overrides:
+        logging.Logger.makeRecord
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Sep 15 21:46:50 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

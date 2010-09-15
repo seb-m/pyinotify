@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>pyinotify.EventsCodes</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
+        Class&nbsp;EventsCodes
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="pyinotify.EventsCodes-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class EventsCodes</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes">source&nbsp;code</a></span></p>
+<center>
+<center>  <map id="uml_class_diagram_for_pyinotif_5" name="uml_class_diagram_for_pyinotif_5">
+<area shape="rect" href="pyinotify.EventsCodes-class.html#FLAG_COLLECTIONS" title="pyinotify.EventsCodes.FLAG_COLLECTIONS" alt="" coords="17,28,175,47"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#ALL_FLAGS" title="pyinotify.EventsCodes.ALL_FLAGS" alt="" coords="17,47,175,65"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#ALL_VALUES" title="pyinotify.EventsCodes.ALL_VALUES" alt="" coords="17,65,175,84"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#ALL_EVENTS" title="Alias for considering all of the events." alt="" coords="17,84,175,103"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#EVENT_FLAGS" title="pyinotify.EventsCodes.EVENT_FLAGS" alt="" coords="17,103,175,121"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_ACCESS" title="File was accessed." alt="" coords="17,121,175,140"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_ATTRIB" title="Metadata changed." alt="" coords="17,140,175,159"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_CLOSE_NOWRITE" title="Unwrittable file closed." alt="" coords="17,159,175,177"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_CLOSE_WRITE" title="Writtable file was closed." alt="" coords="17,177,175,196"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_CREATE" title="Subfile was created." alt="" coords="17,196,175,215"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_DELETE" title="Subfile was deleted." alt="" coords="17,215,175,233"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_DELETE_SELF" title="Self (watched item itself) was deleted." alt="" coords="17,233,175,252"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#IN_DONT_FOLLOW" title="don&#39;t follow a symlink (new in kernel 2.6.15)." alt="" coords="17,252,175,271"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#SPECIAL_FLAGS" title="pyinotify.EventsCodes.SPECIAL_FLAGS" alt="" coords="17,289,175,308"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html#maskname" title="Returns the event name associated to mask." alt="" coords="17,311,175,329"/>
+<area shape="rect" href="pyinotify.EventsCodes-class.html" title="Set of codes corresponding to each kind of events." alt="" coords="16,11,176,331"/>
+</map>
+  <img src="uml_class_diagram_for_pyinotif_5.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_5" ismap="ismap" class="graph-without-title" />
+</center>
+</center>
+<hr />
+<p>Set of codes corresponding to each kind of events. Some of these flags
+  are used to communicate with inotify, whereas the others are sent to 
+  userspace by inotify notifying some events.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__init__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== STATIC METHODS ==================== -->
+<a name="section-StaticMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Static Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-StaticMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">str</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="pyinotify.EventsCodes-class.html#maskname" class="summary-sig-name">maskname</a>(<span class="summary-sig-arg">mask</span>)</span><br />
+      Returns the event name associated to mask.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes.maskname">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.EventsCodes-class.html#FLAG_COLLECTIONS" class="summary-name">FLAG_COLLECTIONS</a> = <code title="{'EVENT_FLAGS': {'IN_IGNORED': 32768,
+                 'IN_Q_OVERFLOW': 16384,
+                 'IN_UNMOUNT': 8192},
+ 'OP_FLAGS': {'IN_ACCESS': 1,
+              'IN_ATTRIB': 4,
+              'IN_CLOSE_NOWRITE': 16,
+              'IN_CLOSE_WRITE': 8,
+              'IN_CREATE': 256,
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">EVENT_FLAGS</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_IGNORED</code><code class="variable-quote">'</code><code class="variable-op">: </code>32768<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_Q</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.EventsCodes-class.html#ALL_FLAGS" class="summary-name">ALL_FLAGS</a> = <code title="{'ALL_EVENTS': 4095,
+ 'IN_ACCESS': 1,
+ 'IN_ATTRIB': 4,
+ 'IN_CLOSE_NOWRITE': 16,
+ 'IN_CLOSE_WRITE': 8,
+ 'IN_CREATE': 256,
+ 'IN_DELETE': 512,
+ 'IN_DELETE_SELF': 1024,
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">ALL_EVENTS</code><code class="variable-quote">'</code><code class="variable-op">: </code>4095<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.EventsCodes-class.html#ALL_VALUES" class="summary-name">ALL_VALUES</a> = <code title="{1: 'IN_ACCESS',
+ 2: 'IN_MODIFY',
+ 4: 'IN_ATTRIB',
+ 8: 'IN_CLOSE_WRITE',
+ 16: 'IN_CLOSE_NOWRITE',
+ 32: 'IN_OPEN',
+ 64: 'IN_MOVED_FROM',
+ 128: 'IN_MOVED_TO',
+..."><code class="variable-group">{</code>1<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">, </code>2<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_MODIFY</code><code class="variable-quote">'</code><code class="variable-op">, </code>4<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="ALL_EVENTS"></a><span class="summary-name">ALL_EVENTS</span><br />
+      Alias for considering all of the events.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.EventsCodes-class.html#EVENT_FLAGS" class="summary-name">EVENT_FLAGS</a> = <code title="{'IN_IGNORED': 32768, 'IN_Q_OVERFLOW': 16384, 'IN_UNMOUNT': 8192}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_IGNORED</code><code class="variable-quote">'</code><code class="variable-op">: </code>32768<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_Q_OVERFLOW</code><code class="variable-quote">'</code><code class="variable-op">: </code>16384<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">I</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_ACCESS"></a><span class="summary-name">IN_ACCESS</span><br />
+      File was accessed.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_ATTRIB"></a><span class="summary-name">IN_ATTRIB</span><br />
+      Metadata changed.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_CLOSE_NOWRITE"></a><span class="summary-name">IN_CLOSE_NOWRITE</span><br />
+      Unwrittable file closed.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_CLOSE_WRITE"></a><span class="summary-name">IN_CLOSE_WRITE</span><br />
+      Writtable file was closed.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_CREATE"></a><span class="summary-name">IN_CREATE</span><br />
+      Subfile was created.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_DELETE"></a><span class="summary-name">IN_DELETE</span><br />
+      Subfile was deleted.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_DELETE_SELF"></a><span class="summary-name">IN_DELETE_SELF</span><br />
+      Self (watched item itself) was deleted.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a href="pyinotify.EventsCodes-class.html#IN_DONT_FOLLOW" class="summary-name">IN_DONT_FOLLOW</a><br />
+      don't follow a symlink (new in kernel 2.6.15).
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_IGNORED"></a><span class="summary-name">IN_IGNORED</span><br />
+      File was ignored.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_ISDIR"></a><span class="summary-name">IN_ISDIR</span><br />
+      Event occurred against dir.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_MASK_ADD"></a><span class="summary-name">IN_MASK_ADD</span><br />
+      add to the mask of an already existing watch (new in kernel 2.6.14).
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_MODIFY"></a><span class="summary-name">IN_MODIFY</span><br />
+      File was modified.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_MOVED_FROM"></a><span class="summary-name">IN_MOVED_FROM</span><br />
+      File was moved from X.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_MOVED_TO"></a><span class="summary-name">IN_MOVED_TO</span><br />
+      File was moved to Y.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_MOVE_SELF"></a><span class="summary-name">IN_MOVE_SELF</span><br />
+      Self (watched item itself) was moved.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_ONESHOT"></a><span class="summary-name">IN_ONESHOT</span><br />
+      Only send event once.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_ONLYDIR"></a><span class="summary-name">IN_ONLYDIR</span><br />
+      only watch the path if it is a directory (new in kernel 2.6.15).
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_OPEN"></a><span class="summary-name">IN_OPEN</span><br />
+      File was opened.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_Q_OVERFLOW"></a><span class="summary-name">IN_Q_OVERFLOW</span><br />
+      Event queued overflowed.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+        <a name="IN_UNMOUNT"></a><span class="summary-name">IN_UNMOUNT</span><br />
+      Backing fs was unmounted.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.EventsCodes-class.html#OP_FLAGS" class="summary-name">OP_FLAGS</a> = <code title="{'IN_ACCESS': 1,
+ 'IN_ATTRIB': 4,
+ 'IN_CLOSE_NOWRITE': 16,
+ 'IN_CLOSE_WRITE': 8,
+ 'IN_CREATE': 256,
+ 'IN_DELETE': 512,
+ 'IN_DELETE_SELF': 1024,
+ 'IN_MODIFY': 2,
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify.EventsCodes-class.html#SPECIAL_FLAGS" class="summary-name">SPECIAL_FLAGS</a> = <code title="{'IN_DONT_FOLLOW': 33554432,
+ 'IN_ISDIR': 1073741824,
+ 'IN_MASK_ADD': 536870912,
+ 'IN_ONESHOT': 2147483648,
+ 'IN_ONLYDIR': 16777216}"><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_DONT_FOLLOW</code><code class="variable-quote">'</code><code class="variable-op">: </code>33554432<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_ISDIR</code><code class="variable-quote">'</code><code class="variable-op">: </code>10737<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="maskname"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">maskname</span>(<span class="sig-arg">mask</span>)</span>
+    <br /><em class="fname">Static Method</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#EventsCodes.maskname">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the event name associated to mask. IN_ISDIR is appended to the
+  result when appropriate. Note: only one event is returned, because only 
+  one event can be raised at a given time.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>mask</code></strong> (int) - mask.</li>
+    </ul></dd>
+    <dt>Returns: str</dt>
+        <dd>event name.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== CLASS VARIABLE DETAILS ==================== -->
+<a name="section-ClassVariableDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variable Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariableDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="FLAG_COLLECTIONS"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">FLAG_COLLECTIONS</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">EVENT_FLAGS</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_IGNORED</code><code class="variable-quote">'</code><code class="variable-op">: </code>32768<code class="variable-op">,</code>
+                 <code class="variable-quote">'</code><code class="variable-string">IN_Q_OVERFLOW</code><code class="variable-quote">'</code><code class="variable-op">: </code>16384<code class="variable-op">,</code>
+                 <code class="variable-quote">'</code><code class="variable-string">IN_UNMOUNT</code><code class="variable-quote">'</code><code class="variable-op">: </code>8192<code class="variable-group">}</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">OP_FLAGS</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">,</code>
+              <code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">,</code>
+              <code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-quote">'</code><code class="variable-op">: </code>16<code class="variable-op">,</code>
+              <code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_WRITE</code><code class="variable-quote">'</code><code class="variable-op">: </code>8<code class="variable-op">,</code>
+              <code class="variable-quote">'</code><code class="variable-string">IN_CREATE</code><code class="variable-quote">'</code><code class="variable-op">: </code>256<code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ALL_FLAGS"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">ALL_FLAGS</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">ALL_EVENTS</code><code class="variable-quote">'</code><code class="variable-op">: </code>4095<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-quote">'</code><code class="variable-op">: </code>16<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_WRITE</code><code class="variable-quote">'</code><code class="variable-op">: </code>8<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_CREATE</code><code class="variable-quote">'</code><code class="variable-op">: </code>256<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_DELETE</code><code class="variable-quote">'</code><code class="variable-op">: </code>512<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_DELETE_SELF</code><code class="variable-quote">'</code><code class="variable-op">: </code>1024<code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="ALL_VALUES"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">ALL_VALUES</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code>1<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 2<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_MODIFY</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 4<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 8<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_WRITE</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 16<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 32<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_OPEN</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 64<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_MOVED_FROM</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ 128<code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">IN_MOVED_TO</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="EVENT_FLAGS"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">EVENT_FLAGS</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_IGNORED</code><code class="variable-quote">'</code><code class="variable-op">: </code>32768<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_Q_OVERFLOW</code><code class="variable-quote">'</code><code class="variable-op">: </code>16384<code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">IN_UNMOUNT</code><code class="variable-quote">'</code><code class="variable-op">: </code>8192<code class="variable-group">}</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="IN_DONT_FOLLOW"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">IN_DONT_FOLLOW</h3>
+  don't follow a symlink (new in kernel 2.6.15). IN_ONLYDIR we can make 
+  sure that we don't watch the target of symlinks.
+  <dl class="fields">
+    <dt>Type:</dt>
+      <dd>int</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="OP_FLAGS"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">OP_FLAGS</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_ACCESS</code><code class="variable-quote">'</code><code class="variable-op">: </code>1<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_ATTRIB</code><code class="variable-quote">'</code><code class="variable-op">: </code>4<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_NOWRITE</code><code class="variable-quote">'</code><code class="variable-op">: </code>16<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_CLOSE_WRITE</code><code class="variable-quote">'</code><code class="variable-op">: </code>8<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_CREATE</code><code class="variable-quote">'</code><code class="variable-op">: </code>256<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_DELETE</code><code class="variable-quote">'</code><code class="variable-op">: </code>512<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_DELETE_SELF</code><code class="variable-quote">'</code><code class="variable-op">: </code>1024<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_MODIFY</code><code class="variable-quote">'</code><code class="variable-op">: </code>2<code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="SPECIAL_FLAGS"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">SPECIAL_FLAGS</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">IN_DONT_FOLLOW</code><code class="variable-quote">'</code><code class="variable-op">: </code>33554432<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_ISDIR</code><code class="variable-quote">'</code><code class="variable-op">: </code>1073741824<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_MASK_ADD</code><code class="variable-quote">'</code><code class="variable-op">: </code>536870912<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_ONESHOT</code><code class="variable-quote">'</code><code class="variable-op">: </code>2147483648<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">IN_ONLYDIR</code><code class="variable-quote">'</code><code class="variable-op">: </code>16777216<code class="variable-group">}</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Sep 15 21:46:49 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

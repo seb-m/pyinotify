@@ -1,6 +1,6 @@
 # Notifier example from tutorial
 #
-# See: http://trac.dbzteam.org/pyinotify/wiki/Tutorial
+# See: http://github.com/seb-m/pyinotify/wiki/Tutorial
 #
 import pyinotify
 

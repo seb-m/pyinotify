@@ -46,7 +46,7 @@ setup(
     license='MIT License',
     platforms='Linux',
     classifiers=classif,
-    url='http://trac.dbzteam.org/pyinotify',
+    url='http://github.com/seb-m/pyinotify',
     download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.9.0.tar.gz',
     py_modules=['pyinotify'],
     package_dir=package_dir,

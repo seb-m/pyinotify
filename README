@@ -1,8 +1,9 @@
 ==== Pyinotify ====
 
-License: MIT License
-Project URL: http://github.com/seb-m/pyinotify
-
+License                 : MIT License
+Project URL             : http://github.com/seb-m/pyinotify
+Project Wiki            : http://github.com/seb-m/pyinotify/wiki
+Generated documentation : http://seb-m.github.com/pyinotify
 
 ==== Dependencies ====
 

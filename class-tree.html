@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class Hierarchy</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">&nbsp;</td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="class-tree.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<center><b>
+ [ <a href="module-tree.html">Module Hierarchy</a>
+ | <a href="class-tree.html">Class Hierarchy</a> ]
+</b></center><br />
+<h1 class="epydoc">Class Hierarchy</h1>
+<ul class="nomargin-top">
+    <li> <strong class="uidlink">logging.Filterer</strong>:
+      <em class="summary">A base class for loggers and handlers which allows them to share 
+        common code.</em>
+    <ul>
+    <li> <strong class="uidlink">logging.Logger</strong>:
+      <em class="summary">Instances of the Logger class represent a single logging channel.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.PyinotifyLogger-class.html">pyinotify.PyinotifyLogger</a></strong>:
+      <em class="summary">Pyinotify logger used for logging unicode strings.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">logging.LogRecord</strong>:
+      <em class="summary">A LogRecord instance represents an event being logged.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.UnicodeLogRecord-class.html">pyinotify.UnicodeLogRecord</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">asyncore.dispatcher</strong>
+    <ul>
+    <li> <strong class="uidlink">asyncore.file_dispatcher</strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.AsyncNotifier-class.html">pyinotify.AsyncNotifier</a></strong>:
+      <em class="summary">This notifier inherits from asyncore.file_dispatcher in order to be
+        able to use pyinotify along with the asyncore framework.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">object</strong>:
+      <em class="summary">The most base type</em>
+    <ul>
+    <li> <strong class="uidlink">exceptions.BaseException</strong>:
+      <em class="summary">Common base class for all exceptions</em>
+    <ul>
+    <li> <strong class="uidlink">exceptions.Exception</strong>:
+      <em class="summary">Common base class for all non-exit exceptions.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.PyinotifyError-class.html">pyinotify.PyinotifyError</a></strong>:
+      <em class="summary">Indicates exceptions raised by a Pyinotify class.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.NotifierError-class.html">pyinotify.NotifierError</a></strong>:
+      <em class="summary">Notifier Exception.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.ProcessEventError-class.html">pyinotify.ProcessEventError</a></strong>:
+      <em class="summary">ProcessEventError Exception.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.UnsupportedLibcVersionError-class.html">pyinotify.UnsupportedLibcVersionError</a></strong>:
+      <em class="summary">Raised when libc couldn't be loaded or when inotify functions 
+        werent provided.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.UnsupportedPythonVersionError-class.html">pyinotify.UnsupportedPythonVersionError</a></strong>:
+      <em class="summary">Raised on unsupported Python versions.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.WatchManagerError-class.html">pyinotify.WatchManagerError</a></strong>:
+      <em class="summary">WatchManager Exception.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.EventsCodes-class.html">pyinotify.EventsCodes</a></strong>:
+      <em class="summary">Set of codes corresponding to each kind of events.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.ExcludeFilter-class.html">pyinotify.ExcludeFilter</a></strong>:
+      <em class="summary">ExcludeFilter is an exclusion filter.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.Notifier-class.html">pyinotify.Notifier</a></strong>:
+      <em class="summary">Read notifications, process events.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.AsyncNotifier-class.html">pyinotify.AsyncNotifier</a></strong>:
+      <em class="summary">This notifier inherits from asyncore.file_dispatcher in order to be
+        able to use pyinotify along with the asyncore framework.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.ThreadedNotifier-class.html">pyinotify.ThreadedNotifier</a></strong>:
+      <em class="summary">This notifier inherits from threading.Thread for instanciating a 
+        separate thread, and also inherits from Notifier, because it is a 
+        threaded notifier.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.RawOutputFormat-class.html">pyinotify.RawOutputFormat</a></strong>:
+      <em class="summary">Format string representations.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.ColoredOutputFormat-class.html">pyinotify.ColoredOutputFormat</a></strong>:
+      <em class="summary">Format colored string representations.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.SysCtlINotify-class.html">pyinotify.SysCtlINotify</a></strong>:
+      <em class="summary">Access (read, write) inotify's variables through sysctl.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.Watch-class.html">pyinotify.Watch</a></strong>:
+      <em class="summary">Represent a watch, i.e.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.WatchManager-class.html">pyinotify.WatchManager</a></strong>:
+      <em class="summary">Provide operations for watching files and directories.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify._Event-class.html" onclick="show_private();">pyinotify._Event</a></strong>:
+      <em class="summary">Event structure, represent events raised by the system.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.Event-class.html">pyinotify.Event</a></strong>:
+      <em class="summary">This class contains all the useful informations about the observed 
+        event.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify._RawEvent-class.html" onclick="show_private();">pyinotify._RawEvent</a></strong>:
+      <em class="summary">Raw event, it contains only the informations provided by the 
+        system.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify._ProcessEvent-class.html" onclick="show_private();">pyinotify._ProcessEvent</a></strong>:
+      <em class="summary">Abstract processing event class.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.ProcessEvent-class.html">pyinotify.ProcessEvent</a></strong>:
+      <em class="summary">Process events objects, can be specialized via subclassing, thus 
+        its behavior can be overriden:</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.ChainIfTrue-class.html">pyinotify.ChainIfTrue</a></strong>:
+      <em class="summary">Makes conditional chaining depending on the result of the nested 
+        processing instance.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.PrintAllEvents-class.html">pyinotify.PrintAllEvents</a></strong>:
+      <em class="summary">Dummy class used to print events strings representations.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify.Stats-class.html">pyinotify.Stats</a></strong>:
+      <em class="summary">Compute and display trivial statistics about processed events.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="pyinotify._SysProcessEvent-class.html" onclick="show_private();">pyinotify._SysProcessEvent</a></strong>:
+      <em class="summary">There is three kind of processing according to each event:</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">threading._Verbose</strong>
+    <ul>
+    <li> <strong class="uidlink">threading.Thread</strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="pyinotify.ThreadedNotifier-class.html">pyinotify.ThreadedNotifier</a></strong>:
+      <em class="summary">This notifier inherits from threading.Thread for instanciating a 
+        separate thread, and also inherits from Notifier, because it is a 
+        threaded notifier.</em>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+</ul>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="pyinotify-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Sep 15 22:06:12 2010
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

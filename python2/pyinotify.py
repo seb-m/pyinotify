@@ -91,7 +91,7 @@ except ImportError:
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.9.0"
+__version__ = "0.9.1"
 
 __metaclass__ = type  # Use new-style classes by default
 
@@ -1203,7 +1203,7 @@ class Notifier:
                     stderr=os.devnull):
         """
         pid_file: file where the pid will be written. If pid_file=None the pid
-                  is written to /var/run/<sys.argv[0]|pyinotify>.pid, if 
+                  is written to /var/run/<sys.argv[0]|pyinotify>.pid, if
                   pid_file=False no pid_file is written.
         stdin, stdout, stderr: files associated to common streams.
         """
@@ -1284,7 +1284,7 @@ class Notifier:
                      keyworded arguments are directly passed to daemonize see
                      __daemonize() method. If pid_file=None or is set to a
                      pathname the caller must ensure the file does not exist
-                     before this method is called otherwise an exception 
+                     before this method is called otherwise an exception
                      pyinotify.NotifierError will be raised. If pid_file=False
                      it is still daemonized but the pid is not written in any
                      file.

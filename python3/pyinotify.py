@@ -1080,7 +1080,7 @@ class Notifier:
                     timeout = self._timeout
                 ret = self._pollobj.poll(timeout)
             except select.error as err:
-                if err.errno == errno.EINTR:
+                if err.args[0] == errno.EINTR:
                     continue # interrupted, retry
                 else:
                     raise

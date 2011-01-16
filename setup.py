@@ -22,14 +22,24 @@ if not platform.startswith('linux'):
     sys.exit(1)
 
 classif = [
+    'Development Status :: 5 - Production/Stable',
     'Environment :: Console',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: MIT License',
     'Natural Language :: English',
     'Operating System :: POSIX :: Linux',
     'Programming Language :: Python',
-    'Topic :: Software Development :: Libraries',
-    'Topic :: System :: Monitoring'
+    'Programming Language :: Python :: 2.4',
+    'Programming Language :: Python :: 2.5',
+    'Programming Language :: Python :: 2.6',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.0',
+    'Programming Language :: Python :: 3.1',
+    'Programming Language :: Python :: 3.2',
+    'Topic :: Software Development :: Libraries :: Python Modules',
+    'Topic :: System :: Filesystems',
+    'Topic :: System :: Monitoring',
     ]
 
 if sys.version_info[0] >= 3:
@@ -42,7 +52,7 @@ setup(
     version='0.9.1',
     description='Linux filesystem events monitoring',
     author='Sebastien Martini',
-    author_email='sebastien.martini@gmail.com',
+    author_email='seb@dbzteam.org',
     license='MIT License',
     platforms='Linux',
     classifiers=classif,

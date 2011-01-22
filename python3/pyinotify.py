@@ -77,7 +77,6 @@ import atexit
 from collections import deque
 from datetime import datetime, timedelta
 import time
-import fnmatch
 import re
 import ctypes
 import ctypes.util
@@ -128,21 +127,6 @@ def load_libc():
         raise UnsupportedLibcVersionError()
 
 load_libc()
-
-
-class PyinotifyLogger(logging.Logger):
-    """
-    Pyinotify logger used for logging unicode strings.
-    """
-    def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None,
-                   extra=None):
-        rv = UnicodeLogRecord(name, level, fn, lno, msg, args, exc_info, func)
-        if extra is not None:
-            for key in extra:
-                if (key in ["message", "asctime"]) or (key in rv.__dict__):
-                    raise KeyError("Attempt to overwrite %r in LogRecord" % key)
-                rv.__dict__[key] = extra[key]
-        return rv
 
 
 # Logging

@@ -77,7 +77,6 @@ import atexit
 from collections import deque
 from datetime import datetime, timedelta
 import time
-import fnmatch
 import re
 import ctypes
 import ctypes.util

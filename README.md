@@ -8,11 +8,10 @@
 
 ## Dependencies
 
-* Linux >= 2.6.13
-* Python (CPython) >= 2.4
-* Libc with inotify support (usually version >= 2.4 for GLibc)
-* ctypes (part of the standard library since Python 2.5)
-* Epydoc (optional, used to generate html documentation from docstrings)
+* Linux ≥ 2.6.13
+* Python ≥ 2.4
+* A libc with inotify's binding
+* ctypes
 
 
 ## Install
@@ -20,13 +19,17 @@
 ### Install from the distributed tarball
 
     # Choose your Python interpreter: either python, python2.6, python3.1,..
-    # Replacing XXX accordingly with your previous choice type:
+    # Replacing XXX accordingly, type:
     $ sudo pythonXXX setup.py install
 
-### Or install it with "Easy Install" (currently seems to work only for Python2)
+### Or install it with `easy_install` (currently seems to be available only for Python2)
 
-    $ wget http://peak.telecommunity.com/dist/ez_setup.py
-    $ sudo python ez_setup.py
+    # Install easy_install
+      $ sudo apt-get install setuptools
+    # Or alternatively, this way
+      $ wget http://peak.telecommunity.com/dist/ez_setup.py
+      $ sudo python ez_setup.py
+    # Finally, install Pyinotify
     $ sudo easy_install pyinotify
 
 

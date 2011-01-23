@@ -57,7 +57,7 @@ setup(
     platforms='Linux',
     classifiers=classif,
     url='http://github.com/seb-m/pyinotify',
-    download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.9.1.tar.gz',
+    #download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.9.1.tar.gz',
     py_modules=['pyinotify'],
     package_dir=package_dir,
     packages=[''],

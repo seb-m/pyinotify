@@ -10,8 +10,6 @@
 
 * Linux ≥ 2.6.13
 * Python ≥ 2.4
-* A libc with inotify's binding
-* ctypes (included in the standard library since Python2.6)
 
 
 ## Install

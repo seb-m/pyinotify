@@ -5,27 +5,24 @@
 # if no inotify interface from ctypes is found.
 compile_ext_mod = False
 
-# check Python's version
+# import statements
+import os
 import sys
+from distutils.core import setup, Extension
+from distutils.util import get_platform
+
+platform = get_platform()
+
+# check Python's version
 if sys.version_info < (2, 4):
     sys.stderr.write('This module requires at least Python 2.4\n')
     sys.exit(1)
 
-# import statements
-import os
-from distutils.core import setup, Extension
-from distutils.util import get_platform
-
-# debug
-DISTUTILS_DEBUG = False
-
-# get platform
-platform = get_platform()
-
 # check linux platform
 if not platform.startswith('linux'):
-    sys.stderr.write("inotify is not available under %s\n" % platform)
+    sys.stderr.write("inotify is not available on %s\n" % platform)
     sys.exit(1)
+
 
 classif = [
     'Development Status :: 5 - Production/Stable',
@@ -49,6 +46,7 @@ classif = [
     ]
 
 
+# Select branch
 if sys.version_info >= (3, 0):
     package_dir = {'': 'python3'}
 else:
@@ -98,7 +96,6 @@ setup(
     platforms='Linux',
     classifiers=classif,
     url='http://github.com/seb-m/pyinotify',
-    #download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.9.1.tar.gz',
     ext_modules=ext_mod,
     py_modules=['pyinotify'],
     package_dir=package_dir,

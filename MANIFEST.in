@@ -1,10 +1,9 @@
 include ACKS
-include ChangeLog_old
 include COPYING
 include MANIFEST.in
-include NEWS_old
 include README.md
 include *.py
 recursive-include common *
+recursive-include old *
 recursive-include python2 *
 recursive-include python3 *

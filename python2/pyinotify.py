@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # pyinotify.py - python interface to inotify
-# Copyright (c) 2010 Sebastien Martini <seb@dbzteam.org>
+# Copyright (c) 2005-2011 Sebastien Martini <seb@dbzteam.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -42,24 +42,13 @@ class UnsupportedPythonVersionError(PyinotifyError):
         @param version: Current Python version
         @type version: string
         """
-        PyinotifyError.__init__(self,
-                                ('Python %s is unsupported, requires '
-                                 'at least Python 2.4') % version)
-
-
-class UnsupportedLibcVersionError(PyinotifyError):
-    """
-    Raised when libc couldn't be loaded or when inotify functions werent
-    provided.
-    """
-    def __init__(self):
-        err = 'libc does not provide required inotify support'
-        PyinotifyError.__init__(self, err)
+        err = 'Python %s is unsupported, requires at least Python 2.4'
+        PyinotifyError.__init__(self, err % version)
 
 
 # Check Python version
 import sys
-if sys.version < '2.4':
+if sys.version_info < (2, 4):
     raise UnsupportedPythonVersionError(sys.version)
 
 
@@ -78,8 +67,6 @@ from collections import deque
 from datetime import datetime, timedelta
 import time
 import re
-import ctypes
-import ctypes.util
 import asyncore
 import glob
 
@@ -87,6 +74,18 @@ try:
     from functools import reduce
 except ImportError:
     pass  # Will fail on Python 2.4 which has reduce() builtin anyway.
+
+try:
+    import ctypes
+    import ctypes.util
+except ImportError:
+    ctypes = None
+
+try:
+    import inotify_syscalls
+except ImportError:
+    inotify_syscalls = None
+
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
@@ -101,37 +100,141 @@ __metaclass__ = type  # Use new-style classes by default
 COMPATIBILITY_MODE = False
 
 
-# Load libc
-LIBC = None
-strerrno = None
+class InotifyBindingNotFoundError(PyinotifyError):
+    """
+    Raised when no inotify support couldn't be found.
+    """
+    def __init__(self):
+        err = "Couldn't find any inotify binding"
+        PyinotifyError.__init__(self, err)
 
-def load_libc():
-    global strerrno
-    global LIBC
 
-    libc = None
-    try:
-        libc = ctypes.util.find_library('c')
-    except (OSError, IOError):
-        pass  # Will attemp to load it with None anyway.
+class INotifyWrapper:
+    """Abstract class."""
+    @staticmethod
+    def create():
+        # First, try to use ctypes.
+        if ctypes:
+            inotify = CtypesLibcINotifyWrapper()
+            if inotify.init():
+                return inotify
+        # Second, see if C extension is compiled.
+        if inotify_syscalls:
+            inotify = INotifySyscallsWrapper()
+            if inotify.init():
+                return inotify
 
-    if sys.version_info[0] >= 2 and sys.version_info[1] >= 6:
-        LIBC = ctypes.CDLL(libc, use_errno=True)
-        def _strerrno():
-            code = ctypes.get_errno()
-            return ' Errno=%s (%s)' % (os.strerror(code), errno.errorcode[code])
-        strerrno = _strerrno
-    else:
-        LIBC = ctypes.CDLL(libc)
-        strerrno = lambda : ''
+    def get_errno(self):
+        """
+        Return None is no errno code is available.
+        """
+        return self._get_errno()
 
-    # Check that libc has needed functions inside.
-    if (not hasattr(LIBC, 'inotify_init') or
-        not hasattr(LIBC, 'inotify_add_watch') or
-        not hasattr(LIBC, 'inotify_rm_watch')):
-        raise UnsupportedLibcVersionError()
+    def str_errno(self):
+        code = self.get_errno()
+        if code is None:
+            return 'Errno: no errno support'
+        return 'Errno=%s (%s)' % (os.strerror(code), errno.errorcode[code])
 
-load_libc()
+    def inotify_init(self):
+        return self._inotify_init()
+
+    def inotify_add_watch(self, fd, pathname, mask):
+        # Unicode strings must be encoded to string prior to calling this
+        # method.
+        assert isinstance(pathname, str)
+        return self._inotify_add_watch(fd, pathname, mask)
+
+    def inotify_rm_watch(self, fd, wd):
+        return self._inotify_rm_watch(fd, wd)
+
+
+class INotifySyscallsWrapper(INotifyWrapper):
+    def __init__(self):
+        # Stores the last errno value.
+        self._last_errno = None
+
+    def init(self):
+        assert inotify_syscalls
+        return True
+
+    def _get_errno(self):
+        return self._last_errno
+
+    def _inotify_init(self):
+        try:
+            fd = inotify_syscalls.inotify_init()
+        except IOError, err:
+            self._last_errno = err.errno
+            return -1
+        return fd
+
+    def _inotify_add_watch(self, fd, pathname, mask):
+        try:
+            wd = inotify_syscalls.inotify_add_watch(fd, pathname, mask)
+        except IOError, err:
+            self._last_errno = err.errno
+            return -1
+        return wd
+
+    def _inotify_rm_watch(self, fd, wd):
+        try:
+            ret = inotify_syscalls.inotify_rm_watch(fd, wd)
+        except IOError, err:
+            self._last_errno = err.errno
+            return -1
+        return ret
+
+
+class CtypesLibcINotifyWrapper(INotifyWrapper):
+    def __init__(self):
+        self._libc = None
+        self._get_errno_func = None
+
+    def init(self):
+        assert ctypes
+        libc_name = None
+        try:
+            libc_name = ctypes.util.find_library('c')
+        except (OSError, IOError):
+            pass  # Will attemp to load it with None anyway.
+
+        if sys.version_info >= (2, 6):
+            self._libc = ctypes.CDLL(libc_name, use_errno=True)
+            self._get_errno_func = ctypes.get_errno
+        else:
+            self._libc = ctypes.CDLL(libc_name)
+            try:
+                location = self._libc.__errno_location
+                location.restype = ctypes.POINTER(ctypes.c_int)
+                self._get_errno_func = lambda: location().contents.value
+            except AttributeError:
+                pass
+
+        # Eventually check that libc has needed inotify bindings.
+        if (not hasattr(self._libc, 'inotify_init') or
+            not hasattr(self._libc, 'inotify_add_watch') or
+            not hasattr(self._libc, 'inotify_rm_watch')):
+            return False
+        return True
+
+    def _get_errno(self):
+        if self._get_errno_func is not None:
+            return self._get_errno_func()
+        return None
+
+    def _inotify_init(self):
+        assert self._libc is not None
+        return self._libc.inotify_init()
+
+    def _inotify_add_watch(self, fd, pathname, mask):
+        assert self._libc is not None
+        pathname = ctypes.create_string_buffer(pathname)
+        return self._libc.inotify_add_watch(fd, pathname, mask)
+
+    def _inotify_rm_watch(self, fd, wd):
+        assert self._libc is not None
+        return self._libc.inotify_rm_watch(fd, wd)
 
 
 class PyinotifyLogger(logging.Logger):
@@ -215,9 +318,15 @@ class SysCtlINotify:
                      'max_queued_events': 3}
 
     def __init__(self, attrname):
+        # FIXME: right now only supporting ctypes
+        if not ctypes:
+            raise InotifyBindingNotFoundError()
         sino = ctypes.c_int * 3
         self._attrname = attrname
         self._attr = sino(5, 20, SysCtlINotify.inotify_attrs[attrname])
+        self._inotify_wrapper = CtypesLibcINotifyWrapper()
+        if not self._inotify_wrapper.init():
+            raise InotifyBindingNotFoundError()
 
     def get_val(self):
         """
@@ -228,10 +337,10 @@ class SysCtlINotify:
         """
         oldv = ctypes.c_int(0)
         size = ctypes.c_int(ctypes.sizeof(oldv))
-        LIBC.sysctl(self._attr, 3,
-                    ctypes.c_voidp(ctypes.addressof(oldv)),
-                    ctypes.addressof(size),
-                    None, 0)
+        self._inotify_wrapper.sysctl(self._attr, 3,
+                                     ctypes.c_voidp(ctypes.addressof(oldv)),
+                                     ctypes.addressof(size),
+                                     None, 0)
         return oldv.value
 
     def set_val(self, nval):
@@ -245,11 +354,11 @@ class SysCtlINotify:
         sizeo = ctypes.c_int(ctypes.sizeof(oldv))
         newv = ctypes.c_int(nval)
         sizen = ctypes.c_int(ctypes.sizeof(newv))
-        LIBC.sysctl(self._attr, 3,
-                    ctypes.c_voidp(ctypes.addressof(oldv)),
-                    ctypes.addressof(sizeo),
-                    ctypes.c_voidp(ctypes.addressof(newv)),
-                    ctypes.addressof(sizen))
+        self._inotify_wrapper.sysctl(self._attr, 3,
+                                     ctypes.c_voidp(ctypes.addressof(oldv)),
+                                     ctypes.addressof(sizeo),
+                                     ctypes.c_voidp(ctypes.addressof(newv)),
+                                     ctypes.addressof(sizen))
 
     value = property(get_val, set_val)
 
@@ -262,8 +371,9 @@ class SysCtlINotify:
 # read: myvar = max_queued_events.value
 # update: max_queued_events.value = 42
 #
-for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
-    globals()[attrname] = SysCtlINotify(attrname)
+if ctypes:  # FIXME: right now only access through ctypes
+    for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
+        globals()[attrname] = SysCtlINotify(attrname)
 
 
 class EventsCodes:
@@ -1576,7 +1686,9 @@ class WatchManager:
     def __init__(self, exclude_filter=lambda path: False):
         """
         Initialization: init inotify, init watch manager dictionary.
-        Raise OSError if initialization fails.
+        Raise OSError if initialization fails, raise InotifyBindingNotFoundError
+        if no inotify binding was found (through ctypes or from direct access to
+        syscalls).
 
         @param exclude_filter: boolean function, returns True if current
                                path must be excluded from being watched.
@@ -1586,10 +1698,15 @@ class WatchManager:
         """
         self._exclude_filter = exclude_filter
         self._wmd = {}  # watch dict key: watch descriptor, value: watch
-        self._fd = LIBC.inotify_init() # inotify's init, file descriptor
+
+        self._inotify_wrapper = INotifyWrapper.create()
+        if self._inotify_wrapper is None:
+            raise InotifyBindingNotFoundError()
+
+        self._fd = self._inotify_wrapper.inotify_init() # file descriptor
         if self._fd < 0:
-            err = 'Cannot initialize new instance of inotify%s' % strerrno()
-            raise OSError(err)
+            err = 'Cannot initialize new instance of inotify, %s'
+            raise OSError(err % self._inotify_wrapper.str_errno())
 
     def close(self):
         """
@@ -1647,8 +1764,8 @@ class WatchManager:
         """
         Format path to its internal (stored in watch manager) representation.
         """
-        # Unicode strings are converted to byte strings, it seems to be
-        # required because LIBC.inotify_add_watch does not work well when
+        # Unicode strings are converted back to strings, because it seems
+        # that inotify_add_watch from ctypes does not work well when
         # it receives an ctypes.create_unicode_buffer instance as argument.
         # Therefore even wd are indexed with bytes string and not with
         # unicode paths.
@@ -1661,17 +1778,15 @@ class WatchManager:
         Add a watch on path, build a Watch object and insert it in the
         watch manager dictionary. Return the wd value.
         """
-        byte_path = self.__format_path(path)
-        wd_ = LIBC.inotify_add_watch(self._fd,
-                                     ctypes.create_string_buffer(byte_path),
-                                     mask)
-        if wd_ < 0:
-            return wd_
-        watch_ = Watch(wd=wd_, path=byte_path, mask=mask, proc_fun=proc_fun,
-                       auto_add=auto_add, exclude_filter=exclude_filter)
-        self._wmd[wd_] = watch_
-        log.debug('New %s', watch_)
-        return wd_
+        path = self.__format_path(path)
+        wd = self._inotify_wrapper.inotify_add_watch(self._fd, path, mask)
+        if wd < 0:
+            return wd
+        watch = Watch(wd=wd, path=path, mask=mask, proc_fun=proc_fun,
+                      auto_add=auto_add, exclude_filter=exclude_filter)
+        self._wmd[wd] = watch
+        log.debug('New %s', watch)
+        return wd
 
     def __glob(self, path, do_glob):
         if do_glob:
@@ -1750,8 +1865,9 @@ class WatchManager:
                                                             auto_add,
                                                             exclude_filter)
                         if wd < 0:
-                            err = 'add_watch: cannot watch %s WD=%d%s'
-                            err = err % (rpath, wd, strerrno())
+                            err = ('add_watch: cannot watch %s WD=%d, %s' % \
+                                       (rpath, wd,
+                                        self._inotify_wrapper.str_errno()))
                             if quiet:
                                 log.error(err)
                             else:
@@ -1842,12 +1958,12 @@ class WatchManager:
                 raise WatchManagerError(err, ret_)
 
             if mask:
-                addw = LIBC.inotify_add_watch
-                wd_ = addw(self._fd, ctypes.create_string_buffer(apath), mask)
+                wd_ = self._inotify_wrapper.inotify_add_watch(self._fd, apath,
+                                                              mask)
                 if wd_ < 0:
                     ret_[awd] = False
-                    err = 'update_watch: cannot update %s WD=%d%s'
-                    err = err % (apath, wd_, strerrno())
+                    err = ('update_watch: cannot update %s WD=%d, %s' % \
+                               (apath, wd_, self._inotify_wrapper.str_errno()))
                     if quiet:
                         log.error(err)
                         continue
@@ -1953,10 +2069,11 @@ class WatchManager:
         ret_ = {}  # return {wd: bool, ...}
         for awd in lwd:
             # remove watch
-            wd_ = LIBC.inotify_rm_watch(self._fd, awd)
+            wd_ = self._inotify_wrapper.inotify_rm_watch(self._fd, awd)
             if wd_ < 0:
                 ret_[awd] = False
-                err = 'rm_watch: cannot remove WD=%d%s' % (awd, strerrno())
+                err = ('rm_watch: cannot remove WD=%d, %s' % \
+                           (awd, self._inotify_wrapper.str_errno()))
                 if quiet:
                     log.error(err)
                     continue

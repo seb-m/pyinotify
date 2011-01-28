@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 
+# Set True to force compile native C-coded extension providing direct access
+# to inotify's syscalls. If set to False this extension will only be compiled
+# if no inotify interface from ctypes is found.
+compile_ext_mod = False
+
 # check Python's version
 import sys
-if sys.version < '2.4':
+if sys.version_info < (2, 4):
     sys.stderr.write('This module requires at least Python 2.4\n')
     sys.exit(1)
 
 # import statements
+import os
 from distutils.core import setup, Extension
 from distutils.util import get_platform
 
@@ -42,10 +48,45 @@ classif = [
     'Topic :: System :: Monitoring',
     ]
 
-if sys.version_info[0] >= 3:
+
+if sys.version_info >= (3, 0):
     package_dir = {'': 'python3'}
 else:
     package_dir = {'': 'python2'}
+
+
+def should_compile_ext_mod():
+    try:
+        import ctypes
+        import ctypes.util
+    except:
+        return True
+
+    libc_name = None
+    try:
+        libc_name = ctypes.util.find_library('c')
+    except:
+        pass  # Will attemp to load it with None anyway.
+
+    libc = ctypes.CDLL(libc_name)
+    # Eventually check that libc has needed inotify bindings.
+    if (not hasattr(libc, 'inotify_init') or
+        not hasattr(libc, 'inotify_add_watch') or
+        not hasattr(libc, 'inotify_rm_watch')):
+        return True
+    return False
+
+
+ext_mod = []
+if compile_ext_mod or should_compile_ext_mod():
+    # add -fpic if x86_64 arch
+    if platform in ["linux-x86_64"]:
+        os.environ["CFLAGS"] = "-fpic"
+    # sources for ext module
+    ext_mod_src = ['common/inotify_syscalls.c']
+    # dst for ext module
+    ext_mod.append(Extension('inotify_syscalls', ext_mod_src))
+
 
 setup(
     name='pyinotify',
@@ -58,7 +99,7 @@ setup(
     classifiers=classif,
     url='http://github.com/seb-m/pyinotify',
     #download_url='http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-0.9.1.tar.gz',
+    ext_modules=ext_mod,
     py_modules=['pyinotify'],
     package_dir=package_dir,
-    packages=[''],
     )

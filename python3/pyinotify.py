@@ -85,6 +85,9 @@ except ImportError:
 
 try:
     import inotify_syscalls
+    # As soon as inotify_syscalls are used make sure ctypes won't
+    # get inadvertently be used instead.
+    ctypes = None
 except ImportError:
     inotify_syscalls = None
 

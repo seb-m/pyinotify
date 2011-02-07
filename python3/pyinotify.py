@@ -85,9 +85,6 @@ except ImportError:
 
 try:
     import inotify_syscalls
-    # As soon as inotify_syscalls are used make sure ctypes won't
-    # get inadvertently be used instead.
-    ctypes = None
 except ImportError:
     inotify_syscalls = None
 
@@ -234,6 +231,10 @@ class CtypesLibcINotifyWrapper(INotifyWrapper):
         assert self._libc is not None
         return self._libc.inotify_rm_watch(fd, wd)
 
+    def _sysctl(self, *args):
+        assert self._libc is not None
+        return self._libc.sysctl(*args)
+
 
 # Logging
 def logger_init():
@@ -264,16 +265,23 @@ class SysCtlINotify:
                      'max_user_watches': 2,
                      'max_queued_events': 3}
 
-    def __init__(self, attrname):
+    def __init__(self, attrname, inotify_wrapper):
         # FIXME: right now only supporting ctypes
-        if not ctypes:
-            raise InotifyBindingNotFoundError()
-        sino = ctypes.c_int * 3
+        assert ctypes
         self._attrname = attrname
+        self._inotify_wrapper = inotify_wrapper
+        sino = ctypes.c_int * 3
         self._attr = sino(5, 20, SysCtlINotify.inotify_attrs[attrname])
-        self._inotify_wrapper = CtypesLibcINotifyWrapper()
-        if not self._inotify_wrapper.init():
-            raise InotifyBindingNotFoundError()
+
+    @staticmethod
+    def create(attrname):
+        # FIXME: right now only supporting ctypes
+        if ctypes is None:
+            return None
+        inotify_wrapper = CtypesLibcINotifyWrapper()
+        if not inotify_wrapper.init():
+            return None
+        return SysCtlINotify(attrname, inotify_wrapper)
 
     def get_val(self):
         """
@@ -284,10 +292,10 @@ class SysCtlINotify:
         """
         oldv = ctypes.c_int(0)
         size = ctypes.c_int(ctypes.sizeof(oldv))
-        self._inotify_wrapper.sysctl(self._attr, 3,
-                                     ctypes.c_voidp(ctypes.addressof(oldv)),
-                                     ctypes.addressof(size),
-                                     None, 0)
+        self._inotify_wrapper._sysctl(self._attr, 3,
+                                      ctypes.c_voidp(ctypes.addressof(oldv)),
+                                      ctypes.addressof(size),
+                                      None, 0)
         return oldv.value
 
     def set_val(self, nval):
@@ -301,11 +309,11 @@ class SysCtlINotify:
         sizeo = ctypes.c_int(ctypes.sizeof(oldv))
         newv = ctypes.c_int(nval)
         sizen = ctypes.c_int(ctypes.sizeof(newv))
-        self._inotify_wrapper.sysctl(self._attr, 3,
-                                     ctypes.c_voidp(ctypes.addressof(oldv)),
-                                     ctypes.addressof(sizeo),
-                                     ctypes.c_voidp(ctypes.addressof(newv)),
-                                     ctypes.addressof(sizen))
+        self._inotify_wrapper._sysctl(self._attr, 3,
+                                      ctypes.c_voidp(ctypes.addressof(oldv)),
+                                      ctypes.addressof(sizeo),
+                                      ctypes.c_voidp(ctypes.addressof(newv)),
+                                      ctypes.addressof(sizen))
 
     value = property(get_val, set_val)
 
@@ -313,14 +321,16 @@ class SysCtlINotify:
         return '<%s=%d>' % (self._attrname, self.get_val())
 
 
-# Singleton instances
+# Inotify's variables
+#
+# FIXME: currently these variables are only accessible when ctypes is used,
+#        otherwise there are set to None.
 #
 # read: myvar = max_queued_events.value
 # update: max_queued_events.value = 42
 #
-if ctypes:  # FIXME: right now only access through ctypes
-    for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
-        globals()[attrname] = SysCtlINotify(attrname)
+for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
+    globals()[attrname] = SysCtlINotify.create(attrname)
 
 
 class EventsCodes:

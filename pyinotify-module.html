@@ -107,24 +107,45 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify.UnsupportedLibcVersionError-class.html" class="summary-name">UnsupportedLibcVersionError</a><br />
-      Raised when libc couldn't be loaded or when inotify functions 
-        werent provided.
+        <a href="pyinotify.InotifyBindingNotFoundError-class.html" class="summary-name">InotifyBindingNotFoundError</a><br />
+      Raised when no inotify support couldn't be found.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify.PyinotifyLogger-class.html" class="summary-name">PyinotifyLogger</a><br />
+        <a href="pyinotify.INotifyWrapper-class.html" class="summary-name">INotifyWrapper</a><br />
+      Abstract class wrapping access to inotify's functions.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify._INotifySyscallsWrapper-class.html" class="summary-name" onclick="show_private();">_INotifySyscallsWrapper</a>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify._CtypesLibcINotifyWrapper-class.html" class="summary-name" onclick="show_private();">_CtypesLibcINotifyWrapper</a>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="pyinotify._PyinotifyLogger-class.html" class="summary-name" onclick="show_private();">_PyinotifyLogger</a><br />
       Pyinotify logger used for logging unicode strings.
     </td>
   </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="pyinotify.UnicodeLogRecord-class.html" class="summary-name">UnicodeLogRecord</a>
+        <a href="pyinotify._UnicodeLogRecord-class.html" class="summary-name" onclick="show_private();">_UnicodeLogRecord</a>
     </td>
   </tr>
 <tr>
@@ -334,38 +355,6 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="strerrno"></a><span class="summary-sig-name">strerrno</span>()</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#strerrno">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="load_libc"></a><span class="summary-sig-name">load_libc</span>()</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#load_libc">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
           <td><span class="summary-sig"><a name="logger_init"></a><span class="summary-sig-name">logger_init</span>()</span><br />
       Initialize logger instance.</td>
           <td align="right" valign="top">
@@ -434,6 +423,13 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="inotify_syscalls"></a><span class="summary-name">inotify_syscalls</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="__author__"></a><span class="summary-name">__author__</span> = <code title="'seb@dbzteam.org (Sebastien Martini)'"><code class="variable-quote">'</code><code class="variable-string">seb@dbzteam.org (Sebastien Martini)</code><code class="variable-quote">'</code></code>
     </td>
   </tr>
@@ -442,13 +438,6 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="COMPATIBILITY_MODE"></a><span class="summary-name">COMPATIBILITY_MODE</span> = <code title="False">False</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="LIBC"></a><span class="summary-name">LIBC</span> = <code title="&lt;CDLL 'libc.so.6', handle 2b93c4470970 at 1944410&gt;">&lt;CDLL 'libc.so.6', handle 2b93c4470970 at 1944410&gt;</code>
     </td>
   </tr>
 <tr>
@@ -651,7 +640,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="max_user_watches"></a><span class="summary-name">max_user_watches</span> = <code title="&lt;max_user_watches=8192&gt;">&lt;max_user_watches=8192&gt;</code>
+        <a name="max_user_watches"></a><span class="summary-name">max_user_watches</span> = <code title="&lt;max_user_watches=524288&gt;">&lt;max_user_watches=524288&gt;</code>
     </td>
   </tr>
 <tr>
@@ -802,7 +791,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Sep 15 22:06:12 2010
+    Generated by Epydoc 3.0.1 on Tue Feb  8 00:28:28 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -57,16 +57,17 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class SysCtlINotify</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#SysCtlINotify">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_16" name="uml_class_diagram_for_pyinotif_16">
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#inotify_attrs" title="pyinotify.SysCtlINotify.inotify_attrs" alt="" coords="17,28,156,47"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#value" title="Gets attribute&#39;s value." alt="" coords="17,47,156,65"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,68,156,87"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#get_val" title="Gets attribute&#39;s value." alt="" coords="17,87,156,105"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#set_val" title="Sets new attribute&#39;s value." alt="" coords="17,105,156,124"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html#__repr__" title="repr(x)" alt="" coords="17,124,156,143"/>
-<area shape="rect" href="pyinotify.SysCtlINotify-class.html" title="Access (read, write) inotify&#39;s variables through sysctl." alt="" coords="16,11,157,144"/>
+<center>  <map id="uml_class_diagram_for_pyinotif_18" name="uml_class_diagram_for_pyinotif_18">
+<area shape="rect" id="node52" href="pyinotify.SysCtlINotify-class.html#inotify_attrs" title="pyinotify.SysCtlINotify.inotify_attrs" alt="" coords="17,31,253,49"/>
+<area shape="rect" id="node52" href="pyinotify.SysCtlINotify-class.html#value" title="Gets attribute&#39;s value." alt="" coords="17,49,253,68"/>
+<area shape="rect" id="node52" href="pyinotify.SysCtlINotify-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,71,253,89"/>
+<area shape="rect" id="node52" href="pyinotify.SysCtlINotify-class.html#create" title="Factory method instanciating and returning the right wrapper." alt="" coords="17,89,253,108"/>
+<area shape="rect" id="node52" href="pyinotify.SysCtlINotify-class.html#get_val" title="Gets attribute&#39;s value." alt="" coords="17,108,253,127"/>
+<area shape="rect" id="node52" href="pyinotify.SysCtlINotify-class.html#set_val" title="Sets new attribute&#39;s value." alt="" coords="17,127,253,145"/>
+<area shape="rect" id="node52" href="pyinotify.SysCtlINotify-class.html#__repr__" title="repr(x)" alt="" coords="17,145,253,164"/>
+<area shape="rect" id="node1" href="pyinotify.SysCtlINotify-class.html" title="Access (read, write) inotify&#39;s variables through sysctl." alt="" coords="5,6,264,170"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_16.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_16" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_pyinotif_18.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_18" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -106,7 +107,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="pyinotify.SysCtlINotify-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">attrname</span>)</span><br />
+        <span class="summary-sig-arg">attrname</span>,
+        <span class="summary-sig-arg">inotify_wrapper</span>)</span><br />
       x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#SysCtlINotify.__init__">source&nbsp;code</a></span>
@@ -184,6 +186,41 @@
       <code>__str__</code>,
       <code>__subclasshook__</code>
       </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== STATIC METHODS ==================== -->
+<a name="section-StaticMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Static Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-StaticMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="create"></a><span class="summary-sig-name">create</span>(<span class="summary-sig-arg">attrname</span>)</span><br />
+      Factory method instanciating and returning the right wrapper.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#SysCtlINotify.create">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>
@@ -273,7 +310,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">attrname</span>)</span>
+        <span class="sig-arg">attrname</span>,
+        <span class="sig-arg">inotify_wrapper</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
@@ -467,7 +505,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Sep 15 22:06:13 2010
+    Generated by Epydoc 3.0.1 on Tue Feb  8 00:28:29 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

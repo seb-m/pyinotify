@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pyinotify.RawOutputFormat</title>
+  <title>pyinotify.INotifyWrapper</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
-        Class&nbsp;RawOutputFormat
+        Class&nbsp;INotifyWrapper
       </span>
     </td>
     <td>
@@ -48,30 +48,43 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="pyinotify.RawOutputFormat-class.html"
+            >]&nbsp;|&nbsp;<a href="pyinotify.INotifyWrapper-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class RawOutputFormat</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#RawOutputFormat">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class INotifyWrapper</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#INotifyWrapper">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_16" name="uml_class_diagram_for_pyinotif_16">
-<area shape="rect" id="node1" href="pyinotify.ColoredOutputFormat-class.html" title="Format colored string representations." alt="" coords="20,177,180,215"/>
-<area shape="rect" id="node47" href="pyinotify.RawOutputFormat-class.html#__init__" title="x.__init__(...) initializes x; see x.__class__.__doc__ for signature" alt="" coords="17,39,183,57"/>
-<area shape="rect" id="node47" href="pyinotify.RawOutputFormat-class.html#simple" title="pyinotify.RawOutputFormat.simple" alt="" coords="17,57,183,76"/>
-<area shape="rect" id="node47" href="pyinotify.RawOutputFormat-class.html#punctuation" title="Punctuation color." alt="" coords="17,76,183,95"/>
-<area shape="rect" id="node47" href="pyinotify.RawOutputFormat-class.html#field_value" title="Field value color." alt="" coords="17,95,183,113"/>
-<area shape="rect" id="node47" href="pyinotify.RawOutputFormat-class.html#field_name" title="Field name color." alt="" coords="17,113,183,132"/>
-<area shape="rect" id="node47" href="pyinotify.RawOutputFormat-class.html#class_name" title="Class name color." alt="" coords="17,132,183,151"/>
-<area shape="rect" id="node2" href="pyinotify.RawOutputFormat-class.html" title="Format string representations." alt="" coords="5,6,195,157"/>
+  <div class="private"><center>  <map id="uml_class_diagram_for_pyinotif_7" name="uml_class_diagram_for_pyinotif_7">
+<area shape="rect" id="node1" href="pyinotify._CtypesLibcINotifyWrapper-class.html" title="pyinotify._CtypesLibcINotifyWrapper" alt="" coords="5,177,203,215"/>
+<area shape="rect" id="node2" href="pyinotify._INotifySyscallsWrapper-class.html" title="pyinotify._INotifySyscallsWrapper" alt="" coords="232,177,413,215"/>
+<area shape="rect" id="node13" href="pyinotify.INotifyWrapper-class.html#create" title="pyinotify.INotifyWrapper.create" alt="" coords="80,39,345,57"/>
+<area shape="rect" id="node13" href="pyinotify.INotifyWrapper-class.html#get_errno" title="Return None is no errno code is available." alt="" coords="80,57,345,76"/>
+<area shape="rect" id="node13" href="pyinotify.INotifyWrapper-class.html#str_errno" title="pyinotify.INotifyWrapper.str_errno" alt="" coords="80,76,345,95"/>
+<area shape="rect" id="node13" href="pyinotify.INotifyWrapper-class.html#inotify_init" title="pyinotify.INotifyWrapper.inotify_init" alt="" coords="80,95,345,113"/>
+<area shape="rect" id="node13" href="pyinotify.INotifyWrapper-class.html#inotify_add_watch" title="pyinotify.INotifyWrapper.inotify_add_watch" alt="" coords="80,113,345,132"/>
+<area shape="rect" id="node13" href="pyinotify.INotifyWrapper-class.html#inotify_rm_watch" title="pyinotify.INotifyWrapper.inotify_rm_watch" alt="" coords="80,132,345,151"/>
+<area shape="rect" id="node3" href="pyinotify.INotifyWrapper-class.html" title="Abstract class wrapping access to inotify&#39;s functions." alt="" coords="68,6,356,157"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_16.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_16" ismap="ismap" class="graph-without-title" />
-</center>
+  <img src="uml_class_diagram_for_pyinotif_7.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_7" ismap="ismap" class="graph-without-title" />
+</center></div>
+  <div class="public" style="display:none"><center>  <map id="uml_class_diagram_for_pyinotif_8" name="uml_class_diagram_for_pyinotif_8">
+<area shape="rect" id="node16" href="pyinotify.INotifyWrapper-class.html#create" title="pyinotify.INotifyWrapper.create" alt="" coords="17,39,283,57"/>
+<area shape="rect" id="node16" href="pyinotify.INotifyWrapper-class.html#get_errno" title="Return None is no errno code is available." alt="" coords="17,57,283,76"/>
+<area shape="rect" id="node16" href="pyinotify.INotifyWrapper-class.html#str_errno" title="pyinotify.INotifyWrapper.str_errno" alt="" coords="17,76,283,95"/>
+<area shape="rect" id="node16" href="pyinotify.INotifyWrapper-class.html#inotify_init" title="pyinotify.INotifyWrapper.inotify_init" alt="" coords="17,95,283,113"/>
+<area shape="rect" id="node16" href="pyinotify.INotifyWrapper-class.html#inotify_add_watch" title="pyinotify.INotifyWrapper.inotify_add_watch" alt="" coords="17,113,283,132"/>
+<area shape="rect" id="node16" href="pyinotify.INotifyWrapper-class.html#inotify_rm_watch" title="pyinotify.INotifyWrapper.inotify_rm_watch" alt="" coords="17,132,283,151"/>
+<area shape="rect" id="node1" href="pyinotify.INotifyWrapper-class.html" title="Abstract class wrapping access to inotify&#39;s functions." alt="" coords="5,6,293,157"/>
+</map>
+  <img src="uml_class_diagram_for_pyinotif_8.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_8" ismap="ismap" class="graph-without-title" />
+</center></div>
 </center>
 <hr />
-<p>Format string representations.</p>
+<p>Abstract class wrapping access to inotify's functions. This is an 
+  internal class.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -96,11 +109,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.RawOutputFormat-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">format</span>=<span class="summary-sig-default">None</span>)</span><br />
-      x.__init__(...) initializes x; see x.__class__.__doc__ for signature</td>
+          <td><span class="summary-sig"><a name="get_errno"></a><span class="summary-sig-name">get_errno</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Return None is no errno code is available.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#RawOutputFormat.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#INotifyWrapper.get_errno">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -114,11 +126,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="simple"></a><span class="summary-sig-name">simple</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">s</span>,
-        <span class="summary-sig-arg">attribute</span>)</span></td>
+          <td><span class="summary-sig"><a name="str_errno"></a><span class="summary-sig-name">str_errno</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#RawOutputFormat.simple">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#INotifyWrapper.str_errno">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -132,11 +142,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="punctuation"></a><span class="summary-sig-name">punctuation</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">s</span>)</span><br />
-      Punctuation color.</td>
+          <td><span class="summary-sig"><a name="inotify_init"></a><span class="summary-sig-name">inotify_init</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#RawOutputFormat.punctuation">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#INotifyWrapper.inotify_init">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -150,11 +158,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="field_value"></a><span class="summary-sig-name">field_value</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">s</span>)</span><br />
-      Field value color.</td>
+          <td><span class="summary-sig"><a name="inotify_add_watch"></a><span class="summary-sig-name">inotify_add_watch</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fd</span>,
+        <span class="summary-sig-arg">pathname</span>,
+        <span class="summary-sig-arg">mask</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#RawOutputFormat.field_value">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#INotifyWrapper.inotify_add_watch">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -168,29 +177,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="field_name"></a><span class="summary-sig-name">field_name</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">s</span>)</span><br />
-      Field name color.</td>
+          <td><span class="summary-sig"><a name="inotify_rm_watch"></a><span class="summary-sig-name">inotify_rm_watch</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fd</span>,
+        <span class="summary-sig-arg">wd</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#RawOutputFormat.field_name">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="class_name"></a><span class="summary-sig-name">class_name</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">s</span>)</span><br />
-      Class name color.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#RawOutputFormat.class_name">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#INotifyWrapper.inotify_rm_watch">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -205,6 +196,7 @@
       <code>__format__</code>,
       <code>__getattribute__</code>,
       <code>__hash__</code>,
+      <code>__init__</code>,
       <code>__new__</code>,
       <code>__reduce__</code>,
       <code>__reduce_ex__</code>,
@@ -214,6 +206,40 @@
       <code>__str__</code>,
       <code>__subclasshook__</code>
       </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== STATIC METHODS ==================== -->
+<a name="section-StaticMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Static Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-StaticMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="create"></a><span class="summary-sig-name">create</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#INotifyWrapper.create">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
     </td>
   </tr>
 </table>
@@ -242,51 +268,6 @@
     </td>
   </tr>
 </table>
-<!-- ==================== METHOD DETAILS ==================== -->
-<a name="section-MethodDetails"></a>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Method Details</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-MethodDetails"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-</table>
-<a name="__init__"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">format</span>=<span class="sig-default">None</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="pyinotify-pysrc.html#RawOutputFormat.__init__">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>x.__init__(...) initializes x; see x.__class__.__doc__ for 
-  signature</p>
-  <dl class="fields">
-    <dt>Overrides:
-        object.__init__
-        <dd><em class="note">(inherited documentation)</em></dd>
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
-<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -313,7 +294,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Feb  8 00:28:29 2011
+    Generated by Epydoc 3.0.1 on Tue Feb  8 00:28:28 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

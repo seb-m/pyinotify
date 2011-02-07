@@ -58,41 +58,41 @@
 <h1 class="epydoc">Class AsyncNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#AsyncNotifier">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif" name="uml_class_diagram_for_pyinotif">
-<area shape="rect" href="pyinotify.AsyncNotifier-class.html#__init__" title="Initializes the async notifier." alt="" coords="17,684,697,703"/>
-<area shape="rect" href="pyinotify.AsyncNotifier-class.html#handle_read" title="When asyncore tells us we can read from the fd, we proceed processing &#160;events." alt="" coords="17,703,697,721"/>
-<area shape="rect" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="16,659,699,723"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.file_dispatcher.set_file" alt="" coords="148,544,289,563"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.file_dispatcher" alt="" coords="147,519,291,564"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.debug" alt="" coords="116,28,321,47"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.connected" alt="" coords="116,47,321,65"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.accepting" alt="" coords="116,65,321,84"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.closing" alt="" coords="116,84,321,103"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.addr" alt="" coords="116,103,321,121"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.ignore_log_types" alt="" coords="116,121,321,140"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.__repr__" alt="" coords="116,143,321,161"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.add_channel" alt="" coords="116,161,321,180"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.del_channel" alt="" coords="116,180,321,199"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.create_socket" alt="" coords="116,199,321,217"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.set_socket" alt="" coords="116,217,321,236"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.set_reuse_addr" alt="" coords="116,236,321,255"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.readable" alt="" coords="116,255,321,273"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.writable" alt="" coords="116,273,321,292"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.listen" alt="" coords="116,292,321,311"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.bind" alt="" coords="116,311,321,329"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.connect" alt="" coords="116,329,321,348"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.accept" alt="" coords="116,348,321,367"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.send" alt="" coords="116,367,321,385"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher.handle_close" alt="" coords="116,404,321,423"/>
-<area shape="rect" href="javascript:void(0);" title="asyncore.dispatcher" alt="" coords="115,11,323,424"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="343,479,649,497"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="343,497,649,516"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="343,516,649,535"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="343,535,649,553"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="343,553,649,572"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="343,572,649,591"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="343,591,649,609"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="343,609,649,628"/>
-<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="341,453,651,629"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="69,484,379,503"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="69,503,379,521"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="69,521,379,540"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="69,540,379,559"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="69,559,379,577"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="69,577,379,596"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="69,596,379,615"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="69,615,379,633"/>
+<area shape="rect" id="node1" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="57,451,391,639"/>
+<area shape="rect" id="node0" href="pyinotify.AsyncNotifier-class.html#__init__" title="Initializes the async notifier." alt="" coords="17,692,709,711"/>
+<area shape="rect" id="node0" href="pyinotify.AsyncNotifier-class.html#handle_read" title="When asyncore tells us we can read from the fd, we proceed processing &#160;events." alt="" coords="17,711,709,729"/>
+<area shape="rect" id="node4" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="5,659,720,735"/>
+<area shape="rect" id="node1" href="javascript:void(0);" title="asyncore.file_dispatcher.set_file" alt="" coords="432,549,575,568"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.file_dispatcher" alt="" coords="420,517,585,574"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.debug" alt="" coords="400,31,608,49"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.connected" alt="" coords="400,49,608,68"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.accepting" alt="" coords="400,68,608,87"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.closing" alt="" coords="400,87,608,105"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.addr" alt="" coords="400,105,608,124"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.ignore_log_types" alt="" coords="400,124,608,143"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.__repr__" alt="" coords="400,145,608,164"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.add_channel" alt="" coords="400,164,608,183"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.del_channel" alt="" coords="400,183,608,201"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.create_socket" alt="" coords="400,201,608,220"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.set_socket" alt="" coords="400,220,608,239"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.set_reuse_addr" alt="" coords="400,239,608,257"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.readable" alt="" coords="400,257,608,276"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.writable" alt="" coords="400,276,608,295"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.listen" alt="" coords="400,295,608,313"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.bind" alt="" coords="400,313,608,332"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.connect" alt="" coords="400,332,608,351"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.accept" alt="" coords="400,351,608,369"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.send" alt="" coords="400,369,608,388"/>
+<area shape="rect" id="node2" href="javascript:void(0);" title="asyncore.dispatcher.handle_close" alt="" coords="400,407,608,425"/>
+<area shape="rect" id="node3" href="javascript:void(0);" title="asyncore.dispatcher" alt="" coords="388,6,620,431"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif.gif" alt='' usemap="#uml_class_diagram_for_pyinotif" ismap="ismap" class="graph-without-title" />
 </center>
@@ -395,7 +395,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Sep 15 22:06:12 2010
+    Generated by Epydoc 3.0.1 on Tue Feb  8 00:28:28 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

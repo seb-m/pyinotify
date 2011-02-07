@@ -57,21 +57,21 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Notifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#Notifier">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_7" name="uml_class_diagram_for_pyinotif_7">
-<area shape="rect" href="pyinotify.Notifier-class.html#__init__" title="Initialization." alt="" coords="17,36,575,55"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="17,55,575,73"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="17,73,575,92"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="17,92,575,111"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="17,111,575,129"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="17,129,575,148"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="17,148,575,167"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="17,167,575,185"/>
-<area shape="rect" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="17,185,575,204"/>
-<area shape="rect" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="16,11,576,205"/>
-<area shape="rect" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="176,235,267,261"/>
-<area shape="rect" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="317,235,424,261"/>
+<center>  <map id="uml_class_diagram_for_pyinotif_10" name="uml_class_diagram_for_pyinotif_10">
+<area shape="rect" id="node1" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="168,233,283,271"/>
+<area shape="rect" id="node2" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="312,233,445,271"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#__init__" title="Initialization." alt="" coords="17,39,585,57"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="17,57,585,76"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="17,76,585,95"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="17,95,585,113"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="17,113,585,132"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="17,132,585,151"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="17,151,585,169"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="17,169,585,188"/>
+<area shape="rect" id="node21" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="17,188,585,207"/>
+<area shape="rect" id="node3" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="5,6,597,213"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_7.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_7" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_pyinotif_10.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_10" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -232,8 +232,7 @@
         <span class="summary-sig-arg">pid_file</span>=<span class="summary-sig-default">None</span>,
         <span class="summary-sig-arg">stdin</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/dev/null</code><code class="variable-quote">'</code></span>,
         <span class="summary-sig-arg">stdout</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/dev/null</code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">stderr</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/dev/null</code><code class="variable-quote">'</code></span>)</span><br />
-      pid_file: file where the pid will be written.</td>
+        <span class="summary-sig-arg">stderr</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/dev/null</code><code class="variable-quote">'</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="pyinotify-pysrc.html#Notifier.__daemonize">source&nbsp;code</a></span>
             
@@ -529,15 +528,17 @@
     </td>
   </tr></table>
   
-  <pre class="literalblock">
-
-pid_file: file where the pid will be written. If pid_file=None the pid
-          is written to /var/run/&lt;sys.argv[0]|pyinotify&gt;.pid, if 
-          pid_file=False no pid_file is written.
-stdin, stdout, stderr: files associated to common streams.
-
-</pre>
+  
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>pid_file</code></strong> - file where the pid will be written. If pid_file=None the pid is 
+          written to /var/run/&lt;sys.argv[0]|pyinotify&gt;.pid, if 
+          pid_file=False no pid_file is written.</li>
+        <li><strong class="pname"><code>stdin</code></strong></li>
+        <li><strong class="pname"><code>stdout</code></strong></li>
+        <li><strong class="pname"><code>stderr</code></strong> - files associated to common streams.</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -628,7 +629,7 @@ stdin, stdout, stderr: files associated to common streams.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Sep 15 22:06:12 2010
+    Generated by Epydoc 3.0.1 on Tue Feb  8 00:28:28 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

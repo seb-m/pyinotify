@@ -110,17 +110,20 @@ class InotifyBindingNotFoundError(PyinotifyError):
 
 
 class INotifyWrapper:
-    """Abstract class."""
+    """
+    Abstract class wrapping access to inotify's functions. This is an
+    internal class.
+    """
     @staticmethod
     def create():
         # First, try to use ctypes.
         if ctypes:
-            inotify = CtypesLibcINotifyWrapper()
+            inotify = _CtypesLibcINotifyWrapper()
             if inotify.init():
                 return inotify
         # Second, see if C extension is compiled.
         if inotify_syscalls:
-            inotify = INotifySyscallsWrapper()
+            inotify = _INotifySyscallsWrapper()
             if inotify.init():
                 return inotify
 
@@ -149,7 +152,7 @@ class INotifyWrapper:
         return self._inotify_rm_watch(fd, wd)
 
 
-class INotifySyscallsWrapper(INotifyWrapper):
+class _INotifySyscallsWrapper(INotifyWrapper):
     def __init__(self):
         # Stores the last errno value.
         self._last_errno = None
@@ -186,7 +189,7 @@ class INotifySyscallsWrapper(INotifyWrapper):
         return ret
 
 
-class CtypesLibcINotifyWrapper(INotifyWrapper):
+class _CtypesLibcINotifyWrapper(INotifyWrapper):
     def __init__(self):
         self._libc = None
         self._get_errno_func = None
@@ -241,13 +244,13 @@ class CtypesLibcINotifyWrapper(INotifyWrapper):
         return self._libc.sysctl(*args)
 
 
-class PyinotifyLogger(logging.Logger):
+class _PyinotifyLogger(logging.Logger):
     """
     Pyinotify logger used for logging unicode strings.
     """
     def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None,
                    extra=None):
-        rv = UnicodeLogRecord(name, level, fn, lno, msg, args, exc_info, func)
+        rv = _UnicodeLogRecord(name, level, fn, lno, msg, args, exc_info, func)
         if extra is not None:
             for key in extra:
                 if (key in ["message", "asctime"]) or (key in rv.__dict__):
@@ -256,7 +259,7 @@ class PyinotifyLogger(logging.Logger):
         return rv
 
 
-class UnicodeLogRecord(logging.LogRecord):
+class _UnicodeLogRecord(logging.LogRecord):
     def __init__(self, name, level, pathname, lineno,
                  msg, args, exc_info, func=None):
         py_version = sys.version_info
@@ -294,7 +297,7 @@ class UnicodeLogRecord(logging.LogRecord):
 # Logging
 def logger_init():
     """Initialize logger instance."""
-    logging.setLoggerClass(PyinotifyLogger)
+    logging.setLoggerClass(_PyinotifyLogger)
     log = logging.getLogger("pyinotify")
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(
@@ -331,10 +334,13 @@ class SysCtlINotify:
 
     @staticmethod
     def create(attrname):
+        """
+        Factory method instanciating and returning the right wrapper.
+        """
         # FIXME: right now only supporting ctypes
         if ctypes is None:
             return None
-        inotify_wrapper = CtypesLibcINotifyWrapper()
+        inotify_wrapper = _CtypesLibcINotifyWrapper()
         if not inotify_wrapper.init():
             return None
         return SysCtlINotify(attrname, inotify_wrapper)
@@ -1324,10 +1330,13 @@ class Notifier:
     def __daemonize(self, pid_file=None, stdin=os.devnull, stdout=os.devnull,
                     stderr=os.devnull):
         """
-        pid_file: file where the pid will be written. If pid_file=None the pid
-                  is written to /var/run/<sys.argv[0]|pyinotify>.pid, if
-                  pid_file=False no pid_file is written.
-        stdin, stdout, stderr: files associated to common streams.
+        @param pid_file: file where the pid will be written. If pid_file=None
+                         the pid is written to
+                         /var/run/<sys.argv[0]|pyinotify>.pid, if pid_file=False
+                         no pid_file is written.
+        @param stdin:
+        @param stdout:
+        @param stderr: files associated to common streams.
         """
         if pid_file is None:
             dirname = '/var/run/'

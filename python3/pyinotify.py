@@ -110,17 +110,23 @@ class InotifyBindingNotFoundError(PyinotifyError):
 
 
 class INotifyWrapper:
-    """Abstract class."""
+    """
+    Abstract class wrapping access to inotify's functions. This is an
+    internal class.
+    """
     @staticmethod
     def create():
+        """
+        Factory method instanciating and returning the right wrapper.
+        """
         # First, try to use ctypes.
         if ctypes:
-            inotify = CtypesLibcINotifyWrapper()
+            inotify = _CtypesLibcINotifyWrapper()
             if inotify.init():
                 return inotify
         # Second, see if C extension is compiled.
         if inotify_syscalls:
-            inotify = INotifySyscallsWrapper()
+            inotify = _INotifySyscallsWrapper()
             if inotify.init():
                 return inotify
 
@@ -149,7 +155,7 @@ class INotifyWrapper:
         return self._inotify_rm_watch(fd, wd)
 
 
-class INotifySyscallsWrapper(INotifyWrapper):
+class _INotifySyscallsWrapper(INotifyWrapper):
     def __init__(self):
         # Stores the last errno value.
         self._last_errno = None
@@ -186,7 +192,7 @@ class INotifySyscallsWrapper(INotifyWrapper):
         return ret
 
 
-class CtypesLibcINotifyWrapper(INotifyWrapper):
+class _CtypesLibcINotifyWrapper(INotifyWrapper):
     def __init__(self):
         self._libc = None
         self._get_errno_func = None
@@ -278,7 +284,7 @@ class SysCtlINotify:
         # FIXME: right now only supporting ctypes
         if ctypes is None:
             return None
-        inotify_wrapper = CtypesLibcINotifyWrapper()
+        inotify_wrapper = _CtypesLibcINotifyWrapper()
         if not inotify_wrapper.init():
             return None
         return SysCtlINotify(attrname, inotify_wrapper)
@@ -1618,7 +1624,6 @@ class WatchManagerError(Exception):
     """
     WatchManager Exception. Raised on error encountered on watches
     operations.
-
     """
     def __init__(self, msg, wmd):
         """

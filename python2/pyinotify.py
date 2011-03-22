@@ -1575,6 +1575,9 @@ class Watch:
     Represent a watch, i.e. a file or directory being watched.
 
     """
+    __slots__ = ('wd', 'path', 'mask', 'proc_fun', 'auto_add', 
+                 'exclude_filter', 'dir')
+
     def __init__(self, wd, path, mask, proc_fun, auto_add, exclude_filter):
         """
         Initializations.
@@ -1611,7 +1614,7 @@ class Watch:
                                   output_format.punctuation('='),
                                   output_format.field_value(getattr(self,
                                                                     attr))) \
-                      for attr in self.__dict__ if not attr.startswith('_')])
+                      for attr in self.__slots__ if not attr.startswith('_')])
 
         s = '%s%s %s %s' % (output_format.punctuation('<'),
                             output_format.class_name(self.__class__.__name__),

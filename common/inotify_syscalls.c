@@ -171,7 +171,7 @@ static PyMethodDef inotify_syscalls_functions[] = {
 };
 
 /* python 2 */
-#if PY_VERSION_HEX < 0x03000000
+#if PY_MAJOR_VERSION < 3
 
 void initinotify_syscalls(void) {
   Py_InitModule3("inotify_syscalls", inotify_syscalls_functions,

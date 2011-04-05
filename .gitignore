@@ -12,3 +12,4 @@
 a.out
 *.out
 docstrings/
+build/

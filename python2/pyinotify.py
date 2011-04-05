@@ -762,22 +762,28 @@ class _SysProcessEvent(_ProcessEvent):
                                 rec=False, auto_add=watch_.auto_add,
                                 exclude_filter=watch_.exclude_filter)
 
-                # Trick to handle mkdir -p /t1/t2/t3 where t1 is watched and
-                # t2 and t3 are created.
-                # Since the directory is new, then everything inside it
-                # must also be new.
+                # Trick to handle mkdir -p /d1/d2/t3 where d1 is watched and
+                # d2 and t3 (directory or file) are created.
+                # Since the directory d2 is new, then everything inside it must
+                # also be new.
                 created_dir_wd = addw_ret.get(created_dir)
-                if (created_dir_wd is not None) and created_dir_wd > 0:
+                if (created_dir_wd is not None) and (created_dir_wd > 0):
                     for name in os.listdir(created_dir):
                         inner = os.path.join(created_dir, name)
-                        if (os.path.isdir(inner) and
-                            self._watch_manager.get_wd(inner) is None):
-                            # Generate (simulate) creation event for sub
-                            # directories.
-                            rawevent = _RawEvent(created_dir_wd,
-                                                 IN_CREATE | IN_ISDIR,
-                                                 0, name)
-                            self._notifier.append_event(rawevent)
+                        if self._watch_manager.get_wd(inner) is not None:
+                            continue
+                        # Generate (simulate) creation events for sub-
+                        # directories and files.
+                        if os.path.isfile(inner):
+                            # symlinks are handled as files.
+                            flags = IN_CREATE
+                        elif os.path.isdir(inner):
+                            flags = IN_CREATE | IN_ISDIR
+                        else:
+                            # This path should not be taken.
+                            continue
+                        rawevent = _RawEvent(created_dir_wd, flags, 0, name)
+                        self._notifier.append_event(rawevent)
         return self.process_default(raw_event)
 
     def process_IN_MOVED_FROM(self, raw_event):
@@ -1575,7 +1581,7 @@ class Watch:
     Represent a watch, i.e. a file or directory being watched.
 
     """
-    __slots__ = ('wd', 'path', 'mask', 'proc_fun', 'auto_add', 
+    __slots__ = ('wd', 'path', 'mask', 'proc_fun', 'auto_add',
                  'exclude_filter', 'dir')
 
     def __init__(self, wd, path, mask, proc_fun, auto_add, exclude_filter):

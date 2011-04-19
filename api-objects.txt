@@ -189,8 +189,15 @@ pyinotify.ThreadedNotifier.loop	pyinotify.ThreadedNotifier-class.html#loop
 pyinotify.UnsupportedPythonVersionError	pyinotify.UnsupportedPythonVersionError-class.html
 pyinotify.UnsupportedPythonVersionError.__init__	pyinotify.UnsupportedPythonVersionError-class.html#__init__
 pyinotify.Watch	pyinotify.Watch-class.html
+pyinotify.Watch.wd	pyinotify.Watch-class.html#wd
+pyinotify.Watch.mask	pyinotify.Watch-class.html#mask
+pyinotify.Watch.auto_add	pyinotify.Watch-class.html#auto_add
+pyinotify.Watch.proc_fun	pyinotify.Watch-class.html#proc_fun
 pyinotify.Watch.__repr__	pyinotify.Watch-class.html#__repr__
 pyinotify.Watch.__init__	pyinotify.Watch-class.html#__init__
+pyinotify.Watch.path	pyinotify.Watch-class.html#path
+pyinotify.Watch.exclude_filter	pyinotify.Watch-class.html#exclude_filter
+pyinotify.Watch.dir	pyinotify.Watch-class.html#dir
 pyinotify.WatchManager	pyinotify.WatchManager-class.html
 pyinotify.WatchManager.__walk_rec	pyinotify.WatchManager-class.html#__walk_rec
 pyinotify.WatchManager.__get_sub_rec	pyinotify.WatchManager-class.html#__get_sub_rec

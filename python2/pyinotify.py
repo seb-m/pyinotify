@@ -89,7 +89,7 @@ except ImportError:
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.9.1"
+__version__ = "0.9.2"
 
 __metaclass__ = type  # Use new-style classes by default
 

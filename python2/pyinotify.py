@@ -244,7 +244,7 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         return self._libc.sysctl(*args)
 
 
-class _PyinotifyLogger(logging.Logger):
+class _PyinotifyLogger(logging.getLoggerClass()):
     """
     Pyinotify logger used for logging unicode strings.
     """

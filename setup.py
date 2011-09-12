@@ -8,8 +8,9 @@ compile_ext_mod = False
 # import statements
 import os
 import sys
-from distutils.core import setup, Extension
+from distutils.core import Extension
 from distutils.util import get_platform
+from setuptools import setup
 
 platform = get_platform()
 

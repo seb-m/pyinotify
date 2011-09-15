@@ -8,8 +8,14 @@ compile_ext_mod = False
 # import statements
 import os
 import sys
-from distutils.core import setup, Extension
+from distutils.core import Extension
 from distutils.util import get_platform
+try:
+    # First try to load most advanced setuptools setup.
+    from setuptools import setup
+except:
+    # Fall back if setuptools is not installed.
+    from distutils.core import setup
 
 platform = get_platform()
 

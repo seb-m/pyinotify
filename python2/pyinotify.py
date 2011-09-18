@@ -68,6 +68,7 @@ from datetime import datetime, timedelta
 import time
 import re
 import asyncore
+import subprocess
 import glob
 
 try:
@@ -2259,6 +2260,9 @@ def command_line():
     parser.add_option("-f", "--raw-format", action="store_true",
                       dest="raw_format",
                       help="Disable enhanced output format.")
+    parser.add_option("-c", "--command", action="store",
+                      dest="command",
+                      help="Shell command to run upon event")
 
     (options, args) = parser.parse_args()
 
@@ -2309,6 +2313,10 @@ def command_line():
             sys.stdout.write('\n')
             sys.stdout.flush()
         cb_fun = cb
+
+    if options.command:
+        def cb_fun(s):
+            subprocess.Popen(options.command, shell=True)
 
     log.debug('Start monitoring %s, (press c^c to halt pyinotify)' % path)
 

@@ -1780,7 +1780,7 @@ class WatchManager:
         try:
             del self._wmd[wd]
         except KeyError, err:
-            log.error(str(err))
+            log.error('Cannot delete unknown watch descriptor %s' % str(err))
 
     @property
     def watches(self):

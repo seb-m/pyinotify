@@ -1267,8 +1267,9 @@ class Notifier:
                 # Not really sure how we ended up here, nor how we should
                 # handle these types of events and if it is appropriate to
                 # completly skip them (like we are doing here).
-                log.warning("Unable to retrieve Watch object associated to %s",
-                            repr(raw_event))
+                if not (raw_event.mask & IN_IGNORED):
+                    log.warning("Unable to retrieve Watch object associated to %s",
+                                repr(raw_event))
                 continue
             revent = self._sys_proc_fun(raw_event)  # system processings
             if watch_ and watch_.proc_fun:

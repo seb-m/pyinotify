@@ -10,7 +10,7 @@
 # Example:
 #   ./autocompile.py /my-latex-document-dir .tex,.bib "make pdf"
 #
-# Dependancies:
+# Dependencies:
 #   Linux, Python 2.6, Pyinotify
 #
 import subprocess

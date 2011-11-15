@@ -10,7 +10,7 @@ class ProcessTransientFile(pyinotify.ProcessEvent):
         print '\t', event.pathname, ' -> written'
 
     def process_default(self, event):
-        # Implicitely IN_CREATE and IN_DELATE are watched too. You can
+        # Implicitely IN_CREATE and IN_DELETE are watched too. You can
         # ignore them and provide an empty process_default or you can
         # process them, either with process_default or their dedicated
         # method (process_IN_CREATE, process_IN_DELETE) which would

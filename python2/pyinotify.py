@@ -259,45 +259,9 @@ class _PyinotifyLogger(logging.getLoggerClass()):
         return rv
 
 
-class _UnicodeLogRecord(logging.LogRecord):
-    def __init__(self, name, level, pathname, lineno,
-                 msg, args, exc_info, func=None):
-        py_version = sys.version_info
-        # func argument was added in Python 2.5, just ignore it otherwise.
-        if py_version[0] >= 2 and py_version[1] >= 5:
-            logging.LogRecord.__init__(self, name, level, pathname, lineno,
-                                       msg, args, exc_info, func)
-        else:
-            logging.LogRecord.__init__(self, name, level, pathname, lineno,
-                                       msg, args, exc_info)
-
-    def getMessage(self):
-        msg = self.msg
-        if not isinstance(msg, (unicode, str)):
-            try:
-                msg = str(self.msg)
-            except UnicodeError:
-                pass
-        if self.args:
-            if isinstance(self.args, tuple):
-                def str_to_unicode(s):
-                    """Return unicode string."""
-                    if not isinstance(s, str):
-                        return s
-                    return unicode(s, sys.getfilesystemencoding())
-                args = tuple([str_to_unicode(m) for m in self.args])
-            else:
-                args = self.args
-            msg = msg % args
-        if not isinstance(msg, unicode):
-            msg = unicode(msg, sys.getfilesystemencoding())
-        return msg
-
-
 # Logging
 def logger_init():
     """Initialize logger instance."""
-    logging.setLoggerClass(_PyinotifyLogger)
     log = logging.getLogger("pyinotify")
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(

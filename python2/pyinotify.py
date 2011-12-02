@@ -1281,11 +1281,11 @@ class Notifier:
         while self._eventq:
             raw_event = self._eventq.popleft()  # pop next event
             watch_ = self._watch_manager.get_watch(raw_event.wd)
-            # Not really sure how we ended up here, nor how we should
-            # handle these types of events and if it is appropriate to
-            # completly skip them (like we are doing here).
             if (watch_ is None) and not (raw_event.mask & IN_Q_OVERFLOW):
                 if not (raw_event.mask & IN_IGNORED):
+                    # Not really sure how we ended up here, nor how we should
+                    # handle these types of events and if it is appropriate to
+                    # completly skip them (like we are doing here).
                     log.warning("Unable to retrieve Watch object associated to %s",
                                 repr(raw_event))
                 continue

@@ -71,6 +71,7 @@ import re
 import asyncore
 import glob
 import locale
+import subprocess
 
 try:
     from functools import reduce
@@ -2196,6 +2197,9 @@ def command_line():
     parser.add_option("-f", "--raw-format", action="store_true",
                       dest="raw_format",
                       help="Disable enhanced output format.")
+    parser.add_option("-c", "--command", action="store",
+                      dest="command",
+                      help="Shell command to run upon event")
 
     (options, args) = parser.parse_args()
 
@@ -2245,6 +2249,12 @@ def command_line():
             sys.stdout.write(str(s.proc_fun()))
             sys.stdout.write('\n')
             sys.stdout.flush()
+        cb_fun = cb
+
+    # External command
+    if options.command:
+        def cb(s):
+            subprocess.Popen(options.command, shell=True)
         cb_fun = cb
 
     log.debug('Start monitoring %s, (press c^c to halt pyinotify)' % path)

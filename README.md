@@ -14,21 +14,19 @@
 
 ## Install
 
-### Install from the distributed tarball
+### Install Pyinotify using the distribution source
 
     # Choose your Python interpreter: either python, python2.6, python3.1,..
     # Replacing XXX accordingly, type:
     $ sudo pythonXXX setup.py install
 
-### Or install it with `easy_install` (currently seems to be available only for Python2)
 
-    # Install easy_install
-      $ sudo apt-get install setuptools
-    # Or alternatively, this way
-      $ wget http://peak.telecommunity.com/dist/ez_setup.py
-      $ sudo python ez_setup.py
-    # Finally, install Pyinotify
+### Or get the current package from PyPI and install it with `pip` or `easy_install`
+
+    # To install pip follow http://www.pip-installer.org/en/latest/installing.html
+    # easy_install is bundled with setuptools
     $ sudo easy_install pyinotify
+    $ sudo pip pyinotify
 
 
 ## Watch a directory

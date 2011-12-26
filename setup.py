@@ -102,6 +102,7 @@ setup(
     platforms='Linux',
     classifiers=classif,
     url='http://github.com/seb-m/pyinotify',
+    download_url='http://pypi.python.org/pypi/pyinotify',
     ext_modules=ext_mod,
     py_modules=['pyinotify'],
     package_dir=package_dir,

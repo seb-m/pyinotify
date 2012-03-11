@@ -1761,6 +1761,8 @@ class WatchManager:
         watch manager dictionary. Return the wd value.
         """
         path = self.__format_path(path)
+        if auto_add and not mask & IN_CREATE:
+            mask |= IN_CREATE
         wd = self._inotify_wrapper.inotify_add_watch(self._fd, path, mask)
         if wd < 0:
             return wd
@@ -1805,6 +1807,8 @@ class WatchManager:
         @type rec: bool
         @param auto_add: Automatically add watches on newly created
                          directories in watched parent |path| directory.
+                         If |auto_add| is True, IN_CREATE is ored with |mask|
+                         when the watch is added.
         @type auto_add: bool
         @param do_glob: Do globbing on pathname (see standard globbing
                         module for more informations).
@@ -1914,8 +1918,9 @@ class WatchManager:
                     subdirectories contained into |wd| directory.
         @type rec: bool
         @param auto_add: Automatically adds watches on newly created
-                         directories in the watch's path corresponding to
-                         |wd|.
+                         directories in the watch's path corresponding to |wd|.
+                         If |auto_add| is True, IN_CREATE is ored with |mask|
+                         when the watch is updated.
         @type auto_add: bool
         @param quiet: If False raises a WatchManagerError exception on
                       error. See example not_quiet.py

@@ -245,21 +245,6 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         return self._libc.sysctl(*args)
 
 
-class _PyinotifyLogger(logging.getLoggerClass()):
-    """
-    Pyinotify logger used for logging unicode strings.
-    """
-    def makeRecord(self, name, level, fn, lno, msg, args, exc_info, func=None,
-                   extra=None):
-        rv = _UnicodeLogRecord(name, level, fn, lno, msg, args, exc_info, func)
-        if extra is not None:
-            for key in extra:
-                if (key in ["message", "asctime"]) or (key in rv.__dict__):
-                    raise KeyError("Attempt to overwrite %r in LogRecord" % key)
-                rv.__dict__[key] = extra[key]
-        return rv
-
-
 # Logging
 def logger_init():
     """Initialize logger instance."""

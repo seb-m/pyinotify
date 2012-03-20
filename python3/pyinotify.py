@@ -1588,6 +1588,10 @@ class ExcludeFilter:
           ^/etc/rc.*
           ^/etc/hostname
 
+        Note: it is not possible to exclude a file if its encapsulating
+              directory is itself watched. See this issue for more details
+              https://github.com/seb-m/pyinotify/issues/31
+
         @param arg_lst: is either a list of patterns or a filename from which
                         patterns will be loaded.
         @type arg_lst: list of str or str

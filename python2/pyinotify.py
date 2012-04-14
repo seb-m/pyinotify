@@ -220,6 +220,14 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
             not hasattr(self._libc, 'inotify_add_watch') or
             not hasattr(self._libc, 'inotify_rm_watch')):
             return False
+
+        self._libc.inotify_init.argtypes = []
+        self._libc.inotify_init.restype = ctypes.c_int
+        self._libc.inotify_add_watch.argtypes = [ctypes.c_int, ctypes.c_char_p, 
+                                                 ctypes.c_uint32]
+        self._libc.inotify_add_watch.restype = ctypes.c_int
+        self._libc.inotify_rm_watch.argtypes = [ctypes.c_int, ctypes.c_int]
+        self._libc.inotify_rm_watch.restype = ctypes.c_int
         return True
 
     def _get_errno(self):

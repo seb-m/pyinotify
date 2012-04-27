@@ -6,4 +6,4 @@ python:
   - "2.7"
   - "3.2"
   - "pypy"
-script:
+script: /bin/true

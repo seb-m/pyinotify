@@ -26,7 +26,7 @@
     # To install pip follow http://www.pip-installer.org/en/latest/installing.html
     # easy_install is bundled with setuptools
     $ sudo easy_install pyinotify
-    $ sudo pip pyinotify
+    $ sudo pip install pyinotify
 
 
 ## Watch a directory

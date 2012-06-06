@@ -1852,11 +1852,6 @@ class WatchManager:
             for apath in self.__glob(npath, do_glob):
                 # recursively list subdirs according to rec param
                 for rpath in self.__walk_rec(apath, rec):
-                    if self.get_wd(rpath) is not None:
-                        # We decide to ignore paths already inserted into
-                        # the watch manager. Need to be removed with rm_watch()
-                        # first. Or simply call update_watch() to update it.
-                        continue
                     if not exclude_filter(rpath):
                         wd = ret_[rpath] = self.__add_watch(rpath, mask,
                                                             proc_fun,

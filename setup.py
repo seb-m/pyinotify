@@ -8,7 +8,7 @@ compile_ext_mod = False
 # import statements
 import os
 import sys
-from distutils.core import Extension
+import distutils.extension
 from distutils.util import get_platform
 try:
     # First try to load most advanced setuptools setup.
@@ -89,7 +89,8 @@ if compile_ext_mod or should_compile_ext_mod():
     # sources for ext module
     ext_mod_src = ['common/inotify_syscalls.c']
     # dst for ext module
-    ext_mod.append(Extension('inotify_syscalls', ext_mod_src))
+    ext_mod.append(distutils.extension.Extension('inotify_syscalls', 
+                                                 ext_mod_src))
 
 
 setup(

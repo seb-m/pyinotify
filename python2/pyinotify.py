@@ -396,6 +396,10 @@ class EventsCodes:
                           IN_ONLYDIR we can make sure that we don't watch
                           the target of symlinks.
     @type IN_DONT_FOLLOW: int
+    @cvar IN_EXCL_UNLINK: Events are not generated for children after they
+                          have been unlinked from the watched directory.
+                          (new in kernel 2.6.36).
+    @type IN_EXCL_UNLINK: int
     @cvar IN_MASK_ADD: add to the mask of an already existing watch (new
                        in kernel 2.6.14).
     @type IN_MASK_ADD: int
@@ -434,6 +438,7 @@ class EventsCodes:
         'IN_ONLYDIR'       : 0x01000000,  # only watch the path if it is a
                                           # directory
         'IN_DONT_FOLLOW'   : 0x02000000,  # don't follow a symlink
+        'IN_EXCL_UNLINK'   : 0x04000000,  # exclude events on unlinked objects
         'IN_MASK_ADD'      : 0x20000000,  # add to the mask of an already
                                           # existing watch
         'IN_ISDIR'         : 0x40000000,  # event occurred against dir

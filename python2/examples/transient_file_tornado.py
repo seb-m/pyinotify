@@ -14,6 +14,7 @@ class EventHandler(pyinotify.ProcessEvent):
 ioloop = IOLoop.instance()
 notifier = pyinotify.TornadoAsyncNotifier(wm, ioloop)
 #daemon.pids['nginx']
-wdd = wm.watch_transient_file('/tmp/test_file', pyinotify.IN_MODIFY, EventHandler)
+wdd = wm.watch_transient_file('/tmp/test_file', pyinotify.IN_MODIFY, 
+                              EventHandler)
 
 ioloop.start()

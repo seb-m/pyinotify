@@ -1539,20 +1539,26 @@ class AsyncNotifier(asyncore.file_dispatcher, Notifier):
         self.read_events()
         self.process_events()
 
+
 class TornadoAsyncNotifier(Notifier):
     """
-    Tornado ioloop adapter
+    Tornado ioloop adapter.
     """
-    def __init__(self, watch_manager, ioloop, default_proc_fun=None, read_freq=0,
-                 threshold=0, timeout=None, channel_map=None):
+    def __init__(self, watch_manager, ioloop, default_proc_fun=None, 
+                 read_freq=0, threshold=0, timeout=None, channel_map=None):
+        """
+        See example transient_file_tornado.py
+
+        @param ioloop: Tornado's IO loop.
+        @type ioloop: tornado.ioloop.IOLoop instance.
+        """
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
                           threshold, timeout)
         ioloop.add_handler(os.dup(self._fd), self.handle_read, ioloop.READ)
-    def handle_read(self,*args,**kwargs):
+
+    def handle_read(self, *args, **kwargs):
         """
-        When asyncore tells us we can read from the fd, we proceed processing
-        events. This method can be overridden for handling a notification
-        differently.
+        See comment in AsyncNotifier.
 
         """
         self.read_events()

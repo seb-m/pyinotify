@@ -1552,8 +1552,7 @@ class TornadoAsyncNotifier(Notifier):
         Note that if later you must call ioloop.close() be sure to let the 
         default parameter to all_fds=False.
 
-        See example transient_file_tornado.py for an example using this 
-        notifier.
+        See example tornado_notifier.py for an example using this notifier.
 
         @param ioloop: Tornado's IO loop.
         @type ioloop: tornado.ioloop.IOLoop instance.

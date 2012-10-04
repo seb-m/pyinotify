@@ -1540,18 +1540,28 @@ class TornadoAsyncNotifier(Notifier):
     Tornado ioloop adapter.
 
     """
-    def __init__(self, watch_manager, ioloop, default_proc_fun=None,
-                 read_freq=0, threshold=0, timeout=None, channel_map=None):
+    def __init__(self, watch_manager, ioloop, callback=None,
+                 default_proc_fun=None, read_freq=0, threshold=0, timeout=None,
+                 channel_map=None):
         """
-        See example transient_file_tornado.py
+        Note that if later you must call ioloop.close() be sure to let the
+        default parameter to all_fds=False.
+
+        See example transient_file_tornado.py for an example using this 
+        notifier.
 
         @param ioloop: Tornado's IO loop.
         @type ioloop: tornado.ioloop.IOLoop instance.
-
+        @param callback: Functor called at the end of each call to handle_read
+                         (IOLoop's read handler). Expects to receive the
+                         notifier object (self) as single parameter.
+        @type callback: callable object or function
         """
+        self.io_loop = ioloop
+        self.handle_read_callback = callback
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
                           threshold, timeout)
-        ioloop.add_handler(os.dup(self._fd), self.handle_read, ioloop.READ)
+        ioloop.add_handler(self._fd, self.handle_read, ioloop.READ)
 
     def handle_read(self, *args, **kwargs):
         """
@@ -1560,6 +1570,8 @@ class TornadoAsyncNotifier(Notifier):
         """
         self.read_events()
         self.process_events()
+        if self.handle_read_callback is not None:
+            self.handle_read_callback(self)
 
 
 class Watch:

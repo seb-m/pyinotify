@@ -95,7 +95,7 @@ if compile_ext_mod or should_compile_ext_mod():
 
 setup(
     name='pyinotify',
-    version='0.9.3',
+    version='0.9.4',
     description='Linux filesystem events monitoring',
     author='Sebastien Martini',
     author_email='seb@dbzteam.org',

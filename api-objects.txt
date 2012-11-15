@@ -6,7 +6,6 @@ pyinotify.max_queued_events	pyinotify-module.html#max_queued_events
 pyinotify.IN_ONESHOT	pyinotify-module.html#IN_ONESHOT
 pyinotify.COMPATIBILITY_MODE	pyinotify-module.html#COMPATIBILITY_MODE
 pyinotify.IN_DELETE	pyinotify-module.html#IN_DELETE
-pyinotify.inotify_syscalls	pyinotify-module.html#inotify_syscalls
 pyinotify.IN_CLOSE_WRITE	pyinotify-module.html#IN_CLOSE_WRITE
 pyinotify.name	pyinotify-module.html#name
 pyinotify.logger_init	pyinotify-module.html#logger_init
@@ -16,6 +15,7 @@ pyinotify.valc	pyinotify-module.html#valc
 pyinotify.IN_ONLYDIR	pyinotify-module.html#IN_ONLYDIR
 pyinotify.attrname	pyinotify-module.html#attrname
 pyinotify.IN_ISDIR	pyinotify-module.html#IN_ISDIR
+pyinotify.IN_EXCL_UNLINK	pyinotify-module.html#IN_EXCL_UNLINK
 pyinotify.log	pyinotify-module.html#log
 pyinotify.val	pyinotify-module.html#val
 pyinotify.max_user_watches	pyinotify-module.html#max_user_watches
@@ -36,10 +36,11 @@ pyinotify.IN_ATTRIB	pyinotify-module.html#IN_ATTRIB
 pyinotify.IN_ACCESS	pyinotify-module.html#IN_ACCESS
 pyinotify.flagc	pyinotify-module.html#flagc
 pyinotify.IN_MASK_ADD	pyinotify-module.html#IN_MASK_ADD
+pyinotify.inotify_syscalls	pyinotify-module.html#inotify_syscalls
 pyinotify.IN_DELETE_SELF	pyinotify-module.html#IN_DELETE_SELF
 pyinotify.AsyncNotifier	pyinotify.AsyncNotifier-class.html
-pyinotify.Notifier.read_events	pyinotify.Notifier-class.html#read_events
 pyinotify.Notifier.proc_fun	pyinotify.Notifier-class.html#proc_fun
+pyinotify.Notifier.read_events	pyinotify.Notifier-class.html#read_events
 pyinotify.Notifier._sleep	pyinotify.Notifier-class.html#_sleep
 pyinotify.AsyncNotifier.__init__	pyinotify.AsyncNotifier-class.html#__init__
 pyinotify.Notifier.process_events	pyinotify.Notifier-class.html#process_events
@@ -97,6 +98,7 @@ pyinotify.EventsCodes.IN_ISDIR	pyinotify.EventsCodes-class.html#IN_ISDIR
 pyinotify.EventsCodes.IN_DELETE_SELF	pyinotify.EventsCodes-class.html#IN_DELETE_SELF
 pyinotify.EventsCodes.ALL_EVENTS	pyinotify.EventsCodes-class.html#ALL_EVENTS
 pyinotify.EventsCodes.EVENT_FLAGS	pyinotify.EventsCodes-class.html#EVENT_FLAGS
+pyinotify.EventsCodes.IN_EXCL_UNLINK	pyinotify.EventsCodes-class.html#IN_EXCL_UNLINK
 pyinotify.EventsCodes.IN_OPEN	pyinotify.EventsCodes-class.html#IN_OPEN
 pyinotify.ExcludeFilter	pyinotify.ExcludeFilter-class.html
 pyinotify.ExcludeFilter._match	pyinotify.ExcludeFilter-class.html#_match
@@ -186,6 +188,18 @@ pyinotify.ThreadedNotifier.run	pyinotify.ThreadedNotifier-class.html#run
 pyinotify.ThreadedNotifier.stop	pyinotify.ThreadedNotifier-class.html#stop
 pyinotify.Notifier.append_event	pyinotify.Notifier-class.html#append_event
 pyinotify.ThreadedNotifier.loop	pyinotify.ThreadedNotifier-class.html#loop
+pyinotify.TornadoAsyncNotifier	pyinotify.TornadoAsyncNotifier-class.html
+pyinotify.Notifier.read_events	pyinotify.Notifier-class.html#read_events
+pyinotify.TornadoAsyncNotifier.handle_read	pyinotify.TornadoAsyncNotifier-class.html#handle_read
+pyinotify.Notifier.check_events	pyinotify.Notifier-class.html#check_events
+pyinotify.Notifier.proc_fun	pyinotify.Notifier-class.html#proc_fun
+pyinotify.Notifier._sleep	pyinotify.Notifier-class.html#_sleep
+pyinotify.TornadoAsyncNotifier.__init__	pyinotify.TornadoAsyncNotifier-class.html#__init__
+pyinotify.Notifier.process_events	pyinotify.Notifier-class.html#process_events
+pyinotify.Notifier.coalesce_events	pyinotify.Notifier-class.html#coalesce_events
+pyinotify.Notifier.stop	pyinotify.Notifier-class.html#stop
+pyinotify.Notifier.append_event	pyinotify.Notifier-class.html#append_event
+pyinotify.Notifier.loop	pyinotify.Notifier-class.html#loop
 pyinotify.UnsupportedPythonVersionError	pyinotify.UnsupportedPythonVersionError-class.html
 pyinotify.UnsupportedPythonVersionError.__init__	pyinotify.UnsupportedPythonVersionError-class.html#__init__
 pyinotify.Watch	pyinotify.Watch-class.html
@@ -253,8 +267,6 @@ pyinotify.INotifyWrapper.str_errno	pyinotify.INotifyWrapper-class.html#str_errno
 pyinotify._ProcessEvent	pyinotify._ProcessEvent-class.html
 pyinotify._ProcessEvent.__repr__	pyinotify._ProcessEvent-class.html#__repr__
 pyinotify._ProcessEvent.__call__	pyinotify._ProcessEvent-class.html#__call__
-pyinotify._PyinotifyLogger	pyinotify._PyinotifyLogger-class.html
-pyinotify._PyinotifyLogger.makeRecord	pyinotify._PyinotifyLogger-class.html#makeRecord
 pyinotify._RawEvent	pyinotify._RawEvent-class.html
 pyinotify._RawEvent.__str__	pyinotify._RawEvent-class.html#__str__
 pyinotify._Event.__repr__	pyinotify._Event-class.html#__repr__
@@ -271,6 +283,3 @@ pyinotify._ProcessEvent.__call__	pyinotify._ProcessEvent-class.html#__call__
 pyinotify._SysProcessEvent.process_default	pyinotify._SysProcessEvent-class.html#process_default
 pyinotify._SysProcessEvent.process_IN_CREATE	pyinotify._SysProcessEvent-class.html#process_IN_CREATE
 pyinotify._ProcessEvent.__repr__	pyinotify._ProcessEvent-class.html#__repr__
-pyinotify._UnicodeLogRecord	pyinotify._UnicodeLogRecord-class.html
-pyinotify._UnicodeLogRecord.getMessage	pyinotify._UnicodeLogRecord-class.html#getMessage
-pyinotify._UnicodeLogRecord.__init__	pyinotify._UnicodeLogRecord-class.html#__init__

@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pyinotify._UnicodeLogRecord</title>
+  <title>pyinotify.TornadoAsyncNotifier</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
-        Class&nbsp;_UnicodeLogRecord
+        Class&nbsp;TornadoAsyncNotifier
       </span>
     </td>
     <td>
@@ -48,26 +48,35 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="pyinotify._UnicodeLogRecord-class.html"
+            >]&nbsp;|&nbsp;<a href="pyinotify.TornadoAsyncNotifier-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class _UnicodeLogRecord</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#_UnicodeLogRecord">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class TornadoAsyncNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#TornadoAsyncNotifier">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_33" name="uml_class_diagram_for_pyinotif_33">
-<area shape="rect" id="node94" href="javascript:void(0);" title="str(x)" alt="" coords="191,39,301,57"/>
-<area shape="rect" id="node1" href="javascript:void(0);" title="A LogRecord instance represents an event being logged." alt="" coords="179,6,312,63"/>
-<area shape="rect" id="node93" href="pyinotify._UnicodeLogRecord-class.html#__init__" title="Initialize a logging record with interesting information." alt="" coords="17,116,476,135"/>
-<area shape="rect" id="node93" href="pyinotify._UnicodeLogRecord-class.html#getMessage" title="Return the message for this LogRecord." alt="" coords="17,135,476,153"/>
-<area shape="rect" id="node2" href="pyinotify._UnicodeLogRecord-class.html" title="pyinotify._UnicodeLogRecord" alt="" coords="5,83,488,159"/>
+<center>  <map id="uml_class_diagram_for_pyinotif_20" name="uml_class_diagram_for_pyinotif_20">
+<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="277,39,587,57"/>
+<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="277,57,587,76"/>
+<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="277,76,587,95"/>
+<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="277,95,587,113"/>
+<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="277,113,587,132"/>
+<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="277,132,587,151"/>
+<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="277,151,587,169"/>
+<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="277,169,587,188"/>
+<area shape="rect" id="node1" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="265,6,599,194"/>
+<area shape="rect" id="node58" href="pyinotify.TornadoAsyncNotifier-class.html#__init__" title="Note that if later you must call ioloop.close() be sure to let the default &#160;parameter to all_fds=False." alt="" coords="17,247,845,265"/>
+<area shape="rect" id="node58" href="pyinotify.TornadoAsyncNotifier-class.html#handle_read" title="See comment in AsyncNotifier." alt="" coords="17,265,845,284"/>
+<area shape="rect" id="node2" href="pyinotify.TornadoAsyncNotifier-class.html" title="Tornado ioloop adapter." alt="" coords="5,214,856,290"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_33.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_33" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_pyinotif_20.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_20" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
+<p>Tornado ioloop adapter.</p>
+
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -91,18 +100,19 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify._UnicodeLogRecord-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">level</span>,
-        <span class="summary-sig-arg">pathname</span>,
-        <span class="summary-sig-arg">lineno</span>,
-        <span class="summary-sig-arg">msg</span>,
-        <span class="summary-sig-arg">args</span>,
-        <span class="summary-sig-arg">exc_info</span>,
-        <span class="summary-sig-arg">func</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Initialize a logging record with interesting information.</td>
+          <td><span class="summary-sig"><a href="pyinotify.TornadoAsyncNotifier-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">watch_manager</span>,
+        <span class="summary-sig-arg">ioloop</span>,
+        <span class="summary-sig-arg">callback</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">default_proc_fun</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">read_freq</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">threshold</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">timeout</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">channel_map</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Note that if later you must call ioloop.close() be sure to let the 
+      default parameter to all_fds=False.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#_UnicodeLogRecord.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#TornadoAsyncNotifier.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -116,10 +126,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify._UnicodeLogRecord-class.html#getMessage" class="summary-sig-name">getMessage</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Return the message for this LogRecord.</td>
+          <td><span class="summary-sig"><a name="handle_read"></a><span class="summary-sig-name">handle_read</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      See comment in AsyncNotifier.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#_UnicodeLogRecord.getMessage">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#TornadoAsyncNotifier.handle_read">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -129,9 +141,19 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code>logging.LogRecord</code></b>:
-      <code>__str__</code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b>:
+      <code><a href="pyinotify.Notifier-class.html#append_event">append_event</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#check_events">check_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#coalesce_events">coalesce_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#loop">loop</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#proc_fun">proc_fun</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#process_events">process_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#read_events">read_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#stop">stop</a></code>
       </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b> (private):
+      <code><a href="pyinotify.Notifier-class.html#_sleep" onclick="show_private();">_sleep</a></code>
+      </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
       <code>__format__</code>,
@@ -143,6 +165,7 @@
       <code>__repr__</code>,
       <code>__setattr__</code>,
       <code>__sizeof__</code>,
+      <code>__str__</code>,
       <code>__subclasshook__</code>
       </p>
     </td>
@@ -199,51 +222,35 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">name</span>,
-        <span class="sig-arg">level</span>,
-        <span class="sig-arg">pathname</span>,
-        <span class="sig-arg">lineno</span>,
-        <span class="sig-arg">msg</span>,
-        <span class="sig-arg">args</span>,
-        <span class="sig-arg">exc_info</span>,
-        <span class="sig-arg">func</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">watch_manager</span>,
+        <span class="sig-arg">ioloop</span>,
+        <span class="sig-arg">callback</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">default_proc_fun</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">read_freq</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">threshold</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">timeout</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">channel_map</span>=<span class="sig-default">None</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="pyinotify-pysrc.html#_UnicodeLogRecord.__init__">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="pyinotify-pysrc.html#TornadoAsyncNotifier.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Initialize a logging record with interesting information.</p>
+  <p>Note that if later you must call ioloop.close() be sure to let the 
+  default parameter to all_fds=False.</p>
+  <p>See example tornado_notifier.py for an example using this 
+  notifier.</p>
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>ioloop</code></strong> (tornado.ioloop.IOLoop instance.) - Tornado's IO loop.</li>
+        <li><strong class="pname"><code>callback</code></strong> (callable object or function) - Functor called at the end of each call to handle_read (IOLoop's 
+          read handler). Expects to receive the notifier object (self) as 
+          single parameter.</li>
+    </ul></dd>
     <dt>Overrides:
         object.__init__
-        <dd><em class="note">(inherited documentation)</em></dd>
-    </dt>
-  </dl>
-</td></tr></table>
-</div>
-<a name="getMessage"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">getMessage</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="pyinotify-pysrc.html#_UnicodeLogRecord.getMessage">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Return the message for this LogRecord.</p>
-  <p>Return the message for this LogRecord after merging any user-supplied 
-  arguments with the message.</p>
-  <dl class="fields">
-    <dt>Overrides:
-        logging.LogRecord.getMessage
-        <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>
 </td></tr></table>
@@ -275,7 +282,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Apr 19 11:50:59 2011
+    Generated by Epydoc 3.0.1 on Thu Nov 15 19:31:57 2012
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

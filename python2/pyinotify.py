@@ -68,13 +68,18 @@ from datetime import datetime, timedelta
 import time
 import re
 import asyncore
-import glob
 import subprocess
 
 try:
     from functools import reduce
 except ImportError:
     pass  # Will fail on Python 2.4 which has reduce() builtin anyway.
+
+try:
+    from glob import iglob as glob
+except ImportError:
+    # Python 2.4 does not have glob.iglob().
+    from glob import glob as glob
 
 try:
     import ctypes
@@ -1830,7 +1835,7 @@ class WatchManager:
 
     def __glob(self, path, do_glob):
         if do_glob:
-            return glob.iglob(path)
+            return glob(path)
         else:
             return [path]
 

@@ -2258,6 +2258,9 @@ def command_line():
     parser.add_option("-a", "--auto_add", action="store_true",
                       dest="auto_add",
                       help="Automatically add watches on new directories")
+    parser.add_option("-g", "--glob", action="store_true",
+                      dest="glob",
+                      help="Treat paths as globs")
     parser.add_option("-e", "--events-list", metavar="EVENT[,...]",
                       dest="events_list",
                       help=("A comma-separated list of events to watch for - "
@@ -2333,7 +2336,7 @@ def command_line():
 
     log.debug('Start monitoring %s, (press c^c to halt pyinotify)' % path)
 
-    wm.add_watch(path, mask, rec=options.recursive, auto_add=options.auto_add)
+    wm.add_watch(path, mask, rec=options.recursive, auto_add=options.auto_add, do_glob=options.glob)
     # Loop forever (until sigint signal get caught)
     notifier.loop(callback=cb_fun)
 

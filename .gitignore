@@ -13,3 +13,4 @@ a.out
 *.out
 docstrings/
 build/
+.tox

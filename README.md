@@ -4,6 +4,8 @@
 * Project URL      : [http://github.com/seb-m/pyinotify](http://github.com/seb-m/pyinotify)
 * Project Wiki     : [http://github.com/seb-m/pyinotify/wiki](http://github.com/seb-m/pyinotify/wiki)
 * API Documentation: [http://seb-m.github.com/pyinotify](http://seb-m.github.com/pyinotify)
+* Test Status      : [![tests status](https://secure.travis-ci.org/seb-m/pyinotify.png?branch=master)](https://travis-ci.org/seb-m/pyinotify)
+* Coverage Status  : [![Coverage Status](https://coveralls.io/repos/seb-m/pyinotify/badge.png?branch=master)](https://coveralls.io/r/seb-m/pyinotify)
 
 
 ## Dependencies

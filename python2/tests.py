@@ -26,7 +26,7 @@ class TestPyinotifyEvents(unittest.TestCase):
 
     def _print_events(self):
         for e in event_holder:
-            print e.pathname, e.maskname
+            print("path: %s mask: %s" % ( e.pathname, e.maskname ))
 
     def _get_events(self):
         self.notifier.read_events()

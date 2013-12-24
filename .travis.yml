@@ -1,14 +1,13 @@
 language: python
 python:
-  - "2.4"
-  - "2.5"
   - "2.6"
   - "2.7"
   - "3.2"
+  - "3.3"
   - "pypy"
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2.7 || $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip install -q coveralls; fi
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 || $TRAVIS_PYTHON_VERSION == 3.3 ]]; then coverage run setup.py test; else python setup.py test; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then coverage run setup.py test; elif [[ $TRAVIS_PYTHON_VERSION -lt 3.0 ]]; then python setup.py test; elif  [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; coverage setup.py nosetests; else; python setup.py nosetests; fi
 after_success:
   - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ||  $TRAVIS_PYTHON_VERSION == 3.3 ]]; then coveralls; fi

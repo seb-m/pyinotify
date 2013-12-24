@@ -13,3 +13,7 @@ a.out
 *.out
 docstrings/
 build/
+.tox
+*/pyinotify.egg-info/
+.coverage
+htmlcov/

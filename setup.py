@@ -55,8 +55,10 @@ classif = [
 # Select branch
 if sys.version_info >= (3, 0):
     package_dir = {'': 'python3'}
+    extras = {}
 else:
     package_dir = {'': 'python2'}
+    extras = { 'test_suite' : 'python2.tests' }
 
 
 def should_compile_ext_mod():
@@ -107,4 +109,5 @@ setup(
     ext_modules=ext_mod,
     py_modules=['pyinotify'],
     package_dir=package_dir,
+    **extras
     )

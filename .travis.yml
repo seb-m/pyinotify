@@ -8,6 +8,6 @@ python:
 install:
   - if [[ $TRAVIS_PYTHON_VERSION == 2.7 || $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip install -q coveralls; fi
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 || $TRAVIS_PYTHON_VERSION == 3.3 ]]; then coverage setup.py nosetests; else python setup.py nosetests; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 || $TRAVIS_PYTHON_VERSION == 3.3 ]]; then coverage run setup.py nosetests; else python setup.py nosetests; fi
 after_success:
   - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ||  $TRAVIS_PYTHON_VERSION == 3.3 ]]; then coveralls; fi

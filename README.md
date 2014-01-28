@@ -8,7 +8,10 @@
 
 ## Dependencies
 
-* Linux ≥ 2.6.13
+* Linux ≥ 2.6.13 
+or
+* FreeBSD with the inotify library installed from the ports collection
+
 * Python ≥ 2.4 (including Python 3.x)
 
 

@@ -26,8 +26,11 @@ if sys.version_info < (2, 4):
 
 # check linux platform
 if not platform.startswith('linux'):
-    sys.stderr.write("inotify is not available on %s\n" % platform)
-    sys.exit(1)
+    if platform.startswith('freebsd'):
+       sys.stderr.write("On FreeBSD you will need to install the libinotify from the ports collection for this to work\n")
+    else:
+       sys.stderr.write("inotify is not available on %s\n" % platform)
+       sys.exit(1)
 
 
 classif = [
@@ -67,8 +70,12 @@ def should_compile_ext_mod():
         return True
 
     libc_name = None
+    try_libname = 'c'
+    if platform.startswith('freebsd'):
+        try_libcname = 'inotify'
+
     try:
-        libc_name = ctypes.util.find_library('c')
+        libc_name = ctypes.util.find_library(try_libcname)
     except:
         pass  # Will attemp to load it with None anyway.
 

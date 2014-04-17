@@ -772,6 +772,11 @@ class _SysProcessEvent(_ProcessEvent):
             # to provide as additional information to the IN_MOVED_TO event
             # the original pathname of the moved file/directory.
             to_append['src_pathname'] = mv_[0]
+            # When a directory is moved, we must update the path in all
+            # watches within            
+            for watch__ in self._watch_manager.watches.values():
+                if watch__.path.startswith(mv_[0]):
+                    watch__.path=watch__.path.replace(mv_[0],dst_path,1)
         elif (raw_event.mask & IN_ISDIR and watch_.auto_add and
               not watch_.exclude_filter(dst_path)):
             # We got a diretory that's "moved in" from an unknown source and

@@ -228,7 +228,7 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
 
         self._libc.inotify_init.argtypes = []
         self._libc.inotify_init.restype = ctypes.c_int
-        self._libc.inotify_add_watch.argtypes = [ctypes.c_int, ctypes.c_char_p, 
+        self._libc.inotify_add_watch.argtypes = [ctypes.c_int, ctypes.c_char_p,
                                                  ctypes.c_uint32]
         self._libc.inotify_add_watch.restype = ctypes.c_int
         self._libc.inotify_rm_watch.argtypes = [ctypes.c_int, ctypes.c_int]
@@ -735,23 +735,28 @@ class _SysProcessEvent(_ProcessEvent):
                 # Since the directory d2 is new, then everything inside it must
                 # also be new.
                 created_dir_wd = addw_ret.get(created_dir)
-                if (created_dir_wd is not None) and (created_dir_wd > 0):
-                    for name in os.listdir(created_dir):
-                        inner = os.path.join(created_dir, name)
-                        if self._watch_manager.get_wd(inner) is not None:
-                            continue
-                        # Generate (simulate) creation events for sub-
-                        # directories and files.
-                        if os.path.isfile(inner):
-                            # symlinks are handled as files.
-                            flags = IN_CREATE
-                        elif os.path.isdir(inner):
-                            flags = IN_CREATE | IN_ISDIR
-                        else:
-                            # This path should not be taken.
-                            continue
-                        rawevent = _RawEvent(created_dir_wd, flags, 0, name)
-                        self._notifier.append_event(rawevent)
+                if ((created_dir_wd is not None) and (created_dir_wd > 0) and
+                    os.path.isdir(created_dir)):
+                    try:
+                        for name in os.listdir(created_dir):
+                            inner = os.path.join(created_dir, name)
+                            if self._watch_manager.get_wd(inner) is not None:
+                                continue
+                            # Generate (simulate) creation events for sub-
+                            # directories and files.
+                            if os.path.isfile(inner):
+                                # symlinks are handled as files.
+                                flags = IN_CREATE
+                            elif os.path.isdir(inner):
+                                flags = IN_CREATE | IN_ISDIR
+                            else:
+                                # This path should not be taken.
+                                continue
+                            rawevent = _RawEvent(created_dir_wd, flags, 0, name)
+                            self._notifier.append_event(rawevent)
+                    except OSError, err:
+                        msg = "process_IN_CREATE, invalid directory %s: %s"
+                        log.debug(msg % (created_dir, str(err)))
         return self.process_default(raw_event)
 
     def process_IN_MOVED_FROM(self, raw_event):
@@ -1550,23 +1555,23 @@ class TornadoAsyncNotifier(Notifier):
     Tornado ioloop adapter.
 
     """
-    def __init__(self, watch_manager, ioloop, callback=None, 
-                 default_proc_fun=None, read_freq=0, threshold=0, timeout=None, 
+    def __init__(self, watch_manager, ioloop, callback=None,
+                 default_proc_fun=None, read_freq=0, threshold=0, timeout=None,
                  channel_map=None):
         """
-        Note that if later you must call ioloop.close() be sure to let the 
+        Note that if later you must call ioloop.close() be sure to let the
         default parameter to all_fds=False.
 
         See example tornado_notifier.py for an example using this notifier.
 
         @param ioloop: Tornado's IO loop.
         @type ioloop: tornado.ioloop.IOLoop instance.
-        @param callback: Functor called at the end of each call to handle_read 
-                         (IOLoop's read handler). Expects to receive the 
+        @param callback: Functor called at the end of each call to handle_read
+                         (IOLoop's read handler). Expects to receive the
                          notifier object (self) as single parameter.
         @type callback: callable object or function
         """
-        self.io_loop = ioloop 
+        self.io_loop = ioloop
         self.handle_read_callback = callback
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
                           threshold, timeout)

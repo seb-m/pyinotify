@@ -725,23 +725,28 @@ class _SysProcessEvent(_ProcessEvent):
                 # Since the directory d2 is new, then everything inside it must
                 # also be new.
                 created_dir_wd = addw_ret.get(created_dir)
-                if (created_dir_wd is not None) and (created_dir_wd > 0):
-                    for name in os.listdir(created_dir):
-                        inner = os.path.join(created_dir, name)
-                        if self._watch_manager.get_wd(inner) is not None:
-                            continue
-                        # Generate (simulate) creation events for sub-
-                        # directories and files.
-                        if os.path.isfile(inner):
-                            # symlinks are handled as files.
-                            flags = IN_CREATE
-                        elif os.path.isdir(inner):
-                            flags = IN_CREATE | IN_ISDIR
-                        else:
-                            # This path should not be taken.
-                            continue
-                        rawevent = _RawEvent(created_dir_wd, flags, 0, name)
-                        self._notifier.append_event(rawevent)
+                if ((created_dir_wd is not None) and (created_dir_wd > 0) and
+                    os.path.isdir(created_dir)):
+                    try:
+                        for name in os.listdir(created_dir):
+                            inner = os.path.join(created_dir, name)
+                            if self._watch_manager.get_wd(inner) is not None:
+                                continue
+                            # Generate (simulate) creation events for sub-
+                            # directories and files.
+                            if os.path.isfile(inner):
+                                # symlinks are handled as files.
+                                flags = IN_CREATE
+                            elif os.path.isdir(inner):
+                                flags = IN_CREATE | IN_ISDIR
+                            else:
+                                # This path should not be taken.
+                                continue
+                            rawevent = _RawEvent(created_dir_wd, flags, 0, name)
+                            self._notifier.append_event(rawevent)
+                    except OSError as err:
+                        msg = "process_IN_CREATE, invalid directory: %s"
+                        log.debug(msg % str(err))
         return self.process_default(raw_event)
 
     def process_IN_MOVED_FROM(self, raw_event):

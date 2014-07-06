@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # pyinotify.py - python interface to inotify
-# Copyright (c) 2005-2011 Sebastien Martini <seb@dbzteam.org>
+# Copyright (c) 2005-2014 Sebastien Martini <seb@dbzteam.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -310,22 +310,26 @@ class SysCtlINotify:
 
     def get_val(self):
         """
-        Gets attribute's value.
+        Gets attribute's value. Raises OSError if the operation failed.
 
         @return: stored value.
         @rtype: int
         """
         oldv = ctypes.c_int(0)
         size = ctypes.c_int(ctypes.sizeof(oldv))
-        self._inotify_wrapper._sysctl(self._attr, 3,
-                                      ctypes.c_voidp(ctypes.addressof(oldv)),
-                                      ctypes.addressof(size),
-                                      None, 0)
+        sysctl = self._inotify_wrapper._sysctl
+        res = sysctl(self._attr, 3,
+                     ctypes.c_voidp(ctypes.addressof(oldv)),
+                     ctypes.addressof(size),
+                     None, 0)
+        if res == -1:
+            raise OSError(self._inotify_wrapper.get_errno(),
+                          self._inotify_wrapper.str_errno())
         return oldv.value
 
     def set_val(self, nval):
         """
-        Sets new attribute's value.
+        Sets new attribute's value. Raises OSError if the operation failed.
 
         @param nval: replaces current value by nval.
         @type nval: int
@@ -334,11 +338,15 @@ class SysCtlINotify:
         sizeo = ctypes.c_int(ctypes.sizeof(oldv))
         newv = ctypes.c_int(nval)
         sizen = ctypes.c_int(ctypes.sizeof(newv))
-        self._inotify_wrapper._sysctl(self._attr, 3,
-                                      ctypes.c_voidp(ctypes.addressof(oldv)),
-                                      ctypes.addressof(sizeo),
-                                      ctypes.c_voidp(ctypes.addressof(newv)),
-                                      ctypes.addressof(sizen))
+        sysctl = self._inotify_wrapper._sysctl
+        res = sysctl(self._attr, 3,
+                     ctypes.c_voidp(ctypes.addressof(oldv)),
+                     ctypes.addressof(sizeo),
+                     ctypes.c_voidp(ctypes.addressof(newv)),
+                     sizen)
+        if res == -1:
+            raise OSError(self._inotify_wrapper.get_errno(),
+                          self._inotify_wrapper.str_errno())
 
     value = property(get_val, set_val)
 

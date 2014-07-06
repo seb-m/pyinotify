@@ -25,7 +25,7 @@ if sys.version_info < (2, 4):
     sys.exit(1)
 
 # check linux platform
-if not platform.startswith('linux'):
+if not platform.startswith('linux') and not platform.startswith('freebsd'):
     sys.stderr.write("inotify is not available on %s\n" % platform)
     sys.exit(1)
 
@@ -66,9 +66,13 @@ def should_compile_ext_mod():
     except:
         return True
 
+    try_libc_name = 'c'
+    if platform.startswith('freebsd'):
+        try_libc_name = 'inotify'
+
     libc_name = None
     try:
-        libc_name = ctypes.util.find_library('c')
+        libc_name = ctypes.util.find_library(try_libc_name)
     except:
         pass  # Will attemp to load it with None anyway.
 

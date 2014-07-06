@@ -1289,6 +1289,9 @@ class Notifier:
         """
         while self._eventq:
             raw_event = self._eventq.popleft()  # pop next event
+            if self._watch_manager.ignore_events:
+                log.debug("Event ignored: %s" % repr(raw_event))
+                continue
             watch_ = self._watch_manager.get_watch(raw_event.wd)
             if (watch_ is None) and not (raw_event.mask & IN_Q_OVERFLOW):
                 if not (raw_event.mask & IN_IGNORED):
@@ -1737,6 +1740,7 @@ class WatchManager:
                                filter for every call to add_watch.
         @type exclude_filter: callable object
         """
+        self._ignore_events = False
         self._exclude_filter = exclude_filter
         self._wmd = {}  # watch dict key: watch descriptor, value: watch
 
@@ -2164,6 +2168,15 @@ class WatchManager:
                               rec=False,
                               auto_add=False, do_glob=False,
                               exclude_filter=lambda path: False)
+
+    def get_ignore_events(self):
+        return self._ignore_events
+
+    def set_ignore_events(self, nval):
+        self._ignore_events = nval
+
+    ignore_events = property(get_ignore_events, set_ignore_events, 
+                             "Make watch manager ignoring new events.")
 
 
 class RawOutputFormat:

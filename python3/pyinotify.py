@@ -56,6 +56,7 @@ if sys.version_info < (3, 0):
 # Import directives
 import threading
 import os
+import platform
 import select
 import struct
 import fcntl
@@ -201,8 +202,13 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
     def init(self):
         assert ctypes
         libc_name = None
+
+        try_libname = 'c'
+        if platform.system().startswith('FreeBSD'):
+            try_libcname = 'inotify'
+
         try:
-            libc_name = ctypes.util.find_library('c')
+            libc_name = ctypes.util.find_library(try_libcname)
         except (OSError, IOError):
             pass  # Will attemp to load it with None anyway.
 

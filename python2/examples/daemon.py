@@ -35,14 +35,18 @@ on_loop_func = functools.partial(on_loop, counter=Counter())
 
 # Notifier instance spawns a new process when daemonize is set to True. This
 # child process' PID is written to /tmp/pyinotify.pid (it also automatically
-# deletes it when it exits normally). If no custom pid_file is provided it
-# would write it more traditionally under /var/run/. Note that in both cases
-# the caller must ensure the pid file doesn't exist when this method is called
-# othewise it will raise an exception. /tmp/stdout.txt is used as stdout 
-# stream thus traces of events will be written in it. callback is the above 
-# function and will be called after each event loop.
+# deletes it when it exits normally). Note that this tmp location is just for
+# the sake of the example to avoid requiring administrative rights in order
+# to run this example. But by default if no explicit pid_file parameter is
+# provided it will default to its more traditional location under /var/run/.
+# Note that in both cases the caller must ensure the pid file doesn't exist
+# before this method is called otherwise it will raise an exception.
+# /tmp/pyinotify.log is used as log file to dump received events. Likewise
+# in your real code choose a more appropriate location for instance under
+# /var/log (this file may contain sensible data). Finally, callback is the
+# above function and will be called after each event loop.
 try:
     notifier.loop(daemonize=True, callback=on_loop_func,
-                  pid_file='/tmp/pyinotify.pid', stdout='/tmp/stdout.txt')
+                  pid_file='/tmp/pyinotify.pid', stdout='/tmp/pyinotify.log')
 except pyinotify.NotifierError, err:
     print >> sys.stderr, err

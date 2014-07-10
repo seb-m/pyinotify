@@ -43,7 +43,7 @@ on_loop_func = functools.partial(on_loop, counter=Counter())
 # before this method is called otherwise it will raise an exception.
 # /tmp/pyinotify.log is used as log file to dump received events. Likewise
 # in your real code choose a more appropriate location for instance under
-# /var/log (this file may contain sensible data). Finally, callback is the
+# /var/log (this file may contain sensitive data). Finally, callback is the
 # above function and will be called after each event loop.
 try:
     notifier.loop(daemonize=True, callback=on_loop_func,

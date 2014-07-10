@@ -43,6 +43,6 @@ on_loop_func = functools.partial(on_loop, counter=Counter())
 # function and will be called after each event loop.
 try:
     notifier.loop(daemonize=True, callback=on_loop_func,
-                  pid_file='/tmp/pyinotify.pid', stdout='/tmp/stdout.txt')
+                  pid_file='/var/run/pyinotify.pid', stdout='/tmp/pyinotify.log')
 except pyinotify.NotifierError, err:
     print >> sys.stderr, err

@@ -46,6 +46,10 @@ classif = [
     'Programming Language :: Python :: 3.0',
     'Programming Language :: Python :: 3.1',
     'Programming Language :: Python :: 3.2',
+    'Programming Language :: Python :: 3.3',
+    'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Programming Language :: Python :: Implementation :: PyPy',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: System :: Filesystems',
     'Topic :: System :: Monitoring',
@@ -93,7 +97,7 @@ if compile_ext_mod or should_compile_ext_mod():
     # sources for ext module
     ext_mod_src = ['common/inotify_syscalls.c']
     # dst for ext module
-    ext_mod.append(distutils.extension.Extension('inotify_syscalls', 
+    ext_mod.append(distutils.extension.Extension('inotify_syscalls',
                                                  ext_mod_src))
 
 

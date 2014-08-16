@@ -1665,11 +1665,11 @@ class ExcludeFilter:
     def __init__(self, arg_lst):
         """
         Examples:
-          ef1 = ExcludeFilter(["^/etc/rc.*", "^/etc/hostname"])
+          ef1 = ExcludeFilter(["/etc/rc.*", "/etc/hostname"])
           ef2 = ExcludeFilter("/my/path/exclude.lst")
           Where exclude.lst contains:
-          ^/etc/rc.*
-          ^/etc/hostname
+          /etc/rc.*
+          /etc/hostname
 
         Note: it is not possible to exclude a file if its encapsulating
               directory is itself watched. See this issue for more details
@@ -2199,7 +2199,7 @@ class WatchManager:
     def set_ignore_events(self, nval):
         self._ignore_events = nval
 
-    ignore_events = property(get_ignore_events, set_ignore_events, 
+    ignore_events = property(get_ignore_events, set_ignore_events,
                              "Make watch manager ignoring new events.")
 
 

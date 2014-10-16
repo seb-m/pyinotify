@@ -1604,6 +1604,8 @@ class AsyncioNotifier(Notifier):
                  default_proc_fun=None, read_freq=0, threshold=0, timeout=None):
         """
 
+        See examples/asyncio_notifier.py for an example usage.
+
         @param loop: asyncio or trollius event loop instance.
         @type loop: asyncio.BaseEventLoop or trollius.BaseEventLoop instance.
         @param callback: Functor called at the end of each call to handle_read.

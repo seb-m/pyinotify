@@ -1437,6 +1437,7 @@ class Notifier:
         """
         self._pollobj.unregister(self._fd)
         os.close(self._fd)
+        self._sys_proc_fun = None
 
 
 class ThreadedNotifier(threading.Thread, Notifier):
@@ -1582,6 +1583,10 @@ class TornadoAsyncNotifier(Notifier):
         Notifier.__init__(self, watch_manager, default_proc_fun, read_freq,
                           threshold, timeout)
         ioloop.add_handler(self._fd, self.handle_read, ioloop.READ)
+
+    def stop(self):
+      self.io_loop.remove_handler(self._fd)
+      Notifier.stop(self)
 
     def handle_read(self, *args, **kwargs):
         """

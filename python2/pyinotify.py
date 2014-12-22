@@ -1381,7 +1381,6 @@ class Notifier:
             # Register unlink function
             atexit.register(lambda : os.unlink(pid_file))
 
-
     def _sleep(self, ref_time):
         # Only consider sleeping if read_freq is > 0
         if self._read_freq > 0:
@@ -1390,7 +1389,6 @@ class Notifier:
             if sleep_amount > 0:
                 log.debug('Now sleeping %d seconds', sleep_amount)
                 time.sleep(sleep_amount)
-
 
     def loop(self, callback=None, daemonize=False, **args):
         """
@@ -1437,7 +1435,6 @@ class Notifier:
                 break
         # Close internals
         self.stop()
-
 
     def stop(self):
         """
@@ -1595,8 +1592,8 @@ class TornadoAsyncNotifier(Notifier):
         ioloop.add_handler(self._fd, self.handle_read, ioloop.READ)
 
     def stop(self):
-      self.io_loop.remove_handler(self._fd)
-      Notifier.stop(self)
+        self.io_loop.remove_handler(self._fd)
+        Notifier.stop(self)
 
     def handle_read(self, *args, **kwargs):
         """
@@ -1624,7 +1621,7 @@ class AsyncioNotifier(Notifier):
         @param loop: asyncio or trollius event loop instance.
         @type loop: asyncio.BaseEventLoop or trollius.BaseEventLoop instance.
         @param callback: Functor called at the end of each call to handle_read.
-                         Expects to receive the notifier object (self) as 
+                         Expects to receive the notifier object (self) as
                          single parameter.
         @type callback: callable object or function
 

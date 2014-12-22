@@ -1632,6 +1632,10 @@ class AsyncioNotifier(Notifier):
                           threshold, timeout)
         loop.add_reader(self._fd, self.handle_read)
 
+    def stop(self):
+        self.loop.remove_reader(self._fd)
+        Notifier.stop(self)
+
     def handle_read(self, *args, **kwargs):
         self.read_events()
         self.process_events()

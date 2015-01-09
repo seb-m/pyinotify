@@ -57,21 +57,21 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class TornadoAsyncNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#TornadoAsyncNotifier">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_20" name="uml_class_diagram_for_pyinotif_20">
-<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="277,39,587,57"/>
-<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="277,57,587,76"/>
-<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="277,76,587,95"/>
-<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="277,95,587,113"/>
-<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="277,113,587,132"/>
-<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="277,132,587,151"/>
-<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="277,151,587,169"/>
-<area shape="rect" id="node59" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="277,169,587,188"/>
-<area shape="rect" id="node1" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="265,6,599,194"/>
-<area shape="rect" id="node58" href="pyinotify.TornadoAsyncNotifier-class.html#__init__" title="Note that if later you must call ioloop.close() be sure to let the default &#160;parameter to all_fds=False." alt="" coords="17,247,845,265"/>
-<area shape="rect" id="node58" href="pyinotify.TornadoAsyncNotifier-class.html#handle_read" title="See comment in AsyncNotifier." alt="" coords="17,265,845,284"/>
-<area shape="rect" id="node2" href="pyinotify.TornadoAsyncNotifier-class.html" title="Tornado ioloop adapter." alt="" coords="5,214,856,290"/>
+<center>  <map id="uml_class_diagram_for_pyinotif_21" name="uml_class_diagram_for_pyinotif_21">
+<area shape="rect" id="node1_10" href="pyinotify.TornadoAsyncNotifier-class.html#__init__" title="Note that if later you must call ioloop.close() be sure to let the default &#160;parameter to all_fds=False." alt="" coords="17,235,844,255"/>
+<area shape="rect" id="node1_11" href="pyinotify.TornadoAsyncNotifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="17,255,844,275"/>
+<area shape="rect" id="node1_12" href="pyinotify.TornadoAsyncNotifier-class.html#handle_read" title="See comment in AsyncNotifier." alt="" coords="17,275,844,295"/>
+<area shape="rect" id="node1" href="pyinotify.TornadoAsyncNotifier-class.html" title="Tornado ioloop adapter." alt="" coords="5,203,856,301"/>
+<area shape="rect" id="node2_13" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="276,37,584,57"/>
+<area shape="rect" id="node2_14" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="276,57,584,77"/>
+<area shape="rect" id="node2_15" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="276,77,584,97"/>
+<area shape="rect" id="node2_16" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="276,97,584,117"/>
+<area shape="rect" id="node2_17" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="276,117,584,137"/>
+<area shape="rect" id="node2_18" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="276,137,584,157"/>
+<area shape="rect" id="node2_19" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="276,157,584,177"/>
+<area shape="rect" id="node2" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="263,5,595,184"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_20.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_20" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_pyinotif_21.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_21" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
@@ -126,6 +126,23 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="pyinotify.TornadoAsyncNotifier-class.html#stop" class="summary-sig-name">stop</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Close inotify's instance (close its file descriptor).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#TornadoAsyncNotifier.stop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a name="handle_read"></a><span class="summary-sig-name">handle_read</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">*args</span>,
         <span class="summary-sig-arg">**kwargs</span>)</span><br />
@@ -148,8 +165,7 @@
       <code><a href="pyinotify.Notifier-class.html#loop">loop</a></code>,
       <code><a href="pyinotify.Notifier-class.html#proc_fun">proc_fun</a></code>,
       <code><a href="pyinotify.Notifier-class.html#process_events">process_events</a></code>,
-      <code><a href="pyinotify.Notifier-class.html#read_events">read_events</a></code>,
-      <code><a href="pyinotify.Notifier-class.html#stop">stop</a></code>
+      <code><a href="pyinotify.Notifier-class.html#read_events">read_events</a></code>
       </p>
     <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b> (private):
       <code><a href="pyinotify.Notifier-class.html#_sleep" onclick="show_private();">_sleep</a></code>
@@ -255,6 +271,31 @@
   </dl>
 </td></tr></table>
 </div>
+<a name="stop"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">stop</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="pyinotify-pysrc.html#TornadoAsyncNotifier.stop">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Close inotify's instance (close its file descriptor). It destroys all 
+  existing watches, pending events,... This method is automatically called 
+  at the end of loop().</p>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="pyinotify.Notifier-class.html#stop">Notifier.stop</a>
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -282,7 +323,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Nov 15 19:31:57 2012
+    Generated by Epydoc 3.0.1 on Fri Jan  9 18:03:53 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

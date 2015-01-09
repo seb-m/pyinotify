@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>pyinotify.ChainIfTrue</title>
+  <title>pyinotify.AsyncioNotifier</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,7 +38,7 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="pyinotify-module.html">Module&nbsp;pyinotify</a> ::
-        Class&nbsp;ChainIfTrue
+        Class&nbsp;AsyncioNotifier
       </span>
     </td>
     <td>
@@ -48,34 +48,34 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="pyinotify.ChainIfTrue-class.html"
+            >]&nbsp;|&nbsp;<a href="pyinotify.AsyncioNotifier-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ChainIfTrue</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#ChainIfTrue">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class AsyncioNotifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#AsyncioNotifier">source&nbsp;code</a></span></p>
 <center>
-<center>  <map id="uml_class_diagram_for_pyinotif_3" name="uml_class_diagram_for_pyinotif_3">
-<area shape="rect" id="node1_8" href="pyinotify.ChainIfTrue-class.html#my_init" title="Method automatically called from base class constructor." alt="" coords="55,267,221,287"/>
-<area shape="rect" id="node1_9" href="pyinotify.ChainIfTrue-class.html#process_default" title="Default processing event method." alt="" coords="55,287,221,307"/>
-<area shape="rect" id="node1" href="pyinotify.ChainIfTrue-class.html" title="Makes conditional chaining depending on the result of the nested processing instance." alt="" coords="42,235,233,313"/>
-<area shape="rect" id="node2_10" href="pyinotify.ProcessEvent-class.html#pevent" title="pyinotify.ProcessEvent.pevent" alt="" coords="17,107,260,127"/>
-<area shape="rect" id="node2_11" href="pyinotify.ProcessEvent-class.html#__init__" title="Enable chaining of ProcessEvent instances." alt="" coords="17,129,260,149"/>
-<area shape="rect" id="node2_12" href="pyinotify.ProcessEvent-class.html#__call__" title="To behave like a functor the object must be callable." alt="" coords="17,149,260,169"/>
-<area shape="rect" id="node2_13" href="pyinotify.ProcessEvent-class.html#nested_pevent" title="pyinotify.ProcessEvent.nested_pevent" alt="" coords="17,169,260,189"/>
-<area shape="rect" id="node2_14" href="pyinotify.ProcessEvent-class.html#process_IN_Q_OVERFLOW" title="By default this method only reports warning messages, you can overredide it by subclassing ProcessEvent and implement your own process_IN_Q_OVERFLOW &#160;method." alt="" coords="17,189,260,209"/>
-<area shape="rect" id="node2" href="pyinotify.ProcessEvent-class.html" title="Process events objects, can be specialized via subclassing, thus its behavior can be overriden:" alt="" coords="5,83,272,216"/>
-<area shape="rect" id="node3_15" href="pyinotify._ProcessEvent-class.html#__repr__" title="repr(x)" alt="" coords="93,37,183,57"/>
-<area shape="rect" id="node3" href="pyinotify._ProcessEvent-class.html" title="Abstract processing event class." alt="" coords="81,5,194,64"/>
+<center>  <map id="uml_class_diagram_for_pyinotif_2" name="uml_class_diagram_for_pyinotif_2">
+<area shape="rect" id="node1_10" href="pyinotify.AsyncioNotifier-class.html#__init__" title="See examples/asyncio_notifier.py for an example usage." alt="" coords="17,235,711,255"/>
+<area shape="rect" id="node1_11" href="pyinotify.AsyncioNotifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="17,255,711,275"/>
+<area shape="rect" id="node1_12" href="pyinotify.AsyncioNotifier-class.html#handle_read" title="pyinotify.AsyncioNotifier.handle_read" alt="" coords="17,275,711,295"/>
+<area shape="rect" id="node1" href="pyinotify.AsyncioNotifier-class.html" title="asyncio/trollius event loop adapter." alt="" coords="5,203,723,301"/>
+<area shape="rect" id="node2_13" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="209,37,517,57"/>
+<area shape="rect" id="node2_14" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="209,57,517,77"/>
+<area shape="rect" id="node2_15" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="209,77,517,97"/>
+<area shape="rect" id="node2_16" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="209,97,517,117"/>
+<area shape="rect" id="node2_17" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="209,117,517,137"/>
+<area shape="rect" id="node2_18" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="209,137,517,157"/>
+<area shape="rect" id="node2_19" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="209,157,517,177"/>
+<area shape="rect" id="node2" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="197,5,529,184"/>
 </map>
-  <img src="uml_class_diagram_for_pyinotif_3.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_3" ismap="ismap" class="graph-without-title" />
+  <img src="uml_class_diagram_for_pyinotif_2.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_2" ismap="ismap" class="graph-without-title" />
 </center>
 </center>
 <hr />
-<p>Makes conditional chaining depending on the result of the nested 
-  processing instance.</p>
+<p>asyncio/trollius event loop adapter.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -100,11 +100,17 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.ChainIfTrue-class.html#my_init" class="summary-sig-name">my_init</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">func</span>)</span><br />
-      Method automatically called from base class constructor.</td>
+          <td><span class="summary-sig"><a href="pyinotify.AsyncioNotifier-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">watch_manager</span>,
+        <span class="summary-sig-arg">loop</span>,
+        <span class="summary-sig-arg">callback</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">default_proc_fun</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">read_freq</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">threshold</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">timeout</span>=<span class="summary-sig-default">None</span>)</span><br />
+      See examples/asyncio_notifier.py for an example usage.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#ChainIfTrue.my_init">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#AsyncioNotifier.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -118,11 +124,28 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="pyinotify.ChainIfTrue-class.html#process_default" class="summary-sig-name">process_default</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">event</span>)</span><br />
-      Default processing event method.</td>
+          <td><span class="summary-sig"><a href="pyinotify.AsyncioNotifier-class.html#stop" class="summary-sig-name">stop</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Close inotify's instance (close its file descriptor).</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="pyinotify-pysrc.html#ChainIfTrue.process_default">source&nbsp;code</a></span>
+            <span class="codelink"><a href="pyinotify-pysrc.html#AsyncioNotifier.stop">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="handle_read"></a><span class="summary-sig-name">handle_read</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="pyinotify-pysrc.html#AsyncioNotifier.handle_read">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -132,15 +155,18 @@
   </tr>
   <tr>
     <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.ProcessEvent-class.html">ProcessEvent</a></code></b>:
-      <code><a href="pyinotify.ProcessEvent-class.html#__call__">__call__</a></code>,
-      <code><a href="pyinotify.ProcessEvent-class.html#__init__">__init__</a></code>,
-      <code><a href="pyinotify.ProcessEvent-class.html#nested_pevent">nested_pevent</a></code>,
-      <code><a href="pyinotify.ProcessEvent-class.html#process_IN_Q_OVERFLOW">process_IN_Q_OVERFLOW</a></code>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b>:
+      <code><a href="pyinotify.Notifier-class.html#append_event">append_event</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#check_events">check_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#coalesce_events">coalesce_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#loop">loop</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#proc_fun">proc_fun</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#process_events">process_events</a></code>,
+      <code><a href="pyinotify.Notifier-class.html#read_events">read_events</a></code>
       </p>
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify._ProcessEvent-class.html" onclick="show_private();">_ProcessEvent</a></code></b>:
-      <code><a href="pyinotify._ProcessEvent-class.html#__repr__">__repr__</a></code>
-      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.Notifier-class.html">Notifier</a></code></b> (private):
+      <code><a href="pyinotify.Notifier-class.html#_sleep" onclick="show_private();">_sleep</a></code>
+      </p></div>
     <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
       <code>__delattr__</code>,
       <code>__format__</code>,
@@ -149,35 +175,11 @@
       <code>__new__</code>,
       <code>__reduce__</code>,
       <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
       <code>__setattr__</code>,
       <code>__sizeof__</code>,
       <code>__str__</code>,
       <code>__subclasshook__</code>
-      </p>
-    </td>
-  </tr>
-</table>
-<!-- ==================== CLASS VARIABLES ==================== -->
-<a name="section-ClassVariables"></a>
-<table class="summary" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr bgcolor="#70b0f0" class="table-header">
-  <td colspan="2" class="table-header">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-      <tr valign="top">
-        <td align="left"><span class="table-header">Class Variables</span></td>
-        <td align="right" valign="top"
-         ><span class="options">[<a href="#section-ClassVariables"
-         class="privatelink" onclick="toggle_private();"
-         >hide private</a>]</span></td>
-      </tr>
-    </table>
-  </td>
-</tr>
-  <tr>
-    <td colspan="2" class="summary">
-    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="pyinotify.ProcessEvent-class.html">ProcessEvent</a></code></b>:
-      <code><a href="pyinotify.ProcessEvent-class.html#pevent">pevent</a></code>
       </p>
     </td>
   </tr>
@@ -225,59 +227,62 @@
   </td>
 </tr>
 </table>
-<a name="my_init"></a>
+<a name="__init__"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">my_init</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">func</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">watch_manager</span>,
+        <span class="sig-arg">loop</span>,
+        <span class="sig-arg">callback</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">default_proc_fun</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">read_freq</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">threshold</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">timeout</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="pyinotify-pysrc.html#ChainIfTrue.my_init">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="pyinotify-pysrc.html#AsyncioNotifier.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Method automatically called from base class constructor.</p>
+  <p>See examples/asyncio_notifier.py for an example usage.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>kargs</code></strong> - optional delegated arguments from __init__().</li>
+        <li><strong class="pname"><code>loop</code></strong> (asyncio.BaseEventLoop or trollius.BaseEventLoop instance.) - asyncio or trollius event loop instance.</li>
+        <li><strong class="pname"><code>callback</code></strong> (callable object or function) - Functor called at the end of each call to handle_read. Expects to
+          receive the notifier object (self) as single parameter.</li>
     </ul></dd>
     <dt>Overrides:
-        <a href="pyinotify.ProcessEvent-class.html#my_init">ProcessEvent.my_init</a>
+        object.__init__
     </dt>
   </dl>
 </td></tr></table>
 </div>
-<a name="process_default"></a>
+<a name="stop"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">process_default</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">event</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">stop</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="pyinotify-pysrc.html#ChainIfTrue.process_default">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="pyinotify-pysrc.html#AsyncioNotifier.stop">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Default processing event method. By default does nothing. Subclass 
-  ProcessEvent and redefine this method in order to modify its 
-  behavior.</p>
+  <p>Close inotify's instance (close its file descriptor). It destroys all 
+  existing watches, pending events,... This method is automatically called 
+  at the end of loop().</p>
   <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>event</code></strong> - Event to be processed. Can be of any type of events but 
-          IN_Q_OVERFLOW events (see method process_IN_Q_OVERFLOW).</li>
-    </ul></dd>
     <dt>Overrides:
-        <a href="pyinotify.ProcessEvent-class.html#process_default">ProcessEvent.process_default</a>
+        <a href="pyinotify.Notifier-class.html#stop">Notifier.stop</a>
         <dd><em class="note">(inherited documentation)</em></dd>
     </dt>
   </dl>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # pyinotify.py - python interface to inotify
-# Copyright (c) 2005-2014 Sebastien Martini <seb@dbzteam.org>
+# Copyright (c) 2005-2015 Sebastien Martini <seb@dbzteam.org>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -92,7 +92,7 @@ except ImportError:
 
 __author__ = "seb@dbzteam.org (Sebastien Martini)"
 
-__version__ = "0.9.4"
+__version__ = "0.9.5"
 
 
 # Compatibity mode: set to True to improve compatibility with

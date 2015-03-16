@@ -72,6 +72,7 @@ import asyncore
 import glob
 import locale
 import subprocess
+import weakref
 
 try:
     from functools import reduce
@@ -658,7 +659,7 @@ class _SysProcessEvent(_ProcessEvent):
         @type notifier: Notifier instance
         """
         self._watch_manager = wm  # watch manager
-        self._notifier = notifier  # notifier
+        self._notifier = weakref.ref(notifier)  # notifier
         self._mv_cookie = {}  # {cookie(int): (src_path(str), date), ...}
         self._mv = {}  # {src_path(str): (dst_path(str), date), ...}
 
@@ -716,7 +717,7 @@ class _SysProcessEvent(_ProcessEvent):
                                 # This path should not be taken.
                                 continue
                             rawevent = _RawEvent(created_dir_wd, flags, 0, name)
-                            self._notifier.append_event(rawevent)
+                            self._notifier().append_event(rawevent)
                     except OSError as err:
                         msg = "process_IN_CREATE, invalid directory: %s"
                         log.debug(msg % str(err))
@@ -1141,6 +1142,9 @@ class Notifier:
         self._coalesce = False
         # set of str(raw_event), only used when coalesce option is True
         self._eventset = set()
+
+    def __del__(self):
+        self.stop()
 
     def append_event(self, event):
         """

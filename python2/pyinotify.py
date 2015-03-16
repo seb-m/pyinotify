@@ -122,6 +122,9 @@ class INotifyWrapper:
     """
     @staticmethod
     def create():
+        """
+        Factory method instanciating and returning the right wrapper.
+        """
         # First, try to use ctypes.
         if ctypes:
             inotify = _CtypesLibcINotifyWrapper()
@@ -1113,8 +1116,8 @@ class Notifier:
         @type default_proc_fun: instance of ProcessEvent
         @param read_freq: if read_freq == 0, events are read asap,
                           if read_freq is > 0, this thread sleeps
-                          max(0, read_freq - (timeout / 1000)) seconds. But
-                          if timeout is None it may be different because
+                          max(0, read_freq - (timeout / 1000)) seconds. But if
+                          timeout is None it may be different because
                           poll is blocking waiting for something to read.
         @type read_freq: int
         @param threshold: File descriptor will be read only if the accumulated
@@ -1669,7 +1672,6 @@ class Watch:
 class ExcludeFilter:
     """
     ExcludeFilter is an exclusion filter.
-
     """
     def __init__(self, arg_lst):
         """
@@ -1734,7 +1736,6 @@ class WatchManagerError(Exception):
     """
     WatchManager Exception. Raised on error encountered on watches
     operations.
-
     """
     def __init__(self, msg, wmd):
         """
@@ -1860,6 +1861,7 @@ class WatchManager:
             return wd
         watch = Watch(wd=wd, path=path, mask=mask, proc_fun=proc_fun,
                       auto_add=auto_add, exclude_filter=exclude_filter)
+        # wd are _always_ indexed with their original unicode paths in wmd.
         self._wmd[wd] = watch
         log.debug('New %s', watch)
         return wd
@@ -1915,10 +1917,9 @@ class WatchManager:
                                the class' constructor.
         @type exclude_filter: callable object
         @return: dict of paths associated to watch descriptors. A wd value
-                 is positive if the watch was added sucessfully,
-                 otherwise the value is negative. If the path was invalid
-                 or was already watched it is not included into this returned
-                 dictionary.
+                 is positive if the watch was added sucessfully, otherwise
+                 the value is negative. If the path was invalid or was already
+                 watched it is not included into this returned dictionary.
         @rtype: dict of {str: int}
         """
         ret_ = {} # return {path: wd, ...}
@@ -2210,7 +2211,6 @@ class WatchManager:
 
     ignore_events = property(get_ignore_events, set_ignore_events,
                              "Make watch manager ignoring new events.")
-
 
 
 class RawOutputFormat:

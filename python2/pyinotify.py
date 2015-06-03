@@ -1911,7 +1911,7 @@ class WatchManager:
         although unicode paths are accepted there are converted to byte
         strings before a watch is put on that path. The encoding used for
         converting the unicode object is given by sys.getfilesystemencoding().
-        If |path| si already watched it is ignored, but if it is called with
+        If |path| is already watched it is ignored, but if it is called with
         option rec=True a watch is put on each one of its not-watched
         subdirectory.
 

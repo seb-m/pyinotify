@@ -58,20 +58,20 @@
 <h1 class="epydoc">Class Notifier</h1><p class="nomargin-top"><span class="codelink"><a href="pyinotify-pysrc.html#Notifier">source&nbsp;code</a></span></p>
 <center>
 <center>  <map id="uml_class_diagram_for_pyinotif_11" name="uml_class_diagram_for_pyinotif_11">
-<area shape="rect" id="node1_9" href="pyinotify.Notifier-class.html#__init__" title="Initialization." alt="" coords="18,37,585,57"/>
-<area shape="rect" id="node1_10" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="18,57,585,77"/>
-<area shape="rect" id="node1_11" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="18,77,585,97"/>
-<area shape="rect" id="node1_12" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="18,97,585,117"/>
-<area shape="rect" id="node1_13" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="18,117,585,137"/>
-<area shape="rect" id="node1_14" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="18,137,585,157"/>
-<area shape="rect" id="node1_15" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="18,157,585,177"/>
-<area shape="rect" id="node1_16" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="18,177,585,197"/>
-<area shape="rect" id="node1_17" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="18,197,585,217"/>
-<area shape="rect" id="node1" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="5,5,596,224"/>
-<area shape="rect" id="node2" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="13,243,127,281"/>
-<area shape="rect" id="node3" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="157,243,289,281"/>
-<area shape="rect" id="node4" href="pyinotify.AsyncioNotifier-class.html" title="asyncio/trollius event loop adapter." alt="" coords="319,243,443,281"/>
-<area shape="rect" id="node5" href="pyinotify.TornadoAsyncNotifier-class.html" title="Tornado ioloop adapter." alt="" coords="472,243,633,281"/>
+<area shape="rect" id="node1_9" href="pyinotify.Notifier-class.html#__init__" title="Initialization." alt="" coords="35,37,601,57"/>
+<area shape="rect" id="node1_10" href="pyinotify.Notifier-class.html#append_event" title="Append a raw event to the event queue." alt="" coords="35,57,601,77"/>
+<area shape="rect" id="node1_11" href="pyinotify.Notifier-class.html#proc_fun" title="pyinotify.Notifier.proc_fun" alt="" coords="35,77,601,97"/>
+<area shape="rect" id="node1_12" href="pyinotify.Notifier-class.html#coalesce_events" title="Coalescing events." alt="" coords="35,97,601,117"/>
+<area shape="rect" id="node1_13" href="pyinotify.Notifier-class.html#check_events" title="Check for new events available to read, blocks up to timeout milliseconds." alt="" coords="35,117,601,137"/>
+<area shape="rect" id="node1_14" href="pyinotify.Notifier-class.html#read_events" title="Read events from device, build _RawEvents, and enqueue them." alt="" coords="35,137,601,157"/>
+<area shape="rect" id="node1_15" href="pyinotify.Notifier-class.html#process_events" title="Routine for processing events from queue by calling their associated &#160;proccessing method (an instance of ProcessEvent)." alt="" coords="35,157,601,177"/>
+<area shape="rect" id="node1_16" href="pyinotify.Notifier-class.html#loop" title="Events are read only one time every min(read_freq, timeout) seconds at best and only if the size to read is &gt;= threshold." alt="" coords="35,177,601,197"/>
+<area shape="rect" id="node1_17" href="pyinotify.Notifier-class.html#stop" title="Close inotify&#39;s instance (close its file descriptor)." alt="" coords="35,197,601,217"/>
+<area shape="rect" id="node1" href="pyinotify.Notifier-class.html" title="Read notifications, process events." alt="" coords="22,5,613,224"/>
+<area shape="rect" id="node2" href="pyinotify.AsyncNotifier-class.html" title="This notifier inherits from asyncore.file_dispatcher in order to be able to use pyinotify along with the asyncore framework." alt="" coords="5,243,120,281"/>
+<area shape="rect" id="node3" href="pyinotify.TornadoAsyncNotifier-class.html" title="Tornado ioloop adapter." alt="" coords="150,243,311,281"/>
+<area shape="rect" id="node4" href="pyinotify.ThreadedNotifier-class.html" title="This notifier inherits from threading.Thread for instanciating a separate thread, and also inherits from Notifier, because it is a threaded notifier." alt="" coords="341,243,473,281"/>
+<area shape="rect" id="node5" href="pyinotify.AsyncioNotifier-class.html" title="asyncio/trollius event loop adapter." alt="" coords="502,243,626,281"/>
 </map>
   <img src="uml_class_diagram_for_pyinotif_11.gif" alt='' usemap="#uml_class_diagram_for_pyinotif_11" ismap="ismap" class="graph-without-title" />
 </center>
@@ -390,16 +390,17 @@
         <li><strong class="pname"><code>default_proc_fun</code></strong> (instance of ProcessEvent) - Default processing method. If None, a new instance of 
           PrintAllEvents will be assigned.</li>
         <li><strong class="pname"><code>read_freq</code></strong> (int) - if read_freq == 0, events are read asap, if read_freq is &gt; 0, 
-          this thread sleeps max(0, read_freq - timeout) seconds. But if 
-          timeout is None it may be different because poll is blocking 
-          waiting for something to read.</li>
+          this thread sleeps max(0, read_freq - (timeout / 1000)) seconds. 
+          But if timeout is None it may be different because poll is 
+          blocking waiting for something to read.</li>
         <li><strong class="pname"><code>threshold</code></strong> (int) - File descriptor will be read only if the accumulated size to read
           becomes &gt;= threshold. If != 0, you likely want to use it in 
           combination with an appropriate value for read_freq because 
           without that you would keep looping without really reading 
           anything and that until the amount of events to read is &gt;= 
           threshold. At least with read_freq set you might sleep.</li>
-        <li><strong class="pname"><code>timeout</code></strong> (int) - https://docs.python.org/3/library/select.html#polling-objects</li>
+        <li><strong class="pname"><code>timeout</code></strong> (int) - see read_freq above. If provided, it must be set in milliseconds.
+          See https://docs.python.org/2/library/select.html#polling-objects</li>
     </ul></dd>
     <dt>Overrides:
         object.__init__
@@ -484,7 +485,7 @@
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
         <li><strong class="pname"><code>timeout</code></strong> (int) - If specified it overrides the corresponding instance attribute 
-          _timeout.</li>
+          _timeout. timeout must be sepcified in milliseconds.</li>
     </ul></dd>
     <dt>Returns: bool</dt>
         <dd>New events to read.</dd>
@@ -599,7 +600,8 @@
   
   <p>Close inotify's instance (close its file descriptor). It destroys all 
   existing watches, pending events,... This method is automatically called 
-  at the end of loop().</p>
+  at the end of loop(). Afterward it is invalid to access this 
+  instance.</p>
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -631,7 +633,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Jan  9 18:03:53 2015
+    Generated by Epydoc 3.0.1 on Thu Jun  4 11:54:20 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

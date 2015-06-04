@@ -258,10 +258,6 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         assert self._libc is not None
         return self._libc.inotify_rm_watch(fd, wd)
 
-    def _sysctl(self, *args):
-        assert self._libc is not None
-        return self._libc.sysctl(*args)
-
 
 # Logging
 def logger_init():
@@ -278,97 +274,65 @@ log = logger_init()
 
 
 # inotify's variables
-class SysCtlINotify:
+class ProcINotify:
     """
-    Access (read, write) inotify's variables through sysctl. Usually it
-    requires administrator rights to update them.
+    Access (read, write) inotify's variables through /proc/sys/. Note that
+    usually it requires administrator rights to update them.
 
     Examples:
       - Read max_queued_events attribute: myvar = max_queued_events.value
       - Update max_queued_events attribute: max_queued_events.value = 42
     """
-
-    inotify_attrs = {'max_user_instances': 1,
-                     'max_user_watches': 2,
-                     'max_queued_events': 3}
-
-    def __init__(self, attrname, inotify_wrapper):
-        # FIXME: right now only supporting ctypes
-        assert ctypes
-        self._attrname = attrname
-        self._inotify_wrapper = inotify_wrapper
-        sino = ctypes.c_int * 3
-        self._attr = sino(5, 20, SysCtlINotify.inotify_attrs[attrname])
-
-    @staticmethod
-    def create(attrname):
-        """
-        Factory method instanciating and returning the right wrapper.
-        """
-        # FIXME: right now only supporting ctypes
-        if ctypes is None:
-            return None
-        inotify_wrapper = _CtypesLibcINotifyWrapper()
-        if not inotify_wrapper.init():
-            return None
-        return SysCtlINotify(attrname, inotify_wrapper)
+    def __init__(self, attr):
+        self._base = "/proc/sys/fs/inotify"
+        self._attr = attr
 
     def get_val(self):
         """
-        Gets attribute's value. Raises OSError if the operation failed.
+        Gets attribute's value.
 
         @return: stored value.
         @rtype: int
+        @raise IOError: if corresponding file in /proc/sys cannot be read.
         """
-        oldv = ctypes.c_int(0)
-        size = ctypes.c_int(ctypes.sizeof(oldv))
-        sysctl = self._inotify_wrapper._sysctl
-        res = sysctl(self._attr, 3,
-                     ctypes.c_voidp(ctypes.addressof(oldv)),
-                     ctypes.addressof(size),
-                     None, 0)
-        if res == -1:
-            raise OSError(self._inotify_wrapper.get_errno(),
-                          self._inotify_wrapper.str_errno())
-        return oldv.value
+        file_obj = file(os.path.join(self._base, self._attr), 'r')
+        try:
+            val = int(file_obj.readline())
+        finally:
+            file_obj.close()
+        return val
 
     def set_val(self, nval):
         """
-        Sets new attribute's value. Raises OSError if the operation failed.
+        Sets new attribute's value.
 
         @param nval: replaces current value by nval.
         @type nval: int
+        @raise IOError: if corresponding file in /proc/sys cannot be written.
         """
-        oldv = ctypes.c_int(0)
-        sizeo = ctypes.c_int(ctypes.sizeof(oldv))
-        newv = ctypes.c_int(nval)
-        sizen = ctypes.c_int(ctypes.sizeof(newv))
-        sysctl = self._inotify_wrapper._sysctl
-        res = sysctl(self._attr, 3,
-                     ctypes.c_voidp(ctypes.addressof(oldv)),
-                     ctypes.addressof(sizeo),
-                     ctypes.c_voidp(ctypes.addressof(newv)),
-                     sizen)
-        if res == -1:
-            raise OSError(self._inotify_wrapper.get_errno(),
-                          self._inotify_wrapper.str_errno())
+        file_obj = file(os.path.join(self._base, self._attr), 'w')
+        try:
+            file_obj.write(str(nval) + '\n')
+        finally:
+            file_obj.close()
 
     value = property(get_val, set_val)
 
     def __repr__(self):
-        return '<%s=%d>' % (self._attrname, self.get_val())
+        return '<%s=%d>' % (self._attr, self.get_val())
 
 
 # Inotify's variables
 #
-# FIXME: currently these variables are only accessible when ctypes is used,
-#        otherwise there are set to None.
+# Note: may raise IOError if the corresponding value in /proc/sys
+#       cannot be accessed.
 #
-# read: myvar = max_queued_events.value
-# update: max_queued_events.value = 42
+# Examples:
+#  - read: myvar = max_queued_events.value
+#  - update: max_queued_events.value = 42
 #
 for attrname in ('max_queued_events', 'max_user_instances', 'max_user_watches'):
-    globals()[attrname] = SysCtlINotify.create(attrname)
+    globals()[attrname] = ProcINotify(attrname)
 
 
 class EventsCodes:

@@ -1280,10 +1280,13 @@ class Notifier:
     def __daemonize(self, pid_file=None, stdin=os.devnull, stdout=os.devnull,
                     stderr=os.devnull):
         """
-        pid_file: file where the pid will be written. If pid_file=None the pid
-                  is written to /var/run/<sys.argv[0]|pyinotify>.pid, if
-                  pid_file=False no pid_file is written.
-        stdin, stdout, stderr: files associated to common streams.
+        @param pid_file: file where the pid will be written. If pid_file=None
+                         the pid is written to
+                         /var/run/<sys.argv[0]|pyinotify>.pid, if pid_file=False
+                         no pid_file is written.
+        @param stdin:
+        @param stdout:
+        @param stderr: files associated to common streams.
         """
         if pid_file is None:
             dirname = '/var/run/'

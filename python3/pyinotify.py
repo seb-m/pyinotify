@@ -1112,8 +1112,8 @@ class Notifier:
                           At least with read_freq set you might sleep.
         @type threshold: int
         @param timeout: see read_freq above. If provided, it must be set in
-                        milliseconds.
-               see https://docs.python.org/3/library/select.html#select.poll.poll
+                        milliseconds. See
+                        https://docs.python.org/3/library/select.html#select.poll.poll
         @type timeout: int
         """
         # Watch Manager instance
@@ -1434,8 +1434,8 @@ class ThreadedNotifier(threading.Thread, Notifier):
                           least with read_freq you might sleep.
         @type threshold: int
         @param timeout: see read_freq above. If provided, it must be set in
-                        milliseconds.
-               see https://docs.python.org/3/library/select.html#select.poll.poll
+                        milliseconds. See
+                        https://docs.python.org/3/library/select.html#select.poll.poll
         @type timeout: int
         """
         # Init threading base class

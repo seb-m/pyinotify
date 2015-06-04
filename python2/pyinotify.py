@@ -1405,9 +1405,12 @@ class Notifier:
         Close inotify's instance (close its file descriptor).
         It destroys all existing watches, pending events,...
         This method is automatically called at the end of loop().
+        Afterward it is invalid to access this instance.
         """
-        self._pollobj.unregister(self._fd)
-        os.close(self._fd)
+        if self._fd is not None:
+            self._pollobj.unregister(self._fd)
+            os.close(self._fd)
+            self._fd = None
         self._sys_proc_fun = None
 
 

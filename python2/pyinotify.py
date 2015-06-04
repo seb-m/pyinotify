@@ -1113,8 +1113,8 @@ class Notifier:
         @type default_proc_fun: instance of ProcessEvent
         @param read_freq: if read_freq == 0, events are read asap,
                           if read_freq is > 0, this thread sleeps
-                          max(0, read_freq - timeout) seconds. But if
-                          timeout is None it may be different because
+                          max(0, read_freq - (timeout / 1000)) seconds. But
+                          if timeout is None it may be different because
                           poll is blocking waiting for something to read.
         @type read_freq: int
         @param threshold: File descriptor will be read only if the accumulated
@@ -1125,8 +1125,9 @@ class Notifier:
                           until the amount of events to read is >= threshold.
                           At least with read_freq set you might sleep.
         @type threshold: int
-        @param timeout:
-            https://docs.python.org/3/library/select.html#polling-objects
+        @param timeout: see read_freq above. If provided, it must be set in
+                        milliseconds.
+              see https://docs.python.org/2/library/select.html#polling-objects
         @type timeout: int
         """
         # Watch Manager instance
@@ -1192,7 +1193,8 @@ class Notifier:
         milliseconds.
 
         @param timeout: If specified it overrides the corresponding instance
-                        attribute _timeout.
+                        attribute _timeout. timeout must be sepcified in
+                        milliseconds.
         @type timeout: int
 
         @return: New events to read.
@@ -1435,7 +1437,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
         @type default_proc_fun: instance of ProcessEvent
         @param read_freq: if read_freq == 0, events are read asap,
                           if read_freq is > 0, this thread sleeps
-                          max(0, read_freq - timeout) seconds.
+                          max(0, read_freq - (timeout / 1000)) seconds.
         @type read_freq: int
         @param threshold: File descriptor will be read only if the accumulated
                           size to read becomes >= threshold. If != 0, you likely
@@ -1445,8 +1447,9 @@ class ThreadedNotifier(threading.Thread, Notifier):
                           until the amount of events to read is >= threshold. At
                           least with read_freq you might sleep.
         @type threshold: int
-        @param timeout:
-            https://docs.python.org/3/library/select.html#polling-objects
+        @param timeout: see read_freq above. If provided, it must be set in
+                        milliseconds.
+               see https://docs.python.org/2/library/select.html#select.poll.poll
         @type timeout: int
         """
         # Init threading base class

@@ -52,6 +52,12 @@ import sys
 if sys.version_info < (3, 0):
     raise UnsupportedPythonVersionError(sys.version)
 
+# check linux platform
+import platform
+system = platform.system().lower()
+if not system.startswith('linux') and not system.startswith('freebsd'):
+    sys.stderr.write("inotify is not available on %s\n" % system)
+    sys.exit(1)
 
 # Import directives
 import threading

@@ -1870,8 +1870,8 @@ class WatchManager:
         @type proc_fun: function or ProcessEvent instance or instance of
                         one of its subclasses or callable object.
         @param rec: Recursively add watches from path on all its
-                    subdirectories, set to False by default (doesn't
-                    follows symlinks in any case).
+                    subdirectories, set to False by default (follows 
+                        symlinks).
         @type rec: bool
         @param auto_add: Automatically add watches on newly created
                          directories in watched parent |path| directory.
@@ -1901,6 +1901,7 @@ class WatchManager:
         if exclude_filter is None:
             exclude_filter = self._exclude_filter
 
+        all_paths = set()
         # normalize args as list elements
         for npath in self.__format_param(path):
             # Require that path be a unicode string
@@ -1912,11 +1913,12 @@ class WatchManager:
             for apath in self.__glob(npath, do_glob):
                 # recursively list subdirs according to rec param
                 for rpath in self.__walk_rec(apath, rec):
-                    if not exclude_filter(rpath):
+                    if not exclude_filter(rpath) and rpath not in all_path:
                         wd = ret_[rpath] = self.__add_watch(rpath, mask,
                                                             proc_fun,
                                                             auto_add,
                                                             exclude_filter)
+                        all_paths.add(rpath)
                         if wd < 0:
                             err = ('add_watch: cannot watch %s WD=%d, %s' % \
                                        (rpath, wd,
@@ -2082,7 +2084,7 @@ class WatchManager:
 
     def __walk_rec(self, top, rec):
         """
-        Yields each subdirectories of top, doesn't follow symlinks.
+        Yields each subdirectories of top, follows symlinks.
         If rec is false, only yield top.
 
         @param top: root directory.
@@ -2092,10 +2094,10 @@ class WatchManager:
         @return: path of one subdirectory.
         @rtype: string
         """
-        if not rec or os.path.islink(top) or not os.path.isdir(top):
+        if not rec or not os.path.isdir(top):
             yield top
         else:
-            for root, dirs, files in os.walk(top):
+            for root, dirs, files in os.walk(top, followlinks=True):
                 yield root
 
     def rm_watch(self, wd, rec=False, quiet=True):

@@ -69,6 +69,7 @@ import time
 import re
 import asyncore
 import subprocess
+import signal
 
 try:
     from functools import reduce
@@ -2383,4 +2384,5 @@ def command_line():
 
 
 if __name__ == '__main__':
+    signal.signal(signal.SIGCHLD, signal.SIG_IGN)
     command_line()

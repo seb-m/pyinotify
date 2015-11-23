@@ -1331,11 +1331,14 @@ class Notifier:
                 # parent 1
                 os._exit(0)
 
+            sys.stdout.flush()
+            sys.stderr.flush()
+
             fd_inp = os.open(stdin, os.O_RDONLY)
             os.dup2(fd_inp, 0)
-            fd_out = os.open(stdout, os.O_WRONLY|os.O_CREAT, 0600)
+            fd_out = os.open(stdout, os.O_WRONLY|os.O_CREAT|os.O_APPEND, 0600)
             os.dup2(fd_out, 1)
-            fd_err = os.open(stderr, os.O_WRONLY|os.O_CREAT, 0600)
+            fd_err = os.open(stderr, os.O_WRONLY|os.O_CREAT|os.O_APPEND, 0600)
             os.dup2(fd_err, 2)
 
         # Detach task

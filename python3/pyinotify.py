@@ -243,7 +243,7 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         # ctypes.create_string_buffer seems to manipulate bytes internally.
         # Moreover it seems that inotify_add_watch does not work very well when
         # it receives an ctypes.create_unicode_buffer instance as argument.
-        pathname = pathname.encode(sys.getfilesystemencoding())
+        pathname = pathname.encode(sys.getfilesystemencoding(), errors='surrogateescape')
         pathname = ctypes.create_string_buffer(pathname)
         return self._libc.inotify_add_watch(fd, pathname, mask)
 
@@ -1236,7 +1236,7 @@ class Notifier:
             bname, = struct.unpack('%ds' % fname_len,
                                    r[rsum + s_size:rsum + s_size + fname_len])
             # FIXME: should we explictly call sys.getdefaultencoding() here ??
-            uname = bname.decode()
+            uname = bname.decode(errors='surrogateescape')
             rawevent = _RawEvent(wd, mask, cookie, uname)
             if self._coalesce:
                 # Only enqueue new (unique) events.

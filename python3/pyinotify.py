@@ -65,6 +65,7 @@ import array
 import logging
 import atexit
 from collections import deque
+from collections import Iterable
 from datetime import datetime, timedelta
 import time
 import re
@@ -2045,7 +2046,7 @@ class WatchManager:
         @return: wrap param.
         @rtype: list of type(param)
         """
-        if isinstance(param, list):
+        if isinstance(param, Iterable):
             for p_ in param:
                 yield p_
         else:

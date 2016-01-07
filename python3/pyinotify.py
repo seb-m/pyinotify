@@ -1081,6 +1081,42 @@ class NotifierError(PyinotifyError):
         PyinotifyError.__init__(self, err)
 
 
+try:
+    _poll_class = select.poll
+except AttributeError:
+    class _Poll(object):
+        """
+        poll emulator implemented using select.
+
+        This is used to make the client code happy in case of select.poll missing.
+        select.poll is missing when Gevent monkey patching is applied, Eventlet
+        will soon start doing the same.
+
+        See https://github.com/seb-m/pyinotify/issues/78.
+        """
+        def __init__(self):
+            self._fds = []
+
+        def register(self, fd, eventmask):
+            assert eventmask == select.POLLIN, 'Only POLLIN supported right now'
+            self._fds.append(fd)
+
+        def poll(self, timeout):
+            timeout_in_seconds = timeout / 1000.0 if timeout is not None else None
+            can_read, _, _ = select.select(self._fds, [], [], timeout_in_seconds)
+            return [(fd, select.POLLIN) for fd in can_read]
+
+        def unregister(self, fd):
+            try:
+                self._fds.remove(fd)
+            except ValueError:
+                # poll.unregister is supposed to raise KeyError in case of
+                # attempting to unregister a descriptor that's not registered.
+                raise KeyError(fd)
+
+    _poll_class = _Poll
+
+
 class Notifier:
     """
     Read notifications, process events.
@@ -1121,7 +1157,7 @@ class Notifier:
         # File descriptor
         self._fd = self._watch_manager.get_fd()
         # Poll object and registration
-        self._pollobj = select.poll()
+        self._pollobj = _poll_class()
         self._pollobj.register(self._fd, select.POLLIN)
         # This pipe is correctely initialized and used by ThreadedNotifier
         self._pipe = (-1, -1)

@@ -10,6 +10,9 @@ import os
 import sys
 import distutils.extension
 from distutils.util import get_platform
+from setuptools.command.install import install
+
+
 try:
     # First try to load most advanced setuptools setup.
     from setuptools import setup
@@ -17,18 +20,40 @@ except:
     # Fall back if setuptools is not installed.
     from distutils.core import setup
 
+
 platform = get_platform()
+
+
+class InstallCommand(install):
+    user_options = install.user_options + [
+        ('no-platform-check', None, 'Default?')
+    ]
+
+    def initialize_options(self):
+        install.initialize_options(self)
+        self.no_platform_check = None
+
+    def run(self):
+        global platform
+        if not platform.startswith('linux') and \
+                not platform.startswith('freebsd'):
+            if self.no_platform_check is not None:
+                sys.stdout.write(
+                    "inotify is not available on %s,"
+                    "but check is ignored\n" % platform)
+            else:
+                # check linux platform
+                sys.stderr.write(
+                        "inotify is not available on %s "
+                        "(--no-platform-check forces install)\n" % platform)
+                sys.exit(1)
+        install.run(self)
+
 
 # check Python's version
 if sys.version_info < (2, 4):
     sys.stderr.write('This module requires at least Python 2.4\n')
     sys.exit(1)
-
-# check linux platform
-if not platform.startswith('linux') and not platform.startswith('freebsd'):
-    sys.stderr.write("inotify is not available on %s\n" % platform)
-    sys.exit(1)
-
 
 classif = [
     'Development Status :: 5 - Production/Stable',
@@ -83,25 +108,26 @@ def should_compile_ext_mod():
     libc = ctypes.CDLL(libc_name)
     # Eventually check that libc has needed inotify bindings.
     if (not hasattr(libc, 'inotify_init') or
-        not hasattr(libc, 'inotify_add_watch') or
-        not hasattr(libc, 'inotify_rm_watch')):
+            not hasattr(libc, 'inotify_add_watch') or
+            not hasattr(libc, 'inotify_rm_watch')):
         return True
     return False
 
 
-ext_mod = []
 if compile_ext_mod or should_compile_ext_mod():
     # add -fpic if x86_64 arch
     if platform in ["linux-x86_64"]:
         os.environ["CFLAGS"] = "-fpic"
     # sources for ext module
-    ext_mod_src = ['common/inotify_syscalls.c']
     # dst for ext module
-    ext_mod.append(distutils.extension.Extension('inotify_syscalls',
-                                                 ext_mod_src))
+    ext_mod_src = ['common/inotify_syscalls.c']
 
+ext_mod = [distutils.extension.Extension('inotify_syscalls', ext_mod_src)]
 
 setup(
+    cmdclass={
+        'install': InstallCommand
+    },
     name='pyinotify',
     version='0.9.6',
     description='Linux filesystem events monitoring',

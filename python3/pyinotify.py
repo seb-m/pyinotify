@@ -699,7 +699,7 @@ class _SysProcessEvent(_ProcessEvent):
                 # also be new.
                 created_dir_wd = addw_ret.get(created_dir)
                 if ((created_dir_wd is not None) and (created_dir_wd > 0) and
-                    os.path.isdir(created_dir)):
+                    os.path.isdir(created_dir) and not os.path.islink(created_dir)):
                     try:
                         for name in os.listdir(created_dir):
                             inner = os.path.join(created_dir, name)

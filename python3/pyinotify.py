@@ -638,6 +638,9 @@ class _ProcessEvent:
     def __repr__(self):
         return '<%s>' % self.__class__.__name__
 
+    def process_default(self, raw_event, to_append=None):
+        raise NotImplementedError()
+
 
 class _SysProcessEvent(_ProcessEvent):
     """

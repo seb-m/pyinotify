@@ -1958,7 +1958,8 @@ class WatchManager:
             root = os.path.normpath(root)
             # recursion
             lend = len(root)
-            for iwd in self._wmd.items():
+            wmd = self._wmd.copy().items()
+            for iwd in wmd:
                 cur = iwd[1].path
                 pref = os.path.commonprefix([root, cur])
                 if root == os.sep or (len(pref) == lend and \
@@ -2121,7 +2122,6 @@ class WatchManager:
             lwd = self.__get_sub_rec(lwd)
 
         ret_ = {}  # return {wd: bool, ...}
-        to_del = []
         for awd in lwd:
             # remove watch
             wd_ = self._inotify_wrapper.inotify_rm_watch(self._fd, awd)
@@ -2136,10 +2136,8 @@ class WatchManager:
 
             # Remove watch from our dictionary
             if awd in self._wmd:
-                to_del.append(awd)
+                del self._wmd[awd]
             ret_[awd] = True
-        for awd in to_del:
-            del self._wmd[awd]
             log.debug('Watch WD=%d (%s) removed', awd, self.get_path(awd))
         return ret_
 

@@ -1958,7 +1958,8 @@ class WatchManager:
             root = os.path.normpath(root)
             # recursion
             lend = len(root)
-            for iwd in self._wmd.items():
+            wmd = self._wmd.copy().items()
+            for iwd in wmd:
                 cur = iwd[1].path
                 pref = os.path.commonprefix([root, cur])
                 if root == os.sep or (len(pref) == lend and \

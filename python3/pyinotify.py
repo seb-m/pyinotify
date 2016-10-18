@@ -2121,6 +2121,7 @@ class WatchManager:
             lwd = self.__get_sub_rec(lwd)
 
         ret_ = {}  # return {wd: bool, ...}
+        to_del = []
         for awd in lwd:
             # remove watch
             wd_ = self._inotify_wrapper.inotify_rm_watch(self._fd, awd)
@@ -2135,8 +2136,10 @@ class WatchManager:
 
             # Remove watch from our dictionary
             if awd in self._wmd:
-                del self._wmd[awd]
+                to_del.append(awd)
             ret_[awd] = True
+        for awd in to_del:
+            del self._wmd[awd]
             log.debug('Watch WD=%d (%s) removed', awd, self.get_path(awd))
         return ret_
 

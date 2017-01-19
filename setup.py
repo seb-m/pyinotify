@@ -115,4 +115,5 @@ setup(
     ext_modules=ext_mod,
     py_modules=['pyinotify'],
     package_dir=package_dir,
+    test_suite='python2.tests',
     )

@@ -1758,13 +1758,13 @@ class WatchManager:
         self._wmd = {}  # watch dict key: watch descriptor, value: watch
 
         self._inotify_wrapper = INotifyWrapper.create()
-        if self._inotify_wrapper is None:
-            raise InotifyBindingNotFoundError()
-
-        self._fd = self._inotify_wrapper.inotify_init() # file descriptor
-        if self._fd < 0:
-            err = 'Cannot initialize new instance of inotify, %s'
-            raise OSError(err % self._inotify_wrapper.str_errno())
+        # if self._inotify_wrapper is None:
+        #     raise InotifyBindingNotFoundError()
+        #
+        # self._fd = self._inotify_wrapper.inotify_init() # file descriptor
+        # if self._fd < 0:
+        #     err = 'Cannot initialize new instance of inotify, %s'
+        #     raise OSError(err % self._inotify_wrapper.str_errno())
 
     def close(self):
         """
@@ -1785,7 +1785,7 @@ class WatchManager:
         @return: File descriptor.
         @rtype: int
         """
-        return self._fd
+        return 9
 
     def get_watch(self, wd):
         """
@@ -2297,6 +2297,9 @@ def command_line():
     parser.add_option("-c", "--command", action="store",
                       dest="command",
                       help="Shell command to run upon event")
+    parser.add_option("-d", "--daemonize", action="store_false",
+                      dest="daemonize",
+                      help="Daemon command")
 
     (options, args) = parser.parse_args()
 
@@ -2358,7 +2361,8 @@ def command_line():
 
     wm.add_watch(path, mask, rec=options.recursive, auto_add=options.auto_add, do_glob=options.glob)
     # Loop forever (until sigint signal get caught)
-    notifier.loop(callback=cb_fun)
+    notifier.loop(daemonize=options.daemonize,
+                  callback=cb_fun)
 
 
 if __name__ == '__main__':

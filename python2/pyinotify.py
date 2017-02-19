@@ -2318,6 +2318,9 @@ def command_line():
     parser.add_option("-c", "--command", action="store",
                       dest="command",
                       help="Shell command to run upon event")
+    parser.add_option("-d", "--daemonize", action="store_false",
+                      dest="daemonize",
+                      help="Daemon command")
 
     (options, args) = parser.parse_args()
 
@@ -2379,7 +2382,8 @@ def command_line():
 
     wm.add_watch(path, mask, rec=options.recursive, auto_add=options.auto_add, do_glob=options.glob)
     # Loop forever (until sigint signal get caught)
-    notifier.loop(callback=cb_fun)
+    notifier.loop(daemonize=options.daemonize,
+                  callback=cb_fun)
 
 
 if __name__ == '__main__':

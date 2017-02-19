@@ -13,3 +13,6 @@ a.out
 *.out
 docstrings/
 build/
+
+# jetbrain files
+.idea

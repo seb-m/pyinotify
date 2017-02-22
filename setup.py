@@ -24,8 +24,8 @@ if sys.version_info < (2, 4):
     sys.stderr.write('This module requires at least Python 2.4\n')
     sys.exit(1)
 
-# check linux platform
-if not platform.startswith('linux') and not platform.startswith('freebsd'):
+# check linux/bsd/macosx platform
+if not any([platform.startswith(p) for p in ('linux', 'freebsd', 'macosx')]):
     sys.stderr.write("inotify is not available on %s\n" % platform)
     sys.exit(1)
 

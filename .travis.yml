@@ -6,8 +6,8 @@ python:
   - "3.3"
   - "3.4"
   - "pypy"
-os:
-  - linux
-  - osx
+matrix:
+  include:
+    - dist: trusty
 install: pip install .
 script: /bin/true

@@ -25,7 +25,8 @@ if sys.version_info < (2, 4):
     sys.exit(1)
 
 # check linux platform
-if not platform.startswith('linux') and not platform.startswith('freebsd'):
+if not platform.startswith('linux') and not platform.startswith('freebsd') and \
+    not platform.startswith('openbsd'):
     sys.stderr.write("inotify is not available on %s\n" % platform)
     sys.exit(1)
 
@@ -73,6 +74,8 @@ def should_compile_ext_mod():
     try_libc_name = 'c'
     if platform.startswith('freebsd'):
         try_libc_name = 'inotify'
+    if platform.startswith('openbsd'):
+        return True
 
     libc_name = None
     try:
@@ -94,6 +97,9 @@ if compile_ext_mod or should_compile_ext_mod():
     # add -fpic if x86_64 arch
     if platform in ["linux-x86_64"]:
         os.environ["CFLAGS"] = "-fpic"
+    # pass proper path to libinotify
+    if platform.startswith('openbsd'):
+        os.environ["LDFLAGS"] = "-L${LOCALBASE}/lib/inotify/ -linotify"
     # sources for ext module
     ext_mod_src = ['common/inotify_syscalls.c']
     # dst for ext module

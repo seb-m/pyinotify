@@ -216,6 +216,11 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         except (OSError, IOError):
             pass  # Will attemp to load it with None anyway.
 
+        # Special handling for OpenBSD where the library is
+        # installed in a subdirectory.
+        if sys.platform.startswith('openbsd'):
+            libc_name = '/usr/local/lib/inotify/libinotify.so'
+
         if sys.version_info >= (2, 6):
             self._libc = ctypes.CDLL(libc_name, use_errno=True)
             self._get_errno_func = ctypes.get_errno

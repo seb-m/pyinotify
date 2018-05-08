@@ -1263,7 +1263,7 @@ class Notifier:
                 self._eventq.append(rawevent)
             rsum += s_size + fname_len
 
-    def process_events(self):
+    def process_events(self, ignore_missing=False):
         """
         Routine for processing events from queue by calling their
         associated proccessing method (an instance of ProcessEvent).
@@ -1276,7 +1276,7 @@ class Notifier:
                 continue
             watch_ = self._watch_manager.get_watch(raw_event.wd)
             if (watch_ is None) and not (raw_event.mask & IN_Q_OVERFLOW):
-                if not (raw_event.mask & IN_IGNORED):
+                if not ignore_missing and not (raw_event.mask & IN_IGNORED):
                     # Not really sure how we ended up here, nor how we should
                     # handle these types of events and if it is appropriate to
                     # completly skip them (like we are doing here).

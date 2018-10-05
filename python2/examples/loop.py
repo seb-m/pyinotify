@@ -2,7 +2,7 @@
 #
 import pyinotify
 
-# Instanciate a new WatchManager (will be used to store watches).
+# Instantiate a new WatchManager (will be used to store watches).
 wm = pyinotify.WatchManager()
 # Associate this WatchManager with a Notifier (will be used to report and
 # process events).

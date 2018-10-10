@@ -44,12 +44,12 @@ class UnsupportedPythonVersionError(PyinotifyError):
         """
         PyinotifyError.__init__(self,
                                 ('Python %s is unsupported, requires '
-                                 'at least Python 3.0') % version)
+                                 'at least Python 3.4') % version)
 
 
 # Check Python version
 import sys
-if sys.version_info < (3, 0):
+if sys.version_info < (3, 4):
     raise UnsupportedPythonVersionError(sys.version)
 
 
@@ -72,17 +72,9 @@ import asyncore
 import glob
 import locale
 import subprocess
-
-try:
-    from functools import reduce
-except ImportError:
-    pass  # Will fail on Python 2.4 which has reduce() builtin anyway.
-
-try:
-    import ctypes
-    import ctypes.util
-except ImportError:
-    ctypes = None
+from functools import reduce
+import ctypes
+import ctypes.util
 
 try:
     import inotify_syscalls
@@ -121,10 +113,9 @@ class INotifyWrapper:
         Factory method instanciating and returning the right wrapper.
         """
         # First, try to use ctypes.
-        if ctypes:
-            inotify = _CtypesLibcINotifyWrapper()
-            if inotify.init():
-                return inotify
+        inotify = _CtypesLibcINotifyWrapper()
+        if inotify.init():
+            return inotify
         # Second, see if C extension is compiled.
         if inotify_syscalls:
             inotify = _INotifySyscallsWrapper()
@@ -199,8 +190,6 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         self._get_errno_func = None
 
     def init(self):
-        assert ctypes
-
         try_libc_name = 'c'
         if sys.platform.startswith('freebsd'):
             try_libc_name = 'inotify'

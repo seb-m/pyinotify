@@ -48,7 +48,7 @@ class UnsupportedPythonVersionError(PyinotifyError):
 
 # Check Python version
 import sys
-if sys.version_info < (2, 4):
+if sys.version_info < (2, 7):
     raise UnsupportedPythonVersionError(sys.version)
 
 
@@ -68,24 +68,11 @@ from datetime import datetime, timedelta
 import time
 import re
 import asyncore
+import glob
 import subprocess
-
-try:
-    from functools import reduce
-except ImportError:
-    pass  # Will fail on Python 2.4 which has reduce() builtin anyway.
-
-try:
-    from glob import iglob as glob
-except ImportError:
-    # Python 2.4 does not have glob.iglob().
-    from glob import glob as glob
-
-try:
-    import ctypes
-    import ctypes.util
-except ImportError:
-    ctypes = None
+from functools import reduce
+import ctypes
+import ctypes.util
 
 try:
     import inotify_syscalls
@@ -126,10 +113,9 @@ class INotifyWrapper:
         Factory method instanciating and returning the right wrapper.
         """
         # First, try to use ctypes.
-        if ctypes:
-            inotify = _CtypesLibcINotifyWrapper()
-            if inotify.init():
-                return inotify
+        inotify = _CtypesLibcINotifyWrapper()
+        if inotify.init():
+            return inotify
         # Second, see if C extension is compiled.
         if inotify_syscalls:
             inotify = _INotifySyscallsWrapper()
@@ -176,7 +162,7 @@ class _INotifySyscallsWrapper(INotifyWrapper):
     def _inotify_init(self):
         try:
             fd = inotify_syscalls.inotify_init()
-        except IOError, err:
+        except IOError as err:
             self._last_errno = err.errno
             return -1
         return fd
@@ -184,7 +170,7 @@ class _INotifySyscallsWrapper(INotifyWrapper):
     def _inotify_add_watch(self, fd, pathname, mask):
         try:
             wd = inotify_syscalls.inotify_add_watch(fd, pathname, mask)
-        except IOError, err:
+        except IOError as err:
             self._last_errno = err.errno
             return -1
         return wd
@@ -192,7 +178,7 @@ class _INotifySyscallsWrapper(INotifyWrapper):
     def _inotify_rm_watch(self, fd, wd):
         try:
             ret = inotify_syscalls.inotify_rm_watch(fd, wd)
-        except IOError, err:
+        except IOError as err:
             self._last_errno = err.errno
             return -1
         return ret
@@ -204,8 +190,6 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         self._get_errno_func = None
 
     def init(self):
-        assert ctypes
-
         try_libc_name = 'c'
         if sys.platform.startswith('freebsd'):
             try_libc_name = 'inotify'
@@ -216,17 +200,8 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         except (OSError, IOError):
             pass  # Will attemp to load it with None anyway.
 
-        if sys.version_info >= (2, 6):
-            self._libc = ctypes.CDLL(libc_name, use_errno=True)
-            self._get_errno_func = ctypes.get_errno
-        else:
-            self._libc = ctypes.CDLL(libc_name)
-            try:
-                location = self._libc.__errno_location
-                location.restype = ctypes.POINTER(ctypes.c_int)
-                self._get_errno_func = lambda: location().contents.value
-            except AttributeError:
-                pass
+        self._libc = ctypes.CDLL(libc_name, use_errno=True)
+        self._get_errno_func = ctypes.get_errno
 
         # Eventually check that libc has needed inotify bindings.
         if (not hasattr(self._libc, 'inotify_init') or
@@ -298,12 +273,8 @@ class ProcINotify:
         @rtype: int
         @raise IOError: if corresponding file in /proc/sys cannot be read.
         """
-        file_obj = file(os.path.join(self._base, self._attr), 'r')
-        try:
-            val = int(file_obj.readline())
-        finally:
-            file_obj.close()
-        return val
+        with open(os.path.join(self._base, self._attr), 'r') as file_obj:
+            return int(file_obj.readline())
 
     def set_val(self, nval):
         """
@@ -313,11 +284,8 @@ class ProcINotify:
         @type nval: int
         @raise IOError: if corresponding file in /proc/sys cannot be written.
         """
-        file_obj = file(os.path.join(self._base, self._attr), 'w')
-        try:
+        with open(os.path.join(self._base, self._attr), 'w') as file_obj:
             file_obj.write(str(nval) + '\n')
-        finally:
-            file_obj.close()
 
     value = property(get_val, set_val)
 
@@ -595,7 +563,7 @@ class Event(_Event):
                                                              self.name))
             else:
                 self.pathname = os.path.abspath(self.path)
-        except AttributeError, err:
+        except AttributeError as err:
             # Usually it is not an error some events are perfectly valids
             # despite the lack of these attributes.
             log.debug(err)
@@ -734,7 +702,7 @@ class _SysProcessEvent(_ProcessEvent):
                                 continue
                             rawevent = _RawEvent(created_dir_wd, flags, 0, name)
                             self._notifier.append_event(rawevent)
-                    except OSError, err:
+                    except OSError as err:
                         msg = "process_IN_CREATE, invalid directory %s: %s"
                         log.debug(msg % (created_dir, str(err)))
         return self.process_default(raw_event)
@@ -1064,7 +1032,7 @@ class Stats(ProcessEvent):
         @type filename: string
         """
         flags = os.O_WRONLY|os.O_CREAT|os.O_NOFOLLOW|os.O_EXCL
-        fd = os.open(filename, flags, 0600)
+        fd = os.open(filename, flags, 0o0600)
         os.write(fd, str(self))
         os.close(fd)
 
@@ -1209,7 +1177,7 @@ class Notifier:
                 if timeout is None:
                     timeout = self._timeout
                 ret = self._pollobj.poll(timeout)
-            except select.error, err:
+            except select.error as err:
                 if err[0] == errno.EINTR:
                     continue # interrupted, retry
                 else:
@@ -1240,7 +1208,7 @@ class Notifier:
         try:
             # Read content from file
             r = os.read(self._fd, queue_size)
-        except Exception, msg:
+        except Exception as msg:
             raise NotifierError(msg)
         log.debug('Event queue size: %d', queue_size)
         rsum = 0  # counter
@@ -1323,7 +1291,7 @@ class Notifier:
                 if (pid == 0):
                     # child
                     os.chdir('/')
-                    os.umask(022)
+                    os.umask(0o022)
                 else:
                     # parent 2
                     os._exit(0)
@@ -1333,9 +1301,9 @@ class Notifier:
 
             fd_inp = os.open(stdin, os.O_RDONLY)
             os.dup2(fd_inp, 0)
-            fd_out = os.open(stdout, os.O_WRONLY|os.O_CREAT, 0600)
+            fd_out = os.open(stdout, os.O_WRONLY|os.O_CREAT, 0o0600)
             os.dup2(fd_out, 1)
-            fd_err = os.open(stderr, os.O_WRONLY|os.O_CREAT, 0600)
+            fd_err = os.open(stderr, os.O_WRONLY|os.O_CREAT, 0o0600)
             os.dup2(fd_err, 2)
 
         # Detach task
@@ -1344,7 +1312,7 @@ class Notifier:
         # Write pid
         if pid_file != False:
             flags = os.O_WRONLY|os.O_CREAT|os.O_NOFOLLOW|os.O_EXCL
-            fd_pid = os.open(pid_file, flags, 0600)
+            fd_pid = os.open(pid_file, flags, 0o0600)
             os.write(fd_pid, str(os.getpid()) + '\n')
             os.close(fd_pid)
             # Register unlink function
@@ -1703,16 +1671,13 @@ class ExcludeFilter:
 
     def _load_patterns_from_file(self, filename):
         lst = []
-        file_obj = file(filename, 'r')
-        try:
+        with open(filename, 'r') as file_obj:
             for line in file_obj.readlines():
                 # Trim leading an trailing whitespaces
                 pattern = line.strip()
                 if not pattern or pattern.startswith('#'):
                     continue
                 lst.append(pattern)
-        finally:
-            file_obj.close()
         return lst
 
     def _match(self, regex, path):
@@ -1822,7 +1787,7 @@ class WatchManager:
         """
         try:
             del self._wmd[wd]
-        except KeyError, err:
+        except KeyError as err:
             log.error('Cannot delete unknown watch descriptor %s' % str(err))
 
     @property
@@ -1868,7 +1833,7 @@ class WatchManager:
 
     def __glob(self, path, do_glob):
         if do_glob:
-            return glob(path)
+            return glob.iglob(path)
         else:
             return [path]
 

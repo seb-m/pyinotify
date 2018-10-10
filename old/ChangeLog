@@ -5,7 +5,7 @@
 
 2008-03-24  ookoi  <ookoi@sundae>
 
-	* Simulate IN_CREATE events on mkdir -p /d1/d2/[...]. 
+	* Simulate IN_CREATE events on mkdir -p /d1/d2/[...].
 	  Contributed by Thomas Kiley (tkiley@cs.uml.edu).
 
 	* Notifier.loop() accepts a read_freq parameter.
@@ -15,12 +15,12 @@
 	* Delegates initialization to my_init(*kargs) when a subclass
 	  of ProcessEvent is instanciated.
 
-	* Provides processing class and new option -s for displaying 
+	* Provides processing class and new option -s for displaying
 	  statistics about received events.
 
 	* Implements simplified watch of transient files.
 
-	* select.Poll timeout's value changed to None when called from 
+	* select.Poll timeout's value changed to None when called from
 	  Notifier and set to 10s when called from ThreadedNotifier.
 
 	* Removed useless locking stuff from Watch.
@@ -40,7 +40,7 @@
 	* print statements removed. Use logging module for debug messages
 	  and errors.
 
-	* Implemented better representation __repr__ for classes Event and 
+	* Implemented better representation __repr__ for classes Event and
 	  Watch.
 
 	* Merged all .py files into pyinotify.py
@@ -51,7 +51,7 @@
 
 2007-07-10  ookoi  <ookoi@sundae>
 
-	* License of pyinotify 0.7.1 updated: GPLv2 or later. pyinotify-dev 
+	* License of pyinotify 0.7.1 updated: GPLv2 or later. pyinotify-dev
 	  still remains GPLv2 only.
 
 	* version 0.7.1 released.
@@ -87,7 +87,7 @@
 	* src/pyinotify/pyinotify.py: print errors only when verbose mode
 	  is set.
 
-	* src/pyinotify/iglob.py: fix compatibility with Python 2.3 
+	* src/pyinotify/iglob.py: fix compatibility with Python 2.3
 	  (contributed by Robin Wittler - r.wittler@buetow.org).
 
 2006-11-03  ookoi  <ookoi@mars>
@@ -96,9 +96,9 @@
 
 2006-10-25  ookoi  <ookoi@mars>
 
-	* src/pyinotify/pyinotify.py: fix mkdir -p foo/bar/bar.txt with 
+	* src/pyinotify/pyinotify.py: fix mkdir -p foo/bar/bar.txt with
 	  auto_add (fix contributed by Will Muldrew - will.muldrew@gmail.com).
-	
+
 
 2006-09-04  ookoi  <ookoi@mars>
 
@@ -199,7 +199,7 @@
 	* src/pyinotify/inotify.py: olds inotify's paths supported.
 
 	* src/pyinotify/pyinotify.py: event_check accepts a timeout
-	  parameter (submitted by Hans Ulrich Niedermann - 
+	  parameter (submitted by Hans Ulrich Niedermann -
 	  debian@n-dimensional.de).
 
 2006-03-02  ookoi  <ookoi@X2>
@@ -234,7 +234,7 @@
 	  src/pyinotify/pyinotify.py and src/pyinotify-demo.py.
 	  (proposed by Hans Ulrich Niedermann - debian@n-dimensional.de)
 
-	* Makefile: new clean rule. (Hans Ulrich Niedermann - 
+	* Makefile: new clean rule. (Hans Ulrich Niedermann -
 	  debian@n-dimensional.de)
 
 	* src/inotify* src/pyinotify.py: moved to src/pyinotify/
@@ -407,4 +407,3 @@
 	  mark.williamson@cl.cam.ac.uk for the idea).
 
 	* pyinotify.py: removes Queue's size limitation.
-

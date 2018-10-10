@@ -1299,7 +1299,7 @@ class Notifier:
 
         def fork_daemon():
             # Adapted from Chad J. Schroeder's recipe
-            # @see http://code.activestate.com/recipes/278731/
+            # @see https://code.activestate.com/recipes/278731/
             pid = os.fork()
             if (pid == 0):
                 # parent 2

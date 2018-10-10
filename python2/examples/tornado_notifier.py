@@ -13,7 +13,7 @@ def handle_read_callback(notifier):
 
 wm = pyinotify.WatchManager()
 ioloop = IOLoop.instance()
-notifier = pyinotify.TornadoAsyncNotifier(wm, ioloop, 
+notifier = pyinotify.TornadoAsyncNotifier(wm, ioloop,
                                           callback=handle_read_callback)
 wm.add_watch('/tmp', pyinotify.ALL_EVENTS)
 ioloop.start()

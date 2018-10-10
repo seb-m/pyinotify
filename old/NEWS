@@ -277,5 +277,3 @@ Most of the changes affects the SimpleINotify class.
   Obviously this is a subjective choice but i think this is the least
   worst. Anyway, feel free to send me a comment to say if in your use
   case this choice works or if it is really really annoying.
-
-

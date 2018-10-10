@@ -33,4 +33,3 @@ try:
     wm.rm_watch(42, quiet=False)
 except pyinotify.WatchManagerError, err:
     print err, err.wmd
-

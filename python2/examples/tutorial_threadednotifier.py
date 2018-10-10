@@ -1,6 +1,6 @@
 # ThreadedNotifier example from tutorial
 #
-# See: http://github.com/seb-m/pyinotify/wiki/Tutorial
+# See: https://github.com/seb-m/pyinotify/wiki/Tutorial
 #
 import pyinotify
 

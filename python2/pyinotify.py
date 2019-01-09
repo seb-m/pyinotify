@@ -1228,7 +1228,9 @@ class Notifier:
         """
         buf_ = array.array('i', [0])
         # get event queue size
-        if fcntl.ioctl(self._fd, termios.FIONREAD, buf_, 1) == -1:
+        # don't pass `mutate_flag` to the `fcntl.ioctl`, it may cause segfault on some 
+        # systems, e.g. alpine linux (see https://bugs.alpinelinux.org/issues/5981)
+        if fcntl.ioctl(self._fd, termios.FIONREAD, buf_) == -1:
             return
         queue_size = buf_[0]
         if queue_size < self._threshold:

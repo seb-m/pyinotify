@@ -213,7 +213,7 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         libc_name = None
         try:
             libc_name = ctypes.util.find_library(try_libc_name)
-        except (OSError, IOError):
+        except (OSError, IOError, RuntimeError):
             pass  # Will attemp to load it with None anyway.
 
         if sys.version_info >= (2, 6):

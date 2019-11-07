@@ -107,7 +107,6 @@ setup(
     description='Linux filesystem events monitoring',
     author='Sebastien Martini',
     author_email='seb@dbzteam.org',
-    license='MIT License',
     platforms='Linux',
     classifiers=classif,
     url='http://github.com/seb-m/pyinotify',

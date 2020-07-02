@@ -1903,9 +1903,16 @@ class WatchManager:
 
         # normalize args as list elements
         for npath in self.__format_param(path):
-            # Require that path be a unicode string
+            # attempt to cast to string so that pathlib objects are supported
+            try:
+                npath = str(path)
+            except ValueError:
+                pass
+
+            # require that path be a unicode string
             if not isinstance(npath, str):
                 ret_[path] = -3
+                log.error('add_watch: invalid path "%s"' % repr(path))
                 continue
 
             # unix pathname pattern expansion

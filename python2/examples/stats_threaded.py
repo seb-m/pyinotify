@@ -5,7 +5,7 @@ import pyinotify
 
 # Do the same thing than stats.py but with a ThreadedNotifier's
 # instance.
-# This example illustrates the use of this class but the recommanded
+# This example illustrates the use of this class but the recommended
 # implementation is whom of stats.py
 
 class Identity(pyinotify.ProcessEvent):

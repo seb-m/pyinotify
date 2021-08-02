@@ -6,7 +6,7 @@ import pyinotify
 class ProcessTransientFile(pyinotify.ProcessEvent):
 
     def process_IN_MODIFY(self, event):
-        # We have explicitely registered for this kind of event.
+        # We have explicitly registered for this kind of event.
         print '\t', event.pathname, ' -> written'
 
     def process_default(self, event):

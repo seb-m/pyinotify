@@ -78,7 +78,7 @@ def should_compile_ext_mod():
     try:
         libc_name = ctypes.util.find_library(try_libc_name)
     except:
-        pass  # Will attemp to load it with None anyway.
+        pass  # Will attempt to load it with None anyway.
 
     libc = ctypes.CDLL(libc_name)
     # Eventually check that libc has needed inotify bindings.

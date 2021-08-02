@@ -123,7 +123,7 @@ class INotifyWrapper:
     @staticmethod
     def create():
         """
-        Factory method instanciating and returning the right wrapper.
+        Factory method instantiating and returning the right wrapper.
         """
         # First, try to use ctypes.
         if ctypes:
@@ -214,7 +214,7 @@ class _CtypesLibcINotifyWrapper(INotifyWrapper):
         try:
             libc_name = ctypes.util.find_library(try_libc_name)
         except (OSError, IOError):
-            pass  # Will attemp to load it with None anyway.
+            pass  # Will attempt to load it with None anyway.
 
         if sys.version_info >= (2, 6):
             self._libc = ctypes.CDLL(libc_name, use_errno=True)
@@ -769,7 +769,7 @@ class _SysProcessEvent(_ProcessEvent):
             to_append['src_pathname'] = mv_[0]
         elif (raw_event.mask & IN_ISDIR and watch_.auto_add and
               not watch_.exclude_filter(dst_path)):
-            # We got a diretory that's "moved in" from an unknown source and
+            # We got a directory that's "moved in" from an unknown source and
             # auto_add is enabled. Manually add watches to the inner subtrees.
             # The newly monitored directory inherits attributes from its
             # parent directory.
@@ -867,7 +867,7 @@ class _SysProcessEvent(_ProcessEvent):
 class ProcessEvent(_ProcessEvent):
     """
     Process events objects, can be specialized via subclassing, thus its
-    behavior can be overriden:
+    behavior can be overridden:
 
     Note: you should not override __init__ in your subclass instead define
     a my_init() method, this method will be called automatically from the
@@ -918,7 +918,7 @@ class ProcessEvent(_ProcessEvent):
         stop_chaining = False
         if self.pevent is not None:
             # By default methods return None so we set as guideline
-            # that methods asking for stop chaining must explicitely
+            # that methods asking for stop chaining must explicitly
             # return non None or non False values, otherwise the default
             # behavior will be to accept chain call to the corresponding
             # local method.
@@ -931,7 +931,7 @@ class ProcessEvent(_ProcessEvent):
 
     def process_IN_Q_OVERFLOW(self, event):
         """
-        By default this method only reports warning messages, you can overredide
+        By default this method only reports warning messages, you can override
         it by subclassing ProcessEvent and implement your own
         process_IN_Q_OVERFLOW method. The actions you can take on receiving this
         event is either to update the variable max_queued_events in order to
@@ -1140,7 +1140,7 @@ class Notifier:
         # Poll object and registration
         self._pollobj = select.poll()
         self._pollobj.register(self._fd, select.POLLIN)
-        # This pipe is correctely initialized and used by ThreadedNotifier
+        # This pipe is correctly initialized and used by ThreadedNotifier
         self._pipe = (-1, -1)
         # Event queue
         self._eventq = deque()
@@ -1173,7 +1173,7 @@ class Notifier:
 
     def coalesce_events(self, coalesce=True):
         """
-        Coalescing events. Events are usually processed by batchs, their size
+        Coalescing events. Events are usually processed by batches, their size
         depend on various factors. Thus, before processing them, events received
         from inotify are aggregated in a fifo queue. If this coalescing
         option is enabled events are filtered based on their unicity, only
@@ -1181,7 +1181,7 @@ class Notifier:
         when the combination of its fields (wd, mask, cookie, name) is unique
         among events of a same batch. After a batch of events is processed any
         events is accepted again. By default this option is disabled, you have
-        to explictly call this function to turn it on.
+        to explicitly call this function to turn it on.
 
         @param coalesce: Optional new coalescing value. True by default.
         @type coalesce: Bool
@@ -1196,7 +1196,7 @@ class Notifier:
         milliseconds.
 
         @param timeout: If specified it overrides the corresponding instance
-                        attribute _timeout. timeout must be sepcified in
+                        attribute _timeout. timeout must be specified in
                         milliseconds.
         @type timeout: int
 
@@ -1279,7 +1279,7 @@ class Notifier:
                 if not (raw_event.mask & IN_IGNORED):
                     # Not really sure how we ended up here, nor how we should
                     # handle these types of events and if it is appropriate to
-                    # completly skip them (like we are doing here).
+                    # completely skip them (like we are doing here).
                     log.warning("Unable to retrieve Watch object associated to %s",
                                 repr(raw_event))
                 continue
@@ -1421,7 +1421,7 @@ class Notifier:
 
 class ThreadedNotifier(threading.Thread, Notifier):
     """
-    This notifier inherits from threading.Thread for instanciating a separate
+    This notifier inherits from threading.Thread for instantiating a separate
     thread, and also inherits from Notifier, because it is a threaded notifier.
 
     Note that every functionality provided by this class is also provided
@@ -1489,7 +1489,7 @@ class ThreadedNotifier(threading.Thread, Notifier):
         # When the loop must be terminated .stop() is called, 'stop'
         # is written to pipe fd so poll() returns and .check_events()
         # returns False which make evaluate the While's stop condition
-        # ._stop_event.isSet() wich put an end to the thread's execution.
+        # ._stop_event.isSet() which put an end to the thread's execution.
         while not self._stop_event.isSet():
             self.process_events()
             ref_time = time.time()
@@ -1753,7 +1753,7 @@ class WatchManager:
     """
     Provide operations for watching files and directories. Its internal
     dictionary is used to reference watched items. When used inside
-    threaded code, one must instanciate as many WatchManager instances as
+    threaded code, one must instantiate as many WatchManager instances as
     there are ThreadedNotifier instances.
 
     """
@@ -1788,9 +1788,9 @@ class WatchManager:
         Close inotify's file descriptor, this action will also automatically
         remove (i.e. stop watching) all its associated watch descriptors.
         After a call to this method the WatchManager's instance become useless
-        and cannot be reused, a new instance must then be instanciated. It
+        and cannot be reused, a new instance must then be instantiated. It
         makes sense to call this method in few situations for instance if
-        several independant WatchManager must be instanciated or if all watches
+        several independent WatchManager must be instantiated or if all watches
         must be removed and no other watches need to be added.
         """
         os.close(self._fd)
@@ -1917,7 +1917,7 @@ class WatchManager:
                                the class' constructor.
         @type exclude_filter: callable object
         @return: dict of paths associated to watch descriptors. A wd value
-                 is positive if the watch was added sucessfully, otherwise
+                 is positive if the watch was added successfully, otherwise
                  the value is negative. If the path was invalid or was already
                  watched it is not included into this returned dictionary.
         @rtype: dict of {str: int}
@@ -1947,7 +1947,7 @@ class WatchManager:
                             else:
                                 raise WatchManagerError(err, ret_)
                     else:
-                        # Let's say -2 means 'explicitely excluded
+                        # Let's say -2 means 'explicitly excluded
                         # from watching'.
                         ret_[rpath] = -2
         return ret_
@@ -2271,7 +2271,7 @@ def compatibility_mode():
     programs. The compatibility mode provides additional variables 'is_dir',
     'event_name', 'EventsCodes.IN_*' and 'EventsCodes.ALL_EVENTS' as
     Pyinotify 0.7.1 provided. Do not call this function from new programs!!
-    Especially if there are developped for Pyinotify >= 0.8.x.
+    Especially if there are developed for Pyinotify >= 0.8.x.
     """
     setattr(EventsCodes, 'ALL_EVENTS', ALL_EVENTS)
     for evname in globals():

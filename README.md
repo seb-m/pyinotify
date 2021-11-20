@@ -3,7 +3,7 @@
 * License          : MIT
 * Project URL      : [http://github.com/seb-m/pyinotify](http://github.com/seb-m/pyinotify)
 * Project Wiki     : [http://github.com/seb-m/pyinotify/wiki](http://github.com/seb-m/pyinotify/wiki)
-* API Documentation: [http://seb-m.github.com/pyinotify](http://seb-m.github.com/pyinotify)
+* API Documentation: [http://seb-m.github.io/pyinotify](http://seb-m.github.io/pyinotify)
 
 
 ## Dependencies
